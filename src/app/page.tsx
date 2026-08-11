@@ -82,16 +82,31 @@ export default function HomePage() {
                 For NBFCs registered with the Reserve Bank of India
               </p>
             </Reveal>
+            {/*
+              The headline addresses the LENDER, not the auditor.
+
+              It read "The lending system your auditor can follow", and that was the same fault the
+              product's login page was corrected for: a heading about the one person who never uses
+              the thing. The auditor is a consequence of running a loan book, not the buyer of a
+              system to run it with — leading with them makes the product sound like a compliance
+              chore rather than the platform the business runs on.
+
+              "Can follow" was also the weaker half. It claims the absence of confusion; it does not
+              claim anything is there. "Show its working" is the same promise stated as a capability
+              the product actually has — every figure traceable to the posting and the rule it came
+              from — and it is a phrase every reader here learned in school.
+            */}
             <Reveal stage={2} as="h1">
               <span className="mt-s3 block text-[38px] font-extrabold leading-[1.08] tracking-display-tight text-ink sm:text-[52px]">
-                The lending system your auditor can follow.
+                The lending system that can show its working.
               </span>
             </Reveal>
             <Reveal stage={3}>
               <p className="mt-s4 max-w-prose text-[18px] leading-prose text-slate-mid">
-                Origination, servicing, accounting and RBI reporting in one platform — built around
-                the positions a lender is actually examined on, by people who have sat on that side
-                of the table.
+                Origination, servicing, accounting and RBI reporting in one platform. Every posting
+                is double-entry, every amount is held in paise, and every change records who made it
+                and what it was before — so when a figure is questioned, the answer is in the system
+                rather than in somebody&rsquo;s memory.
               </p>
             </Reveal>
             <Reveal stage={4}>
