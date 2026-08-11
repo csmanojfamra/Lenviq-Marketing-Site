@@ -20,7 +20,13 @@ jobs:
         with: { node-version: "22", cache: "npm" }
 
       - run: npm ci
-      - run: npx tsc --noEmit
+
+      # `npm run typecheck`, not a bare `tsc`. The layout imports the build stamp, which is
+      # GENERATED and gitignored — so on a fresh checkout it does not exist yet, and a typecheck
+      # that runs before the build fails on a missing module. The script generates it first.
+      # That is exactly how this workflow broke: it passed locally, where a previous build had
+      # left the file lying around.
+      - run: npm run typecheck
       - name: Build
         run: npm run build
 

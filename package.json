@@ -9,9 +9,11 @@
     "build": "next build",
     "start": "npx serve out",
     "test": "vitest run",
-    "check": "tsc --noEmit && vitest run",
+    "check": "npm run typecheck && vitest run",
     "predev": "node scripts/build-stamp.mjs && node scripts/sync-brand.mjs",
-    "check:live": "node scripts/check-live.mjs"
+    "check:live": "node scripts/check-live.mjs",
+    "typecheck": "node scripts/build-stamp.mjs && tsc --noEmit",
+    "pretest": "node scripts/build-stamp.mjs"
   },
   "dependencies": {
     "next": "^16.2.10",

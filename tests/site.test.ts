@@ -276,6 +276,23 @@ describe("a running site can say which version it is", () => {
     expect(src("scripts/build-stamp.mjs")).toMatch(/public\/build-info\.json/);
   });
 
+  it("every entry point generates the stamp before it needs it", () => {
+    /**
+     * This broke CI, and it passed locally for the reason such things always do: a previous build
+     * had left the generated file lying around, so the missing-module error only appeared on a
+     * clean checkout. The layout imports the stamp, the stamp is gitignored, and anything that
+     * typechecks or tests must therefore produce it first.
+     */
+    const pkg = JSON.parse(src("package.json"));
+    for (const s of ["prebuild", "predev", "pretest", "typecheck"]) {
+      expect(pkg.scripts[s], `${s} must generate the stamp`).toMatch(/build-stamp/);
+    }
+    // And CI must go through the script rather than calling tsc directly.
+    const ci = src(".github/workflows/ci.yml");
+    expect(ci).toMatch(/run: npm run typecheck/);
+    expect(ci, "a bare tsc runs before the stamp exists").not.toMatch(/run: npx tsc --noEmit/);
+  });
+
   it("NEGATIVE CONTROL — the generated file is never committed", () => {
     // It changes on every build. Committed, it would make every tree dirty and every stamp lie.
     const ignore = src(".gitignore");
