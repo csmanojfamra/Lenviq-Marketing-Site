@@ -121,6 +121,7 @@ export function DemoForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          website: f.get("website"),
           company: f.get("company"),
           name: f.get("name"),
           email: f.get("email"),
@@ -174,7 +175,7 @@ export function DemoForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-s4">
+    <form onSubmit={onSubmit} className="relative grid gap-s4">
       <div className="grid gap-s3 sm:grid-cols-2">
         <div>
           <label className={label} htmlFor="company">
@@ -266,6 +267,14 @@ export function DemoForm() {
       <div>
         <label className={label} htmlFor="notes">Anything else</label>
         <textarea id="notes" name="notes" rows={3} className={field} />
+      </div>
+
+      {/* Honeypot. Never shown, never focusable, and no autofill — a person cannot fill it, and a
+          bot that fills every input does. The endpoint answers a filled one with the same 200 a
+          human gets, so a scraper learns nothing from the response. */}
+      <div aria-hidden="true" className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
+        <label htmlFor="website">Leave this empty</label>
+        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
       {status === "failed" && (
