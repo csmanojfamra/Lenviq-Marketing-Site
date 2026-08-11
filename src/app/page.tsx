@@ -77,17 +77,6 @@ export default function HomePage() {
       <Section className="pt-s7 md:pt-s8">
         <div className="grid items-center gap-s6 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
-            <Reveal stage={1}>
-              {/*
-                "For NBFCs registered with the Reserve Bank of India" read as an eligibility
-                criterion — a form field deciding whether you qualify. The domain is the same; what
-                changed is that it now describes what the product was built ON rather than who is
-                permitted to use it.
-              */}
-              <p className="text-[13px] font-semibold uppercase tracking-wide text-cta">
-                Built for NBFC lending in India
-              </p>
-            </Reveal>
             {/*
               The headline addresses the LENDER, not the auditor.
 
@@ -108,7 +97,9 @@ export default function HomePage() {
               </span>
             </Reveal>
             <Reveal stage={3}>
-              <p className="mt-s4 max-w-prose text-[18px] leading-prose text-slate-mid">
+              {/* Justified, with hyphenation on — an unhyphenated justified column at this measure
+                  opens rivers of white space between the words. */}
+              <p className="mt-s4 max-w-prose text-justify hyphens-auto text-[18px] leading-prose text-slate-mid">
                 Origination, servicing, accounting and RBI reporting in one platform. Every posting
                 is double-entry, every amount is held in paise, and every change records who made it
                 and what it was before — so when a figure is questioned, the answer is in the system
@@ -146,7 +137,7 @@ export default function HomePage() {
         */}
         <SectionHead
           eyebrow="Who it is for"
-          title="For lenders who carry the loan on their own book"
+          title="Built for India’s NBFCs, and the people who keep them compliant"
           lead="Lenviq is built around the rules an NBFC is examined against — the Master Directions, IRAC classification from the day-end position, the penal-charges regime, the returns. In general-purpose lending software those are things you configure and then defend; here they are the product itself, which is why the compliance work is specific rather than something you assemble."
         />
         <Reveal className="mt-s5 flex flex-wrap gap-s2">
@@ -165,7 +156,7 @@ export default function HomePage() {
       <Section id="platform">
         <SectionHead
           eyebrow="The platform"
-          title="Four modules, one ledger"
+          title="From loan file to final accounts, in one system"
           lead="Every loan event posts to the books as it happens, so the portfolio and the accounts are the same set of facts rather than two systems reconciled monthly."
         />
         <div className="mt-s5 grid gap-s3 md:grid-cols-2">
@@ -269,7 +260,7 @@ export default function HomePage() {
         <SectionHead
           eyebrow="Who built it"
           title="FastLegal Technologies"
-          lead="Lenviq is built by FastLegal Technologies Private Limited. The product is designed and written by a practising Chartered Accountant and Company Secretary — which is why the compliance pages carry citations rather than adjectives."
+          lead="Lenviq is built by FastLegal Technologies Private Limited, by people who have worked on NBFC compliance rather than only read about it — which is why the compliance pages carry citations rather than adjectives."
         />
         <Reveal className="mt-s4">
           <Link href="/about/" className="text-[15px] font-medium text-cta hover:text-cta-hover">

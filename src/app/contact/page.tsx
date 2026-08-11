@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Section, Card } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { COMPANY, SITE } from "@/lib/site";
+import { DemoForm } from "@/components/demo-form";
 
 export const metadata: Metadata = {
   title: "Request a demo — Lenviq",
@@ -10,14 +11,13 @@ export const metadata: Metadata = {
 };
 
 /**
- * A mailto, not a form.
+ * A real form, with the email link kept as the fallback rather than replaced by it.
  *
- * This is a static site with no server. The options were a third-party form service, a small
- * endpoint, or an email link — and shipping a form that silently discards submissions is the same
- * defect as a "Forgot password?" link for a flow that does not exist, except that here it costs a
- * real prospect. No delivery mechanism has been settled, so the CTA is an email link that
- * demonstrably works. Recorded in DECISIONS_PENDING.md; when a service is chosen this becomes a
- * form and the address stays as the fallback.
+ * The page shipped as a `mailto:` because a form with nowhere to POST discards submissions
+ * silently, and that costs a real enquiry with nobody ever finding out. `DemoForm` resolves that
+ * without reintroducing it: when no endpoint is configured, or when the POST fails, it hands the
+ * reader the same content as a pre-filled email. There is no path where what somebody typed
+ * disappears.
  */
 const SUBJECT = encodeURIComponent("Lenviq — demo request");
 const BODY = encodeURIComponent(
@@ -48,6 +48,10 @@ export default function ContactPage() {
         </p>
       </Reveal>
 
+      <Reveal className="mt-s6 rounded-2xl border border-sand-border bg-card p-s4 sm:p-s5">
+        <DemoForm />
+      </Reveal>
+
       <Reveal className="mt-s6 grid gap-s3 md:grid-cols-2">
         <Card title="Email">
           <p>
@@ -59,8 +63,8 @@ export default function ContactPage() {
             </a>
           </p>
           <p className="mt-s2 text-[14px] text-muted">
-            The link pre-fills the few details that make a first call useful. Nothing on this site
-            collects anything — there is no form, no analytics and no cookie.
+            If you would rather not use the form, the link pre-fills the same details. Either way it
+            reaches the same inbox — and this site still runs no analytics and sets no cookie.
           </p>
         </Card>
         <Card title="Already a customer?">

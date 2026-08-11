@@ -3,6 +3,7 @@ import "./globals.css";
 import { SITE } from "@/lib/site";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { OrgJsonLd } from "@/components/org-jsonld";
 
 export const metadata: Metadata = {
@@ -65,6 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteHeader />
         <main id="main">{children}</main>
         <SiteFooter />
+        <WhatsAppFab />
       </body>
     </html>
   );
