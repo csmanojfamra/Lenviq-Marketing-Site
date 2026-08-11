@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Lenviq">
+  <!-- Two planes crossing: the vertical is the obligation, the horizontal the period.
+       Where they meet is the position — the thing the product is actually for. -->
+  <rect x="5" y="5" width="8.5" height="22" rx="3" fill="#1e293b"/>
+  <rect x="5" y="18.5" width="22" height="8.5" rx="3" fill="#38bdf8"/>
+  <path d="M5 18.5h8.5V27H5z" fill="#0369a1"/>
+</svg>

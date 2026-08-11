@@ -1,0 +1,43 @@
+# Build the site and run its guards on every change.
+#
+# The guards are the reason this repository can be published at all: they check that no draft
+# ships, that every regulatory claim carries a source that can be opened, that no page counts or
+# adoption figures are asserted, and that the domain is written down once. They came across with
+# the site when it was split out — leaving them behind would have meant an independent repository
+# with nothing watching what it says.
+name: CI
+
+on:
+  push: { branches: [main] }
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22", cache: "npm" }
+
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - name: Build
+        run: npm run build
+
+      # Read the OUTPUT, not the source: the guards on claims and drafts scan what actually ships.
+      - run: npx vitest run
+
+      - name: Check the export
+        run: |
+          test -f out/sitemap.xml || { echo "no sitemap in the export"; exit 1; }
+          test -f out/index.html  || { echo "no index.html in the export"; exit 1; }
+          grep -rq "lenviq\.com" out/ && { echo "the export references a .com"; exit 1; }
+          grep -rq "not reviewed, not published" out/ && { echo "an unreviewed draft is in the export"; exit 1; }
+          # The site is live-but-gated until the launch review. A build that quietly became
+          # indexable would undo that, and indexing does not come undone.
+          grep -q 'content="noindex' out/index.html || { echo "the home page is INDEXABLE"; exit 1; }
+          grep -q "Disallow: /" out/robots.txt || { echo "robots.txt is not the gated one"; exit 1; }
+          echo "pages: $(find out -name '*.html' | wc -l), sitemap URLs: $(grep -c '<loc>' out/sitemap.xml)"
+
+      - uses: actions/upload-artifact@v4
+        with: { name: site-export, path: out, retention-days: 14 }

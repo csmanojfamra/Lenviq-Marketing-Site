@@ -1,0 +1,285 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { SITE } from "@/lib/site";
+import { Container, Section, SectionHead, Card, ButtonLink } from "@/components/ui";
+import { Reveal } from "@/components/reveal";
+import { HeroPortfolioCard } from "@/components/hero-portfolio-card";
+
+export const metadata: Metadata = {
+  title: "Lenviq — lending platform for Indian NBFCs",
+  description:
+    "Origination, loan management, accounting and RBI reporting for NBFCs. Built around the regulatory positions a lender is actually examined on.",
+  alternates: { canonical: "/" },
+};
+
+/**
+ * Every claim on this page corresponds to something that works in the product today.
+ *
+ * The claims list in `bugs/REPORT4_STATUS_AUDIT.md` sets out what backs each one. Nothing here is a
+ * roadmap item described as shipped, and there are no counters, testimonials, customer logos or
+ * uptime figures — not because the section would look empty, but because this buyer is a
+ * compliance professional who will check, and an unverifiable claim costs more than an absent one.
+ */
+const MODULES = [
+  {
+    title: "Origination",
+    body: "Lead to disbursement. Applications, co-applicants and guarantors, collateral, credit bureau pulls, sanction and the disbursement authority — with maker-checker where the money moves.",
+  },
+  {
+    title: "Loan management",
+    body: "Servicing, repayments, penal charges on a receipt basis, DPD and IRAC classification computed at day-end, provisioning and NPA movement.",
+  },
+  {
+    title: "Accounting",
+    body: "A Tally-compatible chart of accounts, double-entry postings from the loan events themselves, GST and TDS, trial balance, P&L and balance sheet.",
+  },
+  {
+    title: "Documents",
+    body: "The sanction and disbursement pack, generated from the loan's own terms — including the borrower declaration in fourteen languages.",
+  },
+];
+
+const PRODUCT_LINES = [
+  "Personal loans",
+  "Business loans",
+  "Vehicle loans",
+  "Loans against property",
+  "Gold loans",
+];
+
+const FAQ = [
+  {
+    q: "Is Lenviq a lender?",
+    a: "No. Lenviq is software licensed to NBFCs. The lender of record is the NBFC; every document the system generates carries the NBFC's own letterhead, CIN and registered office.",
+  },
+  {
+    q: "Which loan products does it support?",
+    a: "Personal, business, vehicle, property and gold. Product behaviour binds to an asset class rather than to a product name, so a new scheme is configuration rather than a release.",
+  },
+  {
+    q: "Does it handle multiple branches?",
+    a: "Yes. Users hold a data scope — own, branch, region or tenant — and every list, report and export is filtered by it. A branch manager sees their branch.",
+  },
+  {
+    q: "Can we get our data out?",
+    a: "Yes. Reports export to Excel and CSV, and personal identifiers are masked in exports by default.",
+  },
+  {
+    q: "What does onboarding involve?",
+    a: "A pilot on a single branch with a subset of the book, then migration of the live portfolio. See the implementation notes on the Platform page.",
+  },
+];
+
+export default function HomePage() {
+  return (
+    <>
+      {/* ---------------------------------------------------------------- hero */}
+      <Section className="pt-s7 md:pt-s8">
+        <div className="grid items-center gap-s6 lg:grid-cols-[1.1fr_0.9fr]">
+          <div>
+            <Reveal stage={1}>
+              <p className="text-[13px] font-semibold uppercase tracking-wide text-cta">
+                For NBFCs registered with the Reserve Bank of India
+              </p>
+            </Reveal>
+            <Reveal stage={2} as="h1">
+              <span className="mt-s3 block text-[38px] font-extrabold leading-[1.08] tracking-display-tight text-ink sm:text-[52px]">
+                The lending system your auditor can follow.
+              </span>
+            </Reveal>
+            <Reveal stage={3}>
+              <p className="mt-s4 max-w-prose text-[18px] leading-prose text-slate-mid">
+                Origination, servicing, accounting and RBI reporting in one platform — built around
+                the positions a lender is actually examined on, by people who have sat on that side
+                of the table.
+              </p>
+            </Reveal>
+            <Reveal stage={4}>
+              <div className="mt-s5 flex flex-wrap gap-s2">
+                <ButtonLink href="/contact/">Request a demo</ButtonLink>
+                <ButtonLink href={SITE.appUrl} variant="secondary" external>
+                  Login
+                </ButtonLink>
+              </div>
+            </Reveal>
+          </div>
+
+          {/* The one deliberate piece of motion on the page: the product's own output. */}
+          <Reveal stage={3} className="lg:justify-self-end lg:max-w-sm">
+            <HeroPortfolioCard />
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* ---------------------------------------------------------------- who */}
+      <Section tone="sand">
+        <SectionHead
+          eyebrow="Who it is for"
+          title="Built for one kind of company, not for everyone"
+          lead="Lenviq is for NBFCs — companies that carry the loan on their own book and answer to the Reserve Bank for how they do it. That focus is why the compliance work is specific rather than generic."
+        />
+        <Reveal className="mt-s5 flex flex-wrap gap-s2">
+          {PRODUCT_LINES.map((p) => (
+            <span
+              key={p}
+              className="rounded-full border border-sand-border bg-card px-4 py-2 text-[14px] text-slate-mid"
+            >
+              {p}
+            </span>
+          ))}
+        </Reveal>
+      </Section>
+
+      {/* ---------------------------------------------------------------- platform */}
+      <Section id="platform">
+        <SectionHead
+          eyebrow="The platform"
+          title="Four modules, one ledger"
+          lead="Every loan event posts to the books as it happens, so the portfolio and the accounts are the same set of facts rather than two systems reconciled monthly."
+        />
+        <div className="mt-s5 grid gap-s3 md:grid-cols-2">
+          {MODULES.map((m, i) => (
+            <Reveal key={m.title} stage={((i % 4) + 1) as 1 | 2 | 3 | 4}>
+              <Card title={m.title}>{m.body}</Card>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal className="mt-s4">
+          <Link href="/platform/" className="text-[15px] font-medium text-cta hover:text-cta-hover">
+            The modules in depth →
+          </Link>
+        </Reveal>
+      </Section>
+
+      {/* ---------------------------------------------------------------- compliance */}
+      <Section tone="sand">
+        <SectionHead
+          eyebrow="Compliance"
+          title="The regulatory positions, implemented and citable"
+          lead="Most lending software treats compliance as a reporting layer bolted on at the end. Here it is in the engine: the classification, the charge treatment and the disclosure are computed where the money is, not assembled at quarter-end."
+        />
+        <div className="mt-s5 grid gap-s3 md:grid-cols-3">
+          <Reveal stage={1}>
+            <Card title="Key Facts Statement">
+              Generated from the loan&rsquo;s own terms, with the APR computed from the actual cash
+              flows including fees — not from the nominal rate.
+            </Card>
+          </Reveal>
+          <Reveal stage={2}>
+            <Card title="Penal charges">
+              Treated as charges, never as interest. They do not compound, they are not added to
+              principal, and they post to the books on receipt.
+            </Card>
+          </Reveal>
+          <Reveal stage={3}>
+            <Card title="IRAC classification">
+              DPD and asset classification computed from the day-end position, so a report run at
+              11am and one run at 6pm describe the same day.
+            </Card>
+          </Reveal>
+        </div>
+        <Reveal className="mt-s4">
+          <Link href="/compliance/" className="text-[15px] font-medium text-cta hover:text-cta-hover">
+            Every position, with its citation →
+          </Link>
+        </Reveal>
+      </Section>
+
+      {/* ---------------------------------------------------------------- reports */}
+      <Section>
+        <SectionHead
+          eyebrow="Reports"
+          title="The reports a lender is asked for, not a chart builder"
+          lead="Nineteen reports covering portfolio, collections, asset quality, gold and operations — each answering one question, each exportable, each masking personal identifiers by default."
+        />
+        <Reveal className="mt-s4">
+          <Link href="/reports/" className="text-[15px] font-medium text-cta hover:text-cta-hover">
+            The full suite, with screenshots →
+          </Link>
+        </Reveal>
+      </Section>
+
+      {/* ---------------------------------------------------------------- documents */}
+      <Section tone="sand">
+        <SectionHead
+          eyebrow="Documents"
+          title="The pack, generated from the loan"
+          lead="Sanction letter, agreement, Key Facts Statement, repayment schedule, NACH mandate, statements and certificates — assembled from the loan's own terms, on the lender's letterhead."
+        />
+        <Reveal className="mt-s4">
+          <Card>
+            <p>
+              The borrower declaration is produced in{" "}
+              <strong className="font-semibold text-ink">fourteen languages</strong> — Hindi,
+              Bengali, Marathi, Telugu, Tamil, Gujarati, Kannada, Malayalam, Odia, Punjabi, Assamese,
+              Urdu, Nepali and English — so a borrower can be given the disclosure in a language
+              they read.
+            </p>
+          </Card>
+        </Reveal>
+      </Section>
+
+      {/* ---------------------------------------------------------------- security */}
+      <Section>
+        <SectionHead
+          eyebrow="Security and multi-tenancy"
+          title="Isolation that is structural, not configured"
+          lead="Every query in the system carries a tenant predicate that no option can disable. Roles carry a data scope; two-factor authentication is available on every account; every mutation writes an append-only audit record of who changed what, and to what."
+        />
+        <Reveal className="mt-s4">
+          <Link href="/security/" className="text-[15px] font-medium text-cta hover:text-cta-hover">
+            How isolation, access and audit actually work →
+          </Link>
+        </Reveal>
+      </Section>
+
+      {/* ---------------------------------------------------------------- who built it */}
+      <Section tone="sand">
+        <SectionHead
+          eyebrow="Who built it"
+          title="FastLegal Technologies"
+          lead="Lenviq is built by FastLegal Technologies Private Limited. The product is designed and written by a practising Chartered Accountant and Company Secretary — which is why the compliance pages carry citations rather than adjectives."
+        />
+        <Reveal className="mt-s4">
+          <Link href="/about/" className="text-[15px] font-medium text-cta hover:text-cta-hover">
+            About the company →
+          </Link>
+        </Reveal>
+      </Section>
+
+      {/* ---------------------------------------------------------------- faq */}
+      <Section id="faq">
+        <SectionHead eyebrow="Questions" title="Straight answers" />
+        <div className="mt-s5 divide-y divide-line border-y border-line">
+          {FAQ.map((f) => (
+            <details key={f.q} className="group py-s3">
+              <summary className="cursor-pointer list-none font-display text-[17px] font-bold tracking-display text-ink marker:content-none">
+                {f.q}
+              </summary>
+              <p className="mt-s2 max-w-prose text-[15px] leading-prose text-slate-mid">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </Section>
+
+      {/* ---------------------------------------------------------------- closing */}
+      <Section tone="sand">
+        <Reveal className="rounded-card border border-sand-border bg-card p-s6 text-center shadow-e2">
+          <h2 className="text-[28px] font-bold tracking-display text-ink sm:text-[32px]">
+            See it against your own book
+          </h2>
+          <p className="mx-auto mt-s3 max-w-prose text-[16px] leading-prose text-slate-mid">
+            A demo runs on your product mix and your scheme terms, not on a canned dataset. It is
+            the fastest way to find out whether this fits how you actually lend.
+          </p>
+          <div className="mt-s4 flex flex-wrap justify-center gap-s2">
+            <ButtonLink href="/contact/">Request a demo</ButtonLink>
+            <ButtonLink href="/compliance/" variant="secondary">
+              Read the compliance page first
+            </ButtonLink>
+          </div>
+        </Reveal>
+      </Section>
+    </>
+  );
+}

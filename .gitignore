@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+tsconfig.tsbuildinfo
+next-env.d.ts
+
+# Generated from brand/ by scripts/sync-brand.mjs on every build. The SOURCES in brand/ are
+# committed; these copies are not, so the two can never disagree about which is current.
+/public/
+/src/styles/*.generated.css

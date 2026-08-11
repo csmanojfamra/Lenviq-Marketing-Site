@@ -1,0 +1,176 @@
+/**
+ * Lenviq design tokens — the SINGLE source, read by both applications.
+ *
+ * ## Why this file is not in either application
+ *
+ * The product and the marketing site are separate builds on separate hosts. Defining the palette,
+ * the type scale and the spacing rhythm in both is the pattern that has bitten this codebase four
+ * times already — role code versus name, the permission string, three copies of `scopeSql()`, two
+ * formatters that genuinely disagreed in 3 of 12 cases. Every time, all copies were correct until
+ * one changed.
+ *
+ * So the tokens live here, outside both, and `scripts/sync-brand.mjs` copies this file into each
+ * application's stylesheet folder at build time. The product does not import the site and the site
+ * does not import the product; both import a copy of this.
+ *
+ * **A copy step rather than a package.** A workspace package for eleven kilobytes of custom
+ * properties is more machinery than the problem deserves — it would need publishing, versioning
+ * and a resolution story in two build systems to solve something one `cpSync` solves. The property
+ * being bought is "one file to change", and the copy step buys it.
+ *
+ * GENERATED CONSUMERS — do not edit `src/styles/tokens.generated.css`; edit this.
+ */
+
+:root {
+  /* ---- surfaces ---- */
+  --color-sidebar: #1e293b;
+  --color-sidebar-hover: rgba(255, 255, 255, 0.06);
+  --color-sidebar-active: rgba(255, 255, 255, 0.12);
+  --color-sidebar-text: rgba(255, 255, 255, 0.55);
+  --color-sidebar-text-active: #ffffff;
+  --color-sidebar-icon: rgba(255, 255, 255, 0.45);
+  --color-sidebar-section: rgba(255, 255, 255, 0.3);
+  --color-sidebar-border: rgba(255, 255, 255, 0.08);
+
+  --color-accent: #38bdf8; /* sky-400 — sidebar accent ONLY */
+  --color-cta: #0369a1; /* sky-700 — content-area primary action */
+  --color-cta-hover: #075985; /* sky-800 */
+  --color-cta-ring: #bfdbfe;
+
+  --color-page-bg: #f8fafc;
+  --color-card: #ffffff;
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+  --color-subtle: #f1f5f9; /* chips, inert fills, hover */
+  --color-thead: #f8fafc; /* slate-50 — table header row */
+
+  /* ---- text ---- */
+  --color-text: #0f172a;
+  --color-muted: #64748b;
+  --color-label: #374151;
+
+  /* ---- status (identical on every page) ---- */
+  --color-success: #16a34a;
+  --color-success-bg: #f0fdf4;
+  --color-success-fg: #166534;
+
+  --color-warning: #d97706;
+  --color-warning-bg: #fef3c7;
+  --color-warning-fg: #92400e;
+
+  --color-danger: #dc2626;
+  --color-danger-bg: #fef2f2;
+  --color-danger-fg: #991b1b;
+
+  --color-info: #0369a1;
+  --color-info-bg: #eff6ff;
+  --color-info-fg: #1d4ed8;
+
+  --color-neutral: #475569;
+  --color-neutral-bg: #f1f5f9;
+  --color-neutral-fg: #334155;
+
+  /* ---- shape ---- */
+  --radius-card: 8px;
+  --radius-input: 6px;
+  --radius-badge: 4px;
+
+  /* ---- metrics ---- */
+  --sidebar-width: 220px;
+  --topbar-height: 52px;
+  /* 38px, and the button follows it.
+     The brief asked for 38px fields. Leaving buttons at 36 would misalign every filter bar where an
+     input sits beside a button by 2px — visible, and the opposite of the consistency being asked
+     for. Both move together; the small button stays 32 for dense toolbars. */
+  --input-height: 38px;
+  --button-height: 38px;
+  --button-height-sm: 32px;
+
+  /* ---- spacing ---- */
+  --page-padding-y: 20px;
+  --page-padding-x: 24px;
+  --card-padding: 16px;
+  --cell-padding-y: 10px;
+  --cell-padding-x: 16px;
+  --gap-card: 12px;
+  --gap-section: 20px;
+
+  /* ---- type ----
+   *
+   * Bricolage Grotesque carries the hierarchy; Plus Jakarta Sans carries everything else.
+   * Self-hosted and subset — see scripts/subset-fonts.py for why the rupee sign needed its own file.
+   *
+   * The fallback stacks are METRIC-MATCHED as closely as the system offers, so the swap when the
+   * webfont lands moves the text as little as possible. CLS is the metric a webfont usually costs.
+   */
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-body: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Headline tracking. Large type needs it negative; the display face is drawn tight already. */
+  --tracking-display: -0.03em;
+  --tracking-display-tight: -0.04em;
+
+  /* Body measure and rhythm. 1.7 for long-form, 1.5 for dense UI where vertical space is dear. */
+  --leading-prose: 1.75;
+  --leading-ui: 1.5;
+
+  /* ---- 8px spacing rhythm ----
+   * Everything on the site steps in eights. The product's own paddings predate this and are left
+   * exactly as they are; they are referenced above and changing them is a layout change, not a
+   * token change.
+   */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+  --space-9: 128px;
+
+  /* ---- elevation ----
+   * Subtle borders and soft shadows, taken from the reference. Three steps and no more: an
+   * elevation scale with six steps is one where nobody can tell two of them apart.
+   */
+  --shadow-1: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-2: 0 2px 8px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-3: 0 8px 24px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
+
+  /* ---- site extensions ----
+   * Tints and shades of the APPROVED palette, plus one supporting neutral. No new hues: a landing
+   * page in a different palette from the app it sells is the most avoidable branding failure there
+   * is, and the product's palette is the one that is already approved.
+   */
+  --color-cta-tint: #e0f2fe;      /* sky-100 — quiet fills behind a CTA-coloured element */
+  --color-cta-tint-strong: #bae6fd;/* sky-200 — the same, one step up */
+  --color-accent-tint: #f0f9ff;   /* sky-50 — section washes */
+  --color-slate-deep: #0f172a;    /* slate-900 — the one step darker than the sidebar */
+  --color-slate-mid: #334155;     /* slate-700 — body text on dark surfaces */
+  --color-sand: #f8f7f4;          /* the supporting neutral: a warm off-white for alternating
+                                     sections, so a long page has rhythm without a second hue */
+  --color-sand-border: #e9e6df;
+}
+
+:root.dark {
+  --color-page-bg: #0b1220;
+  --color-card: #131c2e;
+  --color-border: #253147;
+  --color-border-strong: #33415b;
+  --color-subtle: #1b2537;
+  --color-thead: #162032;
+  --color-text: #e2e8f0;
+  --color-muted: #94a3b8;
+  --color-label: #cbd5e1;
+
+  --color-success-bg: #062a16;
+  --color-success-fg: #86efac;
+  --color-warning-bg: #2e1e05;
+  --color-warning-fg: #fcd34d;
+  --color-danger-bg: #2b0d0d;
+  --color-danger-fg: #fca5a5;
+  --color-info-bg: #0b1f38;
+  --color-info-fg: #93c5fd;
+  --color-neutral-bg: #1b2537;
+  --color-neutral-fg: #cbd5e1;
+}
