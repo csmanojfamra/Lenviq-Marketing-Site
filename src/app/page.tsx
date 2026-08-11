@@ -78,8 +78,14 @@ export default function HomePage() {
         <div className="grid items-center gap-s6 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <Reveal stage={1}>
+              {/*
+                "For NBFCs registered with the Reserve Bank of India" read as an eligibility
+                criterion — a form field deciding whether you qualify. The domain is the same; what
+                changed is that it now describes what the product was built ON rather than who is
+                permitted to use it.
+              */}
               <p className="text-[13px] font-semibold uppercase tracking-wide text-cta">
-                For NBFCs registered with the Reserve Bank of India
+                Built for NBFC lending in India
               </p>
             </Reveal>
             {/*
@@ -128,10 +134,20 @@ export default function HomePage() {
 
       {/* ---------------------------------------------------------------- who */}
       <Section tone="sand">
+        {/*
+          This section used to be an exclusion — "one kind of company, not for everyone" — and the
+          exclusion was doing no work the argument needed. What made it persuasive was the REASON
+          underneath: depth comes from building to one rulebook instead of to a configurable
+          abstraction of several. That reason is kept; the door-slamming is not.
+
+          It now describes a SITUATION rather than a licence category. A lender who carries the loan
+          on their own book and answers for how they do it recognises themselves in that sentence
+          without first checking which schedule they are registered under.
+        */}
         <SectionHead
           eyebrow="Who it is for"
-          title="Built for one kind of company, not for everyone"
-          lead="Lenviq is for NBFCs — companies that carry the loan on their own book and answer to the Reserve Bank for how they do it. That focus is why the compliance work is specific rather than generic."
+          title="For lenders who carry the loan on their own book"
+          lead="Lenviq is built around the rules an NBFC is examined against — the Master Directions, IRAC classification from the day-end position, the penal-charges regime, the returns. In general-purpose lending software those are things you configure and then defend; here they are the product itself, which is why the compliance work is specific rather than something you assemble."
         />
         <Reveal className="mt-s5 flex flex-wrap gap-s2">
           {PRODUCT_LINES.map((p) => (
