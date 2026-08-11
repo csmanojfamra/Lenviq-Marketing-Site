@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SITE } from "@/lib/site";
+import { BUILD } from "@/lib/build-info.generated";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
@@ -55,6 +56,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: JS_READY }} />
         <OrgJsonLd />
+        {/*
+          Which version is this page?
+          
+          A stale site does not look wrong — it looks like an older correct site — so a skipped
+          deploy is invisible until somebody happens to check a sentence they remember changing.
+          On every page, so the question can be answered from wherever the reader already is.
+        */}
+        <meta name="build-commit" content={BUILD.shortCommit} />
+        <meta name="build-time" content={BUILD.builtAt} />
       </head>
       <body className="min-h-screen bg-card antialiased">
         <a

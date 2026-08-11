@@ -8,3 +8,5 @@ next-env.d.ts
 # committed; these copies are not, so the two can never disagree about which is current.
 /public/
 /src/styles/*.generated.css
+src/lib/build-info.generated.ts
+/public/build-info.json

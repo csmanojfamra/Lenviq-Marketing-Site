@@ -235,3 +235,44 @@ function walkExt(dir: string, re: RegExp): string[] {
     return re.test(e.name) ? [p] : [];
   });
 }
+
+/**
+ * The build stamp.
+ *
+ * Added after three commits sat undeployed while the site served an earlier one with nothing
+ * anywhere saying so. A stale site is not a broken site — it is an older correct site — which is
+ * exactly why it goes unnoticed, and why the stamp has to be asserted rather than assumed present.
+ */
+describe("a running site can say which version it is", () => {
+  it("the stamp is generated before every build and dev run", () => {
+    const pkg = JSON.parse(src("package.json"));
+    expect(pkg.scripts.prebuild).toMatch(/build-stamp/);
+    expect(pkg.scripts.predev, "dev would break on the missing import without this").toMatch(/build-stamp/);
+  });
+
+  it("it degrades rather than failing the build", () => {
+    // A deploy from a tarball has no git history. A stamp that breaks that build would be worse
+    // than no stamp at all.
+    const stamp = src("scripts/build-stamp.mjs");
+    expect(stamp).toMatch(/catch \{\s*return fallback;/);
+    expect(stamp).toMatch(/"unknown"/);
+  });
+
+  it("it records a build from a dirty tree as dirty", () => {
+    // Such a build is not the commit it claims to be, and the stamp saying so is the whole point.
+    expect(src("scripts/build-stamp.mjs")).toMatch(/dirty = git\("status --porcelain", ""\) !== ""/);
+  });
+
+  it("and reaches the page as well as the file", () => {
+    // The JSON answers curl; the meta tag answers "which version is this tab showing".
+    expect(src("src/app/layout.tsx")).toMatch(/<meta name="build-commit" content=\{BUILD\.shortCommit\}/);
+    expect(src("scripts/build-stamp.mjs")).toMatch(/public\/build-info\.json/);
+  });
+
+  it("NEGATIVE CONTROL — the generated file is never committed", () => {
+    // It changes on every build. Committed, it would make every tree dirty and every stamp lie.
+    const ignore = src(".gitignore");
+    expect(ignore).toMatch(/build-info\.generated\.ts/);
+    expect(ignore).toMatch(/build-info\.json/);
+  });
+});
