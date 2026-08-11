@@ -141,10 +141,17 @@ describe("a draft does not ship", () => {
     expect(robots).toMatch(/"\/terms\/"/);
   });
 
-  it("and the whole site is gated until launch", () => {
-    // Sprint SITE-LIVE §5. Comes off in its own deliberate commit, noindex first.
-    expect(src("src/app/robots.ts")).toMatch(/disallow: \["\/",/);
-    expect(src("src/app/layout.tsx")).toMatch(/robots: \{ index: false, follow: false/);
+  it("the site is indexable, and the two drafts are still not", () => {
+    /**
+     * The launch gate came off on 11 August 2026. This test did not go with it — it moved to the
+     * thing that is still true, because the drafts were never part of the gate. They are excluded
+     * by three independent mechanisms, and each is asserted separately: a page reading "Draft —
+     * pending legal review" turning up in a search result is worse than it not being found.
+     */
+    expect(src("src/app/layout.tsx")).toMatch(/robots: \{ index: true, follow: true \}/);
+    const robots = src("src/app/robots.ts");
+    expect(robots, "the blanket disallow should be gone").not.toMatch(/disallow: \["\/"/);
+    expect(robots).toMatch(/disallow: \["\/privacy\/", "\/terms\/"\]/);
   });
 });
 

@@ -40,23 +40,22 @@ font subsets. Day to day neither is needed: the generated outputs in `brand/publ
 One wrong regulatory claim published under a practising CA and CS's company name costs more
 credibility than five correct posts earn. That is what these are for.
 
-## Not indexable yet — deliberately
+## Indexable — except the two legal drafts
 
-Every page carries `noindex, nofollow` and `robots.txt` is `Disallow: /`. CI **fails** if a build
-loses either.
+The site-wide gate came off on 11 August 2026. **Privacy and Terms are still excluded**, because
+they are still the generated drafts and say so on the page. Three independent mechanisms hold them
+out, and CI fails if any one of them slips:
 
-It comes off in its own deliberate commit, once these have been read:
+1. `robots: { index: false }` on each page
+2. `Disallow:` for both in `robots.ts`
+3. Absent from the sitemap
 
-1. **Privacy Policy and Terms** — generated, marked draft, never read.
-2. **The claims list** — every feature claim and what backs it.
-3. **The Compliance page** — the one a prospect checks line by line.
-4. **Contact details and the demo form** — a number appears only if it is real and monitored, and
-   the form must deliver rather than discard.
+When the reviewed versions land, all three come off together — that is the whole change.
 
-When it opens, `noindex` comes off **first** and crawling is allowed in the same change. Removing
-`Disallow: /` while leaving `noindex` — or the reverse — leaves URLs indexable but unreadable, the
-worst of both. The privacy and terms exclusions stay regardless; they are listed separately in
-`src/app/robots.ts` precisely so that lifting the gate does not take them with it.
+A note on the ordering, because it is the opposite of intuitive: the `noindex` was lifted and
+crawling allowed in **one** change. A crawler that obeys `Disallow: /` never fetches the page and so
+never reads the `noindex` on it — lifting one without the other leaves URLs indexable but
+unreadable, which is worse than either state alone.
 
 ## Deployment
 

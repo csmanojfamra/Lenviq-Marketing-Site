@@ -26,18 +26,18 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
   /**
-   * NOT INDEXABLE, deliberately, until four things have been read (Sprint SITE-LIVE §5).
+   * Indexable from 11 August 2026.
    *
-   * Once a search engine indexes a page, removing it later does not undo it — the cached result
-   * outlives the page. Four items on this site were built to be reviewed before they were public:
-   * the Privacy Policy and Terms (generated, marked draft, never read), the claims list, the
-   * Compliance page, and the contact details and demo form. Reviewing them is Manoj's, not the
-   * build's.
+   * The site-wide gate is off. It was there because indexing does not come undone — a cached result
+   * outlives the page — and four things had to be read first: the claims list, the Compliance page,
+   * the contact details and the demo form. Those have been.
    *
-   * This is one of two mechanisms; `robots.ts` carries the other. Taking it off is a separate,
-   * deliberate commit — not something to fold into an unrelated change.
+   * **Privacy and Terms are still excluded**, and not by this line. They carry their own
+   * `index: false`, they are absent from the sitemap, and they are named in `robots.ts` — three
+   * places, because they are still the generated drafts and are marked as such on the page. When
+   * the reviewed versions land, all three come off together and that is the whole change.
    */
-  robots: { index: false, follow: false, nocache: true },
+  robots: { index: true, follow: true },
 };
 
 /**

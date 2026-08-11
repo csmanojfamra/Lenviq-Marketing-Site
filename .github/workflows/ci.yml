@@ -33,10 +33,18 @@ jobs:
           test -f out/index.html  || { echo "no index.html in the export"; exit 1; }
           grep -rq "lenviq\.com" out/ && { echo "the export references a .com"; exit 1; }
           grep -rq "not reviewed, not published" out/ && { echo "an unreviewed draft is in the export"; exit 1; }
-          # The site is live-but-gated until the launch review. A build that quietly became
-          # indexable would undo that, and indexing does not come undone.
-          grep -q 'content="noindex' out/index.html || { echo "the home page is INDEXABLE"; exit 1; }
-          grep -q "Disallow: /" out/robots.txt || { echo "robots.txt is not the gated one"; exit 1; }
+          # The site is indexable from 11 Aug 2026. What is still gated is the two generated
+          # legal drafts, and each mechanism is checked separately — they protect the same thing
+          # and fail independently, which is the point of having three.
+          grep -q 'content="noindex' out/privacy/index.html || { echo "privacy is INDEXABLE"; exit 1; }
+          grep -q 'content="noindex' out/terms/index.html   || { echo "terms is INDEXABLE"; exit 1; }
+          grep -q "Disallow: /privacy/" out/robots.txt || { echo "privacy not disallowed"; exit 1; }
+          grep -q "Disallow: /terms/"   out/robots.txt || { echo "terms not disallowed"; exit 1; }
+          grep -q "/privacy/" out/sitemap.xml && { echo "privacy is in the sitemap"; exit 1; }
+          grep -q "/terms/"   out/sitemap.xml && { echo "terms is in the sitemap"; exit 1; }
+          # And the site as a whole must NOT have quietly re-gated itself.
+          grep -q 'content="noindex' out/index.html && { echo "the home page is noindex again"; exit 1; }
+          echo "indexable; privacy and terms excluded on all three mechanisms" 
           echo "pages: $(find out -name '*.html' | wc -l), sitemap URLs: $(grep -c '<loc>' out/sitemap.xml)"
 
       - uses: actions/upload-artifact@v4
