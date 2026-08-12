@@ -78,7 +78,7 @@ The two rules point the same way and are often confused.
 
 - **Interest** is accrual-based until NPA, then receipt-based.
 - **Penal charges** are receipt-based from the start, because they are charges rather than interest
-  (RBI/2023-24/53).
+  ([RBI/2023-24/53](https://rbi.org.in/Scripts/NotificationUser.aspx?Id=12527&Mode=0)).
 
 So an NBFC running both correctly has two different reasons for the same treatment on the same
 account, and one of them — penal — applies whether or not the account is impaired.

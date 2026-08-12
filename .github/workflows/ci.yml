@@ -39,18 +39,25 @@ jobs:
           test -f out/index.html  || { echo "no index.html in the export"; exit 1; }
           grep -rq "lenviq\.com" out/ && { echo "the export references a .com"; exit 1; }
           grep -rq "not reviewed, not published" out/ && { echo "an unreviewed draft is in the export"; exit 1; }
-          # The site is indexable from 11 Aug 2026. What is still gated is the two generated
-          # legal drafts, and each mechanism is checked separately — they protect the same thing
-          # and fail independently, which is the point of having three.
-          grep -q 'content="noindex' out/privacy/index.html || { echo "privacy is INDEXABLE"; exit 1; }
-          grep -q 'content="noindex' out/terms/index.html   || { echo "terms is INDEXABLE"; exit 1; }
-          grep -q "Disallow: /privacy/" out/robots.txt || { echo "privacy not disallowed"; exit 1; }
-          grep -q "Disallow: /terms/"   out/robots.txt || { echo "terms not disallowed"; exit 1; }
-          grep -q "/privacy/" out/sitemap.xml && { echo "privacy is in the sitemap"; exit 1; }
-          grep -q "/terms/"   out/sitemap.xml && { echo "terms is in the sitemap"; exit 1; }
+          # Privacy and terms were gated by three mechanisms while they were generated drafts. The
+          # reviewed documents replaced them, and all three came off together — lifting a noindex
+          # while leaving a Disallow behind leaves a URL indexable but unreadable, because a
+          # crawler that obeys the disallow never fetches the page and so never reads the tag.
+          # These now check the OPPOSITE, for the same reason: each mechanism, separately.
+          grep -q 'content="noindex' out/privacy/index.html && { echo "privacy is still noindex"; exit 1; }
+          grep -q 'content="noindex' out/terms/index.html   && { echo "terms is still noindex"; exit 1; }
+          grep -q "Disallow: /privacy/" out/robots.txt && { echo "privacy still disallowed"; exit 1; }
+          grep -q "Disallow: /terms/"   out/robots.txt && { echo "terms still disallowed"; exit 1; }
+          grep -q "/privacy/" out/sitemap.xml || { echo "privacy missing from the sitemap"; exit 1; }
+          grep -q "/terms/"   out/sitemap.xml || { echo "terms missing from the sitemap"; exit 1; }
+          # The pages must actually carry the documents, not an empty shell where the import failed.
+          grep -q "LIMITATION OF LIABILITY" out/terms/index.html || { echo "terms did not render the document"; exit 1; }
+          grep -q "Fifty Thousand" out/terms/index.html || { echo "the liability floor is missing"; exit 1; }
           # And the site as a whole must NOT have quietly re-gated itself.
           grep -q 'content="noindex' out/index.html && { echo "the home page is noindex again"; exit 1; }
-          echo "indexable; privacy and terms excluded on all three mechanisms" 
+          # llms.txt is a route, not a static file — it is the thing most likely to vanish silently.
+          test -f out/llms.txt || { echo "no llms.txt in the export"; exit 1; }
+          echo "indexable; legal documents published and in the sitemap" 
           echo "pages: $(find out -name '*.html' | wc -l), sitemap URLs: $(grep -c '<loc>' out/sitemap.xml)"
 
       - uses: actions/upload-artifact@v4

@@ -16,7 +16,7 @@ That is the rule. What follows is how to implement it without producing two cont
 
 ## What changed on 1 April 2024?
 
-The RBI's circular on fair lending practice and penal charges in loan accounts (RBI/2023-24/53, dated
+The RBI's circular on fair lending practice and penal charges in loan accounts ([RBI/2023-24/53](https://rbi.org.in/Scripts/NotificationUser.aspx?Id=12527&Mode=0), dated
 18 August 2023) took effect for new loans from 1 April 2024, and for existing loans at their next
 review or renewal.
 

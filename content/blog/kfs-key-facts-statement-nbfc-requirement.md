@@ -19,7 +19,7 @@ a template.
 
 ## What has to be in a KFS?
 
-Under the RBI's guidelines on the Key Facts Statement for loans and advances (RBI/2024-25/16, dated
+Under the RBI's guidelines on the Key Facts Statement for loans and advances ([RBI/2024-25/18](https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12663&Mode=0), dated
 15 April 2024, applying to retail and MSME term loans), the statement covers:
 
 | Block | What it carries |

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync, existsSync, readdirSync } from "node:fs";
-import { join } from "node:path";
+import { join, sep } from "node:path";
 import { stripComments } from "./helpers/every-match";
 
 /**
@@ -123,35 +123,38 @@ describe("a draft does not ship", () => {
     expect(route).not.toMatch(/\ball\(\)/);
   });
 
-  it("privacy and terms carry a draft notice and are excluded from indexing", () => {
+  it("the legal pages carry the reviewed documents, not a transcription of them", () => {
+    /**
+     * These two used to assert the opposite: a draft notice, a `noindex`, and an entry in the
+     * robots disallow list. That was right while nothing had been reviewed, and both were removed
+     * together when the reviewed Terms of Service and Privacy Policy were published — lifting a
+     * `noindex` while leaving a `Disallow` behind would have left the URLs indexable but
+     * unreadable, since a crawler that obeys the disallow never fetches the page and so never
+     * reads the tag.
+     *
+     * What is asserted now is the property that replaced it: the pages RENDER the converted
+     * documents rather than a hand-written summary, because a page that has drifted from the
+     * document it purports to reproduce is worse than no page at all — a customer relies on it.
+     */
     for (const p of ["privacy", "terms"]) {
       const page = src(`src/app/${p}/page.tsx`);
-      expect(page).toMatch(/robots: \{ index: false/);
-      expect(page).toMatch(/Draft — pending legal review/);
+      expect(page, `${p} should render the converted document`).toMatch(/legalDoc\(/);
+      const shipped = stripComments(page);
+      expect(shipped, `${p} should no longer be marked a draft`).not.toMatch(/Draft — pending legal review/);
+      expect(shipped, `${p} should no longer be noindex`).not.toMatch(/robots: \{ index: false/);
     }
-    expect(stripComments(src("src/app/sitemap.ts"))).not.toMatch(/\/privacy\/|\/terms\//);
-    /**
-     * The two drafts stay excluded IN THEIR OWN RIGHT, not as a side effect of the pre-launch
-     * blanket. Asserted separately because the blanket is temporary: taking `/` out at launch must
-     * not take these with it, which is exactly what would happen if this test were relaxed to
-     * accept the blanket alone.
-     */
-    const robots = src("src/app/robots.ts");
-    expect(robots).toMatch(/"\/privacy\/"/);
-    expect(robots).toMatch(/"\/terms\/"/);
+    // Generated, never typed: the next revision arrives as a .docx and is re-imported.
+    expect(existsSync(join(SITE, "content/legal/terms.md")), "run node scripts/import-legal.mjs").toBe(true);
+    expect(existsSync(join(SITE, "content/legal/privacy.md"))).toBe(true);
   });
 
-  it("the site is indexable, and the two drafts are still not", () => {
-    /**
-     * The launch gate came off on 11 August 2026. This test did not go with it — it moved to the
-     * thing that is still true, because the drafts were never part of the gate. They are excluded
-     * by three independent mechanisms, and each is asserted separately: a page reading "Draft —
-     * pending legal review" turning up in a search result is worse than it not being found.
-     */
+  it("the site is indexable, and nothing is excluded any more", () => {
     expect(src("src/app/layout.tsx")).toMatch(/robots: \{ index: true, follow: true \}/);
     const robots = src("src/app/robots.ts");
     expect(robots, "the blanket disallow should be gone").not.toMatch(/disallow: \["\/"/);
-    expect(robots).toMatch(/disallow: \["\/privacy\/", "\/terms\/"\]/);
+    expect(robots, "the two drafts became real documents").not.toMatch(/disallow: \["\/privacy\/", "\/terms\/"\]/);
+    // And they are now offered to search, which is the other half of the same change.
+    expect(src("src/app/sitemap.ts")).toMatch(/"\/privacy\/", "\/terms\/"/);
   });
 });
 
@@ -164,8 +167,25 @@ describe("nothing is claimed that cannot be checked", () => {
    * it has only what ships.
    */
   const OUT = join(SITE, "out");
+  /**
+   * The MARKETING output — the legal pages are excluded, and the reason is the same one that made
+   * this read output rather than source.
+   *
+   * Scanning source flagged the comments that EXPLAIN why counters and testimonials are forbidden.
+   * Scanning the legal pages flags the contract clauses that FORBID them: clause 19.5 says neither
+   * party may use the other's name in a case study without consent, and Schedule B says Fastlegal
+   * gives no uptime commitment. Both are the opposite of the claim being guarded against, and both
+   * are quotations from a reviewed document that this repository must not be editing to satisfy a
+   * regex.
+   *
+   * The guard is about what the site CLAIMS. A contract disclaiming a claim is not one.
+   */
+  const LEGAL = ["/privacy/", "/terms/"];
   const html = existsSync(OUT)
-    ? walkExt(OUT, /\.html$/).map((f) => readFileSync(f, "utf8")).join("\n")
+    ? walkExt(OUT, /\.html$/)
+        .filter((f) => !LEGAL.some((l) => f.includes(l.replace(/\//g, sep))))
+        .map((f) => readFileSync(f, "utf8"))
+        .join("\n")
     : null;
 
   it("no counters, no adoption claims", () => {

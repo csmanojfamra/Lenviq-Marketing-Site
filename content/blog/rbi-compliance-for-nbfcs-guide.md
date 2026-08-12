@@ -35,7 +35,7 @@ follows from how long it stays that way.
 Three points decide whether an implementation is right.
 
 **It is a day-end event.** The RBI's clarification of 15 November 2021 on prudential norms
-(RBI/2021-2022/125) put this beyond argument: an account is flagged overdue as part of the day-end
+([RBI/2021-2022/125](https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12194&Mode=0)) put this beyond argument: an account is flagged overdue as part of the day-end
 process for the due date itself. Not the next morning, not on the reporting date, not when somebody
 runs a report. A system that classifies when asked, rather than every night, will produce different
 answers depending on when it was asked.
@@ -75,7 +75,7 @@ should fall, and income should be recognised for exactly that amount on the date
 
 ## Are penal charges interest? (No — and what that changed)
 
-The RBI's circular on fair lending practice and penal charges in loan accounts (RBI/2023-24/53,
+The RBI's circular on fair lending practice and penal charges in loan accounts ([RBI/2023-24/53](https://rbi.org.in/Scripts/NotificationUser.aspx?Id=12527&Mode=0),
 dated 18 August 2023, effective for new loans from 1 April 2024 and applied to existing ones at their
 next review) settled a question a lot of systems had answered the other way.
 
@@ -99,7 +99,7 @@ one number for both are wrong for one of the two audiences.
 ## What must the Key Facts Statement contain?
 
 The Key Facts Statement (KFS) is a standardised summary given to the borrower before execution,
-required under the RBI's guidelines on the KFS for retail and MSME loans (RBI/2024-25/16, dated
+required under the RBI's guidelines on the KFS for retail and MSME loans ([RBI/2024-25/18](https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12663&Mode=0), dated
 15 April 2024). Two things matter operationally.
 
 **The APR is computed, not quoted.** It is the annualised cost of the loan including interest and all

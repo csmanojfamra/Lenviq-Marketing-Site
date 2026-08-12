@@ -25,8 +25,8 @@ Three properties, and each is testable:
 | An edit log of each change, with the date | Does the record carry the **prior value**, or only the fact of a change? |
 | Not capable of being disabled | Can an administrator turn it off, or write around it? |
 
-The obligation sits under the Companies (Accounts) Rules, with the auditor required to report on it
-under the Companies (Audit and Auditors) Rules. For an NBFC it compounds with the RBI's own
+The obligation sits in the rules made under the Companies Act, 2013 — the Companies (Accounts)
+Rules — with the auditor required to report on it under the Companies (Audit and Auditors) Rules. For an NBFC it compounds with the RBI's own
 expectations about records: a regulated lender is asked not only whether a figure is right but how it
 came to be that figure.
 
