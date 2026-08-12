@@ -66,21 +66,24 @@ function toMarkdown(paras, title) {
 }
 
 /**
- * Amendments applied on import, each one named and reasoned.
+ * Amendments applied on import.
  *
- * The Word document is the source of truth and this script does not silently rewrite it. Where the
- * published position has moved ahead of the last signed export, the change is made HERE, logged on
- * every run, and carried until the .docx is re-issued — so it cannot be forgotten, and anyone
- * comparing the page to the document can see exactly what differs and why.
+ * Empty, deliberately, and it should stay that way.
+ *
+ * The liability floor in clause 28.2 used to live here — the published page said "the higher of
+ * INR 50,000 and twelve months' fees" while the signed .docx still said twelve months' fees alone.
+ * That was a defensible holding position (the page was right, and the amendment could not be
+ * silently lost, because it failed loudly if the clause it patched moved) but it left the document
+ * a customer's counsel is sent saying something different from the document published on the site.
+ *
+ * The amendment now lives in the source: `scripts/amend-tos.py` applied it to the .docx, which is
+ * Version 2.1, and the floor is INR 1,00,000 — see that script for why it is a lakh.
+ *
+ * If a future amendment genuinely cannot wait for a re-issued .docx, add it here and open a task to
+ * fold it back. Do not leave one here permanently: two versions of a contract is the failure this
+ * whole arrangement exists to avoid.
  */
-const AMENDMENTS = [
-  {
-    doc: "content/legal/terms.md",
-    reason: "Liability floor added (Zoho-style). See the note printed below.",
-    find: /(\*\*28\.2\*\* General cap\. Subject to Clauses 28\.3, 28\.4 and 28\.4A, the aggregate liability of either party arising out of or in connection with this Agreement, whether in contract, tort, under statute or otherwise, shall not exceed )(the Fees paid and payable by the Customer under this Agreement in the twelve \(12\) months immediately preceding the first event giving rise to the claim\.)/,
-    replace: "$1the higher of (a) INR 50,000 (Rupees Fifty Thousand) and (b) the Fees paid and payable by the Customer under this Agreement in the twelve (12) months immediately preceding the first event giving rise to the claim.",
-  },
-];
+const AMENDMENTS = [];
 
 let n = 0;
 for (const d of DOCS) {

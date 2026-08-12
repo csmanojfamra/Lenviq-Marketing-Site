@@ -4,7 +4,7 @@ TERMS OF SERVICE AND MASTER SUBSCRIPTION AGREEMENT
 
 Fastlegal Technologies Private Limited
 
-Version 2.0  |  Effective from: 01 April 2026  |  Supersedes the Fastlegal Terms of Service last updated on 30 July 2022
+Version 2.1  |  Effective from: 01 April 2026  |  Supersedes the Fastlegal Terms of Service last updated on 30 July 2022
 
 THIS IS A LEGALLY BINDING AGREEMENT BETWEEN YOU, OR THE ENTITY THAT YOU REPRESENT (HEREINAFTER "CUSTOMER" OR "YOU"), AND FASTLEGAL TECHNOLOGIES PRIVATE LIMITED, A COMPANY INCORPORATED UNDER THE COMPANIES ACT, 2013, BEARING CORPORATE IDENTITY NUMBER U74999RJ2018PTC060472 AND HAVING ITS REGISTERED OFFICE AT S-226, TIME SQUARE, CENTRAL SPINE, VIDHYADHAR NAGAR, JAIPUR, RAJASTHAN 302039 (HEREINAFTER "FASTLEGAL", "WE" OR "US"), GOVERNING YOUR ACCESS TO AND USE OF LENVIQ, THE LOAN ORIGINATION AND LOAN MANAGEMENT PLATFORM FOR NON-BANKING FINANCIAL COMPANIES AND OTHER LENDING INSTITUTIONS, WHETHER DELIVERED AS A CLOUD SUBSCRIPTION OR DEPLOYED ON INFRASTRUCTURE CONTROLLED BY YOU.
 
@@ -374,7 +374,7 @@ Read this first. Clause 5 records what Lenviq is and, importantly, what it is no
 
 **28.1N** EITHER PARTY SHALL BE LIABLE TO THE OTHER FOR ANY INDIRECT, INCIDENTAL, SPECIAL, PUNITIVE OR CONSEQUENTIAL LOSS, OR FOR LOSS OF PROFIT, REVENUE, BUSINESS, ANTICIPATED SAVINGS, GOODWILL OR REPUTATION, HOWEVER ARISING, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH LOSS.
 
-**28.2** General cap. Subject to Clauses 28.3, 28.4 and 28.4A, the aggregate liability of either party arising out of or in connection with this Agreement, whether in contract, tort, under statute or otherwise, shall not exceed the higher of (a) INR 50,000 (Rupees Fifty Thousand) and (b) the Fees paid and payable by the Customer under this Agreement in the twelve (12) months immediately preceding the first event giving rise to the claim.
+**28.2** General cap. Subject to Clauses 28.3, 28.4 and 28.4A, the aggregate liability of either party arising out of or in connection with this Agreement, whether in contract, tort, under statute or otherwise, shall not exceed the higher of (a) INR 1,00,000 (Rupees One Lakh) and (b) the Fees paid and payable by the Customer under this Agreement in the twelve (12) months immediately preceding the first event giving rise to the claim.
 
 **28.3** Enhanced cap. In respect of claims arising from a breach by Fastlegal of Clause 16.3, Clause 17, Clause 18 or Schedule C, the aggregate liability of Fastlegal shall not exceed two hundred per cent (200%) of the Fees paid and payable by the Customer in the twelve (12) months immediately preceding the first event giving rise to the claim.
 
@@ -1052,7 +1052,7 @@ Part 3 — Documents forming this Agreement
 
 The parties confirm that the following documents, each of which has been read and understood by the Customer, together constitute the Agreement:
 
-–General Terms of the Lenviq Terms of Service and Master Subscription Agreement, Version 2.0
+–General Terms of the Lenviq Terms of Service and Master Subscription Agreement, Version 2.1
 
 –Schedule A — Service Levels and Support
 
