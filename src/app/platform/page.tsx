@@ -32,7 +32,7 @@ export default function PlatformPage() {
         <Reveal>
           <p className="text-[13px] font-semibold uppercase tracking-wide text-cta">The platform</p>
           <h1 className="mt-s2 max-w-4xl text-[34px] font-extrabold leading-[1.1] tracking-display-tight text-ink sm:text-[46px]">
-            Origination and loan management, on one ledger.
+            Lead to closure, without changing systems.
           </h1>
           <p className="mt-s4 max-w-prose text-[18px] leading-prose text-slate-mid">
             Most lenders run an origination system, a servicing system and an accounting package,

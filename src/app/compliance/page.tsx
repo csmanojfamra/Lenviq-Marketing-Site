@@ -190,37 +190,55 @@ export default function CompliancePage() {
       </Section>
 
       {/*
-        What is NOT claimed. An empty section beats a fabricated one, and a page that only lists
-        wins is a page a compliance professional discounts entirely.
+        These three were disclaimers — "board policy is yours", "not a certification", "regulation
+        moves". Each said something true, but three cards of what the product is NOT is a lot of
+        negative space on the page a compliance head reads to decide whether to shortlist us, and
+        the third ("this page is corrected, not quietly reworded") was a promise about how we edit
+        our own website: our internal discipline, not their concern.
+        
+        Every comparable vendor page states capabilities and no caveats at all. Going the other way
+        entirely would cost the honesty this page is built on, so the boundaries stay — stated as
+        the capability that implements each one. The legal reservation is a line at the foot, where
+        it belongs, rather than a third of the section.
       */}
       <Section>
         <SectionHead
-          eyebrow="What this page does not claim"
-          title="The boundaries, stated"
-          lead="Software implements a position; it does not make a lender compliant. These are the lines we do not cross in describing it."
+          eyebrow="How the positions are held"
+          title="Configured by you, enforced by the system, evidenced afterwards"
+          lead="A regulatory position is only worth as much as the record that it was applied. These are the three mechanisms every line above depends on."
         />
         <div className="mt-s5 grid gap-s3 md:grid-cols-3">
           <Reveal stage={1}>
-            <Card title="Board policy is yours">
-              Rate structures, the penal charge quantum, waiver authority and the fair practices code
-              are the lender&rsquo;s decisions. The system enforces what you configure and records
-              who configured it.
+            <Card title="Your policy, enforced as configured">
+              Rate structures, the penal charge quantum, waiver authority and the fair practices
+              code are the lender&rsquo;s decisions, taken by the lender&rsquo;s board. The system
+              holds what you configure, applies it to every account without exception, and records
+              who configured it and when.
             </Card>
           </Reveal>
           <Reveal stage={2}>
-            <Card title="Not a certification">
-              Nothing here is a legal opinion or an assurance that a filing will be accepted. Your
-              statutory auditor and your compliance officer remain the people who sign.
+            <Card title="Terms frozen at sanction">
+              A scheme is versioned, and a loan carries the version it was sanctioned on. Changing
+              the master next quarter cannot restate what an existing borrower was told — so the
+              agreement, the Key Facts Statement and the schedule keep saying the same thing years
+              later.
             </Card>
           </Reveal>
           <Reveal stage={3}>
-            <Card title="Regulation moves">
-              These citations are current as at the dates shown. Where a direction changes, the
-              change lands in the product before it lands on this page — and this page is corrected,
-              not quietly reworded.
+            <Card title="Every position dated to its direction">
+              Each line above names the circular it comes from and the date it carries. When a
+              direction is superseded the citation changes with it, so a compliance officer can
+              check the page against the source rather than take it on trust.
             </Card>
           </Reveal>
         </div>
+        <Reveal className="mt-s4">
+          <p className="max-w-prose text-[14px] leading-prose text-slate-mid">
+            Software implements a position; it does not make a lender compliant. Nothing on this
+            page is a legal opinion or an assurance that any filing will be accepted &mdash; your
+            statutory auditor and your compliance officer remain the people who sign.
+          </p>
+        </Reveal>
       </Section>
 
       <Section tone="sand">

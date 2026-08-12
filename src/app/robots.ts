@@ -18,21 +18,16 @@ export default function robots(): MetadataRoute.Robots {
      * the worst of both.
      */
     /**
-     * The launch gate is off; these two are not, and they never were part of it.
+     * Nothing is excluded any more.
      *
-     * Privacy and Terms are still the generated drafts. They stay crawl-excluded here, carry their
-     * own `noindex`, and are absent from the sitemap — three independent mechanisms, because a page
-     * reading "Draft — pending legal review" turning up in a search result is worse than the page
-     * not being found at all.
-     *
-     * Removing `/` and allowing crawling happened in ONE change, deliberately. Lifting the
-     * `noindex` while leaving a `Disallow` behind would leave the URLs indexable but unreadable —
-     * a crawler that obeys the disallow never fetches the page and so never reads the tag — which
-     * is the worst of the two states.
+     * Privacy and Terms were crawl-excluded, carried their own `noindex` and were absent from the
+     * sitemap — three mechanisms, because a page reading "Draft — pending legal review" turning up
+     * in a search result is worse than not being found. Both are now the reviewed documents, so all
+     * three come off together: leaving a `Disallow` behind a removed `noindex` would leave the URLs
+     * indexable but unreadable, since a crawler that obeys the disallow never fetches the page and
+     * so never reads the tag.
      */
-    rules: [
-      { userAgent: "*", disallow: ["/privacy/", "/terms/"] },
-    ],
+    rules: [{ userAgent: "*", allow: "/" }],
     sitemap: absolute("/sitemap.xml"),
   };
 }

@@ -101,7 +101,7 @@ export default function HomePage() {
                   opens rivers of white space between the words. */}
               <p className="mt-s4 max-w-prose text-justify hyphens-auto text-[18px] leading-prose text-slate-mid">
                 Origination, servicing, accounting and RBI reporting in one platform. Every posting
-                is double-entry, every amount is held in paise, and every change records who made it
+                is double-entry, the arithmetic does not drift, and every change records who made it
                 and what it was before — so when a figure is questioned, the answer is in the system
                 rather than in somebody&rsquo;s memory.
               </p>
@@ -212,7 +212,7 @@ export default function HomePage() {
         <SectionHead
           eyebrow="Reports"
           title="The reports a lender is asked for, not a chart builder"
-          lead="Nineteen reports covering portfolio, collections, asset quality, gold and operations — each answering one question, each exportable, each masking personal identifiers by default."
+          lead="Portfolio, collections, asset quality, gold and operations — each report answering one question, naming the date its figures are as at, exportable, and masking personal identifiers by default."
         />
         <Reveal className="mt-s4">
           <Link href="/reports/" className="text-[15px] font-medium text-cta hover:text-cta-hover">

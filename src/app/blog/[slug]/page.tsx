@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Section } from "@/components/ui";
-import { publishedPosts, postBySlug } from "@/lib/content";
+import { publishedPosts, postBySlug, postFaqs } from "@/lib/content";
 import { absolute, COMPANY } from "@/lib/site";
 import { renderMarkdown } from "@/lib/markdown";
 
@@ -45,9 +45,41 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     mainEntityOfPage: absolute(`/blog/${p.slug}/`),
   };
 
+  /**
+   * FAQPage and BreadcrumbList alongside the Article.
+   *
+   * An answer engine lifts a self-contained question-and-answer far more readily than a paragraph
+   * in the middle of an argument, and a breadcrumb is what lets it place the page in a site rather
+   * than treat it as an orphan. Both are generated from the page's own content — the FAQ from the
+   * prose the reader sees — so neither can describe a page that has since changed.
+   */
+  const faqs = postFaqs(p.body);
+  const faqLd = faqs.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      }
+    : null;
+  const crumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: absolute("/") },
+      { "@type": "ListItem", position: 2, name: "Blog", item: absolute("/blog/") },
+      { "@type": "ListItem", position: 3, name: p.title, item: absolute(`/blog/${p.slug}/`) },
+    ],
+  };
+
   return (
     <Section className="pt-s7">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(article) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }} />
+      {faqLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />}
       <nav className="text-[13px] text-muted">
         <Link href="/blog/" className="hover:text-ink">Blog</Link>
       </nav>

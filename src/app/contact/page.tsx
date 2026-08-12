@@ -48,7 +48,15 @@ export default function ContactPage() {
         </p>
       </Reveal>
 
-      <Reveal className="mt-s6 rounded-2xl border border-sand-border bg-card p-s4 sm:p-s5">
+      {/*
+        Held to a form's width, not the page's.
+        
+        The card sat in the 6xl section, so every input stretched to about 1,150px. A text box that
+        wide does not read as a field to fill in — it reads as a banner with a line under it, and
+        the eye has no idea where one answer ends and the next begins. A form is filled in one
+        column at a time.
+      */}
+      <Reveal className="mt-s6 max-w-2xl rounded-2xl border border-sand-border bg-card p-s4 sm:p-s5">
         <DemoForm />
       </Reveal>
 

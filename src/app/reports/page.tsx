@@ -5,7 +5,7 @@ import { Reveal } from "@/components/reveal";
 export const metadata: Metadata = {
   title: "NBFC MIS reports — portfolio, collections, asset quality",
   description:
-    "Nineteen reports covering portfolio, collections, asset quality, gold and operations. Each answers one question, exports to Excel, and masks personal identifiers by default.",
+    "Portfolio, collections, asset quality, gold and operations reporting for NBFCs. Each report answers one question, names the date it is as at, exports to Excel, and masks personal identifiers by default.",
   alternates: { canonical: "/reports/" },
 };
 

@@ -64,18 +64,24 @@ const field =
 const label = "text-[14px] font-medium text-ink";
 const hint = "mt-1 text-[13px] text-slate-mid";
 
+/**
+ * A checkbox that looks like one.
+ *
+ * These were pills. A row of rounded pills reads as filter tags on a search results page — the
+ * kind of thing you skim past — not as a question being asked of you, and fourteen of them across
+ * the full width of the page made the whole thing look like a landing section rather than a form.
+ * A visible box in a two-column list is unambiguous: it is a list of things to tick.
+ */
 function Chip({ checked, onChange, children }: { checked: boolean; onChange: () => void; children: React.ReactNode }) {
   return (
-    <label
-      className={
-        "cursor-pointer select-none rounded-full border px-3.5 py-1.5 text-[14px] transition " +
-        (checked
-          ? "border-cta bg-cta/10 text-cta"
-          : "border-sand-border bg-card text-slate-mid hover:border-cta/40")
-      }
-    >
-      <input type="checkbox" checked={checked} onChange={onChange} className="sr-only" />
-      {children}
+    <label className="flex cursor-pointer select-none items-center gap-2.5 rounded-lg px-1 py-1.5 text-[15px] text-ink transition hover:text-cta">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        className="h-4 w-4 shrink-0 rounded border-sand-border text-cta accent-[#C2410C]"
+      />
+      <span className={checked ? "font-medium text-cta" : ""}>{children}</span>
     </label>
   );
 }
@@ -218,9 +224,9 @@ export function DemoForm() {
           should be asked for; the rest exists so the first call can start at the second question
           instead of the first. */}
       <fieldset>
-        <legend className={label}>What do you lend against?</legend>
-        <p className={hint}>Optional. It decides which parts of the demo are worth showing.</p>
-        <div className="mt-2 flex flex-wrap gap-2">
+        <legend className={label}>Which of these do you lend against?</legend>
+        <p className={hint}>Optional — tick any. It decides which parts of the demo are worth showing you.</p>
+        <div className="mt-2 grid gap-x-s3 gap-y-0.5 sm:grid-cols-2">
           {PRODUCTS.map((p) => (
             <Chip key={p} checked={products.includes(p)} onChange={() => toggle(products, setProducts, p)}>
               {p}
@@ -229,7 +235,7 @@ export function DemoForm() {
         </div>
       </fieldset>
 
-      <div className="grid gap-s3 sm:grid-cols-3">
+      <div className="grid gap-s3 sm:grid-cols-2">
         <div>
           <label className={label} htmlFor="bookSize">Active loan accounts</label>
           <select id="bookSize" name="bookSize" className={field} defaultValue="">
@@ -255,7 +261,7 @@ export function DemoForm() {
         <p className={hint}>
           Optional, and the most useful thing on this form. Pick what is actually being asked of you.
         </p>
-        <div className="mt-2 flex flex-wrap gap-2">
+        <div className="mt-2 grid gap-x-s3 gap-y-0.5 sm:grid-cols-2">
           {PRESSURES.map((p) => (
             <Chip key={p} checked={pressures.includes(p)} onChange={() => toggle(pressures, setPressures, p)}>
               {p}

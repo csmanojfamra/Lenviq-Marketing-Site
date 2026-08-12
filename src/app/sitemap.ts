@@ -8,14 +8,14 @@ import { TERMS } from "@/lib/glossary";
  * cannot disagree about what this site is called.
  *
  * Drafts are absent because `publishedPosts()` is the only loader — the same filter that stops
- * them being built. Privacy and terms are absent while they carry a draft notice and a `noindex`.
+ * them being built. Privacy and terms are present now that they carry the reviewed documents.
  */
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const pages = ["/", "/platform/", "/compliance/", "/reports/", "/security/",
-                 "/about/", "/contact/", "/blog/", "/glossary/"];
+                 "/about/", "/contact/", "/blog/", "/glossary/", "/privacy/", "/terms/"];
   return [
     ...pages.map((p) => ({
       url: absolute(p),

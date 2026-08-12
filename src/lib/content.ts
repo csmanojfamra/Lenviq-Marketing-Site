@@ -68,3 +68,30 @@ export const draftCount = (): number => all().filter((p) => p.draft).length;
 
 export const postBySlug = (slug: string): Post | undefined =>
   publishedPosts().find((p) => p.slug === slug);
+
+/**
+ * The FAQ pairs out of a post body, for FAQPage structured data.
+ *
+ * Read from the prose rather than duplicated in frontmatter, so the questions a reader sees and the
+ * questions a search engine is told about cannot differ — the failure mode of hand-maintained
+ * structured data is that it slowly stops describing the page it sits on, and Google treats that as
+ * a reason to ignore all of it.
+ *
+ * The convention is a `## Frequently asked questions` heading followed by `### question` blocks.
+ */
+export function postFaqs(body: string): { q: string; a: string }[] {
+  const i = body.search(/^##\s+Frequently asked questions\s*$/im);
+  if (i < 0) return [];
+  // Past the heading line before splitting: slicing FROM the heading and then splitting on the
+  // heading pattern makes the first piece the empty string before it, and the section is lost.
+  const after = body.slice(i).replace(/^[^\n]*\n/, "");
+  const section = after.split(/^##\s+(?!#)/m)[0];
+  const out: { q: string; a: string }[] = [];
+  const parts = section.split(/^###\s+/m).slice(1);
+  for (const part of parts) {
+    const [head, ...rest] = part.split("\n");
+    const answer = rest.join(" ").replace(/\s+/g, " ").trim();
+    if (head?.trim() && answer) out.push({ q: head.trim(), a: answer });
+  }
+  return out;
+}

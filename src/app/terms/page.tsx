@@ -1,48 +1,46 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Section } from "@/components/ui";
+import { renderMarkdown } from "@/lib/markdown";
+import { legalDoc, LEGAL_VERSION } from "@/lib/legal";
+import { COMPANY } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Terms of use (draft)",
-  description: "Terms governing use of this website. Draft, pending legal review.",
+  title: "Terms of Service — Lenviq",
+  description:
+    "The terms governing use of the Lenviq platform: the nature of the arrangement, the regulatory responsibilities that remain the lender's, data ownership and localisation, and the limitation of liability.",
   alternates: { canonical: "/terms/" },
-  robots: { index: false, follow: true },
 };
 
+/**
+ * The real Terms of Service, replacing the draft.
+ *
+ * The page was a short summary marked "Draft — pending legal review" and excluded from indexing,
+ * because that was honest while nothing had been reviewed. The reviewed documents now exist, so the
+ * summary goes: a prospective customer's counsel reads the terms, not a description of them.
+ */
 export default function TermsPage() {
+  const body = legalDoc("terms");
   return (
     <Section className="pt-s7">
-      <p className="inline-block rounded-badge bg-[color:var(--color-warning-bg)] px-2 py-1 text-[12px] font-semibold text-[color:var(--color-warning-fg)]">
-        Draft — pending legal review
+      <h1 className="text-[34px] font-extrabold tracking-display-tight text-ink">Terms of Service</h1>
+      <p className="mt-s2 text-[14px] text-slate-mid">
+        {LEGAL_VERSION} &middot; {COMPANY.legalName}. These terms govern use of the Lenviq platform.
+        Where a signed Subscription Agreement exists between us, it takes precedence over anything
+        on this page.
       </p>
-      <h1 className="mt-s3 text-[34px] font-extrabold tracking-display-tight text-ink">Terms of use</h1>
-      <div className="prose-lenviq mt-s4 max-w-prose">
-        <p>
-          This draft describes the intended position. It has not been reviewed and should not be
-          relied on. It is excluded from search indexing until it has been.
+      <p className="mt-s2 text-[14px] text-slate-mid">
+        See also the{" "}
+        <Link href="/privacy/" className="font-medium text-cta underline underline-offset-4">Privacy Policy</Link>.
+      </p>
+      {body ? (
+        <div className="prose-lenviq legal-doc mt-s5 max-w-prose" dangerouslySetInnerHTML={{ __html: renderMarkdown(body) }} />
+      ) : (
+        <p className="prose-lenviq mt-s5 max-w-prose">
+          The terms are being republished. Please write to{" "}
+          <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> for a copy in the meantime.
         </p>
-        <h2>This website</h2>
-        <p>
-          The material here describes a software product. It is not financial, legal or regulatory
-          advice, and nothing on it is an offer to lend. Lenviq is not a lender: the lender of record
-          in any transaction processed through the platform is the NBFC that licenses it.
-        </p>
-        <h2>Regulatory statements</h2>
-        <p>
-          Where this site cites a circular or a direction, the citation is given so that it can be
-          read in the original. The original governs. Regulation changes, and a page that was correct
-          when written may not be correct when read.
-        </p>
-        <h2>Use of the platform</h2>
-        <p>
-          Access to app.lenviq.in is governed by the licence agreement between Lenviq and the
-          licensee NBFC, not by these terms.
-        </p>
-        <h2>Governing law</h2>
-        <p>
-          To be completed before this draft is finalised, along with the jurisdiction clause and the
-          limitation of liability.
-        </p>
-      </div>
+      )}
     </Section>
   );
 }

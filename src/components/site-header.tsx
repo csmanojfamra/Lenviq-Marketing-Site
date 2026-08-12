@@ -1,13 +1,6 @@
 import Link from "next/link";
 import { SITE, COMPANY } from "@/lib/site";
-
-const NAV = [
-  { href: "/platform/", label: "Platform" },
-  { href: "/compliance/", label: "Compliance" },
-  { href: "/reports/", label: "Reports" },
-  { href: "/security/", label: "Security" },
-  { href: "/blog/", label: "Blog" },
-];
+import { DesktopNav, MobileNav } from "./site-nav";
 
 export function SiteHeader() {
   return (
@@ -18,21 +11,11 @@ export function SiteHeader() {
           <img src="/brand/lockup-horizontal.svg" alt={SITE.name} width={116} height={26} />
         </Link>
 
-        {/* WhatsApp in the header because it is how an Indian NBFC actually opens a conversation —
-            a form is a commitment, a message is a question. Same number as the phone line. */}
-        <nav className="hidden flex-1 items-center gap-s3 md:flex" aria-label="Main">
-          {NAV.map((n) => (
-            <Link
-              key={n.href}
-              href={n.href}
-              className="rounded-input px-2 py-1.5 text-[14px] text-slate-mid transition-colors hover:text-ink"
-            >
-              {n.label}
-            </Link>
-          ))}
-        </nav>
+        <DesktopNav />
 
         <div className="ml-auto flex items-center gap-s2">
+          {/* WhatsApp in the header because it is how an Indian NBFC actually opens a conversation —
+              a form is a commitment, a message is a question. Same number as the phone line. */}
           {/* WhatsApp before Login, because most people arriving here are not customers yet.
               Icon-only below md so it survives a phone header without crowding the demo button. */}
           <a
@@ -54,7 +37,7 @@ export function SiteHeader() {
           */}
           <a
             href={SITE.appUrl}
-            className="rounded-input px-3 py-2 text-[14px] font-medium text-slate-mid transition-colors hover:text-ink"
+            className="hidden rounded-input px-3 py-2 text-[14px] font-medium text-slate-mid transition-colors hover:text-ink md:inline-flex"
           >
             Login
           </a>
@@ -64,6 +47,7 @@ export function SiteHeader() {
           >
             Request a demo
           </Link>
+          <MobileNav />
         </div>
       </div>
     </header>
