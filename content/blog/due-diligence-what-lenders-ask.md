@@ -7,6 +7,11 @@ author: "FastLegal Technologies"
 draft: false
 ---
 
+A lender or investor running diligence on a loan book asks for four things — **collection efficiency,
+a static pool or vintage analysis, a bucket movement matrix, and a portfolio cut** — and each is
+designed to defeat a different way a headline number can flatter. Being able to produce all four,
+consistently and quickly, is itself a signal about the book.
+
 When a bank, an NBFC lender or an investor runs diligence on a lending book, the same four requests
 come up. They look overlapping. They are not — each is designed to defeat a different way a
 portfolio number can flatter.
@@ -56,3 +61,76 @@ arrives with a deadline.
 *This post describes market practice rather than a regulatory requirement. Definitions differ
 between lenders — collection efficiency especially — and nothing here should be read as the
 definition. Where you are asked for one of these, send the definition with the figure.*
+
+## Why four, and why these four?
+
+| Request | What it defeats |
+|---|---|
+| Collection efficiency | Nothing on its own — but the definition reveals how you count |
+| Static pool / vintage | A growing book diluting its own deterioration |
+| Bucket movement matrix | A flat NPA percentage hiding heavy flow in both directions |
+| Portfolio cut | Concentration hidden inside an aggregate |
+
+The bucket movement matrix is the one lenders under-prepare for. It asks: of the accounts in SMA-1 at
+the start of the month, how many are now standard, how many stayed, how many worsened? A book with
+2% NPA and violent movement between buckets is a different risk from one with 2% NPA and none.
+
+## What does being able to produce these quickly signal?
+
+That the underlying data exists as computed facts rather than as a monthly assembly.
+
+A lender who can produce a vintage cut in an afternoon has classification history stored by account
+and date. One who needs three weeks is reconstructing it, and the reconstruction is being made by the
+same people who will answer the follow-up questions.
+
+Diligence teams know this, and the time taken is read as information.
+
+## Common mistakes
+
+- **A collection efficiency number with no definition attached.** Not comparable, and it looks like
+  it is.
+- **A vintage cut computed from today's classification.** Cohorts need the classification as at each
+  age, not as at now.
+- **No bucket movement.** The most revealing view, and the one most often absent.
+- **Portfolio cuts that do not reconcile to the total.** Instantly corrosive.
+- **Different numbers in the board pack and the diligence pack.** Both were produced honestly; one
+  used a different as-at date.
+
+## Frequently asked questions
+
+### What is a static pool analysis?
+
+Accounts grouped by the period they were disbursed in, with performance tracked as the cohort ages —
+3, 6, 12 months on book. It shows whether recent lending is behaving like older lending, which a
+headline portfolio number cannot, because growth dilutes deterioration.
+
+### How is collection efficiency defined?
+
+There is no single definition, which is the point of asking. Whether arrears collected count in the
+numerator, whether prepayments and foreclosures do, and whether the denominator is only current-month
+demand — each choice moves the number materially. State the definition alongside the figure.
+
+### What is a bucket movement matrix?
+
+A table of where accounts in each delinquency bucket at the start of a period ended up at the end of
+it. It reveals flow that a static percentage hides: a book can hold a constant NPA ratio while a
+large number of accounts deteriorate and a similar number recover.
+
+### How long should it take to produce a diligence pack?
+
+Days, if the classification history is stored by account and date. Weeks means it is being
+reconstructed, and diligence teams read the time taken as information about the systems.
+
+### What do lenders look for beyond the numbers?
+
+Consistency. The same figure in the board pack, the return and the diligence pack, computed as at the
+same date. A difference is not fatal, but being unable to explain it is.
+
+---
+
+**Related reading:** [How to manage an NBFC loan portfolio](/blog/how-to-manage-nbfc-loan-portfolio/) ·
+[How to generate RBI returns](/blog/how-to-generate-rbi-returns-nbfc/) ·
+[SMA-0, 1 and 2](/blog/sma-classification-what-it-signals/) ·
+[Classification is a day-end event](/blog/irac-day-end-classification/)
+
+[Ask for a walk-through](/contact/) of the four views against your own book.

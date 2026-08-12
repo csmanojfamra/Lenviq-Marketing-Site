@@ -7,6 +7,11 @@ author: "FastLegal Technologies"
 draft: false
 ---
 
+Your **layer** under scale-based regulation is no longer a classification you establish once and
+forget. Later instruments key off it directly — the prepayment charges Directions bar an Upper Layer
+NBFC outright, cap a Middle Layer one at ₹50 lakh, and name the Base Layer in neither. Knowing which
+layer you are in is now an input to what your systems must enforce.
+
 Scale-Based Regulation ([RBI/2021-22/112](https://rbi.org.in/Scripts/NotificationUser.aspx?Id=12179&Mode=0),
 22 October 2021, effective 1 October 2022) replaced a single rulebook with four layers. Most NBFCs
 read it once, established they were in the Base Layer, and moved on. That was reasonable in 2022 and
@@ -50,3 +55,79 @@ next inspection.
 rule hard-coded to one answer is correct for exactly one class of lender and silently wrong for the
 others — and the failure is invisible, because a charge that should have been levied and was not
 produces no error anywhere.
+
+## What does the layer decide in practice?
+
+| Area | Base Layer | Middle Layer | Upper Layer |
+|---|---|---|---|
+| Prepayment charges, business loans to individuals/MSE | Per approved policy | Barred up to ₹50 lakh sanctioned | Barred, no threshold |
+| Governance requirements | Lighter | Higher | Highest, including a listing requirement |
+| Risk management | Board policy | Prescribed functions | Prescribed functions and CRO |
+| Disclosure | Lighter | Expanded | Expanded |
+| Internal capital adequacy | — | — | Required |
+
+The row that matters day to day is the first, because it is the one a system enforces on every
+foreclosure quote. The rest are organisational.
+
+## Common mistakes
+
+- **Applying a higher layer's rule to yourself.** Enforcing a restriction the regulator declined to
+  impose is not conservatism; it is a commercial decision made by mistake.
+- **Assuming the layer follows only from asset size.** All deposit-taking NBFCs are Middle Layer
+  whatever their size, and several categories sit there by type.
+- **Assuming you can grow into the Upper Layer.** Upper Layer entities are identified by the Reserve
+  Bank by name, on a scoring methodology.
+- **Hard-coding the layer in the software.** It changes, and when it does every rule that keys off it
+  has to change with it.
+- **No record of which layer was in force when a decision was taken.** A charge levied under the old
+  layer is not wrong because the layer later changed.
+
+## How this lands in a lending system
+
+The layer should be **configuration on the tenant**, not an assumption in code, because the rules
+that read it will multiply. Today it decides the prepayment charge treatment. It already shapes what
+returns apply. It will decide more.
+
+The second requirement is that a change of layer is a **dated event**, not an edit. A loan foreclosed
+last year under Base Layer treatment was correctly treated then, and a system that recomputes history
+against today's layer will make past decisions look wrong.
+
+## Frequently asked questions
+
+### How does an NBFC know which layer it is in?
+
+Base and Middle Layer follow from the criteria — asset size, deposit-taking status, and category.
+Upper Layer entities are identified by name by the Reserve Bank on a scoring methodology, and are
+told; you do not arrive there by growth alone. The Top Layer is empty by design.
+
+### Does the layer affect prepayment charges?
+
+Directly. The 2025 Pre-payment Charges Directions bar an Upper Layer NBFC from levying them on
+business loans to individuals and MSEs with no threshold, bar a Middle Layer NBFC up to ₹50 lakh
+sanctioned, and name the Base Layer in neither limb — so a Base Layer NBFC charges per its
+board-approved policy.
+
+### Do all deposit-taking NBFCs sit in the Middle Layer?
+
+Yes, regardless of asset size, along with standalone primary dealers, infrastructure debt funds, core
+investment companies, housing finance companies and infrastructure finance companies.
+
+### What happens when an NBFC moves between layers?
+
+The obligations of the new layer apply from the transition, and the software has to treat the change
+as a dated event rather than a retrospective restatement — decisions taken correctly under the
+previous layer were correct when taken.
+
+### Should the layer be configurable in the software?
+
+Yes. More instruments key off it every year, and a layer hard-coded in application logic is a change
+request every time one of them moves.
+
+---
+
+**Related reading:** [Prepayment charges after the 2025 Directions](/blog/prepayment-charges-2025/) ·
+[RBI compliance for NBFCs](/blog/rbi-compliance-for-nbfcs-guide/) ·
+[How to generate RBI returns](/blog/how-to-generate-rbi-returns-nbfc/) ·
+[NBFC software: the complete guide](/blog/nbfc-software-complete-guide/)
+
+[Ask for a walk-through](/contact/) — foreclose the same loan at two different layers.
