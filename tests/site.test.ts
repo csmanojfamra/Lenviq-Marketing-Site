@@ -215,6 +215,52 @@ describe("nothing is claimed that cannot be checked", () => {
   });
 });
 
+describe("signup asks for a code, and never swallows what was typed", () => {
+  const form = src("src/components/signup-form.tsx");
+  const page = src("src/app/signup/page.tsx");
+
+  it("posts to the product's API through the one constant that holds a domain", () => {
+    // The site is a static export with no server, so the form calls the product cross-origin. The
+    // domain still may not be written here — `SITE.appUrl` is the single place it lives.
+    expect(form).toMatch(/SITE\.appUrl.*api\/public\/signup/);
+    expect(stripComments(form)).not.toMatch(/https:\/\/(www\.)?lenviq\./);
+  });
+
+  it("there are three steps and the middle one is the code", () => {
+    // A signup that creates the account before the address is proved is a queue anybody can fill
+    // with somebody else's company name.
+    expect(form).toMatch(/"details" \| "code" \| "done"/);
+    for (const path of ["start", "verify", "resend"]) {
+      expect(form, `the ${path} call is missing`).toContain(`post("${path}"`);
+    }
+  });
+
+  it("a failed call hands the reader their content back rather than losing it", () => {
+    // The same rule the demo form follows: a form that discards a submission costs a real prospect
+    // and nobody ever finds out.
+    expect(form).toMatch(/sendByEmail/);
+    expect(form).toMatch(/mailto:\$\{COMPANY\.email\}/);
+    expect(form).toMatch(/Nothing you typed is lost/);
+  });
+
+  it("carries a honeypot that a person cannot fill", () => {
+    expect(form).toMatch(/name="website"/);
+    expect(form).toMatch(/tabIndex=\{-1\}/);
+  });
+
+  it("the page delegates the form, as the contact page does", () => {
+    // Pages stay server components; only the form is a client one. Same shape as /contact/.
+    expect(stripComments(page)).not.toMatch(/<form/);
+    expect(page).toMatch(/<SignupForm \/>/);
+  });
+
+  it("it is reachable and indexed", () => {
+    expect(src("src/app/sitemap.ts")).toContain('"/signup/"');
+    expect(src("src/components/site-header.tsx")).toMatch(/href="\/signup\/"/);
+    expect(src("src/components/site-nav.tsx")).toMatch(/href="\/signup\/"/);
+  });
+});
+
 describe("motion has an off switch that leaves the page complete", () => {
   const css = src("src/app/globals.css");
 

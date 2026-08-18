@@ -13,6 +13,25 @@ npm test             # the guards
 `npm run build` from a fresh clone is all it takes. `prebuild` syncs the brand assets out of
 `brand/` into `public/`, so nothing outside this checkout is needed.
 
+## Running against a local product
+
+The signup form posts cross-origin to the product's API, because this site is a static export with
+no server of its own. In production that is `app.lenviq.in`, resolved from `SITE.appUrl` — the one
+place a domain is written down.
+
+Locally the site is on `:3100` and the product on `:3000`, which are different origins. Point the
+form at the local product:
+
+```bash
+# .env.development.local  (gitignored)
+NEXT_PUBLIC_SIGNUP_API=http://localhost:3000/api/public/signup
+```
+
+The product allows a `localhost` origin only outside production (`src/lib/api/public-cors.ts`), so
+this works locally and cannot be used to reach the live API from anywhere else. **Without it the
+local form posts at production**, which is not what anybody testing wants — and it fails visibly
+rather than quietly, because production's CORS list does not include localhost.
+
 ## What is generated and what is source
 
 `brand/` is the source. `public/` and `src/styles/*.generated.css` are **copies**, made at build

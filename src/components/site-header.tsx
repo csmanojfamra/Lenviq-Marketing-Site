@@ -41,6 +41,20 @@ export function SiteHeader() {
           >
             Login
           </a>
+          {/*
+            Two doors, and the quieter one is the commitment.
+
+            "Request a demo" stays the primary action because that is what this audience does
+            first — an NBFC moving its book does not self-provision on a Tuesday afternoon. Sign up
+            sits beside it as a text link for the reader who has already decided, rather than
+            competing with it as a second filled button.
+          */}
+          <Link
+            href="/signup/"
+            className="hidden rounded-input px-3 py-2 text-[14px] font-medium text-slate-mid transition-colors hover:text-ink sm:inline-flex"
+          >
+            Sign up
+          </Link>
           <Link
             href="/contact/"
             className="rounded-input bg-cta px-4 py-2 text-[14px] font-medium text-white shadow-e1 transition-colors hover:bg-cta-hover"

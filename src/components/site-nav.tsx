@@ -125,6 +125,9 @@ export function MobileNav() {
               <Link href="/contact/" className="rounded-input bg-cta px-4 py-3 text-center text-[15px] font-medium text-white">
                 Request a demo
               </Link>
+              <Link href="/signup/" className="rounded-input border border-cta px-4 py-3 text-center text-[15px] font-medium text-cta">
+                Create an account
+              </Link>
               <a href={SITE.appUrl} className="rounded-input border border-line px-4 py-3 text-center text-[15px] font-medium text-ink">
                 Login
               </a>

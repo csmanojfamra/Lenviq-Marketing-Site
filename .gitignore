@@ -13,3 +13,7 @@ src/lib/build-info.generated.ts
 
 # Word lock files — an editor artefact, not source.
 ~$*
+
+# Local overrides only — the site's real configuration is .env.production, which IS committed
+# because a static export's public variables are inlined at build time and must be reproducible.
+.env*.local
