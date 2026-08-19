@@ -19,7 +19,21 @@ import { join } from "node:path";
 import * as fontkit from "fontkit";
 import puppeteer from "puppeteer";
 
+
 const ROOT = process.cwd();
+
+/**
+ * The one-line descriptor, read out of `src/lib/site.ts` rather than typed again here.
+ *
+ * A plain regex rather than an import: this script is ESM run by node with no TypeScript loader,
+ * and adding one to render a single string would be the more fragile choice.
+ */
+const TAGLINE = (() => {
+  const src = readFileSync(join(ROOT, "src/lib/site.ts"), "utf8");
+  const m = src.match(/\n\s*tagline:\s*"([^"]+)"/);
+  if (!m) throw new Error("Could not read SITE.tagline from src/lib/site.ts");
+  return m[1];
+})();
 const OUT = join(ROOT, "brand/logo");
 mkdirSync(OUT, { recursive: true });
 
@@ -228,8 +242,10 @@ for (const s of icoSizes) icoPngs.push(await png(markSvg(), s));
      </style>
      <body>
        <div style="width:640px">${files["lockup-horizontal-mono-light.svg"]}</div>
+       <!-- Read from SITE, not typed again: the card and the meta description are the same claim
+            and a fourth hand-written copy is how they stop matching. -->
        <p style="color:#cbd5e1;font-size:34px;line-height:1.5;margin:44px 0 0;max-width:900px">
-         Lending platform for Indian NBFCs — origination, servicing, accounting and RBI reporting.
+         ${TAGLINE}
        </p>
        <div style="position:absolute;left:0;right:0;bottom:0;height:8px;background:${SKY}"></div>
      </body>`,

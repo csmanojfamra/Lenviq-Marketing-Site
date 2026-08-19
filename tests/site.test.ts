@@ -401,3 +401,39 @@ describe("a running site can say which version it is", () => {
     expect(ignore).toMatch(/build-info\.json/);
   });
 });
+
+/**
+ * The one-line descriptor, pinned at this end too.
+ *
+ * It lives in two repositories because the site is a standalone static export (SITE-2), so nothing
+ * can enforce that both copies agree — except a test at each end that names the same string. If
+ * somebody changes one, this fails and says which.
+ */
+describe("one descriptor, and the product uses the same words", () => {
+  const EXPECTED = "Loan origination, servicing and accounting for NBFCs";
+  // `SITE` in this file is the repository path, so the config is read the way everything else here
+  // reads source: as text.
+  const config = src("src/lib/site.ts");
+  const tagline = config.match(/\n\s*tagline:\s*"([^"]+)"/)?.[1] ?? "";
+
+  it("is the string the product's email shell also uses", () => {
+    expect(tagline).toBe(EXPECTED);
+  });
+
+  it("says nothing twice, and nothing the reader already knows", () => {
+    const t = tagline.toLowerCase();
+    // The old line was "Lending platform for Indian NBFCs — …": lending/lenders repeated,
+    // "platform" said nothing, and "Indian" told an Indian NBFC something it knew.
+    expect(t).not.toContain("platform");
+    expect(t).not.toContain("indian");
+    expect((t.match(/lend/g) ?? []).length).toBeLessThanOrEqual(1);
+  });
+
+  it("reaches the meta description and the share card from that one constant", () => {
+    expect(src("src/app/layout.tsx")).toContain("SITE.tagline");
+    // The OG card is generated from the same string, not typed again.
+    const brand = src("scripts/build-brand.mjs");
+    expect(brand).toContain("SITE.tagline from src/lib/site.ts");
+    expect(brand).not.toMatch(/Lending platform for Indian NBFCs\s*\n\s*<\/p>/);
+  });
+});

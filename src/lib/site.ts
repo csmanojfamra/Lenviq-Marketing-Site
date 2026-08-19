@@ -15,8 +15,23 @@ export const SITE = {
   /** The product. Every login link points here; nothing else about it lives in this app. */
   appUrl: "https://app.lenviq.in",
   name: "Lenviq",
-  /** One line a lending head would recognise. Used as the default meta description. */
-  tagline: "Lending platform for Indian NBFCs — origination, servicing, accounting and RBI reporting.",
+  /**
+   * What the product is, in one line — the meta description, the Open Graph card, and anywhere
+   * else the site introduces itself in a sentence.
+   *
+   * **One string, and it is shared with the product.** It said three different things in three
+   * places: this, "Lending platform for Indian lenders" in the transactional email, and a third
+   * wording in the proposal PDF. The old line also repeated itself — *lending* and *lenders* —
+   * leaned on *platform*, which is a category word that says nothing, and spent a word on *Indian*
+   * telling an Indian NBFC something it knows.
+   *
+   * The product's copy lives in `src/lib/platform/email-layout.ts` as `PRODUCT_DESCRIPTOR`. Two
+   * repositories means two copies (see SITE-2); both are pinned by a test, so they cannot drift
+   * quietly.
+   */
+  tagline: "Loan origination, servicing and accounting for NBFCs",
+  /** For places too narrow for the full line. Says less, nothing wrong. */
+  taglineShort: "Lending software for NBFCs",
   locale: "en-IN",
 } as const;
 
