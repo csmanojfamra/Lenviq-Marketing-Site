@@ -31,8 +31,6 @@ const PRODUCTS = [
   "Microfinance / JLG",
 ] as const;
 
-const PORTFOLIO = ["Under 1,000", "1,000 – 10,000", "10,000 – 50,000", "Over 50,000"] as const;
-
 const field =
   "mt-1 w-full rounded-lg border border-line bg-card px-3 py-2.5 text-[15px] text-ink " +
   "outline-none transition focus:border-cta focus:ring-2 focus:ring-cta/20";
@@ -43,13 +41,12 @@ type Step = "details" | "code" | "done";
 
 interface Details {
   companyName: string; contactName: string; email: string; mobile: string;
-  cin: string; rbiCorNumber: string; city: string; state: string;
-  portfolioSizeRange: string; designation: string;
+  cin: string; city: string; state: string; designation: string;
 }
 
 const EMPTY: Details = {
   companyName: "", contactName: "", email: "", mobile: "",
-  cin: "", rbiCorNumber: "", city: "", state: "", portfolioSizeRange: "", designation: "",
+  cin: "", city: "", state: "", designation: "",
 };
 
 export function SignupForm() {
@@ -79,8 +76,7 @@ export function SignupForm() {
     return (
       line("NBFC", d.companyName) + line("Contact", d.contactName) + line("Designation", d.designation) +
       line("Email", d.email) + line("Mobile", d.mobile) + line("CIN", d.cin) +
-      line("RBI CoR", d.rbiCorNumber) + line("City", d.city) + line("State", d.state) +
-      line("Active loan accounts", d.portfolioSizeRange) + line("Products", products.join(", "))
+      line("City", d.city) + line("State", d.state) + line("Products", products.join(", "))
     );
   }
 
@@ -245,9 +241,17 @@ export function SignupForm() {
     <form onSubmit={submitDetails} className="relative grid gap-s4">
       <div className="grid gap-s3 sm:grid-cols-2">
         <div>
-          <label className={label} htmlFor="companyName">NBFC name <span className="text-cta">*</span></label>
+          {/*
+            Not "NBFC name".
+
+            The product is a lending platform, and a lender is not always an NBFC — an HFC, a
+            co-operative society, a Nidhi company or a fintech running a book are all people this
+            is built for. A field that asks for an NBFC's name tells everyone else the software is
+            not for them, at the first question on the form.
+          */}
+          <label className={label} htmlFor="companyName">Company / institution name <span className="text-cta">*</span></label>
           <input id="companyName" required value={d.companyName} onChange={(e) => set("companyName", e.target.value)}
-            className={field} placeholder="As registered with the RBI" />
+            className={field} placeholder="As registered" />
         </div>
         <div>
           <label className={label} htmlFor="contactName">Your name <span className="text-cta">*</span></label>
@@ -274,10 +278,9 @@ export function SignupForm() {
       {/* Everything below is optional. Four required fields is already the most a first request
           should ask for; the rest exists so the review can start at the second question. */}
       <div className="grid gap-s3 sm:grid-cols-2">
-        <div>
-          <label className={label} htmlFor="rbiCorNumber">RBI CoR number</label>
-          <input id="rbiCorNumber" value={d.rbiCorNumber} onChange={(e) => set("rbiCorNumber", e.target.value)} className={field} />
-        </div>
+        {/* The RBI Certificate of Registration was here and is deliberately not: only an NBFC has
+            one, so asking for it is the same exclusion as the field above, further down the page.
+            Whatever registration an applicant holds is a question for the review call. */}
         <div>
           <label className={label} htmlFor="cin">CIN</label>
           <input id="cin" value={d.cin} onChange={(e) => set("cin", e.target.value)} className={field} />
@@ -289,14 +292,6 @@ export function SignupForm() {
         <div>
           <label className={label} htmlFor="state">State</label>
           <input id="state" value={d.state} onChange={(e) => set("state", e.target.value)} className={field} />
-        </div>
-        <div>
-          <label className={label} htmlFor="portfolioSizeRange">Active loan accounts</label>
-          <select id="portfolioSizeRange" value={d.portfolioSizeRange}
-            onChange={(e) => set("portfolioSizeRange", e.target.value)} className={field}>
-            <option value="">Prefer not to say</option>
-            {PORTFOLIO.map((p) => <option key={p} value={p}>{p}</option>)}
-          </select>
         </div>
         <div>
           <label className={label} htmlFor="designation">Your role</label>

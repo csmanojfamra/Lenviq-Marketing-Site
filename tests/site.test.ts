@@ -261,6 +261,41 @@ describe("signup asks for a code, and never swallows what was typed", () => {
   });
 });
 
+describe("the forms do not assume the visitor is an NBFC", () => {
+  const signup = src("src/components/signup-form.tsx");
+  const demo = src("src/components/demo-form.tsx");
+
+  /**
+   * A lending platform's customer is not always an NBFC — an HFC, a co-operative society, a Nidhi
+   * company or a fintech running a book are all people this is built for. Asking for "NBFC name"
+   * at the first question, and for an RBI Certificate of Registration further down, tells every
+   * one of them the software is not for them before they have typed anything.
+   */
+  it("asks for a company or institution, not an NBFC", () => {
+    // Comments stripped: the code must not ASK it. The comments above each field explain why the
+    // wording changed, and asserting on prose would forbid recording the decision.
+    for (const [name, form] of [["signup", signup], ["demo", demo]] as const) {
+      const code = stripComments(form);
+      expect(code, `${name} form still asks for an NBFC name`).not.toMatch(/NBFC name/);
+      expect(code, `${name} form still says "registered with the RBI"`).not.toMatch(/registered with the RBI/);
+      expect(code).toMatch(/Company \/ institution name/);
+    }
+  });
+
+  it("does not ask for a registration only one kind of lender holds", () => {
+    // The RBI CoR. Whatever registration an applicant has is a question for the review call.
+    expect(stripComments(signup)).not.toMatch(/rbiCorNumber|RBI CoR/);
+  });
+
+  it("the signup form asks four required things and no book size", () => {
+    // Four required fields is already the most a first request should ask for. Scale is a
+    // question for the conversation, not a gate on getting an account.
+    expect(stripComments(signup)).not.toMatch(/portfolioSizeRange|Active loan accounts/);
+    const required = [...stripComments(signup).matchAll(/<span className="text-cta">\*<\/span>/g)];
+    expect(required).toHaveLength(4);
+  });
+});
+
 describe("motion has an off switch that leaves the page complete", () => {
   const css = src("src/app/globals.css");
 

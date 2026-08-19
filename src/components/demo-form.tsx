@@ -99,7 +99,7 @@ export function DemoForm() {
   function compose(f: FormData) {
     const line = (k: string, v: unknown) => (v && String(v).length ? `${k}: ${v}\n` : "");
     return (
-      line("NBFC", f.get("company")) +
+      line("Company", f.get("company")) +
       line("Name", f.get("name")) +
       line("Email", f.get("email")) +
       line("Mobile", f.get("mobile")) +
@@ -185,9 +185,12 @@ export function DemoForm() {
       <div className="grid gap-s3 sm:grid-cols-2">
         <div>
           <label className={label} htmlFor="company">
-            NBFC name <span className="text-cta">*</span>
+            Company / institution name <span className="text-cta">*</span>
           </label>
-          <input id="company" name="company" required className={field} placeholder="As registered with the RBI" />
+          {/* Same reasoning as the signup form: a lender is not always an NBFC, and the first
+              question on the form should not tell an HFC, a co-operative or a Nidhi company that
+              the product is not for them. */}
+          <input id="company" name="company" required className={field} placeholder="As registered" />
         </div>
         <div>
           <label className={label} htmlFor="name">
