@@ -12,7 +12,12 @@
  * than exported once and scaled, because a 16px favicon that was drawn at 512 and shrunk is the
  * usual reason a favicon is mush.
  *
- *   node scripts/build-brand.mjs
+ *   npm run build:brand      (or: node scripts/build-brand.mjs)
+ *
+ * fontkit, puppeteer and the two @fontsource families are devDependencies — they were not, and
+ * this script therefore could not run from a clean checkout at all (SITE-3). It does not run in
+ * `prebuild`, which only COPIES the committed assets, so nothing noticed until somebody needed to
+ * regenerate them.
  */
 import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
 import { join } from "node:path";

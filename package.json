@@ -13,7 +13,8 @@
     "predev": "node scripts/build-stamp.mjs && node scripts/sync-brand.mjs",
     "check:live": "node scripts/check-live.mjs",
     "typecheck": "node scripts/build-stamp.mjs && tsc --noEmit",
-    "pretest": "node scripts/build-stamp.mjs"
+    "pretest": "node scripts/build-stamp.mjs",
+    "build:brand": "node scripts/build-brand.mjs"
   },
   "dependencies": {
     "next": "^16.2.10",
@@ -21,10 +22,14 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@fontsource/bricolage-grotesque": "^5.3.0",
+    "@fontsource/plus-jakarta-sans": "^5.3.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "autoprefixer": "^10.4.20",
+    "fontkit": "^2.0.4",
     "postcss": "^8.4.49",
+    "puppeteer": "^25.8.0",
     "tailwindcss": "^3.4.17",
     "typescript": "^5",
     "vitest": "^4.1.10"
