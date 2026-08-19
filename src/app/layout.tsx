@@ -52,7 +52,18 @@ const JS_READY = `document.documentElement.classList.add("js")`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={SITE.locale}>
+    /**
+     * `suppressHydrationWarning` is here for the script above and nothing else.
+     *
+     * It runs before React hydrates and adds a class to `<html>`, so the server's markup and the
+     * client's DOM genuinely differ on this one element — React logged a hydration mismatch on
+     * EVERY page of the site because of it. The warning was correct and the code was correct; what
+     * was missing was telling React that this particular difference is deliberate.
+     *
+     * It suppresses attribute differences on this element only. Children hydrate normally, so a
+     * real mismatch anywhere in the page is still reported.
+     */
+    <html lang={SITE.locale} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: JS_READY }} />
         <OrgJsonLd />

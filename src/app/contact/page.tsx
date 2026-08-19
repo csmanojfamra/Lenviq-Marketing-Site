@@ -56,11 +56,19 @@ export default function ContactPage() {
         the eye has no idea where one answer ends and the next begins. A form is filled in one
         column at a time.
       */}
-      <Reveal className="mt-s6 max-w-2xl rounded-2xl border border-sand-border bg-card p-s4 sm:p-s5">
-        <DemoForm />
-      </Reveal>
+      {/*
+        Form left, the other ways to reach us beside it.
+        
+        The card stays at a form's width for the reason above, which on a desktop left the rest of
+        the page empty and pushed "here is our email and our number" below the fold — the two things
+        somebody who does not want to fill in a form is looking for.
+      */}
+      <div className="mt-s6 grid items-start gap-s5 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
+        <Reveal className="rounded-2xl border border-sand-border bg-card p-s4 sm:p-s5">
+          <DemoForm />
+        </Reveal>
 
-      <Reveal className="mt-s6 grid gap-s3 md:grid-cols-2">
+        <Reveal className="grid gap-s3">
         <Card title="Email">
           <p>
             <a
@@ -84,7 +92,8 @@ export default function ContactPage() {
             . Support requests raised from inside the product reach us with the context attached.
           </p>
         </Card>
-      </Reveal>
+        </Reveal>
+      </div>
 
       <Reveal className="mt-s3 grid gap-s3 md:grid-cols-2">
         <Card title="Phone and WhatsApp">

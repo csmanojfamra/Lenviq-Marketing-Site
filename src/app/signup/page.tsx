@@ -34,13 +34,21 @@ export default function SignupPage() {
         </p>
       </Reveal>
 
-      {/* Held to a form's width rather than the page's: an input stretched across 1,150px reads as
-          a banner with a line under it, not as a field to fill in. */}
-      <Reveal className="mt-s6 max-w-2xl rounded-2xl border border-sand-border bg-card p-s4 sm:p-s5">
-        <SignupForm />
-      </Reveal>
+      {/*
+        Form left, what-happens-next beside it.
+        
+        The card is held to a form's width on purpose — an input stretched across 1,150px reads as a
+        banner with a line under it, not as a field to fill in. But that left the rest of a desktop
+        page empty, with the three steps pushed below the fold, so the form floated in a void and
+        the one thing that answers "what am I actually signing up for" was somewhere the reader had
+        to go looking. Putting them alongside fills the column with the thing that belongs there.
+      */}
+      <div className="mt-s6 grid items-start gap-s5 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
+        <Reveal className="rounded-2xl border border-sand-border bg-card p-s4 sm:p-s5">
+          <SignupForm />
+        </Reveal>
 
-      <Reveal className="mt-s6 grid gap-s3 md:grid-cols-3">
+        <Reveal className="grid gap-s3">
         <Card title="1. Confirm your email">
           <p>
             A six-digit code, valid for ten minutes. It proves the address is yours before anything
@@ -59,7 +67,8 @@ export default function SignupPage() {
             sign-in asks you to set your own password and enrol two-factor authentication.
           </p>
         </Card>
-      </Reveal>
+        </Reveal>
+      </div>
 
       <Reveal className="mt-s6 grid gap-s3 md:grid-cols-2">
         <Card title="Want to look first?">

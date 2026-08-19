@@ -35,6 +35,44 @@ const field =
   "mt-1 w-full rounded-lg border border-line bg-card px-3 py-2.5 text-[15px] text-ink " +
   "outline-none transition focus:border-cta focus:ring-2 focus:ring-cta/20";
 const label = "text-[14px] font-medium text-ink";
+
+/**
+ * Which of the two steps this is.
+ *
+ * The page's own heading does not change between them — it is a server component and cannot know —
+ * so without this the second step looks like the first one with different fields in it. Two steps
+ * is a short enough journey that a bar would be overkill; naming the step is enough.
+ */
+function StepBadge({ step }: { step: 1 | 2 }) {
+  const steps = ["Your details", "Confirm your email"] as const;
+  return (
+    <ol className="flex flex-wrap items-center gap-s2 text-[13px]" aria-label={`Step ${step} of 2`}>
+      {steps.map((title, i) => {
+        const n = (i + 1) as 1 | 2;
+        const done = n < step;
+        const now = n === step;
+        return (
+          <li key={title} className="flex items-center gap-s2">
+            <span
+              aria-current={now ? "step" : undefined}
+              className={
+                "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-medium " +
+                (now ? "bg-cta text-white" : done ? "bg-sand text-ink" : "bg-sand text-slate-mid")
+              }
+            >
+              <span className={"inline-flex h-4 w-4 items-center justify-center rounded-full text-[11px] font-semibold " +
+                (now ? "bg-white/25 text-white" : "bg-white text-slate-mid")}>
+                {done ? "\u2713" : n}
+              </span>
+              {title}
+            </span>
+            {n === 1 && <span aria-hidden className="text-sand-border">&rarr;</span>}
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
 const hint = "mt-1 text-[13px] text-slate-mid";
 
 type Step = "details" | "code" | "done";
@@ -170,22 +208,46 @@ export function SignupForm() {
   }
 
   // ---------------------------------------------------------------- the code
+  /**
+   * The code step has to read as somewhere NEW.
+   *
+   * It did not. The page keeps its own heading — "Create your account" at 44px — and its intro
+   * paragraph, and this step replaced the fields inside the card with a 17px line saying "Check
+   * your email". So the loudest thing on the screen still described step one, the state change was
+   * whispered, and the six-dot placeholder in a 12rem box did not look like anywhere to type a
+   * code. Somebody who had just been sent one could reasonably not see where it went.
+   *
+   * Three changes, all about making the state obvious: the card announces which step this is, the
+   * "we sent it" line is a confirmation rather than a caption, and the input is unmistakably a
+   * six-digit code field.
+   */
   if (step === "code") {
     return (
       <form onSubmit={submitCode} className="grid gap-s4">
-        <div>
-          <p className="text-[17px] font-semibold text-ink">Check your email</p>
-          <p className={hint}>
-            We sent a six-digit code to <span className="font-medium text-ink">{d.email}</span>. It is
-            good for ten minutes.
-          </p>
+        <StepBadge step={2} />
+
+        {/* A tick, because something HAPPENED and the screen should say so. */}
+        <div className="flex items-start gap-s3 rounded-xl border border-sand-border bg-sand p-s3">
+          <svg viewBox="0 0 20 20" aria-hidden className="mt-0.5 h-5 w-5 shrink-0 text-cta" fill="currentColor">
+            <path d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.7-9.3-4.5 4.5a1 1 0 0 1-1.4 0l-2-2a1 1 0 1 1 1.4-1.4l1.3 1.3 3.8-3.8a1 1 0 0 1 1.4 1.4Z" />
+          </svg>
+          <div>
+            <p className="text-[17px] font-semibold text-ink">Code sent</p>
+            <p className="mt-0.5 text-[14px] leading-relaxed text-slate-mid">
+              Six digits, to <span className="font-medium text-ink">{d.email}</span>. It is good for
+              ten minutes and can be used once.
+            </p>
+          </div>
         </div>
 
         <div>
-          {/* `block`, because this input is the only narrow one on the site — the shared `field`
-              class is `w-full`, which forces the wrap everywhere else, and at 12rem the label and
-              the box sat on the same line and overlapped. */}
-          <label className={`${label} block`} htmlFor="code">Verification code</label>
+          <label className={`${label} block`} htmlFor="code">Enter the six-digit code</label>
+          <p className={hint}>Check the spam folder if it has not arrived in a minute.</p>
+          {/*
+            Wide, boxed and letter-spaced so it reads as a code field at a glance. One input rather
+            than six boxes: paste, autofill and `one-time-code` all work on an ordinary input, and
+            six separate boxes break every one of them for a look.
+          */}
           <input
             id="code"
             name="code"
@@ -195,14 +257,16 @@ export function SignupForm() {
             autoComplete="one-time-code"
             autoFocus
             required
-            className={`${field} max-w-[12rem] text-center text-[22px] tracking-[0.4em]`}
-            placeholder="······"
+            aria-describedby="code-hint"
+            className="mt-s2 block w-full max-w-[20rem] rounded-xl border-2 border-cta/30 bg-card px-4 py-3 text-center font-mono text-[28px] font-semibold tracking-[0.5em] text-ink caret-cta outline-none transition placeholder:text-slate-mid/35 focus:border-cta focus:ring-4 focus:ring-cta/15"
+            /* Dots, not zeros: at this size and letter-spacing a placeholder of "000000" reads as
+               six digits somebody has already typed. */
+            placeholder={"·".repeat(6)}
           />
+          <p id="code-hint" className="mt-s2 text-[13px] text-slate-mid">
+            {code.length}/6 entered
+          </p>
         </div>
-
-        {error && (
-          <p className="rounded-lg border border-sand-border bg-sand p-s3 text-[14px] text-ink">{error}</p>
-        )}
 
         <div className="flex flex-wrap items-center gap-s3">
           <button
@@ -239,6 +303,7 @@ export function SignupForm() {
   // ---------------------------------------------------------------- the details
   return (
     <form onSubmit={submitDetails} className="relative grid gap-s4">
+      <StepBadge step={1} />
       <div className="grid gap-s3 sm:grid-cols-2">
         <div>
           {/*

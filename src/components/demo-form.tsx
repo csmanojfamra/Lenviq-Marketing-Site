@@ -30,7 +30,6 @@ const PRODUCTS = [
   "Consumer durables",
 ] as const;
 
-const BOOK_SIZE = ["Under 1,000", "1,000 – 10,000", "10,000 – 50,000", "Over 50,000"] as const;
 
 const RUNNING_ON = [
   "Spreadsheets",
@@ -104,7 +103,6 @@ export function DemoForm() {
       line("Email", f.get("email")) +
       line("Mobile", f.get("mobile")) +
       line("Products", products.join(", ")) +
-      line("Active loan accounts", f.get("bookSize")) +
       line("Branches", f.get("branches")) +
       line("Running on", f.get("runningOn")) +
       line("Where the pressure is", pressures.join(", ")) +
@@ -133,7 +131,6 @@ export function DemoForm() {
           email: f.get("email"),
           mobile: f.get("mobile"),
           products,
-          bookSize: f.get("bookSize"),
           branches: f.get("branches"),
           runningOn: f.get("runningOn"),
           pressures,
@@ -238,14 +235,13 @@ export function DemoForm() {
         </div>
       </fieldset>
 
+      {/*
+        "Active loan accounts" used to sit here and was asked to go. It is the one question on this
+        form a prospect has a reason not to answer — book size is commercially sensitive, and asking
+        for it before a first conversation reads as qualification rather than interest. Branch count
+        tells us as much about the shape of the demo and costs nobody anything to give.
+      */}
       <div className="grid gap-s3 sm:grid-cols-2">
-        <div>
-          <label className={label} htmlFor="bookSize">Active loan accounts</label>
-          <select id="bookSize" name="bookSize" className={field} defaultValue="">
-            <option value="">Prefer not to say</option>
-            {BOOK_SIZE.map((b) => <option key={b} value={b}>{b}</option>)}
-          </select>
-        </div>
         <div>
           <label className={label} htmlFor="branches">Branches</label>
           <input id="branches" name="branches" inputMode="numeric" className={field} placeholder="e.g. 4" />
