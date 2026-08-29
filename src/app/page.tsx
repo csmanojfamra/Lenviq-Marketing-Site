@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SITE } from "@/lib/site";
 import { Container, Section, SectionHead, Card, ButtonLink } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
+import { Shot } from "@/components/shot";
 import { HeroPortfolioCard } from "@/components/hero-portfolio-card";
 
 export const metadata: Metadata = {
@@ -166,6 +167,17 @@ export default function HomePage() {
             </Reveal>
           ))}
         </div>
+        {/*
+          * The claim above is that the portfolio and the accounts are one set of facts. This is
+          * that claim's evidence — the head-office view of a real demonstration book, generated
+          * from the running product, where the AUM, the collection, the asset quality and the
+          * origination pipeline are read from the same postings rather than assembled for a page.
+          */}
+        <Shot
+          name="dashboard"
+          alt="The Lenviq head-office dashboard showing assets under management, disbursement and collection for the month, gross NPA and provision coverage, the portfolio split by product, and the origination pipeline by stage"
+          caption="One book, read four ways — and every figure on it posted by the loan events themselves."
+        />
         <Reveal className="mt-s4">
           <Link href="/platform/" className="text-[15px] font-medium text-cta hover:text-cta-hover">
             The modules in depth →

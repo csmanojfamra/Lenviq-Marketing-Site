@@ -9,7 +9,7 @@ audience: Field agent
 The round lists the doors for today, worst account first. Opening one shows what the borrower will
 ask about before they ask it.
 
-@phone field-account-summary | An account summary on the phone showing the borrower, the SMA-1 badge, the overdue position with the total payable, and the account's status | The overdue position first, and the largest number on the screen.
+@phone field-account-summary | An account summary on the phone showing the borrower, the SMA classification badge, the overdue position with the total payable, and the account's status | The overdue position first, and the largest number on the screen.
 
 ## Why the amount is what it is
 

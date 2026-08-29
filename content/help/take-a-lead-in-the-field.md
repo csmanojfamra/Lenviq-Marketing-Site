@@ -28,6 +28,8 @@ which is a merge, and somebody's afternoon.
 Mobile, name, the lead's source and what the loan is for. The amount and tenure are indicative:
 the branch decides the scheme. Nothing that needs a document is asked at a gate.
 
+@shot leads | The Lenviq leads screen listing enquiries with their source, status, branch, indicative amount and next follow-up date, with overdue follow-ups marked in red | The same enquiry on the branch's screen a moment later, with the follow-up date it was promised.
+
 ## Create the customer there
 
 A lead becomes a **customer** first and a loan file after that. The customer record is what

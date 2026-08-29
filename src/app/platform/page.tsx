@@ -91,7 +91,7 @@ export default function PlatformPage() {
         <div className="mt-s4 grid gap-s5 sm:grid-cols-2">
           <PhoneShot
             name="field-account-summary"
-            alt="The Lenviq field app showing a borrower's account summary with the SMA-1 classification, the overdue position and the total payable now"
+            alt="The Lenviq field app showing a borrower's account summary with its SMA classification, the overdue position broken into penal, bounce, interest and principal, and the total payable now"
             caption="What the borrower will ask, before they ask it."
           />
           <PhoneShot

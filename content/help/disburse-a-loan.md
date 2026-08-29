@@ -29,6 +29,8 @@ the EMI schedule, the DPD clock and every repayment's floor follow that date.
 Approving the same request twice releases the money once. The request is claimed the moment it is
 opened for release, so a double tap cannot produce two payments.
 
+@shot disbursement-register | The Lenviq disbursement register listing every payout with its date, application number, borrower, branch, amount and instrument | Every rupee that left, by date, instrument and branch — the register an inspection asks for.
+
 ## What happens next
 
 The loan account is created on the first tranche, the schedule is generated from the sanctioned

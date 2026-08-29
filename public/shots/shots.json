@@ -15,19 +15,19 @@
     "name": "loan-account",
     "width": 2880,
     "height": 1800,
-    "path": "/lms/loans/7be727b7-b986-486e-b7d8-f1550e6f3b51"
+    "path": "/lms/loans/193ce0d0-8804-4ce8-a783-e44da7319e27"
   },
   {
     "name": "application-stages",
     "width": 2880,
     "height": 1800,
-    "path": "/applications/e3d65d51-d043-4ea9-aa99-dea2b97f1516"
+    "path": "/applications/398c0bb0-b42d-4709-a547-3c7f81f6eab7"
   },
   {
     "name": "application-record",
     "width": 2880,
     "height": 1800,
-    "path": "/applications/e3d65d51-d043-4ea9-aa99-dea2b97f1516/record"
+    "path": "/applications/398c0bb0-b42d-4709-a547-3c7f81f6eab7/record"
   },
   {
     "name": "applications",
@@ -45,7 +45,7 @@
     "name": "party-kyc",
     "width": 2880,
     "height": 1800,
-    "path": "/parties/4e7d4ff7-5dec-4c26-b790-15d3fa117d25"
+    "path": "/parties/e73534aa-cc93-41f5-af8e-571c3c24cf92"
   },
   {
     "name": "reports",
@@ -105,13 +105,13 @@
     "name": "field-account-summary",
     "width": 824,
     "height": 1830,
-    "path": "/mobile/accounts/7be727b7-b986-486e-b7d8-f1550e6f3b51"
+    "path": "/mobile/accounts/193ce0d0-8804-4ce8-a783-e44da7319e27"
   },
   {
     "name": "field-collect",
     "width": 824,
     "height": 1830,
-    "path": "/mobile/collections/7be727b7-b986-486e-b7d8-f1550e6f3b51"
+    "path": "/mobile/collections/193ce0d0-8804-4ce8-a783-e44da7319e27"
   },
   {
     "name": "field-day-end",
