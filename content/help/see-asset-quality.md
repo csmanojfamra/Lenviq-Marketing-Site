@@ -25,7 +25,7 @@ The same DPD engine serves every product and takes no per-product branch. Produc
 **due events** they generate, never by having a classification path of their own — because what
 silently diverges between two such paths is NPA classification.
 
-@shot loan-account | A single loan account showing its schedule, repayments, charges and classification | One account, with everything the classification was computed from.
+@shot loan-account | A loan account showing its overdue status and days past due, the sanctioned terms and the live balances, with tabs for the schedule, transactions, statement and charges | One account: the position at the top, and the schedule, receipts and charges it was computed from a tab away.
 
 ## When an account turns NPA
 

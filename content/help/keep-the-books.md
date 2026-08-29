@@ -6,7 +6,7 @@ order: 10
 audience: Accounts
 ---
 
-@shot accounting | The accounting overview showing the ledgers, their balances and the vouchers behind them | The books, posted by the loan events themselves.
+@shot accounting | The accounting overview showing the consolidated trial balance and whether it is balanced, any open reconciliation alerts, and the books, statements and tax registers available | The trial balance says whether it foots before anybody opens a ledger.
 
 Most lenders run an origination system, a servicing system and an accounting package, and spend the
 last week of every month making the three agree. Here a disbursement, a receipt, an accrual, a penal

@@ -9,7 +9,7 @@ audience: Credit / Operations
 A customer created in the field arrives with a name, a mobile, an address and whatever the officer
 could ask standing at a gate. This is the screen where it becomes a KYC record.
 
-@shot party-kyc | The customer screen, showing the profile, KYC panel, identity documents, addresses and income sections | Everything about the borrower lives here — not on the loan file.
+@shot party-kyc | The customer screen, showing the profile and the KYC and customer-risk panel, with the risk category the software suggested from the file beside the one the officer chose | Everything about the borrower lives here — not on the loan file.
 
 ## Fill in what is missing, one field at a time
 

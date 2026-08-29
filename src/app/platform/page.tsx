@@ -62,7 +62,7 @@ export default function PlatformPage() {
         </dl>
         <Shot
           name="party-kyc"
-          alt="A borrower record in Lenviq showing the KYC panel, identity documents, addresses, employment and income sections"
+          alt="A borrower record in Lenviq showing the profile and the KYC and customer-risk panel, with the money-laundering risk category, sanctions screening and the re-KYC schedule"
           caption="Everything about a borrower lives on the customer, not on the loan file — so a second loan starts from what is already known."
         />
       </Section>
@@ -74,8 +74,8 @@ export default function PlatformPage() {
         </dl>
         <Shot
           name="loan-account"
-          alt="A live loan account in Lenviq showing the repayment schedule, receipts, charges, days past due and its asset classification"
-          caption="One account, with everything its classification was computed from."
+          alt="A live loan account in Lenviq showing its overdue status and days past due, the sanctioned terms, the outstanding principal and penal balance, and tabs for the schedule, transactions, statement and charges"
+          caption="The position at the top of the account, and every figure behind it one tab away."
         />
       </Section>
 
