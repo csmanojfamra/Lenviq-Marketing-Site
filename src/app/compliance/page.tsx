@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Section, SectionHead, Spec, Card, ButtonLink } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
+import { Shot } from "@/components/shot";
 
 export const metadata: Metadata = {
   title: "RBI compliance in a lending system — what Lenviq implements",
@@ -201,6 +202,41 @@ export default function CompliancePage() {
         the capability that implements each one. The legal reservation is a line at the foot, where
         it belongs, rather than a third of the section.
       */}
+      {/*
+        * The evidence, shown rather than described.
+        *
+        * A compliance page is a page of claims, and a claim about software is worth what the screen
+        * behind it is worth. These are generated from the running product against a demonstration
+        * book, so the picture and the paragraph cannot drift apart.
+        */}
+      <Section tone="sand">
+        <SectionHead
+          eyebrow="What it looks like"
+          title="The classification, and what it was computed from"
+          lead="DPD, SMA staging and NPA are produced by a scheduled day-end job — never by somebody pressing something — and every figure traces back to the due events it came from."
+        />
+        <Shot
+          name="loan-accounts"
+          alt="The Lenviq loan accounts screen showing each account with its status, days past due, outstanding balance and asset classification"
+          caption="Every live account with the classification the regulatory return will report — one engine, and no per-product branch."
+        />
+        <Shot
+          name="rbi-returns"
+          alt="The Lenviq RBI returns screen listing each return with the period it covers, its status and its due date"
+          caption="Returns are generated from the book as at the reporting date, not typed into a template."
+        />
+        <p className="mt-s4 max-w-prose text-[16px] leading-prose text-slate-mid">
+          Every screen that shows a figure from a materialised view says when it was last rebuilt. A
+          number with no timestamp invites the reader to treat it as live, which is how a stale
+          figure ends up in a decision.
+        </p>
+        <p className="mt-s4">
+          <ButtonLink href="/help/see-asset-quality/" variant="secondary">
+            How classification is produced
+          </ButtonLink>
+        </p>
+      </Section>
+
       <Section>
         <SectionHead
           eyebrow="How the positions are held"

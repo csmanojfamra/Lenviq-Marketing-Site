@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Section, SectionHead, Card, Spec, ButtonLink } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
+import { Shot, PhoneShot } from "@/components/shot";
 
 export const metadata: Metadata = {
   title: "Loan origination and loan management system for NBFCs",
@@ -40,6 +41,18 @@ export default function PlatformPage() {
             the books as it happens, so there is one set of facts.
           </p>
         </Reveal>
+        {/*
+          * The product, above the argument for it.
+          *
+          * A buyer evaluating a lending platform wants to see a loan file before they read a list of
+          * modules. This is a real one, generated from the running software — see `Shot`.
+          */}
+        <Shot
+          name="application-stages"
+          priority
+          alt="A loan application in Lenviq showing the workflow header with the current stage, what is blocking the next one, the approval status and the sanctioned amount"
+          caption="A loan file, with the next step and what is blocking it above everything else."
+        />
       </Section>
 
       <Section tone="sand">
@@ -47,6 +60,11 @@ export default function PlatformPage() {
         <dl className="mt-s4 border-b border-line">
           {LOS.map(([t, b]) => <Reveal key={t}><Spec term={t}>{b}</Spec></Reveal>)}
         </dl>
+        <Shot
+          name="party-kyc"
+          alt="A borrower record in Lenviq showing the KYC panel, identity documents, addresses, employment and income sections"
+          caption="Everything about a borrower lives on the customer, not on the loan file — so a second loan starts from what is already known."
+        />
       </Section>
 
       <Section>
@@ -54,6 +72,44 @@ export default function PlatformPage() {
         <dl className="mt-s4 border-b border-line">
           {LMS.map(([t, b]) => <Reveal key={t}><Spec term={t}>{b}</Spec></Reveal>)}
         </dl>
+        <Shot
+          name="loan-account"
+          alt="A live loan account in Lenviq showing the repayment schedule, receipts, charges, days past due and its asset classification"
+          caption="One account, with everything its classification was computed from."
+        />
+      </Section>
+
+      {/*
+        * The field app, which is the half of the product a competitor's screenshot never shows.
+        */}
+      <Section tone="sand">
+        <SectionHead
+          eyebrow="In the field"
+          title="The round, on the phone that is already in their pocket"
+          lead="Collections, lead capture and field investigation, built for a hand and a street — and for no signal, which on a round is normal rather than exceptional."
+        />
+        <div className="mt-s4 grid gap-s5 sm:grid-cols-2">
+          <PhoneShot
+            name="field-account-summary"
+            alt="The Lenviq field app showing a borrower's account summary with the SMA-1 classification, the overdue position and the total payable now"
+            caption="What the borrower will ask, before they ask it."
+          />
+          <PhoneShot
+            name="field-accounts"
+            alt="The Lenviq field app showing a collection agent's loan accounts filtered by overdue, due today, regular and NPA"
+            caption="The agent's whole book, not only today's doors."
+          />
+        </div>
+        <p className="mt-s4 max-w-prose text-[16px] leading-prose text-slate-mid">
+          Every screen here works with no network. A collection is held on the phone with its
+          photograph and its location and sent when a tower appears — and the receipt is idempotent,
+          so a retry cannot post a second payment against a borrower&rsquo;s loan.
+        </p>
+        <p className="mt-s4">
+          <ButtonLink href="/help/collect-a-payment-in-the-field/" variant="secondary">
+            How a collection is recorded
+          </ButtonLink>
+        </p>
       </Section>
 
       <Section tone="sand">

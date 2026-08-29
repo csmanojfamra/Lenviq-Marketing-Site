@@ -10,9 +10,9 @@ import { join } from "node:path";
  * the only loader either the index or the post route uses, so a draft has no route, no entry in
  * the sitemap and no way to be reached by guessing the URL.
  *
- * That is the whole point of the rule: one wrong regulatory claim published under a practising
- * CA and CS's company name costs more credibility than five correct posts earn. `noindex` would
- * have left the page reachable and indexable-by-mistake; not building it cannot fail that way.
+ * That is the whole point of the rule: one wrong regulatory claim on a page a lender might act on
+ * costs more credibility than five correct posts earn. `noindex` would have left the page reachable
+ * and indexable-by-mistake; not building it cannot fail that way.
  */
 export interface Post {
   slug: string;

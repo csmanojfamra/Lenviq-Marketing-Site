@@ -1,0 +1,122 @@
+[
+  {
+    "name": "dashboard",
+    "width": 2880,
+    "height": 1800,
+    "path": "/dashboard"
+  },
+  {
+    "name": "loan-accounts",
+    "width": 2880,
+    "height": 1800,
+    "path": "/lms/loans"
+  },
+  {
+    "name": "loan-account",
+    "width": 2880,
+    "height": 1800,
+    "path": "/lms/loans/7be727b7-b986-486e-b7d8-f1550e6f3b51"
+  },
+  {
+    "name": "application-stages",
+    "width": 2880,
+    "height": 1800,
+    "path": "/applications/e3d65d51-d043-4ea9-aa99-dea2b97f1516"
+  },
+  {
+    "name": "application-record",
+    "width": 2880,
+    "height": 1800,
+    "path": "/applications/e3d65d51-d043-4ea9-aa99-dea2b97f1516/record"
+  },
+  {
+    "name": "applications",
+    "width": 2880,
+    "height": 1800,
+    "path": "/applications"
+  },
+  {
+    "name": "parties",
+    "width": 2880,
+    "height": 1800,
+    "path": "/parties"
+  },
+  {
+    "name": "party-kyc",
+    "width": 2880,
+    "height": 1800,
+    "path": "/parties/4e7d4ff7-5dec-4c26-b790-15d3fa117d25"
+  },
+  {
+    "name": "reports",
+    "width": 2880,
+    "height": 1800,
+    "path": "/lms/reports"
+  },
+  {
+    "name": "rbi-returns",
+    "width": 2880,
+    "height": 1800,
+    "path": "/rbi-returns"
+  },
+  {
+    "name": "accounting",
+    "width": 2880,
+    "height": 1800,
+    "path": "/accounting"
+  },
+  {
+    "name": "disbursement-register",
+    "width": 2880,
+    "height": 1800,
+    "path": "/disbursement-register"
+  },
+  {
+    "name": "schemes",
+    "width": 2880,
+    "height": 1800,
+    "path": "/schemes"
+  },
+  {
+    "name": "approvals-inbox",
+    "width": 2880,
+    "height": 1800,
+    "path": "/approvals-inbox"
+  },
+  {
+    "name": "leads",
+    "width": 2880,
+    "height": 1800,
+    "path": "/leads"
+  },
+  {
+    "name": "field-home",
+    "width": 824,
+    "height": 1830,
+    "path": "/mobile"
+  },
+  {
+    "name": "field-accounts",
+    "width": 824,
+    "height": 1830,
+    "path": "/mobile/accounts"
+  },
+  {
+    "name": "field-account-summary",
+    "width": 824,
+    "height": 1830,
+    "path": "/mobile/accounts/7be727b7-b986-486e-b7d8-f1550e6f3b51"
+  },
+  {
+    "name": "field-collect",
+    "width": 824,
+    "height": 1830,
+    "path": "/mobile/collections/7be727b7-b986-486e-b7d8-f1550e6f3b51"
+  },
+  {
+    "name": "field-day-end",
+    "width": 824,
+    "height": 1830,
+    "path": "/mobile/collections/eod"
+  }
+]

@@ -48,8 +48,7 @@ export default function BlogIndex() {
                 ? `${drafts} pieces are written and in review.`
                 : "The first pieces are being written."}{" "}
               They are not published, and they are not built into this site, because a wrong
-              regulatory claim under a practising Chartered Accountant&rsquo;s company name costs
-              more than an empty page does.
+              regulatory claim on a page a lender might act on costs more than an empty page does.
             </p>
             <p className="mt-s2">
               In the meantime the{" "}

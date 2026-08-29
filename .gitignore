@@ -6,7 +6,15 @@ next-env.d.ts
 
 # Generated from brand/ by scripts/sync-brand.mjs on every build. The SOURCES in brand/ are
 # committed; these copies are not, so the two can never disagree about which is current.
-/public/
+# `/public/*` and not `/public/` — git will not descend into an excluded DIRECTORY, so a negation
+# inside one can never match. Excluding the contents leaves the directory walkable.
+/public/*
+# EXCEPT the product screenshots. Everything else under public/ is generated from `brand/` on every
+# build, so committing it would let two copies disagree. These cannot be: they are produced by
+# `scripts/marketing-shots.mjs` in the APPLICATION repository, against a running instance of the
+# product — a checkout of this site alone cannot make them, and `src/components/shot.tsx` imports
+# their manifest, so a build without them does not merely lose pictures, it fails.
+!/public/shots/
 /src/styles/*.generated.css
 src/lib/build-info.generated.ts
 /public/build-info.json

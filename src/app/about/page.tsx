@@ -6,7 +6,7 @@ import { COMPANY } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About FastLegal Technologies — who builds Lenviq",
   description:
-    "Lenviq is built by FastLegal Technologies Private Limited, and designed by a practising Chartered Accountant and Company Secretary.",
+    "Lenviq is built by FastLegal Technologies Private Limited — a team with domain expertise in Indian lending regulation and more than a decade building software of this kind.",
   alternates: { canonical: "/about/" },
 };
 
@@ -17,13 +17,14 @@ export default function AboutPage() {
         <Reveal>
           <p className="text-[13px] font-semibold uppercase tracking-wide text-cta">About</p>
           <h1 className="mt-s2 max-w-4xl text-[34px] font-extrabold leading-[1.1] tracking-display-tight text-ink sm:text-[46px]">
-            A lending system written by someone who has filed the returns.
+            A lending system written by people who have had to defend the numbers.
           </h1>
           <p className="mt-s4 max-w-prose text-[18px] leading-prose text-slate-mid">
-            Lenviq is built by {COMPANY.legalName}. The product is designed and written by a
-            practising Chartered Accountant and Company Secretary — which is why the compliance
-            pages carry citations rather than adjectives, and why the ledger is a real double-entry
-            ledger rather than a reporting table.
+            Lenviq is built by {COMPANY.legalName}. The product is specified by professionals whose
+            domain is Indian lending and its regulation, and built by an engineering team with more
+            than a decade on systems of this kind — which is why the compliance pages carry
+            citations rather than adjectives, and why the ledger is a real double-entry ledger
+            rather than a reporting table.
           </p>
         </Reveal>
       </Section>
