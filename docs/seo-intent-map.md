@@ -8,7 +8,7 @@ Two tests keep this honest: every URL in the sitemap must appear here, and **no 
 the same primary keyword**. A page added without a stated intent fails the suite; a page that would
 compete with an existing one fails it by name.
 
-93 URLs.
+94 URLs.
 
 ## Priority 1 — the pages the site exists to be found through
 
@@ -30,10 +30,11 @@ compete with an existing one fails it by name.
 | `/reports/` | Reporting | Commercial | **NBFC reporting software** | loan portfolio reports · collection reports · asset quality reporting |
 | `/signup/` | Conversion | Transactional | **Lenviq account signup** | NBFC software trial · create a Lenviq tenant |
 | `/tools/` | Help | Informational | **NBFC lending calculators** | free tools for NBFCs · lending calculators India |
-| `/tools/apr-calculator/` | Help | Informational | **apr calculator** | what annual percentage rate must this loan's key facts statement discl · NBFC lending |
-| `/tools/gold-loan-ltv-calculator/` | Help | Informational | **gold loan ltv calculator** | what is this packet worth, and how much may be advanced against it · NBFC lending |
-| `/tools/nbfc-returns-calendar/` | Help | Informational | **nbfc returns calendar** | which supervisory returns does an nbfc like mine file, and when are th · NBFC lending |
-| `/tools/npa-date-calculator/` | Help | Informational | **npa & sma date calculator** | an instalment was missed — on which dates does this account become sma · NBFC lending |
+| `/tools/apr-calculator/` | Help | Informational | **apr calculator** | work out the annual percentage rate a loan's key facts statement has t · NBFC lending |
+| `/tools/emi-calculator/` | Help | Informational | **emi calculator** | work out the monthly instalment, the full repayment schedule, and what · NBFC lending |
+| `/tools/gold-loan-ltv-calculator/` | Help | Informational | **gold loan ltv calculator** | value a packet of ornaments across purities and see how much can be ad · NBFC lending |
+| `/tools/nbfc-returns-calendar/` | Help | Informational | **nbfc returns calendar** | find out which supervisory returns your nbfc has to file, and when eac · NBFC lending |
+| `/tools/npa-date-calculator/` | Help | Informational | **npa & sma date calculator** | find the exact dates a missed instalment turns an account sma-1, sma-2 · NBFC lending |
 
 ## Priority 3 — topical depth
 

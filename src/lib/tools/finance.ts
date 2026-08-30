@@ -143,3 +143,84 @@ export function daysPastDue(dueDate: Date, asOn: Date): number {
 /** The date an account reaches a given days-past-due count, from its due date. */
 export const dateAtDpd = (dueDate: Date, dpd: number): Date =>
   new Date(Date.UTC(dueDate.getUTCFullYear(), dueDate.getUTCMonth(), dueDate.getUTCDate() + dpd));
+
+// ── The schedule ─────────────────────────────────────────────────────────────
+
+export interface ScheduleRow {
+  n: number;
+  openingPaise: bigint;
+  emiPaise: bigint;
+  principalPaise: bigint;
+  interestPaise: bigint;
+  closingPaise: bigint;
+}
+
+const roundPaise = (n: number): bigint => BigInt(Math.round(n));
+
+/**
+ * The repayment schedule, and the rule most calculators leave out.
+ *
+ * Interest is charged on the balance still outstanding, the instalment is level, and **the final
+ * instalment absorbs every rounding difference** so the principal components sum to the sanctioned
+ * amount exactly and the closing balance is zero — not "about zero".
+ *
+ * That last rule is the difference between a schedule a lender can put in a loan agreement and one
+ * that is off by a few rupees against the amount the borrower actually signed for.
+ */
+export function amortise(principalPaise: bigint, annualRatePct: number, months: number): ScheduleRow[] {
+  if (months <= 0 || principalPaise <= 0n) return [];
+  const periodRate = annualRatePct / 12 / 100;
+  const emi = computeEmi(principalPaise, annualRatePct, months);
+  const rows: ScheduleRow[] = [];
+  let opening = principalPaise;
+  for (let i = 0; i < months; i++) {
+    const interest = roundPaise(Number(opening) * periodRate);
+    const last = i === months - 1;
+    const principal = last ? opening : emi - interest;
+    const emiAmount = last ? principal + interest : emi;
+    const closing = opening - principal;
+    rows.push({ n: i + 1, openingPaise: opening, emiPaise: emiAmount, principalPaise: principal, interestPaise: interest, closingPaise: closing });
+    opening = closing;
+  }
+  return rows;
+}
+
+// ── Flat versus reducing ─────────────────────────────────────────────────────
+
+/**
+ * The reducing rate that a FLAT rate actually is.
+ *
+ * A flat rate charges interest on the whole original amount for the whole tenure, even though the
+ * borrower has repaid most of it by the end. The Reserve Bank requires the effective reducing rate
+ * to be disclosed for exactly this reason — and it is close to double the flat number, which almost
+ * nobody expects.
+ *
+ * There is no formula for it. It is solved for: find the reducing rate whose instalment equals the
+ * one the flat calculation produced.
+ */
+export function effectiveMonthlyRate(principalPaise: bigint, emiPaise: bigint, months: number): number {
+  const P = Number(principalPaise);
+  const target = Number(emiPaise);
+  if (P <= 0 || months <= 0 || target <= 0) return 0;
+  let lo = 0, hi = 1;
+  for (let i = 0; i < 100; i++) {
+    const mid = (lo + hi) / 2;
+    const factor = Math.pow(1 + mid, months);
+    const pmt = mid === 0 ? P / months : (P * mid * factor) / (factor - 1);
+    if (pmt > target) hi = mid;
+    else lo = mid;
+  }
+  return (lo + hi) / 2;
+}
+
+/** The instalment a flat rate produces, and the reducing rate it really is. */
+export function flatRate(principalPaise: bigint, flatPct: number, months: number) {
+  const totalInterest = BigInt(Math.round(Number(principalPaise) * (flatPct / 100) * (months / 12)));
+  const emi = roundToRupee((principalPaise + totalInterest) / BigInt(months || 1));
+  const eff = effectiveMonthlyRate(principalPaise, emi, months);
+  return {
+    emiPaise: emi,
+    totalInterestPaise: totalInterest,
+    effectiveReducingPct: Math.round(eff * 12 * 10_000) / 100,
+  };
+}

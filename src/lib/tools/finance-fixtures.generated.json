@@ -244,5 +244,81 @@
       "sma": "NPA",
       "bucket": "DPD_181_PLUS"
     }
+  ],
+  "schedule": [
+    {
+      "principalRupees": 500000,
+      "annualRatePct": 18,
+      "months": 24,
+      "rows": 24,
+      "firstEmiPaise": "2496200",
+      "lastEmiPaise": "2496348",
+      "principalSumPaise": "50000000",
+      "interestSumPaise": "9908948",
+      "closingPaise": "0"
+    },
+    {
+      "principalRupees": 1000000,
+      "annualRatePct": 12,
+      "months": 60,
+      "rows": 60,
+      "firstEmiPaise": "2224400",
+      "lastEmiPaise": "2228058",
+      "principalSumPaise": "100000000",
+      "interestSumPaise": "33467658",
+      "closingPaise": "0"
+    },
+    {
+      "principalRupees": 250000,
+      "annualRatePct": 24,
+      "months": 12,
+      "rows": 12,
+      "firstEmiPaise": "2364000",
+      "lastEmiPaise": "2363862",
+      "principalSumPaise": "25000000",
+      "interestSumPaise": "3367862",
+      "closingPaise": "0"
+    },
+    {
+      "principalRupees": 100000,
+      "annualRatePct": 0,
+      "months": 6,
+      "rows": 6,
+      "firstEmiPaise": "1666700",
+      "lastEmiPaise": "1666500",
+      "principalSumPaise": "10000000",
+      "interestSumPaise": "0",
+      "closingPaise": "0"
+    }
+  ],
+  "flat": [
+    {
+      "principalRupees": 500000,
+      "flatRatePct": 12,
+      "months": 24,
+      "emiPaise": "2583300",
+      "effectiveReducingPct": 21.57
+    },
+    {
+      "principalRupees": 200000,
+      "flatRatePct": 10,
+      "months": 36,
+      "emiPaise": "722200",
+      "effectiveReducingPct": 17.92
+    },
+    {
+      "principalRupees": 1000000,
+      "flatRatePct": 8,
+      "months": 60,
+      "emiPaise": "2333300",
+      "effectiveReducingPct": 14.12
+    },
+    {
+      "principalRupees": 50000,
+      "flatRatePct": 15,
+      "months": 12,
+      "emiPaise": "479200",
+      "effectiveReducingPct": 26.64
+    }
   ]
 }

@@ -18,8 +18,14 @@ export interface Tool {
   question: string;
   title: string;
   description: string;
-  /** Who reaches for this — a lender, or a professional advising one. */
-  audience: string;
+  /**
+   * One line on what using it gets you. Benefit, in plain words.
+   *
+   * This used to name the professions the tool was for — "credit, compliance, and the CA reviewing
+   * a KFS". Telling a reader which job title should be reading a page is not a reason to use it,
+   * and it excludes everyone else on the page's own masthead.
+   */
+  helps: string;
   /**
    * The instrument this is built from, where the tool states a regulatory position rather than
    * doing arithmetic. Shown ON the page: a reader checking their own filing list is entitled to
@@ -31,13 +37,24 @@ export interface Tool {
 
 export const TOOLS: Tool[] = [
   {
+    slug: "emi-calculator",
+    name: "EMI calculator",
+    question: "Work out the monthly instalment, the full repayment schedule, and what a flat rate really costs.",
+    title: "EMI calculator with repayment schedule and flat rate",
+    description:
+      "Calculate your monthly instalment and see the full repayment schedule — plus what a flat rate works out to on a reducing balance, which is usually far higher.",
+    helps: "See the instalment, the schedule and the true cost — including what a flat rate actually works out to.",
+  },
+  {
     slug: "nbfc-returns-calendar",
     name: "NBFC returns calendar",
-    question: "Which supervisory returns does an NBFC like mine file, and when are they due?",
-    title: "NBFC returns calendar — by layer and category",
+    question:
+      "Find out which supervisory returns your NBFC has to file, and when each one is due.",
+    title:
+      "NBFC returns calendar — which returns you file, and when",
     description:
-      "Which DNBS returns your NBFC actually files, filtered by layer, category, asset size and whether it takes deposits — with the next dates.",
-    audience: "Compliance officers, CS and CA advising NBFCs",
+      "Find out which RBI supervisory returns your NBFC must file and when each is due, based on your layer, category, asset size and whether you take deposits.",
+    helps: "Know exactly what your NBFC has to file this quarter, without reading a list meant for everybody else.",
     source:
       "Master Direction — Reserve Bank of India (Filing of Supervisory Returns) Directions, 2024, dated 27 February 2024, which consolidated twenty earlier instructions and replaced the 2016 NBFC Returns Directions; read with the Scale Based Regulation Directions, 2023 for what each layer means. Several published compliance calendars still list the older NBS-1, NBS-2 and NBS-3 returns, which that repeal removed.",
     sourceUrl: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx",
@@ -45,29 +62,35 @@ export const TOOLS: Tool[] = [
   {
     slug: "apr-calculator",
     name: "APR calculator",
-    question: "What annual percentage rate must this loan's Key Facts Statement disclose?",
-    title: "APR calculator for the Key Facts Statement",
+    question:
+      "Work out the annual percentage rate a loan's Key Facts Statement has to disclose.",
+    title:
+      "APR calculator — the rate a Key Facts Statement discloses",
     description:
-      "Work out the annual percentage rate a KFS must disclose, from the amount, rate, tenure and the charges deducted before disbursement.",
-    audience: "Credit, compliance, and the CA reviewing a KFS",
+      "Calculate the annual percentage rate for a Key Facts Statement from the loan amount, interest rate, tenure and any charges deducted before disbursement.",
+    helps: "See the real cost of a loan once fees are counted, and disclose it correctly the first time.",
   },
   {
     slug: "npa-date-calculator",
     name: "NPA & SMA date calculator",
-    question: "An instalment was missed — on which dates does this account become SMA-1, SMA-2 and non-performing?",
-    title: "NPA and SMA date calculator for NBFCs",
+    question:
+      "Find the exact dates a missed instalment turns an account SMA-1, SMA-2 and non-performing.",
+    title:
+      "NPA and SMA date calculator for loan accounts",
     description:
-      "Enter the date an instalment fell due and see when the account is flagged overdue, reaches each SMA bucket, and becomes non-performing.",
-    audience: "Credit heads, statutory auditors, compliance",
+      "Enter the date an instalment fell due and get the exact dates the account is flagged overdue, moves through each SMA bucket, and becomes non-performing.",
+    helps: "Get the classification dates right, so the provision and the reporting land in the correct quarter.",
   },
   {
     slug: "gold-loan-ltv-calculator",
     name: "Gold loan LTV calculator",
-    question: "What is this packet worth, and how much may be advanced against it?",
-    title: "Gold loan LTV calculator — mixed purity, RBI cap",
+    question:
+      "Value a packet of ornaments across purities and see how much can be advanced against it.",
+    title:
+      "Gold loan LTV calculator — value, advance and cap",
     description:
-      "Value a packet across purities, convert to 22-carat equivalent weight, and see eligible value, the maximum advance and LTV against the cap.",
-    audience: "Gold lending branches, credit, audit",
+      "Value gold ornaments across purities, convert them to 22-carat equivalent weight, and see the eligible value, the maximum advance and the loan-to-value.",
+    helps: "Value a packet correctly in seconds, and see what happens to the cover if the gold price falls.",
   },
 ];
 

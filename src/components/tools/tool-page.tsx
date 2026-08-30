@@ -62,8 +62,9 @@ export function ToolPage({ tool, children }: { tool: Tool; children: React.React
             {tool.name}
           </h1>
           <p className="mt-s3 max-w-prose text-[18px] leading-prose text-slate-mid">{tool.question}</p>
+          <p className="mt-s3 max-w-prose text-[16px] leading-prose text-slate-mid">{tool.helps}</p>
           <p className="mt-s3 text-[13px] uppercase tracking-wide text-muted">
-            Free · nothing is sent anywhere · {tool.audience}
+            Free · no sign-up · nothing you type leaves your browser
           </p>
         </Reveal>
 

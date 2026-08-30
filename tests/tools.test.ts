@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import fixtures from "../src/lib/tools/finance-fixtures.generated.json";
 import {
   computeEmi, computeApr, goldEligibleValuePaise, ltvPct, maxLendablePaise,
-  smaForDpd, statusForDpd, bucketForDpd, daysPastDue, dateAtDpd,
+  smaForDpd, statusForDpd, bucketForDpd, daysPastDue, dateAtDpd, amortise, flatRate,
 } from "../src/lib/tools/finance";
 import {
   RETURNS, applicable, quarterEnds, monthEnds, addDays, type Profile,
@@ -195,5 +195,37 @@ describe("the dates the calendar computes", () => {
     expect(m).toHaveLength(12);
     expect(m[0]).toBe("2026-04-30");
     expect(m[11]).toBe("2027-03-31");
+  });
+});
+
+describe("the schedule, and what a flat rate really costs", () => {
+  it("every schedule closes at exactly zero, and the components sum to the loan", () => {
+    for (const c of fixtures.schedule) {
+      const rows = amortise(R(c.principalRupees), c.annualRatePct, c.months);
+      const label = `₹${c.principalRupees} at ${c.annualRatePct}% for ${c.months}m`;
+      expect(rows.length, label).toBe(c.rows);
+      expect(rows[rows.length - 1].closingPaise.toString(), label).toBe("0");
+      expect(
+        rows.reduce((s, r) => s + r.principalPaise, 0n).toString(),
+        `${label}: principal components must sum to the sanctioned amount`,
+      ).toBe(R(c.principalRupees).toString());
+      expect(rows[0].emiPaise.toString(), label).toBe(c.firstEmiPaise);
+      expect(rows[rows.length - 1].emiPaise.toString(), label).toBe(c.lastEmiPaise);
+      expect(rows.reduce((s, r) => s + r.interestPaise, 0n).toString(), label).toBe(c.interestSumPaise);
+    }
+  });
+
+  it("a flat rate resolves to the reducing rate the product discloses", () => {
+    for (const c of fixtures.flat) {
+      const f = flatRate(R(c.principalRupees), c.flatRatePct, c.months);
+      const label = `₹${c.principalRupees} at ${c.flatRatePct}% flat for ${c.months}m`;
+      expect(f.emiPaise.toString(), label).toBe(c.emiPaise);
+      expect(f.effectiveReducingPct, label).toBe(c.effectiveReducingPct);
+    }
+  });
+
+  it("and it is far higher than the flat number — which is the point of disclosing it", () => {
+    const f = flatRate(R(500000), 12, 24);
+    expect(f.effectiveReducingPct).toBeGreaterThan(20);
   });
 });

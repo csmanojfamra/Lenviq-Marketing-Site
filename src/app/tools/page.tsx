@@ -6,9 +6,9 @@ import { Reveal } from "@/components/reveal";
 import { TOOLS } from "@/lib/tools";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Free tools for NBFC lending — APR, NPA dates, gold LTV",
+  title: "Free lending calculators for NBFCs and lenders",
   description:
-    "Free calculators for the questions the regulation asks: the APR a Key Facts Statement discloses, the date an account turns NPA, and gold LTV across purities.",
+    "Free calculators for everyday lending work: EMI and repayment schedules, the APR for a Key Facts Statement, NPA and SMA dates, gold LTV and returns due.",
   path: "/tools/",
 });
 
@@ -19,18 +19,18 @@ export default function ToolsIndex() {
         <Reveal>
           <p className="text-[13px] font-semibold uppercase tracking-wide text-cta">Tools</p>
           <h1 className="mt-s2 max-w-4xl text-[34px] font-extrabold leading-[1.1] tracking-display-tight text-ink sm:text-[46px]">
-            The questions the regulation asks, answered in a browser.
+            Free calculators for everyday lending work.
           </h1>
           <p className="mt-s4 max-w-prose text-[18px] leading-prose text-slate-mid">
-            Every lending site has an EMI calculator. What an NBFC — or the Chartered Accountant and
-            Company Secretary advising three of them — cannot find anywhere is a tool for the
-            questions that carry a consequence: what a Key Facts Statement must disclose, which date
-            an account turns non-performing, whether a gold packet is still inside the cap after the
-            rate moved.
+            These tools take the calculations a lending team does by hand — the instalment and its
+            schedule, the true cost of a loan once fees are counted, the dates an overdue account
+            changes classification, the value of a gold packet, the returns due this quarter — and do
+            them in a few seconds, with the workings shown.
           </p>
           <p className="mt-s3 max-w-prose text-[16px] leading-prose text-slate-mid">
-            Free, no sign-up, and nothing you type is sent anywhere — the arithmetic runs in your own
-            browser. Each one is held to the same computation the platform performs on a real book.
+            They are free and need no sign-up, and nothing you type leaves your browser. Each one
+            runs the same calculation the Lenviq platform performs on a live loan book, so the answer
+            here is the answer the software gives.
           </p>
         </Reveal>
       </Section>
@@ -48,7 +48,7 @@ export default function ToolsIndex() {
                     {t.name}
                   </span>
                   <span className="mt-s2 block text-[16px] leading-relaxed text-slate-mid">{t.question}</span>
-                  <span className="mt-s3 block text-[13px] uppercase tracking-wide text-muted">{t.audience}</span>
+                  <span className="mt-s3 block text-[14px] leading-relaxed text-muted">{t.helps}</span>
                 </Link>
               </Reveal>
             </li>
@@ -58,9 +58,9 @@ export default function ToolsIndex() {
 
       <Section>
         <SectionHead
-          eyebrow="A note for advisers"
-          title="Use them with your clients"
-          lead="These pages are meant to be sent. There is no gate, no email capture and no watermark — if a calculation here settles an argument in a board meeting or an audit, that is the whole point of it being here."
+          eyebrow="Free to use and to share"
+          title="Send them to anyone"
+          lead="There is no gate, no email capture and no watermark. If a calculation here settles a question in a meeting, an audit or a conversation with a borrower, that is what it is for — send the link on."
         />
       </Section>
     </>
