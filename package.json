@@ -15,7 +15,8 @@
     "typecheck": "node scripts/build-stamp.mjs && tsc --noEmit",
     "pretest": "node scripts/build-stamp.mjs",
     "build:brand": "node scripts/build-brand.mjs",
-    "seo:map": "npx --yes tsx scripts/seo-intent-map.mjs"
+    "seo:map": "npx --yes tsx scripts/seo-intent-map.mjs",
+    "check:delivery": "node scripts/check-delivery.mjs"
   },
   "dependencies": {
     "next": "^16.2.10",
