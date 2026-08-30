@@ -1,7 +1,18 @@
 [
   {
+    "name": "login",
+    "v": "62353629",
+    "width": 1800,
+    "height": 1125,
+    "path": "/login",
+    "small": {
+      "width": 900,
+      "height": 563
+    }
+  },
+  {
     "name": "dashboard",
-    "v": "178caa80",
+    "v": "41bbf25a",
     "width": 1800,
     "height": 1125,
     "path": "/dashboard",
@@ -34,7 +45,7 @@
   },
   {
     "name": "application-stages",
-    "v": "bffdb347",
+    "v": "bfabb338",
     "width": 1800,
     "height": 1125,
     "path": "/applications/398c0bb0-b42d-4709-a547-3c7f81f6eab7",
@@ -89,7 +100,7 @@
   },
   {
     "name": "reports",
-    "v": "6bc04588",
+    "v": "cf72c45d",
     "width": 1800,
     "height": 1125,
     "path": "/lms/reports",
@@ -122,7 +133,7 @@
   },
   {
     "name": "disbursement-register",
-    "v": "704c222b",
+    "v": "ed5ce0c1",
     "width": 1800,
     "height": 1125,
     "path": "/disbursement-register",
@@ -137,6 +148,17 @@
     "width": 1800,
     "height": 1125,
     "path": "/schemes",
+    "small": {
+      "width": 900,
+      "height": 563
+    }
+  },
+  {
+    "name": "scheme-detail",
+    "v": "7421e555",
+    "width": 1800,
+    "height": 1125,
+    "path": "/schemes/6da807ed-e458-4dcb-8310-f850eabe9726",
     "small": {
       "width": 900,
       "height": 563

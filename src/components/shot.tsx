@@ -68,10 +68,56 @@ function srcSetFor(meta: ShotMeta): string {
 
 const META = new Map((shots as ShotMeta[]).map((s) => [s.name, s]));
 
+/**
+ * A numbered pointer at a place on the screenshot.
+ *
+ * `x` and `y` are PERCENTAGES of the image, not pixels, so a re-shoot at a different width leaves
+ * them where they were — only a change to the product's own layout moves them.
+ */
+export interface ShotMark {
+  x: number;
+  y: number;
+  text: string;
+}
+
+/**
+ * The annotation is HTML over the picture, never drawn INTO it.
+ *
+ * Baking callouts into the PNG is the obvious approach and the wrong one. Text inside an image is
+ * invisible to a screen reader, unsearchable, unselectable, blurry when the reader zooms, and
+ * cannot be corrected without re-rendering the file — so a wording change becomes an image change,
+ * and the wording stops being changed.
+ *
+ * As markup it is real text: read aloud, indexed, sharp at any zoom, and edited in the markdown
+ * beside the prose it belongs to.
+ *
+ * **The list below the image is the primary carrier, not a fallback.** A 1800px screenshot painted
+ * into 350px of phone means the markers are a few pixels apart and useless as labels — so the
+ * numbered list is what actually explains the screen, and the markers are the index into it. That
+ * ordering also makes the whole thing work with images off, which is the same reader.
+ */
+function Marks({ marks }: { marks: ShotMark[] }) {
+  return (
+    <>
+      {marks.map((m, i) => (
+        <span
+          key={i}
+          aria-hidden="true"
+          className="pointer-events-none absolute z-10 grid h-6 w-6 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-cta text-[12px] font-bold text-white shadow-[0_0_0_2px_rgba(255,255,255,0.9)] sm:h-7 sm:w-7 sm:text-[13px]"
+          style={{ left: `${m.x}%`, top: `${m.y}%` }}
+        >
+          {i + 1}
+        </span>
+      ))}
+    </>
+  );
+}
+
 export function Shot({
   name,
   alt,
   caption,
+  marks,
   priority = false,
   className = "",
 }: {
@@ -81,6 +127,8 @@ export function Shot({
   alt: string;
   /** Shown under the image. Optional: some shots sit inside a step that already says it. */
   caption?: string;
+  /** Numbered pointers at places on the screen, with the explanation listed beneath. */
+  marks?: ShotMark[];
   priority?: boolean;
   className?: string;
 }) {
@@ -95,7 +143,7 @@ export function Shot({
 
   return (
     <figure className={`my-s5 ${className}`}>
-      <div className="overflow-hidden rounded-xl border border-line bg-sand shadow-[0_1px_2px_rgba(15,23,42,0.06),0_8px_24px_-12px_rgba(15,23,42,0.18)]">
+      <div className="relative overflow-hidden rounded-xl border border-line bg-sand shadow-[0_1px_2px_rgba(15,23,42,0.06),0_8px_24px_-12px_rgba(15,23,42,0.18)]">
         <img
           src={url(meta)}
           srcSet={srcSetFor(meta)}
@@ -108,7 +156,20 @@ export function Shot({
           decoding="async"
           className="h-auto w-full"
         />
+        {marks && marks.length > 0 && <Marks marks={marks} />}
       </div>
+      {marks && marks.length > 0 && (
+        <ol className="mt-s3 grid gap-s2">
+          {marks.map((m, i) => (
+            <li key={i} className="grid grid-cols-[1.5rem_1fr] items-baseline gap-s2">
+              <span className="grid h-5 w-5 place-items-center rounded-full bg-cta text-[11px] font-bold text-white">
+                {i + 1}
+              </span>
+              <span className="text-[15px] leading-relaxed text-slate-mid">{m.text}</span>
+            </li>
+          ))}
+        </ol>
+      )}
       {caption && (
         <figcaption className="mt-s2 text-[14px] leading-relaxed text-slate-mid">{caption}</figcaption>
       )}

@@ -12,6 +12,10 @@ and what the numbers on the first page actually mean.
 
 ## Signing in the first time
 
+@shot login | The Lenviq sign-in screen, with fields for email and password | One address for everybody. A field officer signs in here too and lands on the round rather than the dashboard.
+@mark 55,45 | Your work email. The account is created for you; there is no public sign-up.
+@mark 55,54 | The password you set from the invitation email. Nobody else can see it, only reset it.
+
 Your administrator creates the account; you do not sign yourself up. You will receive an email with
 a link to set your own password — the person who created the account never sees it and cannot
 recover it, only reset it.
@@ -41,6 +45,11 @@ be two people with different scopes comparing two correct numbers.
 ## Reading the dashboard
 
 @shot dashboard | The Lenviq dashboard showing portfolio value, active and overdue accounts, collections against demand and the asset quality position | The book's position, computed from the same day-end figures the reports and the classification use.
+@mark 13.5,8.6 | The branch you are scoped to. Every list, report and export on every screen is filtered by it.
+@mark 63,9.5 | When the figures are as at. They are the previous day-end, not this moment — see below.
+@mark 77.6,15 | Asset quality, in the same buckets the regulator asks for: gross and net NPA, and the provision held against them.
+@mark 77.6,31 | What is waiting on somebody: approvals, RBI returns due, and documents still outstanding after disbursement.
+@mark 13.5,96 | Who you are signed in as, and your role. The role decides which of these menu items exist for you at all.
 
 The figures are as at the **previous day-end**, and the page says so. That is deliberate rather than
 a limitation: classification, provisioning and every report are computed on a closed business day,

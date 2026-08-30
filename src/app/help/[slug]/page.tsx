@@ -3,7 +3,7 @@ import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Section } from "@/components/ui";
-import { Shot, PhoneShot } from "@/components/shot";
+import { Shot, PhoneShot, type ShotMark } from "@/components/shot";
 import { publishedHelp, helpBySlug, helpNeighbours } from "@/lib/help";
 import { absolute, COMPANY } from "@/lib/site";
 import { renderMarkdown } from "@/lib/markdown";
@@ -37,8 +37,24 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
  */
 const SHOT_LINE = /^@(shot|phone)\s+([a-z0-9-]+)\s*\|\s*([^|]+?)\s*(?:\|\s*(.*?))?\s*$/;
 
+/**
+ * `@mark x,y | what this part of the screen is` — a numbered pointer on the shot above it.
+ *
+ *     @shot dashboard | what is on screen | a caption
+ *     @mark 7.6,10.5 | The branch you are scoped to
+ *     @mark 85,9.5   | Every figure is as at the previous day-end
+ *
+ * Percentages of the image, so a re-shoot at a different width leaves them in place; only a change
+ * to the product's own layout moves one. They attach to the most recent shot, which keeps the
+ * markdown readable — the pointer sits directly under the picture it points at.
+ */
+const MARK_LINE = /^@mark\s+([\d.]+)\s*,\s*([\d.]+)\s*\|\s*(.+?)\s*$/;
+
 function blocks(body: string) {
-  const out: ({ kind: "md"; text: string } | { kind: "shot" | "phone"; name: string; alt: string; caption?: string })[] = [];
+  const out: (
+    | { kind: "md"; text: string }
+    | { kind: "shot" | "phone"; name: string; alt: string; caption?: string; marks?: ShotMark[] }
+  )[] = [];
   let buffer: string[] = [];
   const flush = () => {
     const text = buffer.join("\n").trim();
@@ -46,6 +62,16 @@ function blocks(body: string) {
     buffer = [];
   };
   for (const line of body.split("\n")) {
+    const mark = MARK_LINE.exec(line.trim());
+    if (mark) {
+      // Attaches to the shot above it. A mark with no shot before it is dropped rather than
+      // rendered somewhere arbitrary.
+      const last = out[out.length - 1];
+      if (last && last.kind === "shot") {
+        (last.marks ??= []).push({ x: Number(mark[1]), y: Number(mark[2]), text: mark[3] });
+      }
+      continue;
+    }
     const m = SHOT_LINE.exec(line.trim());
     if (m) {
       flush();
@@ -117,7 +143,7 @@ export default async function HelpPage({ params }: { params: Promise<{ slug: str
           ) : b.kind === "phone" ? (
             <PhoneShot key={i} name={b.name} alt={b.alt} caption={b.caption} />
           ) : (
-            <Shot key={i} name={b.name} alt={b.alt} caption={b.caption} />
+            <Shot key={i} name={b.name} alt={b.alt} caption={b.caption} marks={b.marks} />
           ),
         )}
       </div>
