@@ -7,6 +7,7 @@ import {
 import {
   RETURNS, applicable, quarterEnds, monthEnds, addDays, type Profile,
 } from "../src/lib/tools/returns";
+import { findLayer, type SbrAnswers } from "../src/lib/tools/sbr";
 
 const R = (rupees: number) => BigInt(Math.round(rupees * 100));
 
@@ -227,5 +228,63 @@ describe("the schedule, and what a flat rate really costs", () => {
   it("and it is far higher than the flat number — which is the point of disclosing it", () => {
     const f = flatRate(R(500000), 12, 24);
     expect(f.effectiveReducingPct).toBeGreaterThan(20);
+  });
+});
+
+/**
+ * The layer decides which prudential regime an NBFC is under, so each rule is pinned by the fact
+ * that drives it — and the precedence between them matters as much as the rules themselves.
+ *
+ * Source: Master Direction – RBI (Non-Banking Financial Company – Scale Based Regulation)
+ * Directions, 2023.
+ */
+describe("which layer an NBFC is in", () => {
+  const ask = (over: Partial<SbrAnswers> = {}): SbrAnswers => ({
+    category: "ICC", acceptsDeposits: false, assetsCrore: 250,
+    noPublicFunds: false, noCustomerInterface: false, namedInUpperLayerList: false, ...over,
+  });
+
+  it("small, non-deposit-taking, ordinary category → Base", () => {
+    expect(findLayer(ask()).layer).toBe("BASE");
+  });
+
+  it("the ₹1,000 crore threshold moves a non-deposit-taking NBFC up", () => {
+    expect(findLayer(ask({ assetsCrore: 999 })).layer).toBe("BASE");
+    expect(findLayer(ask({ assetsCrore: 1000 })).layer).toBe("MIDDLE");
+  });
+
+  it("taking deposits beats the size test, however small", () => {
+    const r = findLayer(ask({ acceptsDeposits: true, assetsCrore: 5 }));
+    expect(r.layer).toBe("MIDDLE");
+    expect(r.because).toMatch(/whatever its asset size/);
+  });
+
+  it("P2P, AA and NOFHC stay in the Base Layer at any size", () => {
+    for (const category of ["P2P", "AA", "NOFHC"] as const) {
+      expect(findLayer(ask({ category, assetsCrore: 50000 })).layer, category).toBe("BASE");
+    }
+  });
+
+  it("CIC, HFC, IFC, IDF and SPD are Middle Layer at any size", () => {
+    for (const category of ["CIC", "HFC", "IFC", "IDF", "SPD"] as const) {
+      expect(findLayer(ask({ category, assetsCrore: 1 })).layer, category).toBe("MIDDLE");
+    }
+  });
+
+  it("being NAMED by the Bank beats every other rule", () => {
+    const r = findLayer(ask({ namedInUpperLayerList: true, category: "P2P", assetsCrore: 1 }));
+    expect(r.layer).toBe("UPPER");
+    expect(r.because).toMatch(/designation, not a threshold/);
+  });
+
+  it("says WHY, every time, and the reason names the deciding fact", () => {
+    for (const a of [ask(), ask({ acceptsDeposits: true }), ask({ category: "HFC" }), ask({ assetsCrore: 5000 })]) {
+      expect(findLayer(a).because.length).toBeGreaterThan(30);
+    }
+  });
+
+  it("does not apply the PROPOSED ₹1 lakh crore Upper Layer test", () => {
+    // Proposed April 2026 and not in force. A tool that acts on a consultation paper is guessing.
+    expect(findLayer(ask({ assetsCrore: 150000 })).layer).toBe("MIDDLE");
   });
 });

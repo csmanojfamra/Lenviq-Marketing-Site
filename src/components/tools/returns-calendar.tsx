@@ -43,6 +43,25 @@ export function ReturnsCalendar() {
   const [category, setCategory] = React.useState<Category>("ICC");
   const [assetsCrore, setAssets] = React.useState(250);
   const [acceptsDeposits, setDeposits] = React.useState(false);
+
+  /**
+   * Carried over from the layer finder, if the reader came from there.
+   *
+   * Read on mount rather than during render: this is a static export, so the HTML is built without
+   * a URL and reading `location` while rendering would make the server output and the first client
+   * render disagree. Answering "which layer am I" and then retyping the same four facts to see the
+   * returns is exactly the kind of small friction that stops a tool being used twice.
+   */
+  React.useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    const l = q.get("layer");
+    const c = q.get("category");
+    const assets = Number(q.get("assets"));
+    if (l && ["BASE", "MIDDLE", "UPPER"].includes(l)) setLayer(l as Layer);
+    if (c && c in CATEGORY_LABEL) setCategory(c as Category);
+    if (Number.isFinite(assets) && assets > 0) setAssets(assets);
+    if (q.get("deposits") === "1") setDeposits(true);
+  }, []);
   const [hasOverseasInvestment, setOverseas] = React.useState(false);
   const [showNotApplicable, setShowNa] = React.useState(false);
 
