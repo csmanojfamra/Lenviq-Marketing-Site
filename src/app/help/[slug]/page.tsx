@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Section } from "@/components/ui";
 import { Shot, PhoneShot } from "@/components/shot";
-import { publishedHelp, helpBySlug } from "@/lib/help";
+import { publishedHelp, helpBySlug, helpNeighbours } from "@/lib/help";
 import { absolute, COMPANY } from "@/lib/site";
 import { renderMarkdown } from "@/lib/markdown";
 
@@ -63,6 +63,8 @@ export default async function HelpPage({ params }: { params: Promise<{ slug: str
   const p = helpBySlug(slug);
   if (!p) notFound();
 
+  const { step, total, prev, next } = helpNeighbours(slug);
+
   /**
    * `Article`, not `HowTo`.
    *
@@ -103,7 +105,10 @@ export default async function HelpPage({ params }: { params: Promise<{ slug: str
         {p.title}
       </h1>
       <p className="mt-s3 max-w-prose text-[18px] leading-prose text-slate-mid">{p.description}</p>
-      {p.audience && <p className="mt-s3 text-[13px] uppercase tracking-wide text-muted">Who does this: {p.audience}</p>}
+      <p className="mt-s3 text-[13px] uppercase tracking-wide text-muted">
+        Step {step} of {total}
+        {p.audience ? ` · ${p.audience}` : ""}
+      </p>
 
       <div className="mt-s5 max-w-prose">
         {blocks(p.body).map((b, i) =>
@@ -117,7 +122,47 @@ export default async function HelpPage({ params }: { params: Promise<{ slug: str
         )}
       </div>
 
-      <p className="mt-s7 max-w-prose border-t border-line pt-s4 text-[15px] text-slate-mid">
+      {/*
+        * Previous and next, because these guides are a PATH and not a set.
+        *
+        * Ten pages that each ended were ten dead ends: a reader finished one and had to go back to
+        * an index to guess what followed. Running a loan book is a sequence — lead, customer, file,
+        * disbursement, servicing, collection, books, return — and the guides now follow it, so
+        * somebody learning the system is walked through in the order the work actually happens.
+        */}
+      <nav className="mt-s7 grid gap-s3 border-t border-line pt-s4 sm:grid-cols-2" aria-label="Guide sequence">
+        {prev ? (
+          <Link href={`/help/${prev.slug}/`} className="group rounded-card border border-line p-s4 transition-colors hover:border-cta">
+            <span className="text-[12px] uppercase tracking-wide text-muted">Previous</span>
+            <span className="mt-1 block font-display text-[16px] font-bold tracking-display text-ink group-hover:text-cta">
+              {prev.title}
+            </span>
+          </Link>
+        ) : (
+          <span />
+        )}
+        {next ? (
+          <Link href={`/help/${next.slug}/`} className="group rounded-card border border-line p-s4 transition-colors hover:border-cta sm:text-right">
+            <span className="text-[12px] uppercase tracking-wide text-muted">Next</span>
+            <span className="mt-1 block font-display text-[16px] font-bold tracking-display text-ink group-hover:text-cta">
+              {next.title}
+            </span>
+          </Link>
+        ) : (
+          <div className="rounded-card border border-line bg-subtle p-s4 sm:text-right">
+            <span className="text-[12px] uppercase tracking-wide text-muted">That is the path</span>
+            <span className="mt-1 block text-[15px] leading-relaxed text-slate-mid">
+              Lead to return, end to end.{" "}
+              <Link href="/contact/" className="text-cta underline underline-offset-2 hover:text-cta-hover">
+                See it on your own book
+              </Link>
+              .
+            </span>
+          </div>
+        )}
+      </nav>
+
+      <p className="mt-s5 max-w-prose text-[15px] leading-relaxed text-slate-mid">
         The rules behind this screen are explained on the{" "}
         <Link href="/blog/" className="text-cta underline underline-offset-2 hover:text-cta-hover">blog</Link>
         {" "}and the terms are defined in the{" "}

@@ -8,7 +8,7 @@ Two tests keep this honest: every URL in the sitemap must appear here, and **no 
 the same primary keyword**. A page added without a stated intent fails the suite; a page that would
 compete with an existing one fails it by name.
 
-87 URLs.
+88 URLs.
 
 ## Priority 1 — the pages the site exists to be found through
 
@@ -114,6 +114,7 @@ compete with an existing one fails it by name.
 | `/help/set-up-a-product/` | Help | Informational | **set up a product** | Lenviq how-to · NBFC lending operations |
 | `/help/take-a-lead-in-the-field/` | Help | Informational | **take a lead in the field** | Lenviq how-to · NBFC lending operations |
 | `/help/watch-the-collection-book/` | Help | Informational | **watch the collection book** | Lenviq how-to · NBFC lending operations |
+| `/help/your-first-day/` | Help | Informational | **your first day** | Lenviq how-to · NBFC lending operations |
 | `/privacy/` | Legal | Navigational | **Lenviq privacy policy** | DPDP Act data handling |
 | `/terms/` | Legal | Navigational | **Lenviq terms of service** | lending software licence terms |
 

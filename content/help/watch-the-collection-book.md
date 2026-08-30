@@ -1,8 +1,8 @@
 ---
 title: Watch a collection agent's book
 description: See what each agent carries, what is overdue, and what cash is sitting with somebody at the end of the day.
-section: Collections
-order: 20
+section: Servicing and collections
+order: 10
 audience: Branch manager
 ---
 

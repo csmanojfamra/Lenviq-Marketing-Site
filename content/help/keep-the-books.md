@@ -1,7 +1,7 @@
 ---
 title: See the accounting behind a loan
 description: Every loan event posts a voucher as it happens, so the books are not a month-end reconciliation exercise.
-section: Loan management
+section: The books and the regulator
 order: 10
 audience: Accounts
 ---

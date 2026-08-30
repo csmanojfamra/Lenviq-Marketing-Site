@@ -3,7 +3,7 @@ import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Section, SectionHead } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
-import { helpSections } from "@/lib/help";
+import { helpSections, helpSequence } from "@/lib/help";
 
 export const metadata: Metadata = pageMetadata({
   title: "Help guides for daily NBFC lending work",
@@ -24,6 +24,14 @@ export const metadata: Metadata = pageMetadata({
  */
 export default function HelpIndex() {
   const sections = helpSections();
+  /**
+   * One running number across the whole path, not a number per stage.
+   *
+   * The stages are a way of grouping a long list, not four separate courses — "step 7 of 11" tells
+   * a reader how far through the system they are, which "step 3 of Servicing" does not.
+   */
+  const stepOf = new Map(helpSequence().map((p, i) => [p.slug, i + 1]));
+  const total = stepOf.size;
 
   return (
     <>
@@ -38,12 +46,24 @@ export default function HelpIndex() {
             from the running product against a demonstration book — so what is on this site is what
             is in the software.
           </p>
+          <p className="mt-s4 max-w-prose text-[16px] leading-prose text-slate-mid">
+            Read in order, these {total} guides are one path: your first sign-in, defining a
+            product, a lead becoming a customer, the customer becoming a loan, and that loan being
+            serviced, collected, accounted for and reported. Start at{" "}
+            <Link href="/help/your-first-day/" className="text-cta underline underline-offset-2 hover:text-cta-hover">
+              your first day
+            </Link>{" "}
+            — or jump to the task in front of you.
+          </p>
         </Reveal>
       </Section>
 
       {sections.map(({ section, pages }, i) => (
         <Section key={section} tone={i % 2 === 0 ? "sand" : "light"}>
-          <SectionHead eyebrow={`${pages.length} ${pages.length === 1 ? "guide" : "guides"}`} title={section} />
+          <SectionHead
+            eyebrow={`Steps ${stepOf.get(pages[0].slug)}–${stepOf.get(pages[pages.length - 1].slug)}`}
+            title={section}
+          />
           <ul className="mt-s4 grid gap-s3 sm:grid-cols-2">
             {pages.map((p) => (
               <li key={p.slug}>
@@ -52,7 +72,10 @@ export default function HelpIndex() {
                     href={`/help/${p.slug}/`}
                     className="block h-full rounded-xl border border-line bg-card p-s4 transition-colors hover:border-cta"
                   >
-                    <p className="text-[17px] font-semibold leading-snug text-ink">{p.title}</p>
+                    <p className="text-[13px] font-semibold uppercase tracking-wide text-cta">
+                      Step {stepOf.get(p.slug)}
+                    </p>
+                    <p className="mt-1 text-[17px] font-semibold leading-snug text-ink">{p.title}</p>
                     <p className="mt-s2 text-[15px] leading-relaxed text-slate-mid">{p.description}</p>
                     {p.audience && (
                       <p className="mt-s3 text-[13px] uppercase tracking-wide text-muted">{p.audience}</p>

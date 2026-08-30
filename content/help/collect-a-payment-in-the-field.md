@@ -1,8 +1,8 @@
 ---
 title: Collect a payment at the door
 description: Record a collection on a phone — with the amount explained, a photograph, a location and a receipt the borrower can see reach their loan.
-section: Collections
-order: 10
+section: Servicing and collections
+order: 20
 audience: Field agent
 ---
 
