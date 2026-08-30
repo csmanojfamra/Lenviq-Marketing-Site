@@ -7,6 +7,10 @@ audience: Accounts
 ---
 
 @shot accounting | The accounting overview showing the consolidated trial balance and whether it is balanced, any open reconciliation alerts, and the books, statements and tax registers available | The trial balance says whether it foots before anybody opens a ledger.
+@mark 30.5,16.8 | The trial balance, consolidated. It says how many ledgers it balanced across.
+@mark 57,16.8 | Reconciliation alerts, named. An unexplained difference is surfaced rather than absorbed.
+@mark 77.5,16.8 | Vouchers are posted by the loan engine as events happen. Manual entries are journals only.
+@mark 26,29.6 | The books of entry a Tally-trained accountant expects, by name.
 
 Most lenders run an origination system, a servicing system and an accounting package, and spend the
 last week of every month making the three agree. Here a disbursement, a receipt, an accrual, a penal

@@ -19,9 +19,9 @@ the caps that govern it (LTV, FOIR, DBR), the approval slab that routes it, and 
 must carry — a field investigation, a guarantor, a legal opinion.
 
 @shot scheme-detail | A scheme's own page, showing its product, facility and security binding, its amount and tenure range, its caps and rate band, and its workflow flags | One scheme, and everything it decides about a loan written on it.
-@mark 34,11.6 | The code, the version, and whether it is live. A loan can only be written on an ACTIVE scheme.
-@mark 15.5,36.5 | What it binds to — product, facility and SECURITY. Behaviour follows the asset class, so no product name is ever written in code.
-@mark 15.5,84 | What a file on this scheme must carry — field investigation, valuation, legal opinion, guarantor. The stage rail refuses to advance without them.
+@mark 29,11.6 | The code, the version, and whether it is live. A loan can only be written on an ACTIVE scheme.
+@mark 26.5,36.5 | What it binds to — product, facility and SECURITY. Behaviour follows the asset class, so no product name is ever written in code.
+@mark 26,84 | What a file on this scheme must carry — field investigation, valuation, legal opinion, guarantor. The stage rail refuses to advance without them.
 
 ## Versioned, and frozen once live
 

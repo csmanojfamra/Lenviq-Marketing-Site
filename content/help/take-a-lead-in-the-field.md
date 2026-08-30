@@ -29,6 +29,10 @@ Mobile, name, the lead's source and what the loan is for. The amount and tenure 
 the branch decides the scheme. Nothing that needs a document is asked at a gate.
 
 @shot leads | The Lenviq leads screen listing enquiries with their source, status, branch, indicative amount and next follow-up date, with overdue follow-ups marked in red | The same enquiry on the branch's screen a moment later, with the follow-up date it was promised.
+@mark 52,11.5 | Every enquiry, whatever it came in through — field, branch, website or a sourcing partner.
+@mark 42,16.4 | Overdue follow-ups are their own tab, because a lead nobody called is the one that is lost.
+@mark 47.5,32.4 | Where the lead has reached. A rejection carries a reason rather than a silent disappearance.
+@mark 88.5,43.9 | The next action and its date. Past it, the row turns and the lead surfaces in the overdue tab.
 
 ## Create the customer there
 

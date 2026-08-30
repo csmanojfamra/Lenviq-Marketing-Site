@@ -46,9 +46,9 @@ be two people with different scopes comparing two correct numbers.
 
 @shot dashboard | The Lenviq dashboard showing portfolio value, active and overdue accounts, collections against demand and the asset quality position | The book's position, computed from the same day-end figures the reports and the classification use.
 @mark 13.5,8.6 | The branch you are scoped to. Every list, report and export on every screen is filtered by it.
-@mark 63,9.5 | When the figures are as at. They are the previous day-end, not this moment — see below.
-@mark 77.6,15 | Asset quality, in the same buckets the regulator asks for: gross and net NPA, and the provision held against them.
-@mark 77.6,31 | What is waiting on somebody: approvals, RBI returns due, and documents still outstanding after disbursement.
+@mark 66,8.6 | When the figures are as at. They are the previous day-end, not this moment — see below.
+@mark 91,15.4 | Asset quality, in the same buckets the regulator asks for: gross and net NPA, and the provision held against them.
+@mark 90,30.5 | What is waiting on somebody: approvals, RBI returns due, and documents still outstanding after disbursement.
 @mark 13.5,96 | Who you are signed in as, and your role. The role decides which of these menu items exist for you at all.
 
 The figures are as at the **previous day-end**, and the page says so. That is deliberate rather than

@@ -7,6 +7,10 @@ audience: Credit head / Operations
 ---
 
 @shot loan-accounts | The loan accounts list showing each account's status, DPD, outstanding and classification | Every live account, with the classification the returns will report.
+@mark 36,13.9 | The book in one line: total, active, overdue and non-performing.
+@mark 44,18.8 | The same split as tabs. Overdue and NPA are counts you can open, not just numbers.
+@mark 36,24.5 | Search by loan number, borrower or mobile.
+@mark 87.5,72 | Days past due, and the status that follows from it. The two cannot disagree — both come from the same day-end computation.
 
 ## Classification is not a button
 
@@ -26,6 +30,10 @@ The same DPD engine serves every product and takes no per-product branch. Produc
 silently diverges between two such paths is NPA classification.
 
 @shot loan-account | A loan account showing its overdue status and days past due, the sanctioned terms and the live balances, with tabs for the schedule, transactions, statement and charges | One account: the position at the top, and the schedule, receipts and charges it was computed from a tab away.
+@mark 44.5,11.1 | The account's status and its days past due, together at the top.
+@mark 65,20.6 | The schedule, every transaction, the statement and the charges — each one tab away.
+@mark 68.5,38 | Penal charges are held separately from interest. They are never added to principal.
+@mark 64.5,50.9 | Disbursement, first instalment and maturity — the dates every other figure is computed from.
 
 ## When an account turns NPA
 

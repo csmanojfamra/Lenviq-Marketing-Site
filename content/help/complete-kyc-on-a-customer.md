@@ -10,6 +10,10 @@ A customer created in the field arrives with a name, a mobile, an address and wh
 could ask standing at a gate. This is the screen where it becomes a KYC record.
 
 @shot party-kyc | The customer screen, showing the profile and the KYC and customer-risk panel, with the risk category the software suggested from the file beside the one the officer chose | Everything about the borrower lives here — not on the loan file.
+@mark 32,9 | The party record, and whether it is an individual or an entity. KYC lives here, not on the loan file.
+@mark 31,11.6 | PAN and mobile. A second loan for this customer starts from what is already verified.
+@mark 28,47.7 | Money-laundering risk under the KYC Master Direction — not credit risk. It sets the re-KYC cycle.
+@mark 24,55.7 | KYC status. A loan file cannot be opened on a record that has not reached verified.
 
 ## Fill in what is missing, one field at a time
 
