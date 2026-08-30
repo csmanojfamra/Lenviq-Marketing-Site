@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import fixtures from "../src/lib/tools/finance-fixtures.generated.json";
 import {
   computeEmi, computeApr, goldEligibleValuePaise, ltvPct, maxLendablePaise,
-  smaForDpd, statusForDpd, bucketForDpd, daysPastDue, dateAtDpd, amortise, flatRate,
+  smaForDpd, statusForDpd, bucketForDpd, daysPastDue, dateAtDpd, amortise, flatRate, capForAdvance, maxAdvanceBanded,
 } from "../src/lib/tools/finance";
 import {
   RETURNS, applicable, quarterEnds, monthEnds, addDays, type Profile,
@@ -286,5 +286,53 @@ describe("which layer an NBFC is in", () => {
   it("does not apply the PROPOSED ₹1 lakh crore Upper Layer test", () => {
     // Proposed April 2026 and not in force. A tool that acts on a consultation paper is guessing.
     expect(findLayer(ask({ assetsCrore: 150000 })).layer).toBe("MIDDLE");
+  });
+});
+
+/**
+ * The gold cap is three bands, not one number — and the tool defaulted to the strictest.
+ *
+ * Effective 1 April 2026: 85% up to ₹2.5 lakh, 80% to ₹5 lakh, 75% above. Most gold loans written
+ * in India are small, so a flat 75% understates what may be advanced on the majority of them.
+ *
+ * Source: RBI (Lending Against Gold and Silver Collateral) Directions, 2025.
+ */
+describe("the gold LTV cap depends on the size of the advance", () => {
+  const L = (rupees: number) => BigInt(Math.round(rupees * 100));
+
+  it("picks the band from the advance", () => {
+    expect(capForAdvance(L(100000)).capPct).toBe(85);
+    expect(capForAdvance(L(250000)).capPct).toBe(85);
+    expect(capForAdvance(L(250001)).capPct).toBe(80);
+    expect(capForAdvance(L(500000)).capPct).toBe(80);
+    expect(capForAdvance(L(500001)).capPct).toBe(75);
+  });
+
+  it("a small packet gets the 85% band, not 75%", () => {
+    // 40g of 22K at ₹6,800 = ₹2,72,000 eligible.
+    const r = maxAdvanceBanded(L(272000));
+    expect(r.capPct).toBe(85);
+    expect(r.advancePaise).toBe(L(231200));
+    // The flat-75% answer this used to give.
+    expect(r.advancePaise).toBeGreaterThan(L(204000));
+  });
+
+  it("a mid-sized packet lands in the 80% band", () => {
+    const r = maxAdvanceBanded(L(600000));
+    expect(r.capPct).toBe(80);
+    expect(r.advancePaise).toBe(L(480000));
+  });
+
+  it("a large packet is capped at 75%", () => {
+    const r = maxAdvanceBanded(L(1000000));
+    expect(r.capPct).toBe(75);
+    expect(r.advancePaise).toBe(L(750000));
+  });
+
+  it("never proposes an advance that would fall outside its own band", () => {
+    for (const eligible of [50000, 250000, 294118, 300000, 625000, 666667, 700000, 2000000]) {
+      const r = maxAdvanceBanded(L(eligible));
+      expect(capForAdvance(r.advancePaise).capPct, `eligible ₹${eligible}`).toBe(r.capPct);
+    }
   });
 });

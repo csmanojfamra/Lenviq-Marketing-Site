@@ -46,7 +46,29 @@ export const NAV: NavItem[] = [
       { href: "/gold-loan-software/", label: "Gold loans", note: "LTV, renewal, auction" },
     ],
   },
-  { href: "/tools/", label: "Tools" },
+  /**
+   * Tools gets a menu, and Platform's argument for one does not apply here.
+   *
+   * Platform's children are pages you read; a reader arrives wanting "the platform" and the menu
+   * offers narrower versions of it. Tools are different — nobody wants "tools", they want the EMI
+   * calculator. The hub is a way of finding one, not a destination, so putting six names one hover
+   * away skips a page that exists only to be clicked through.
+   *
+   * The trigger stays a real link to the hub, for the reader who does want to browse.
+   */
+  {
+    href: "/tools/",
+    label: "Tools",
+    children: [
+      { href: "/tools/", label: "All tools", note: "Six free calculators, no sign-up" },
+      { href: "/tools/emi-calculator/", label: "EMI calculator", note: "Instalment, schedule, and what a flat rate really costs" },
+      { href: "/tools/apr-calculator/", label: "APR calculator", note: "The rate a Key Facts Statement discloses" },
+      { href: "/tools/npa-date-calculator/", label: "NPA & SMA dates", note: "When a missed instalment changes classification" },
+      { href: "/tools/gold-loan-ltv-calculator/", label: "Gold loan LTV", note: "Value a packet and see the permitted advance" },
+      { href: "/tools/nbfc-layer-finder/", label: "NBFC layer finder", note: "Base, Middle or Upper — and what changes" },
+      { href: "/tools/nbfc-returns-calendar/", label: "Returns calendar", note: "Which returns you file, and when" },
+    ],
+  },
   { href: "/compliance/", label: "Compliance" },
   { href: "/reports/", label: "Reports" },
   { href: "/security/", label: "Security" },
@@ -156,7 +178,7 @@ function NavMenu({ item, pathname }: { item: NavItem; pathname: string | null })
 
       {open && (
         <div className="absolute left-0 top-full z-50 pt-2">
-          <ul className="w-80 overflow-hidden rounded-card border border-line bg-card p-1.5 shadow-e2">
+          <ul className="w-[21rem] overflow-hidden rounded-card border border-line bg-card p-1.5 shadow-e2">
             {children.map((c) => {
               const on = pathname === c.href;
               return (

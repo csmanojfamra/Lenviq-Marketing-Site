@@ -168,9 +168,14 @@ rather than a prescribed one.
 ## A worked example
 
 A borrower pledges ornaments with a 22-carat equivalent net weight of 40 grams. At a reference rate
-of ₹6,800 a gram the eligible value is ₹2,72,000, and a 75% cap allows an advance of ₹2,04,000.
+of ₹6,800 a gram the eligible value is ₹2,72,000.
+
+The cap is not one number. Since 1 April 2026 it is banded by the size of the advance — 85% up to
+₹2.5 lakh, 80% from there to ₹5 lakh, and 75% above. An advance of ₹2,31,200 sits in the first band,
+so 85% applies and that is the most that may be lent. Read a flat 75% off an older note and you
+under-lend on the majority of gold loans written in India, which are small ones.
 
 Three months later the rate falls to ₹6,200. The same ornaments are now worth ₹2,48,000, and the same
-₹2,04,000 outstanding is **82% LTV** — above the cap, with nothing having happened to the loan. That
-is why the Directions require loan-to-value to be maintained through the life of the loan rather than
-tested once at sanction, and why a renewal or a top-up has to be priced on today's valuation.
+₹2,31,200 outstanding is **93% LTV** — well above the cap, with nothing having happened to the loan.
+That is why the Directions require loan-to-value to be maintained through the life of the loan rather
+than tested once at sanction, and why a renewal or a top-up has to be priced on today's valuation.

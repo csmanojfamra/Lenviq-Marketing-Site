@@ -224,3 +224,52 @@ export function flatRate(principalPaise: bigint, flatPct: number, months: number
     effectiveReducingPct: Math.round(eff * 12 * 10_000) / 100,
   };
 }
+
+// ── The gold LTV cap, which is not one number ────────────────────────────────
+
+/**
+ * The cap depends on the SIZE of the advance, not only on the security.
+ *
+ * The Directions effective 1 April 2026 replaced the flat 75% with three bands: up to ₹2.5 lakh the
+ * cap is 85%, from there to ₹5 lakh it is 80%, and above ₹5 lakh it is 75%. Small-ticket borrowers
+ * get more against the same ornaments; large ones get less.
+ *
+ * A calculator defaulting to a flat 75% therefore understates what may be advanced on most gold
+ * loans written in India, which are small.
+ *
+ * Source: RBI (Lending Against Gold and Silver Collateral) Directions, 2025.
+ */
+export const LTV_BANDS = [
+  { upToPaise: 25_000_000n, capPct: 85, label: "up to ₹2.5 lakh" },
+  { upToPaise: 50_000_000n, capPct: 80, label: "₹2.5 lakh to ₹5 lakh" },
+  { upToPaise: null, capPct: 75, label: "above ₹5 lakh" },
+] as const;
+
+/** The cap that applies to an advance of this size. */
+export function capForAdvance(advancePaise: bigint): { capPct: number; label: string } {
+  for (const b of LTV_BANDS) {
+    if (b.upToPaise === null || advancePaise <= b.upToPaise) return { capPct: b.capPct, label: b.label };
+  }
+  return { capPct: 75, label: "above ₹5 lakh" };
+}
+
+/**
+ * The largest advance the bands permit against a given eligible value.
+ *
+ * Circular on its face — the cap depends on the advance, and the advance depends on the cap — so it
+ * is solved band by band, highest first, keeping the largest that is internally consistent.
+ */
+export function maxAdvanceBanded(eligiblePaise: bigint): { advancePaise: bigint; capPct: number; label: string } {
+  const candidates: { advancePaise: bigint; capPct: number; label: string }[] = [];
+  for (const b of LTV_BANDS) {
+    const atCap = maxLendablePaise(eligiblePaise, b.capPct);
+    const advance = b.upToPaise === null ? atCap : atCap < b.upToPaise ? atCap : b.upToPaise;
+    const lower = LTV_BANDS.indexOf(b as never) === 0 ? 0n : LTV_BANDS[LTV_BANDS.indexOf(b as never) - 1].upToPaise!;
+    // Consistent only if an advance of this size really falls in this band.
+    if (advance > lower && (b.upToPaise === null || advance <= b.upToPaise)) {
+      candidates.push({ advancePaise: advance, capPct: b.capPct, label: b.label });
+    }
+  }
+  if (candidates.length === 0) return { advancePaise: 0n, capPct: 85, label: LTV_BANDS[0].label };
+  return candidates.reduce((a, b) => (b.advancePaise > a.advancePaise ? b : a));
+}

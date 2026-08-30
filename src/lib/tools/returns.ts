@@ -48,7 +48,19 @@ export interface ReturnDef {
   /** Days from the reference date, where the timeline is a fixed count. */
   days?: number;
   applies: (p: Profile) => boolean;
-  /** Why it does or does not apply, shown next to the answer. */
+  /**
+   * WHO files it, stated the same way whatever profile is on screen.
+   *
+   * The calendar used to show only the returns that applied, with the condition folded into a
+   * contextual note. Two things went wrong with that. A reader could not see a return that did not
+   * apply to them — DNBS13 simply vanished unless they ticked the overseas box, so it looked
+   * missing rather than inapplicable. And where a return DID apply, the condition read as a remark
+   * rather than as the rule, so it was not clear what would change it.
+   *
+   * Every return is now listed every time, with this condition in its own column.
+   */
+  appliesTo: string;
+  /** What that condition means for the profile currently on screen. */
   why: (p: Profile) => string;
 }
 
@@ -64,6 +76,7 @@ export const RETURNS: ReturnDef[] = [
     frequency: "QUARTERLY",
     timeline: "21 days from the quarter end",
     days: 21,
+    appliesTo: "Middle and Upper Layer, except core investment companies",
     applies: (p) => isML_UL(p) && notCic(p),
     why: (p) =>
       p.category === "CIC"
@@ -79,6 +92,7 @@ export const RETURNS: ReturnDef[] = [
     frequency: "QUARTERLY",
     timeline: "21 days from the quarter end",
     days: 21,
+    appliesTo: "Base Layer, except peer-to-peer platforms",
     applies: (p) => p.layer === "BASE" && p.category !== "P2P",
     why: (p) =>
       p.category === "P2P"
@@ -94,6 +108,7 @@ export const RETURNS: ReturnDef[] = [
     frequency: "QUARTERLY",
     timeline: "21 days from the quarter end",
     days: 21,
+    appliesTo: "Middle and Upper Layer, except core investment companies",
     applies: (p) => isML_UL(p) && notCic(p),
     why: (p) =>
       p.category === "CIC"
@@ -109,6 +124,7 @@ export const RETURNS: ReturnDef[] = [
     frequency: "QUARTERLY",
     timeline: "21 days from the quarter end",
     days: 21,
+    appliesTo: "Middle and Upper Layer — and Base Layer at ₹100 crore of assets or more",
     applies: (p) => isML_UL(p) || p.assetsCrore >= 100,
     why: (p) =>
       isML_UL(p)
@@ -124,6 +140,7 @@ export const RETURNS: ReturnDef[] = [
     frequency: "MONTHLY",
     timeline: "15 days from the month end",
     days: 15,
+    appliesTo: "Middle and Upper Layer — and Base Layer at ₹100 crore of assets or more",
     applies: (p) => isML_UL(p) || p.assetsCrore >= 100,
     why: (p) =>
       isML_UL(p) || p.assetsCrore >= 100
@@ -137,6 +154,7 @@ export const RETURNS: ReturnDef[] = [
     frequency: "MONTHLY",
     timeline: "15 days from the month end",
     days: 15,
+    appliesTo: "Middle and Upper Layer (not CICs) — and Base Layer ICC, MFI or Factor at ₹500 crore or more",
     applies: (p) =>
       (isML_UL(p) && notCic(p)) ||
       (p.layer === "BASE" && ["ICC", "MFI", "FACTOR"].includes(p.category) && p.assetsCrore >= 500),
@@ -157,6 +175,7 @@ export const RETURNS: ReturnDef[] = [
     covers: "Accounts in SMA-0 against the same ₹5 crore exposures.",
     frequency: "WEEKLY",
     timeline: "Every Friday of the reporting week",
+    appliesTo: "Middle and Upper Layer (not CICs) — and Base Layer ICC, MFI or Factor at ₹500 crore or more",
     applies: (p) =>
       (isML_UL(p) && notCic(p)) ||
       (p.layer === "BASE" && ["ICC", "MFI", "FACTOR"].includes(p.category) && p.assetsCrore >= 500),
@@ -169,6 +188,7 @@ export const RETURNS: ReturnDef[] = [
     covers: "The auditor's certificate on continued eligibility and compliance.",
     frequency: "ANNUAL",
     timeline: "Within 5 working days of the audit report being signed, and by 31 December",
+    appliesTo: "Every NBFC, in every layer",
     applies: () => true,
     why: () => "Every NBFC files it, in every layer.",
   },
@@ -179,6 +199,7 @@ export const RETURNS: ReturnDef[] = [
     frequency: "QUARTERLY",
     timeline: "21 days from the quarter end",
     days: 21,
+    appliesTo: "Core investment companies only",
     applies: (p) => p.category === "CIC",
     why: (p) => (p.category === "CIC" ? "Core investment companies file their own pair of returns." : "Only for core investment companies."),
   },
@@ -189,6 +210,7 @@ export const RETURNS: ReturnDef[] = [
     frequency: "QUARTERLY",
     timeline: "21 days from the quarter end",
     days: 21,
+    appliesTo: "Core investment companies only",
     applies: (p) => p.category === "CIC",
     why: (p) => (p.category === "CIC" ? "Filed alongside DNBS11." : "Only for core investment companies."),
   },
@@ -199,6 +221,7 @@ export const RETURNS: ReturnDef[] = [
     frequency: "QUARTERLY",
     timeline: "21 days from the quarter end",
     days: 21,
+    appliesTo: "Any NBFC holding a subsidiary or joint venture outside India",
     applies: (p) => p.hasOverseasInvestment,
     why: (p) =>
       p.hasOverseasInvestment
@@ -212,6 +235,7 @@ export const RETURNS: ReturnDef[] = [
     frequency: "QUARTERLY",
     timeline: "21 days from the quarter end",
     days: 21,
+    appliesTo: "Peer-to-peer lending platforms only",
     applies: (p) => p.category === "P2P",
     why: (p) => (p.category === "P2P" ? "Peer-to-peer platforms file this instead of DNBS02." : "Only for peer-to-peer lending platforms."),
   },
@@ -221,6 +245,7 @@ export const RETURNS: ReturnDef[] = [
     covers: "Each fraud of ₹1 lakh or more.",
     frequency: "EVENT",
     timeline: "Within 3 weeks of detection",
+    appliesTo: "Middle and Upper Layer — and Base Layer ICC, MFI or Factor at ₹500 crore or more",
     applies: (p) =>
       isML_UL(p) || (p.layer === "BASE" && ["ICC", "MFI", "FACTOR"].includes(p.category) && p.assetsCrore >= 500),
     why: () => "Event-based: the clock starts on detection, not on a quarter end.",

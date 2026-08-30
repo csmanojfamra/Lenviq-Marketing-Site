@@ -63,7 +63,7 @@ export function ReturnsCalendar() {
     if (q.get("deposits") === "1") setDeposits(true);
   }, []);
   const [hasOverseasInvestment, setOverseas] = React.useState(false);
-  const [showNotApplicable, setShowNa] = React.useState(false);
+  const [showNotApplicable, setShowNa] = React.useState(true);
 
   const profile: Profile = { layer, category, assetsCrore, acceptsDeposits, hasOverseasInvestment };
   const apply = applicable(profile);
@@ -134,41 +134,78 @@ export function ReturnsCalendar() {
 
       <div className="grid gap-s5">
         <div>
-          <h2 className="font-display text-[20px] font-bold tracking-display text-ink">
-            {apply.length} returns apply
-          </h2>
+          <div className="flex flex-wrap items-baseline justify-between gap-s2">
+            <h2 className="font-display text-[20px] font-bold tracking-display text-ink">
+              {apply.length} of {RETURNS.length} returns apply
+            </h2>
+            <label className="flex items-center gap-2 text-[14px] text-slate-mid">
+              <input type="checkbox" checked={!showNotApplicable} onChange={(e) => setShowNa(!e.target.checked)} />
+              Hide the ones that do not
+            </label>
+          </div>
+
+          {/*
+            * Every return, every time — with its condition in its own column.
+            *
+            * Showing only what applied made the tool answer one question and hide another. A
+            * compliance officer checking their filing list needs to see the whole set and what
+            * excludes them from each; and a return that is simply absent reads as missing rather
+            * than as inapplicable. It also makes the inputs discoverable — seeing DNBS13 greyed
+            * out with "only where there is an overseas holding" tells a reader there is a box for
+            * that, which a hidden row never does.
+            */}
           <div className="mt-s3 overflow-x-auto rounded-card border border-line bg-card">
-            <table className="w-full min-w-[38rem] text-[15px]">
+            <table className="w-full min-w-[46rem] text-[15px]">
               <thead>
                 <tr className="border-b border-line bg-subtle text-[13px] uppercase tracking-wide text-muted">
                   <th className="px-s4 py-s2 text-left font-semibold">Return</th>
+                  <th className="px-s4 py-s2 text-left font-semibold">Who files it</th>
                   <th className="px-s4 py-s2 text-left font-semibold">Frequency</th>
-                  <th className="px-s4 py-s2 text-left font-semibold">Timeline</th>
+                  <th className="px-s4 py-s2 text-left font-semibold">Due</th>
                 </tr>
               </thead>
               <tbody>
-                {apply.map((r) => (
-                  <tr key={r.code} className="border-b border-line last:border-0 align-top">
-                    <td className="px-s4 py-s3">
-                      <span className="font-mono text-[14px] font-semibold text-ink">{r.code}</span>
-                      <span className="mt-0.5 block text-[14px] text-slate-mid">{r.name}</span>
-                    </td>
-                    <td className="whitespace-nowrap px-s4 py-s3">
-                      <span className={
-                        "rounded-full px-2 py-0.5 text-[12px] font-semibold uppercase tracking-wide " +
-                        (r.frequency === "WEEKLY" || r.frequency === "MONTHLY"
-                          ? "bg-[color:var(--color-warning-bg)] text-[color:var(--color-warning-fg)]"
-                          : "bg-subtle text-slate-mid")
-                      }>
-                        {r.frequency.toLowerCase()}
-                      </span>
-                    </td>
-                    <td className="px-s4 py-s3 text-[14px] leading-snug text-slate-mid">
-                      {r.timeline}
-                      <span className="mt-1 block text-muted">{r.why(profile)}</span>
-                    </td>
-                  </tr>
-                ))}
+                {(showNotApplicable ? RETURNS : apply).map((r) => {
+                  const on = r.applies(profile);
+                  return (
+                    <tr key={r.code} className={"border-b border-line align-top last:border-0 " + (on ? "" : "bg-subtle/60")}>
+                      <td className="px-s4 py-s3">
+                        <span className="flex items-center gap-2">
+                          <span
+                            aria-hidden="true"
+                            className={"inline-block h-2 w-2 shrink-0 rounded-full " + (on ? "bg-[color:var(--color-success)]" : "bg-line-strong")}
+                          />
+                          <span className={"font-mono text-[14px] font-semibold " + (on ? "text-ink" : "text-muted")}>
+                            {r.code}
+                          </span>
+                        </span>
+                        <span className={"mt-0.5 block text-[14px] " + (on ? "text-slate-mid" : "text-muted")}>
+                          {r.name}
+                        </span>
+                        <span className="sr-only">{on ? "Applies" : "Does not apply"}</span>
+                      </td>
+                      <td className={"px-s4 py-s3 text-[14px] leading-snug " + (on ? "text-slate-mid" : "text-muted")}>
+                        {r.appliesTo}
+                        <span className={"mt-1 block " + (on ? "text-muted" : "text-muted")}>{r.why(profile)}</span>
+                      </td>
+                      <td className="whitespace-nowrap px-s4 py-s3">
+                        <span className={
+                          "rounded-full px-2 py-0.5 text-[12px] font-semibold uppercase tracking-wide " +
+                          (!on
+                            ? "bg-subtle text-muted"
+                            : r.frequency === "WEEKLY" || r.frequency === "MONTHLY"
+                              ? "bg-[color:var(--color-warning-bg)] text-[color:var(--color-warning-fg)]"
+                              : "bg-subtle text-slate-mid")
+                        }>
+                          {r.frequency.toLowerCase()}
+                        </span>
+                      </td>
+                      <td className={"px-s4 py-s3 text-[14px] leading-snug " + (on ? "text-slate-mid" : "text-muted")}>
+                        {r.timeline}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -189,26 +226,6 @@ export function ReturnsCalendar() {
           </div>
         )}
 
-        <div>
-          <button
-            type="button"
-            onClick={() => setShowNa((v) => !v)}
-            aria-expanded={showNotApplicable}
-            className="text-[15px] font-medium text-cta underline-offset-2 hover:underline"
-          >
-            {showNotApplicable ? "Hide" : "Show"} the {notApply.length} that do not apply, and why
-          </button>
-          {showNotApplicable && (
-            <ul className="mt-s3 grid gap-s2">
-              {notApply.map((r) => (
-                <li key={r.code} className="grid grid-cols-[6rem_1fr] gap-s2 border-b border-line py-s2 text-[15px] last:border-0">
-                  <span className="font-mono text-[14px] text-muted">{r.code}</span>
-                  <span className="text-[14px] leading-snug text-slate-mid">{r.why(profile)}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
       </div>
     </div>
   );

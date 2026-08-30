@@ -59,7 +59,7 @@ export function NpaDateCalculator() {
           <Result label="Days past due today" value={valid ? String(dpdToday) : "—"} tone={tone}
             sub={valid ? `As at ${fmt(today)}` : undefined} />
           <Result label="Classification today" value={valid ? label : "—"} tone={tone}
-            sub={valid && status !== "ACTIVE" ? "Assuming nothing has been paid since" : undefined} />
+            sub="Assuming the instalment is still unpaid. A part payment moves the count only if it settles the oldest unpaid instalment in full." />
         </div>
 
         <div className="overflow-x-auto rounded-card border border-line bg-card">

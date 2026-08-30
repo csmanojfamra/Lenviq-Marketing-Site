@@ -1,7 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { goldEligibleValuePaise, ltvPct, maxLendablePaise, equivalent22k, type GoldItem } from "@/lib/tools/finance";
+import {
+  goldEligibleValuePaise, ltvPct, maxLendablePaise, equivalent22k,
+  capForAdvance, maxAdvanceBanded, LTV_BANDS, type GoldItem,
+} from "@/lib/tools/finance";
 import { Field, Result, rupees } from "./field";
 
 const R = (r: number) => BigInt(Math.round((Number.isFinite(r) ? r : 0) * 100));
@@ -17,7 +20,16 @@ const KARATS = [24, 22, 20, 18, 14];
  */
 export function GoldLtvCalculator() {
   const [rate, setRate] = React.useState(6800);
-  const [cap, setCap] = React.useState(75);
+  /**
+  * The cap is derived, not typed.
+  *
+  * It defaulted to a flat 75%, which has been wrong since 1 April 2026: the Directions set three
+  * bands by the SIZE of the advance — 85% up to ₹2.5 lakh, 80% to ₹5 lakh, 75% above. Most gold
+  * loans written in India are small, so the old default understated the permitted advance on the
+  * majority of them. A lender may still hold itself to a stricter internal cap, so it can be
+  * overridden — but the regulatory band is what it starts from, and the page says which one.
+  */
+  const [override, setOverride] = React.useState<number | null>(null);
   const [outstanding, setOutstanding] = React.useState(0);
   const [items, setItems] = React.useState<GoldItem[]>([{ karat: 22, netGrams: 40 }]);
 
@@ -27,9 +39,14 @@ export function GoldLtvCalculator() {
   const clean = items.filter((i) => Number.isFinite(i.netGrams) && i.netGrams > 0);
   const eq22 = clean.reduce((s, i) => s + equivalent22k(i), 0);
   const eligible = goldEligibleValuePaise(clean, R(rate));
-  const advance = outstanding > 0 ? R(outstanding) : maxLendablePaise(eligible, cap);
+
+  const banded = maxAdvanceBanded(eligible);
+  const advance = outstanding > 0 ? R(outstanding) : banded.advancePaise;
+  // The band follows the advance actually being made, not the maximum available.
+  const band = capForAdvance(advance);
+  const cap = override ?? band.capPct;
   const ltv = ltvPct(advance, eligible);
-  const headroom = maxLendablePaise(eligible, cap) - advance;
+  const headroom = (outstanding > 0 ? maxLendablePaise(eligible, cap) : banded.advancePaise) - advance;
   const over = ltv > cap;
   /**
    * What the same advance becomes if the rate falls a tenth.
@@ -84,7 +101,38 @@ export function GoldLtvCalculator() {
 
         <Field id="g-rate" label="22K reference rate" value={rate} onChange={setRate} unit="₹/g" step={50}
           hint="Net weight only — stones and wastage already deducted." />
-        <Field id="g-cap" label="LTV cap" value={cap} onChange={setCap} unit="%" step={1} max={100} />
+        <div className="rounded-input border border-line-strong bg-card p-s3">
+          <p className="text-[14px] font-medium text-ink">
+            LTV cap · {cap}%
+            {override === null && <span className="ml-1 font-normal text-muted">(set by the band)</span>}
+          </p>
+          <p className="mt-1 text-[13px] leading-snug text-muted">
+            An advance {band.label} is capped at {band.capPct}% under the 2025 Directions, in force
+            since 1 April 2026.
+          </p>
+          <ul className="mt-s2 grid gap-0.5 text-[13px] text-muted">
+            {LTV_BANDS.map((b) => (
+              <li key={b.label} className={b.capPct === band.capPct && override === null ? "font-medium text-ink" : ""}>
+                {b.label} — {b.capPct}%
+              </li>
+            ))}
+          </ul>
+          <label className="mt-s2 flex items-center gap-2 text-[13px] text-slate-mid">
+            <input
+              type="checkbox"
+              checked={override !== null}
+              onChange={(e) => setOverride(e.target.checked ? band.capPct : null)}
+            />
+            Use our own stricter cap
+          </label>
+          {override !== null && (
+            <input
+              type="number" value={override} min={1} max={100} step={1}
+              onChange={(e) => setOverride(Number(e.target.value))}
+              className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2 text-[15px] tabular-nums text-ink outline-none focus:border-cta"
+            />
+          )}
+        </div>
         <Field id="g-out" label="Outstanding (leave 0 to see the maximum)" value={outstanding} onChange={setOutstanding} unit="₹" step={5000} />
       </div>
 
@@ -95,7 +143,9 @@ export function GoldLtvCalculator() {
         <Result label={outstanding > 0 ? "Loan to value" : "Maximum advance"}
           value={outstanding > 0 ? `${ltv.toFixed(2)}%` : rupees(advance)}
           tone={over ? "bad" : "good"}
-          sub={outstanding > 0 ? `against a ${cap}% cap` : `${cap}% of eligible value`} />
+          sub={outstanding > 0
+            ? `against the ${cap}% cap for an advance ${band.label}`
+            : `at ${cap}% — the band for an advance ${band.label}`} />
         {over ? (
           <Result label="Over the cap by" value={rupees(-headroom)} tone="bad"
             sub="A renewal or a top-up is not permitted at this valuation" />
@@ -114,6 +164,11 @@ export function GoldLtvCalculator() {
             2025 Directions require loan-to-value to be maintained through the life of the loan rather
             than tested once at sanction — and why a renewal or a top-up has to be priced on today’s
             valuation, not the one at pledge.
+          </p>
+          <p className="mt-s3">
+            <strong className="text-ink">And the cap is not one number.</strong> Since 1 April 2026 it
+            is banded by the size of the advance — 85% up to ₹2.5 lakh, 80% to ₹5 lakh, 75% above. A
+            small packet is permitted a higher ratio than a large one against the same gold.
           </p>
         </div>
       </div>
