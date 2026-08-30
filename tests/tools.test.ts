@@ -8,6 +8,8 @@ import {
   RETURNS, applicable, quarterEnds, monthEnds, addDays, type Profile,
 } from "../src/lib/tools/returns";
 import { findLayer, type SbrAnswers } from "../src/lib/tools/sbr";
+import { penalCharge, type PenalInput } from "../src/lib/tools/penal";
+import { KFS_FIELDS, KFS_RULES, kfsGaps } from "../src/lib/tools/kfs";
 
 const R = (rupees: number) => BigInt(Math.round(rupees * 100));
 
@@ -334,5 +336,115 @@ describe("the gold LTV cap depends on the size of the advance", () => {
       const r = maxAdvanceBanded(L(eligible));
       expect(capForAdvance(r.advancePaise).capPct, `eligible ₹${eligible}`).toBe(r.capPct);
     }
+  });
+});
+
+/**
+ * Penal charges, on the rules the August 2023 circular actually set.
+ *
+ * Sources: RBI/2023-24/53 of 18 August 2023, effective 1 April 2024; 55th GST Council on
+ * taxability. The arithmetic is simple; what the tool exists for is the four rules around it.
+ */
+describe("penal charges", () => {
+  const base = (over: Partial<PenalInput> = {}): PenalInput => ({
+    overdueRupees: 25000, daysOverdue: 45, basis: "PCT_PER_MONTH", rate: 2,
+    graceDays: 0, consumerLoan: false, comparableNonIndividualRate: 2, ...over,
+  });
+
+  it("charges on the overdue amount for the days it was overdue", () => {
+    // 25,000 x 2% x 45/30 = 750
+    expect(penalCharge(base()).chargeRupees).toBe(750);
+  });
+
+  it("grace removes days from the charge, not from the count of days overdue", () => {
+    const r = penalCharge(base({ graceDays: 15 }));
+    expect(r.chargeableDays).toBe(30);
+    expect(r.chargeRupees).toBe(500);
+  });
+
+  it("grace can take the charge to nil without the account ceasing to be overdue", () => {
+    const r = penalCharge(base({ daysOverdue: 5, graceDays: 7 }));
+    expect(r.chargeableDays).toBe(0);
+    expect(r.chargeRupees).toBe(0);
+  });
+
+  it("a flat per-instance charge does not scale with days", () => {
+    expect(penalCharge(base({ basis: "FLAT_PER_INSTANCE", rate: 500 })).chargeRupees).toBe(500);
+    expect(penalCharge(base({ basis: "FLAT_PER_INSTANCE", rate: 500, daysOverdue: 400 })).chargeRupees).toBe(500);
+  });
+
+  it("flags a consumer rate above what a business borrower pays for the same breach", () => {
+    const bad = penalCharge(base({ consumerLoan: true, rate: 3, comparableNonIndividualRate: 2 }));
+    const cap = bad.checks.find((c) => c.label.includes("business borrower"))!;
+    expect(cap.ok).toBe(false);
+    expect(cap.detail).toMatch(/may not be higher/);
+  });
+
+  it("and passes it when the two are equal", () => {
+    const ok = penalCharge(base({ consumerLoan: true, rate: 2, comparableNonIndividualRate: 2 }));
+    expect(ok.checks.find((c) => c.label.includes("business borrower"))!.ok).toBe(true);
+  });
+
+  it("that check is only raised for a consumer loan", () => {
+    expect(penalCharge(base({ consumerLoan: false })).checks.some((c) => c.label.includes("business borrower"))).toBe(false);
+  });
+
+  it("always states no capitalisation, no GST, and receipt-basis income", () => {
+    const labels = penalCharge(base()).checks.map((c) => c.label).join(" | ");
+    expect(labels).toMatch(/Not capitalised/);
+    expect(labels).toMatch(/No GST/);
+    expect(labels).toMatch(/when received/);
+  });
+});
+
+/**
+ * The KFS checklist, against Annex A of the 15 April 2024 circular.
+ *
+ * The conditional fields are the point: a checker that marks a fixed-rate loan incomplete for
+ * missing the floating-rate particulars is a checker nobody finishes.
+ */
+describe("the Key Facts Statement checklist", () => {
+  const none = new Set<string>();
+  const all = { floating: true, lsp: true, colending: true };
+  const plain = { floating: false, lsp: false, colending: false };
+
+  it("covers the annexures as well as the statement", () => {
+    const ids = KFS_FIELDS.map((f) => f.id);
+    expect(ids).toContain("apr-sheet");
+    expect(ids).toContain("schedule");
+    expect(KFS_FIELDS.filter((f) => f.group === "Annexed")).toHaveLength(2);
+  });
+
+  it("every field says why it is there", () => {
+    for (const f of KFS_FIELDS) expect(f.detail.length, f.id).toBeGreaterThan(30);
+  });
+
+  it("conditional fields are only required when their condition holds", () => {
+    const gapIds = (a: typeof all) => kfsGaps(none, a).map((f) => f.id);
+    expect(gapIds(plain)).not.toContain("floating");
+    expect(gapIds(plain)).not.toContain("lsp");
+    expect(gapIds(plain)).not.toContain("colending");
+    expect(gapIds(all)).toContain("floating");
+    expect(gapIds(all)).toContain("lsp");
+    expect(gapIds(all)).toContain("colending");
+  });
+
+  it("and each conditional field states its condition", () => {
+    for (const id of ["floating", "lsp", "colending"]) {
+      expect(KFS_FIELDS.find((f) => f.id === id)!.onlyIf, id).toBeTruthy();
+    }
+  });
+
+  it("a fully ticked plain-vanilla statement has no gaps", () => {
+    const ticked = new Set(KFS_FIELDS.filter((f) => !f.onlyIf).map((f) => f.id));
+    expect(kfsGaps(ticked, plain)).toHaveLength(0);
+  });
+
+  it("carries the four rules that are not fields", () => {
+    const joined = KFS_RULES.join(" ");
+    expect(joined).toMatch(/cannot be levied without the borrower/);
+    expect(joined).toMatch(/on behalf of a third party/);
+    expect(joined).toMatch(/part of the loan agreement/);
+    expect(joined).toMatch(/1 October 2024/);
   });
 });

@@ -48,10 +48,6 @@ export function NpaDateCalculator() {
           id="npa-due" label="Date the instalment fell due" value={due} onChange={setDue}
           hint="The oldest instalment that is demanded and still unpaid — not the date interest accrued."
         />
-        <p className="text-[14px] leading-relaxed text-slate-mid">
-          Counted as whole days from the due date, on the day-end position. No time of day, and no
-          time zone — a business date is a date.
-        </p>
       </div>
 
       <div className="grid gap-s3">
@@ -91,6 +87,12 @@ export function NpaDateCalculator() {
           </table>
         </div>
 
+        <p className="text-[15px] leading-relaxed text-slate-mid">
+          <strong className="text-ink">How this is counted.</strong> Whole days from the due date, on
+          the day-end position — no time of day and no time zone, because a business date is a date
+          rather than an instant. A system that compares timestamps in UTC gets every date on an
+          Indian book wrong by five and a half hours, which at a month end is a whole day.
+        </p>
         <p className="text-[15px] leading-relaxed text-slate-mid">
           <strong className="text-ink">Upgrading back to standard</strong> needs the{" "}
           <strong className="text-ink">entire</strong> arrears of interest and principal cleared — not

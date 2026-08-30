@@ -33,7 +33,7 @@ export default function ToolsIndex() {
             Free calculators for everyday lending work.
           </h1>
           <p className="mt-s4 max-w-prose text-[18px] leading-prose text-slate-mid">
-            The calculations a lending team does by hand, done in a few seconds with the workings
+            The calculations a lending team does by hand, done in seconds with the workings
             shown. No sign-up, and nothing you type leaves your browser.
           </p>
         </Reveal>

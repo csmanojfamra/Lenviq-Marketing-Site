@@ -46,6 +46,30 @@ export const TOOLS: Tool[] = [
     helps: "See the instalment, the schedule and the true cost — including what a flat rate actually works out to.",
   },
   {
+    slug: "penal-charge-calculator",
+    name: "Penal charge calculator",
+    question: "Work out the penal charge on an overdue amount, and check it against the 2024 rules.",
+    title: "Penal charge calculator for overdue loan accounts",
+    description:
+      "Calculate the penal charge on an overdue instalment and check it against the rules in force since April 2024, including the cap that applies to consumer loans.",
+    helps: "Charge the right amount, and see at a glance whether it meets the rules that came in during 2024.",
+    source:
+      "RBI/2023-24/53, DoR.MCS.REC.28/01.01.001/2023-24, 18 August 2023 — Fair Lending Practice, Penal Charges in Loan Accounts. In force for new loans from 1 April 2024. Penal charges collected by banks and NBFCs are not taxable under GST, per the 55th GST Council. The circular does not reach credit cards, external commercial borrowings, trade credits or structured obligations.",
+    sourceUrl: "https://www.rbi.org.in/Scripts/BS_CircularIndexDisplay.aspx",
+  },
+  {
+    slug: "kfs-checklist",
+    name: "Key Facts Statement checklist",
+    question: "Check a Key Facts Statement against everything the prescribed format requires.",
+    title: "Key Facts Statement checklist for lenders",
+    description:
+      "Go through a Key Facts Statement item by item against the format the RBI prescribed, and see what a template written before October 2024 is missing.",
+    helps: "Find out what your KFS template is missing before a borrower or an auditor does.",
+    source:
+      "RBI/2024-25/18, DOR.STR.REC.13/13.03.00/2024-25, 15 April 2024 — Key Facts Statement for Loans and Advances, and its Annex A. Applies to every retail and MSME term loan sanctioned on or after 1 October 2024, including to existing customers; credit card receivables are outside it.",
+    sourceUrl: "https://www.rbi.org.in/Scripts/BS_CircularIndexDisplay.aspx",
+  },
+  {
     slug: "nbfc-layer-finder",
     name: "NBFC layer finder",
     question: "Work out which layer of the scale-based framework your NBFC is in, and what that changes.",

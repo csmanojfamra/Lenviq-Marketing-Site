@@ -96,7 +96,12 @@ export function ReturnsCalendar() {
               <option key={l} value={l}>{LAYER_LABEL[l]}</option>
             ))}
           </select>
-          <span className="mt-1 block text-[13px] leading-snug text-muted">{LAYER_HELP[layer]}</span>
+          <span className="mt-1 block text-[13px] leading-snug text-muted">
+            {LAYER_HELP[layer]}{" "}
+            <a href="/tools/nbfc-layer-finder/" className="text-cta underline underline-offset-2">
+              Not sure which layer?
+            </a>
+          </span>
         </label>
 
         <label className="block">

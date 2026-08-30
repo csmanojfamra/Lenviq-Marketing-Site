@@ -73,8 +73,7 @@ export function SbrLayerFinder() {
             <span>Named in the RBI’s Upper Layer list</span>
           </label>
           <p className="mt-1 text-[13px] leading-snug text-muted">
-            You cannot work this one out. The Reserve Bank identifies Upper Layer NBFCs and publishes
-            the names — seventeen are on the current list.
+            See the answer panel — this one is not something you can work out.
           </p>
         </div>
       </div>
@@ -112,6 +111,29 @@ export function SbrLayerFinder() {
               see the returns a {LAYER_LABEL[result.layer]} NBFC like this files
             </Link>
             .
+          </p>
+        </div>
+
+        {/*
+          * The point of the whole tool, in the answer column.
+          *
+          * It was a note under a checkbox in the controls — the least noticeable place on the page
+          * for the one thing that separates this from every article on the subject.
+          */}
+        <div className="rounded-card border border-line border-l-[3px] border-l-[color:var(--color-warning)] bg-card p-s5">
+          <h2 className="font-display text-[19px] font-bold tracking-display text-ink">
+            Three of the four layers you can work out. The Upper Layer you cannot.
+          </h2>
+          <p className="mt-s3 max-w-prose text-[16px] leading-relaxed text-slate-mid">
+            Base and Middle follow from facts about the company — its category, its size, whether it
+            takes deposits. The <strong className="text-ink">Upper Layer is a designation</strong>:
+            the Reserve Bank identifies those NBFCs and publishes their names, seventeen on the
+            current list. No company puts itself there and none can compute its way in, which is why
+            this asks the question rather than pretending to answer it.
+          </p>
+          <p className="mt-s3 max-w-prose text-[16px] leading-relaxed text-slate-mid">
+            Being named brings enhanced regulation for at least five years, including a requirement
+            to list within three.
           </p>
         </div>
 
