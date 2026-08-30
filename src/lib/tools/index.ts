@@ -51,7 +51,7 @@ export const TOOLS: Tool[] = [
     question: "Work out which layer of the scale-based framework your NBFC is in, and what that changes.",
     title: "NBFC layer finder — Base, Middle or Upper",
     description:
-      "Find out which layer of the RBI scale-based framework your NBFC sits in, why, and what changes at that layer — from its category, size and whether it takes deposits.",
+      "Find which layer of the RBI scale-based framework your NBFC is in, why, and what changes there — from its category, size and whether it takes deposits.",
     helps: "Settle which layer you are in, and stop applying rules meant for a different one.",
     source:
       "Master Direction — Reserve Bank of India (Non-Banking Financial Company — Scale Based Regulation) Directions, 2023. The Upper Layer is identified by the Reserve Bank and published as a named list; it cannot be worked out from a company's own figures. A flat ₹1 lakh crore test for that layer was proposed in April 2026 and is not applied here, because it is a proposal.",
