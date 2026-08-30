@@ -1,6 +1,7 @@
 ---
 title: "How to automate loan origination in an NBFC without losing the credit decision"
 description: "What to automate between lead and disbursement — deduplication, KYC, bureau, eligibility, the approval matrix, documentation — and what must remain a judgement. The stages, the controls, and where automation quietly removes a check nobody meant to remove."
+metaDescription: "What to automate between lead and disbursement, what must stay a judgement, and where automation quietly removes a check nobody meant to remove."
 date: "2026-08-12"
 category: "How-to"
 author: "FastLegal Technologies"

@@ -1,6 +1,7 @@
 ---
 title: "NBFC income recognition: what the RBI rules require once an account turns bad"
 description: "Income recognition on non-performing assets — why accrued interest is reversed to suspense at classification, what receipt-basis recognition means in the ledger, how a later payment should be applied, and the half of the rule most systems never implement."
+metaDescription: "Why accrued interest is reversed at classification, what receipt basis means in the ledger, and the half of the rule most systems never implement."
 date: "2026-08-12"
 category: "How-to"
 author: "FastLegal Technologies"

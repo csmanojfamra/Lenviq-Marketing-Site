@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Section, Card } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { publishedPosts, draftCount } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Notes on NBFC lending and RBI compliance",
   description:
-    "Long-form notes on the regulatory positions a lending system has to implement — the Key Facts Statement, penal charges, IRAC classification and what diligence asks for.",
-  alternates: { canonical: "/blog/" },
-};
+    "Long-form notes on the positions a lending system has to implement — the Key Facts Statement, penal charges, IRAC classification, and what diligence asks for.",
+  path: "/blog/",
+});
 
 export default function BlogIndex() {
   const posts = publishedPosts();
@@ -31,7 +32,7 @@ export default function BlogIndex() {
         <div className="mt-s6 grid gap-s3 md:grid-cols-2">
           {posts.map((p) => (
             <Reveal key={p.slug}>
-              <Card href={`/blog/${p.slug}/`} title={p.title}>
+              <Card href={`/blog/${p.slug}/`} title={p.title} as="h2">
                 <p>{p.description}</p>
                 <p className="mt-s2 text-[13px] text-muted">
                   {p.category} · {p.date} · {p.readingMinutes} min read
@@ -42,7 +43,7 @@ export default function BlogIndex() {
         </div>
       ) : (
         <Reveal className="mt-s6">
-          <Card title="Nothing published yet">
+          <Card title="Nothing published yet" as="h2">
             <p>
               {drafts > 0
                 ? `${drafts} pieces are written and in review.`

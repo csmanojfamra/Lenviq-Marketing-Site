@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Section } from "@/components/ui";
@@ -15,11 +16,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const p = helpBySlug(slug);
   if (!p) return {};
-  return {
+  return pageMetadata({
     title: p.title,
     description: p.description,
-    alternates: { canonical: `/help/${p.slug}/` },
-  };
+    path: `/help/${p.slug}/`,
+    type: "article",
+  });
 }
 
 /**

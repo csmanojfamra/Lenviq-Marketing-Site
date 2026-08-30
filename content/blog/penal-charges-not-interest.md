@@ -1,6 +1,7 @@
 ---
 title: "Penal charges are charges: what the August 2023 direction changed in the ledger"
 description: "Why penal amounts stopped being interest, what that means for compounding, capitalisation and the general ledger, and what it implied for existing agreements."
+metaDescription: "Why penal amounts stopped being interest in August 2023, and what that changed for compounding, capitalisation and the general ledger."
 date: "2026-08-10"
 category: "Regulatory"
 author: "FastLegal Technologies"

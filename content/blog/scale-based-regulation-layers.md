@@ -1,6 +1,7 @@
 ---
 title: "Which layer are you in, and what actually changes"
 description: "Scale-Based Regulation put every NBFC in one of four layers. The layer is not a label — it decides governance, disclosure and, since 2025, whether you may levy a prepayment charge at all."
+metaDescription: "The layer is not a label. It decides governance, disclosure and, since 2025, whether you may levy a prepayment charge at all."
 date: "2026-08-11"
 category: "Regulatory"
 author: "FastLegal Technologies"

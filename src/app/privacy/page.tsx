@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Section } from "@/components/ui";
 import { renderMarkdown } from "@/lib/markdown";
 import { legalDoc, LEGAL_VERSION } from "@/lib/legal";
 import { COMPANY } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy — Lenviq",
+export const metadata: Metadata = pageMetadata({
+  title: "Privacy Policy",
   description:
-    "How Lenviq handles personal data: what we process as a processor for our NBFC customers, what we collect on this website, where data is held, and the rights available under the Digital Personal Data Protection Act, 2023.",
-  alternates: { canonical: "/privacy/" },
-};
+    "How Lenviq handles personal data: what we process for our NBFC customers, what this website collects, where data is held, and your rights under the DPDP Act.",
+  path: "/privacy/",
+});
 
 export default function PrivacyPage() {
   const body = legalDoc("privacy");

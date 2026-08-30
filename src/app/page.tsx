@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { SITE } from "@/lib/site";
 import { Container, Section, SectionHead, Card, ButtonLink } from "@/components/ui";
@@ -6,12 +7,12 @@ import { Reveal } from "@/components/reveal";
 import { Shot } from "@/components/shot";
 import { HeroPortfolioCard } from "@/components/hero-portfolio-card";
 
-export const metadata: Metadata = {
-  title: "Lenviq — lending platform for Indian NBFCs",
+export const metadata: Metadata = pageMetadata({
+  title: "Lenviq — loan management and origination software for NBFCs",
   description:
-    "Origination, loan management, accounting and RBI reporting for NBFCs. Built around the regulatory positions a lender is actually examined on.",
-  alternates: { canonical: "/" },
-};
+    "Loan origination, servicing, accounting and RBI reporting for NBFCs — built around the regulatory positions a lender is actually examined on.",
+  path: "/",
+});
 
 /**
  * Every claim on this page corresponds to something that works in the product today.
@@ -40,12 +41,21 @@ const MODULES = [
   },
 ];
 
-const PRODUCT_LINES = [
-  "Personal loans",
-  "Business loans",
-  "Vehicle loans",
-  "Loans against property",
-  "Gold loans",
+/**
+ * The product chips are LINKS now, except one.
+ *
+ * They were five spans. Four of them are the highest-value pages on the site and had no inbound
+ * link from the home page at all — which is the strongest internal-linking signal a site has to
+ * give, and it was being spent on decoration. Business lending stays a plain chip because it is
+ * supported by the product and has no page yet; linking it to nothing, or to a page written to
+ * fill the gap, would be worse than leaving it as a statement of fact.
+ */
+const PRODUCT_LINES: { label: string; href?: string }[] = [
+  { label: "Personal loans", href: "/personal-loan-software/" },
+  { label: "Business loans" },
+  { label: "Vehicle loans", href: "/vehicle-loan-software/" },
+  { label: "Loans against property", href: "/loan-against-property-software/" },
+  { label: "Gold loans", href: "/gold-loan-software/" },
 ];
 
 const FAQ = [
@@ -142,14 +152,19 @@ export default function HomePage() {
           lead="Lenviq is built around the rules an NBFC is examined against — the Master Directions, IRAC classification from the day-end position, the penal-charges regime, the returns. In general-purpose lending software those are things you configure and then defend; here they are the product itself, which is why the compliance work is specific rather than something you assemble."
         />
         <Reveal className="mt-s5 flex flex-wrap gap-s2">
-          {PRODUCT_LINES.map((p) => (
-            <span
-              key={p}
-              className="rounded-full border border-sand-border bg-card px-4 py-2 text-[14px] text-slate-mid"
-            >
-              {p}
-            </span>
-          ))}
+          {PRODUCT_LINES.map((p) => {
+            const cls =
+              "rounded-full border border-sand-border bg-card px-4 py-2 text-[14px] text-slate-mid";
+            return p.href ? (
+              <Link key={p.label} href={p.href} className={`${cls} hover:border-cta hover:text-ink`}>
+                {p.label}
+              </Link>
+            ) : (
+              <span key={p.label} className={cls}>
+                {p.label}
+              </span>
+            );
+          })}
         </Reveal>
       </Section>
 

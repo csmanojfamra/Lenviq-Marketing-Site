@@ -1,6 +1,7 @@
 ---
 title: "An audit trail is not a log file"
 description: "The statutory requirement is an edit log of every change, with the prior value, not capable of being disabled. Most systems record that something changed; far fewer record what it was before. How to test yours in ten minutes."
+metaDescription: "The statutory requirement is an edit log of every change, with the prior value, that cannot be switched off. How to test yours in ten minutes."
 date: "2026-08-11"
 category: "Compliance"
 author: "FastLegal Technologies"

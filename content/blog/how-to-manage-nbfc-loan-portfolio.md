@@ -1,6 +1,7 @@
 ---
 title: "How to manage an NBFC loan portfolio: the five views you actually need"
 description: "Managing a loan book means being able to answer five questions at any moment — what is out, what is due, what is deteriorating, what is concentrated, and what it is earning. How to build each view so they agree with each other."
+metaDescription: "What is out, what is due, what is deteriorating, what is concentrated, what it earns. How to build the five views so they agree with each other."
 date: "2026-08-12"
 category: "How-to"
 author: "FastLegal Technologies"

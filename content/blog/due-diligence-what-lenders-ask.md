@@ -1,6 +1,7 @@
 ---
 title: "What a lender asks for in due diligence, and what each number is meant to reveal"
 description: "Collection efficiency, DCB, static pool and vintage analysis — what they are, why all four get asked for, and what a portfolio-level number hides."
+metaDescription: "Collection efficiency, DCB, static pool and vintage analysis — what each is meant to reveal, and what a portfolio-level number hides."
 date: "2026-08-10"
 category: "Operations"
 author: "FastLegal Technologies"

@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync, existsSync, readdirSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { join, sep } from "node:path";
 import { stripComments } from "./helpers/every-match";
 
@@ -435,5 +436,136 @@ describe("one descriptor, and the product uses the same words", () => {
     const brand = src("scripts/build-brand.mjs");
     expect(brand).toContain("SITE.tagline from src/lib/site.ts");
     expect(brand).not.toMatch(/Lending platform for Indian NBFCs\s*\n\s*<\/p>/);
+  });
+});
+
+/**
+ * A page's title, its canonical and its `og:url` are one fact, so one function states them.
+ *
+ * All three had drifted, and none of it was visible without reading the built HTML:
+ *
+ * - Six pages ended their own title with `— Lenviq` while `layout.tsx` was already appending
+ *   `· Lenviq`, so they shipped as `… — Lenviq · Lenviq`.
+ * - Forty pages inherited `openGraph.url` from the root layout and told every crawler they were the
+ *   home page. A canonical and an `og:url` that disagree is a duplicate-content signal.
+ * - Thirty-eight pages overrode `openGraph` and lost `images` with it, because Next merges metadata
+ *   per key rather than per field. Every share of a blog post rendered a blank card.
+ *
+ * These tests do not re-check the HTML — they check that no page can state those facts any way
+ * except through `pageMetadata`, which is the property that makes the HTML right.
+ */
+describe("one page, one identity", () => {
+  const pages = walkExt(join(SITE, "src/app"), /^page\.tsx$/);
+
+  it("finds the pages at all", () => {
+    expect(pages.length).toBeGreaterThan(10);
+  });
+
+  it("every page builds its metadata through the one helper", () => {
+    for (const f of pages) {
+      const text = stripComments(readFileSync(f, "utf8"));
+      if (!/\bmetadata\b|generateMetadata/.test(text)) continue;
+      expect(text, `${f} declares metadata without pageMetadata()`).toContain("pageMetadata(");
+    }
+  });
+
+  it("no page hand-writes a canonical or an og:url beside it", () => {
+    for (const f of pages) {
+      const text = stripComments(readFileSync(f, "utf8"));
+      expect(text, `${f} sets alternates directly — pageMetadata owns that`).not.toMatch(/alternates:\s*\{/);
+      expect(text, `${f} sets openGraph directly — pageMetadata owns that`).not.toMatch(/openGraph:\s*\{/);
+    }
+  });
+
+  it("no title appends the brand the template is already appending", () => {
+    // `layout.tsx` holds `template: "%s · Lenviq"`. A page that also names the product doubles it.
+    // The home page is exempt: a title template does not apply to its own segment, only to
+    // children, so `app/page.tsx` has to carry the brand itself.
+    for (const f of pages) {
+      if (f.endsWith(join("src", "app", "page.tsx"))) continue;
+      const text = stripComments(readFileSync(f, "utf8"));
+      const title = text.match(/\n\s*title:\s*"([^"]+)"/)?.[1];
+      if (!title) continue;
+      expect(title, `${f} title already says Lenviq; the template appends it again`).not.toMatch(/Lenviq/);
+    }
+  });
+
+  it("the template is still the thing that appends it", () => {
+    expect(src("src/app/layout.tsx")).toMatch(/template:\s*`%s · \$\{SITE\.name\}`/);
+  });
+});
+
+/**
+ * A meta description is not a ranking factor. It is the only sales copy in a search result, which
+ * is why it has to finish its sentence: thirty-three posts shipped between 162 and 301 characters
+ * and every one was cut off mid-clause.
+ *
+ * `metaDescription` exists separately from `description` because the two have different jobs — the
+ * standfirst on the index page is written to be read, and is allowed to be longer.
+ */
+describe("every description fits in a search result", () => {
+  const LIMIT = 160;
+
+  it("no blog post's search line overruns", () => {
+    const dir = join(SITE, "content/blog");
+    for (const file of readdirSync(dir).filter((f) => f.endsWith(".md"))) {
+      const raw = readFileSync(join(dir, file), "utf8");
+      const meta = raw.match(/\nmetaDescription: "([^"]+)"/)?.[1]
+        ?? raw.match(/\ndescription: "([^"]+)"/)?.[1]
+        ?? "";
+      expect(meta.length, `${file}: ${meta.length} characters`).toBeLessThanOrEqual(LIMIT);
+    }
+  });
+
+  it("no page's description overruns either", () => {
+    for (const f of walkExt(join(SITE, "src/app"), /^page\.tsx$/)) {
+      const text = stripComments(readFileSync(f, "utf8"));
+      for (const m of text.matchAll(/\n\s*description:\s*\n?\s*"([^"]+)"/g)) {
+        expect(m[1].length, `${f}: ${m[1].length} characters`).toBeLessThanOrEqual(LIMIT);
+      }
+    }
+  });
+});
+
+/**
+ * The tokens are one file in two repositories, and until now nothing watched the seam.
+ *
+ * `brand/tokens.css` is the single source WITHIN each repository — `design-tokens.test.ts` in the
+ * product and the brand test here both assert that no application stylesheet declares a colour of
+ * its own. Neither asserts the thing that actually matters across the split: that the product's
+ * copy and the site's copy are the SAME FILE. They are identical today because somebody kept them
+ * so by hand, which is the arrangement this codebase has been bitten by six times — role code
+ * versus name, the permission string, three copies of `scopeSql()`, two money formatters that
+ * genuinely disagreed. Every time, all copies were correct until one changed.
+ *
+ * A published package for eleven kilobytes of custom properties needs versioning, publishing and a
+ * resolution story in two build systems; a submodule needs everyone to remember `--recurse`. The
+ * lightest thing that FAILS LOUDLY is a digest pinned at both ends — the same pattern this suite
+ * already uses for the one-line descriptor, which is shared across the same seam for the same
+ * reason.
+ *
+ * When the palette legitimately changes: edit `brand/tokens.css`, copy it to the other repository,
+ * run either suite, and paste the digest it prints into BOTH files. The failure is the point — it
+ * makes a one-sided change impossible to land quietly.
+ */
+describe("the palette is the same file in both repositories", () => {
+  /** sha256 of brand/tokens.css. The identical constant lives in fintrustsuite's design-tokens.test.ts. */
+  const TOKENS_SHA256 = "6794fa90b17d30cadf4660458cb9011591e6695c88112a5b39495e78c734490a";
+
+  it("matches the digest the product also pins", () => {
+    const actual = createHash("sha256").update(readFileSync(join(SITE, "brand/tokens.css"))).digest("hex");
+    expect(
+      actual,
+      "brand/tokens.css changed. Copy it to the other repository and update TOKENS_SHA256 in BOTH test files — " +
+        `the new digest is ${actual}`,
+    ).toBe(TOKENS_SHA256);
+  });
+
+  it("and the site's stylesheet still declares no colour of its own", () => {
+    // The within-repo half of the same rule: a stylesheet allowed one exception acquires a second.
+    const generated = readFileSync(join(SITE, "src/styles/tokens.generated.css"), "utf8");
+    expect(generated).toMatch(/GENERATED by scripts\/sync-brand\.mjs/);
+    const own = [...stripComments(src("src/app/globals.css")).matchAll(/^\s*(--color-[\w-]+)\s*:/gm)].map((m) => m[1]);
+    expect(own, "a token crept into globals.css — put it in brand/tokens.css").toEqual([]);
   });
 });

@@ -59,13 +59,27 @@ export function SectionHead({
   );
 }
 
+/**
+ * A card's title is a real heading, so its LEVEL has to be a caller's decision.
+ *
+ * It was always `<h3>`, which is right when the card sits inside a `SectionHead`'s `<h2>` — the
+ * common case. But four pages put cards directly under the `<h1>` with no section between, and
+ * those shipped an H1 → H3 jump: the blog index, the contact page, the reports groups and the
+ * signup steps. A skipped level is not a styling detail. A screen reader user navigating by
+ * heading is told a level is missing and cannot tell what it was, and the outline a crawler builds
+ * of the page is wrong in the same way.
+ *
+ * `as` fixes the level without touching a single class, so the cards look exactly as they did.
+ */
 export function Card({
   title,
+  as: Heading = "h3",
   children,
   href,
   className = "",
 }: {
   title?: string;
+  as?: "h2" | "h3" | "h4";
   children: React.ReactNode;
   href?: string;
   className?: string;
@@ -74,7 +88,7 @@ export function Card({
     <div
       className={`card-hover h-full rounded-card border border-line bg-card p-s4 shadow-e1 ${className}`}
     >
-      {title && <h3 className="font-display text-[17px] font-bold tracking-display text-ink">{title}</h3>}
+      {title && <Heading className="font-display text-[17px] font-bold tracking-display text-ink">{title}</Heading>}
       <div className={`text-[15px] leading-relaxed text-slate-mid ${title ? "mt-s2" : ""}`}>{children}</div>
     </div>
   );

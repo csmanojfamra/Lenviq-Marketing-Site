@@ -80,3 +80,32 @@ unreadable, which is worse than either state alone.
 
 aaPanel + nginx serves the static export at `lenviq.in` and `www.lenviq.in`. `app.lenviq.in` and
 `admin.lenviq.in` are the product and are served separately — nothing here touches them.
+
+### Caching headers the host is not sending
+
+`lenviq.in` responds with **no `Cache-Control` header at all**. gzip is on, so transfer is fine, but
+with no caching directive every browser applies its own heuristic — and one of them held a
+screenshot for long enough that a reader saw a version of `/compliance/` several deploys old and
+reported the product as broken. The bytes on the server were correct the whole time.
+
+The immediate cause is fixed in code: every screenshot URL now carries a content fingerprint
+(`?v=<hash>`), so a changed image is a changed URL and no cache can serve the old one. The header is
+still worth setting, because it is what makes the fingerprinted assets cacheable for a useful length
+of time instead of being re-fetched on every visit.
+
+This is an nginx change on the server, not something this repository can make:
+
+```nginx
+# Fingerprinted and content-addressed — safe to keep for a year.
+location ~* ^/(_next/static|fonts)/ {
+    add_header Cache-Control "public, max-age=31536000, immutable";
+}
+# Screenshots carry ?v=<hash>, so the URL changes whenever the bytes do.
+location ^~ /shots/ {
+    add_header Cache-Control "public, max-age=604800";
+}
+# HTML must revalidate, or a deploy is invisible until the cache expires.
+location / {
+    add_header Cache-Control "public, max-age=0, must-revalidate";
+}
+```

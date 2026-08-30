@@ -10,6 +10,23 @@ const COLUMNS = [
       { href: "/security/", label: "Security" },
     ],
   },
+  /**
+   * By loan product, in the footer rather than the top nav.
+   *
+   * Four more items across the header would crowd a row that already has to survive a phone, and
+   * these are not how a returning visitor navigates. They are here because a page with no
+   * site-wide inbound link is discoverable only through the sitemap, which is the weakest form of
+   * discovery there is — the footer gives each one a link from all seventy-eight pages.
+   */
+  {
+    title: "By loan product",
+    links: [
+      { href: "/personal-loan-software/", label: "Personal loan software" },
+      { href: "/vehicle-loan-software/", label: "Vehicle loan software" },
+      { href: "/loan-against-property-software/", label: "Loan against property software" },
+      { href: "/gold-loan-software/", label: "Gold loan software" },
+    ],
+  },
   {
     title: "Regulatory",
     links: [
@@ -34,7 +51,7 @@ export function SiteFooter() {
   return (
     <footer className="mt-s9 border-t border-line bg-sand">
       <div className="mx-auto max-w-6xl px-s3 py-s7">
-        <div className="grid gap-s5 md:grid-cols-[1.6fr_repeat(3,1fr)]">
+        <div className="grid gap-s5 md:grid-cols-[1.6fr_repeat(2,1fr)] lg:grid-cols-[1.6fr_repeat(4,1fr)]">
           <div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/brand/lockup-horizontal.svg" alt={SITE.name} width={116} height={26} />

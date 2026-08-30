@@ -1,6 +1,7 @@
 ---
 title: "Loan management software for an NBFC: what it has to do, and how to evaluate it"
 description: "What a loan management system actually has to handle for an Indian NBFC — origination, servicing, IRAC classification, penal charges, accounting and RBI returns — how to decide between building and buying, and the questions that separate a demo from a system you can run a book on."
+metaDescription: "Origination, servicing, IRAC classification, penal charges, accounting and RBI returns — and the questions that separate a demo from a system."
 date: "2026-08-12"
 category: "Guide"
 author: "FastLegal Technologies"

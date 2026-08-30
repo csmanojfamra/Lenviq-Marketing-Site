@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Section, SectionHead, Card, Spec } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { COMPANY } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "About FastLegal Technologies — who builds Lenviq",
+export const metadata: Metadata = pageMetadata({
+  title: "About FastLegal Technologies",
   description:
-    "Lenviq is built by FastLegal Technologies Private Limited — a team with domain expertise in Indian lending regulation and more than a decade building software of this kind.",
-  alternates: { canonical: "/about/" },
-};
+    "Lenviq is built by FastLegal Technologies Private Limited — a team with domain expertise in Indian lending regulation and a decade building systems like it.",
+  path: "/about/",
+});
 
 export default function AboutPage() {
   return (

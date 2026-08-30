@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Section } from "@/components/ui";
 import { renderMarkdown } from "@/lib/markdown";
 import { legalDoc, LEGAL_VERSION } from "@/lib/legal";
 import { COMPANY } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Terms of Service — Lenviq",
+export const metadata: Metadata = pageMetadata({
+  title: "Terms of Service",
   description:
-    "The terms governing use of the Lenviq platform: the nature of the arrangement, the regulatory responsibilities that remain the lender's, data ownership and localisation, and the limitation of liability.",
-  alternates: { canonical: "/terms/" },
-};
+    "The terms governing use of the Lenviq platform: the nature of the arrangement, the regulatory duties that remain the lender’s, data ownership, and liability.",
+  path: "/terms/",
+});
 
 /**
  * The real Terms of Service, replacing the draft.

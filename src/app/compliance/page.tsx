@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Section, SectionHead, Spec, Card, ButtonLink } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { Shot } from "@/components/shot";
 
-export const metadata: Metadata = {
-  title: "RBI compliance in a lending system — what Lenviq implements",
+export const metadata: Metadata = pageMetadata({
+  title: "NBFC compliance software for RBI lending rules",
   description:
-    "The Key Facts Statement, penal charges as charges, day-end IRAC classification, SMA buckets, CKYC and bureau reporting — each with the direction it comes from and its date.",
-  alternates: { canonical: "/compliance/" },
-};
+    "The Key Facts Statement, penal charges as charges, day-end IRAC classification, SMA buckets, CKYC and bureau reporting — each with the direction it comes from.",
+  path: "/compliance/",
+});
 
 /**
  * The strongest page on the site, and the one a prospect will check line by line.

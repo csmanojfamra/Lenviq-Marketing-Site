@@ -1,6 +1,7 @@
 ---
 title: "Day-end is a business date, not a timestamp"
 description: "Classification is a question about the close of a named day. A lending system that compares timestamps in UTC gets every date on an Indian book wrong by up to five and a half hours — which is a whole day at the month end."
+metaDescription: "Classification is a question about the close of a named day. Compare timestamps in UTC and every date on an Indian book is wrong by 5½ hours."
 date: "2026-08-11"
 category: "Engineering"
 author: "FastLegal Technologies"

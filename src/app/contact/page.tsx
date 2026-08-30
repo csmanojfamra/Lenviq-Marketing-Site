@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Section, Card } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { COMPANY, SITE } from "@/lib/site";
 import { DemoForm } from "@/components/demo-form";
 
-export const metadata: Metadata = {
-  title: "Request a demo — Lenviq",
-  description: "Ask for a demonstration of Lenviq against your own product mix, or send a question.",
-  alternates: { canonical: "/contact/" },
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Request a demo for your NBFC",
+  description:
+    "Ask for a demonstration of Lenviq against your own product mix — gold, LAP, vehicle, personal or business lending — or send a question.",
+  path: "/contact/",
+});
 
 /**
  * A real form, with the email link kept as the fallback rather than replaced by it.
@@ -69,7 +71,7 @@ export default function ContactPage() {
         </Reveal>
 
         <Reveal className="grid gap-s3">
-        <Card title="Email">
+        <Card title="Email" as="h2">
           <p>
             <a
               href={`mailto:${COMPANY.email}?subject=${SUBJECT}&body=${BODY}`}
@@ -83,7 +85,7 @@ export default function ContactPage() {
             reaches the same inbox — and this site still runs no analytics and sets no cookie.
           </p>
         </Card>
-        <Card title="Already a customer?">
+        <Card title="Already a customer?" as="h2">
           <p>
             Sign in to the platform at{" "}
             <a href={SITE.appUrl} className="font-medium text-cta underline underline-offset-4 hover:text-cta-hover">
@@ -96,7 +98,7 @@ export default function ContactPage() {
       </div>
 
       <Reveal className="mt-s3 grid gap-s3 md:grid-cols-2">
-        <Card title="Phone and WhatsApp">
+        <Card title="Phone and WhatsApp" as="h2">
           <p>
             <a href={`tel:${COMPANY.phone}`} className="text-[17px] font-medium text-cta underline underline-offset-4 hover:text-cta-hover">
               {COMPANY.phoneDisplay}
@@ -114,7 +116,7 @@ export default function ContactPage() {
             .
           </p>
         </Card>
-        <Card title="What happens next">
+        <Card title="What happens next" as="h2">
           <p>
             A reply from someone who can answer technical questions, and a demo scheduled at a time
             that suits you. No discovery call before the demo.

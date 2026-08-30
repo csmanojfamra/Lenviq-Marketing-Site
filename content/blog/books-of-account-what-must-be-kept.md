@@ -1,6 +1,7 @@
 ---
 title: "Books of account: what has to exist, in what form, and for how long"
 description: "The Companies Act sets the floor for every NBFC. Electronic records carry conditions that are easy to fail without noticing, and eight years is longer than most systems are designed for."
+metaDescription: "What an NBFC must keep, in what form, and for how long. Electronic records carry conditions that are easy to fail without noticing."
 date: "2026-08-11"
 category: "Compliance"
 author: "FastLegal Technologies"

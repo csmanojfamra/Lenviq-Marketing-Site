@@ -1,6 +1,7 @@
 ---
 title: "Co-lending: two lenders, one borrower, and two sets of books that must agree"
 description: "The arrangement is commercially attractive and operationally unforgiving. The share, the classification and the customer interface all have to be unambiguous before the first disbursement."
+metaDescription: "The share, the classification and the customer interface all have to be unambiguous before the first rupee is disbursed. What each side owns."
 date: "2026-08-11"
 category: "Operations"
 author: "FastLegal Technologies"

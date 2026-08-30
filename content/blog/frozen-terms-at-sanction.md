@@ -1,6 +1,7 @@
 ---
 title: "A loan should carry its own terms, not a pointer to them"
 description: "Product masters change. Loans sanctioned under the old terms must keep them, and the only reliable way is to snapshot the terms onto the loan at sanction rather than resolve them through a table years later."
+metaDescription: "Product masters change; loans sanctioned under the old terms must keep them. Why the terms belong on the loan, not behind a pointer to a table."
 date: "2026-08-11"
 category: "Engineering"
 author: "FastLegal Technologies"

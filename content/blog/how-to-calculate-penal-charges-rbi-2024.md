@@ -1,6 +1,7 @@
 ---
 title: "How to calculate penal charges under the RBI 2024 rules"
 description: "Penal charges after 1 April 2024: how to compute them, why they are not interest, what that means for capitalisation, compounding and the general ledger, and how the borrower's statement and the trial balance can honestly show different numbers."
+metaDescription: "How to compute penal charges after 1 April 2024, why they are not interest, and how the statement and the trial balance can honestly differ."
 date: "2026-08-12"
 category: "How-to"
 author: "FastLegal Technologies"

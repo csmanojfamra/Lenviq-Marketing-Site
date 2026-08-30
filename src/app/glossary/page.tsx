@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Section } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { TERMS } from "@/lib/glossary";
 import { absolute } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "NBFC and lending glossary — DPD, DCB, IRAC, SMA, LTV, KFS",
+export const metadata: Metadata = pageMetadata({
+  title: "NBFC lending glossary — DPD, IRAC, NPA, KFS, LTV",
   description:
-    "Plain definitions of the terms used in Indian NBFC lending: DPD, DCB, IRAC, SMA classification, LTV, the Key Facts Statement, CKYC, static pool and vintage analysis.",
-  alternates: { canonical: "/glossary/" },
-};
+    "Plain definitions of the terms used in Indian NBFC lending: DPD, DCB, IRAC, SMA classification, LTV, the Key Facts Statement, CKYC and vintage analysis.",
+  path: "/glossary/",
+});
 
 /** Each entry is a DefinedTerm in a DefinedTermSet — the schema that fits a glossary. */
 const JSONLD = {

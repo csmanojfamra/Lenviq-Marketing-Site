@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Section, SectionHead, Card, Spec, ButtonLink } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { Shot, PhoneShot } from "@/components/shot";
+import { PRODUCTS } from "@/lib/products";
 
-export const metadata: Metadata = {
-  title: "Loan origination and loan management system for NBFCs",
+export const metadata: Metadata = pageMetadata({
+  title: "Loan origination and management system for NBFCs",
   description:
-    "LOS and LMS in one platform: lead to disbursement, servicing and collections, NPA and provisioning, Tally-compatible accounting, GST and TDS, and the document pack.",
-  alternates: { canonical: "/platform/" },
-};
+    "LOS and LMS in one system: lead to disbursement, servicing and collections, NPA and provisioning, Tally-compatible accounting, and the document pack.",
+  path: "/platform/",
+});
 
 const LOS = [
   ["Leads and applications", "Capture, assignment and a stage-by-stage workflow to sanction, with turnaround visible per stage."],
@@ -122,6 +124,31 @@ export default function PlatformPage() {
           <Reveal stage={1}><Card title="Chart of accounts">Groups and ledgers in the shape an Indian accountant expects, with branch-wise cash and bank accounts.</Card></Reveal>
           <Reveal stage={2}><Card title="GST and TDS">Output GST on fees with the CGST/SGST/IGST split, TDS receivable tracked against certificates.</Card></Reveal>
           <Reveal stage={3}><Card title="Statements">Trial balance, profit and loss, and a balance sheet that refuses to render if it does not foot — rather than rendering and being wrong.</Card></Reveal>
+        </div>
+      </Section>
+
+      {/*
+        * The four asset classes, each with its own page.
+        *
+        * Placed after the platform is described rather than before it: somebody arriving on
+        * /platform/ is asking what the system does, and the product-specific pages answer the
+        * narrower question they ask next. Section 7 of the brief — the platform page links out to
+        * all four — and each anchor says what the page is rather than naming the loan.
+        */}
+      <Section>
+        <SectionHead
+          eyebrow="By loan product"
+          title="Four books, one system"
+          lead="Asset-class behaviour is configuration, not four code paths — but what each book actually demands of the software is different enough to be worth setting out on its own."
+        />
+        <div className="mt-s5 grid gap-s3 md:grid-cols-2">
+          {PRODUCTS.map((p, i) => (
+            <Reveal key={p.slug} stage={((i % 3) + 1) as 1 | 2 | 3}>
+              <Card href={`/${p.slug}/`} title={p.title.replace(/ for NBFCs.*$/, "").replace(/ —.*$/, "")}>
+                {p.description}
+              </Card>
+            </Reveal>
+          ))}
         </div>
       </Section>
 

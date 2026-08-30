@@ -17,7 +17,20 @@ import { join } from "node:path";
 export interface Post {
   slug: string;
   title: string;
+  /**
+   * The standfirst. Shown on the blog index under the title, so it is written to be READ and is
+   * often longer than a search result can display.
+   */
   description: string;
+  /**
+   * The search-result line, capped near 155 characters — a separate field because the two jobs
+   * genuinely differ. Thirty-three posts shipped a `description` between 162 and 301 characters,
+   * every one of which Google cut off mid-clause. A meta description is not a ranking factor; it is
+   * the only sales copy in the result, so it has to finish its sentence.
+   *
+   * Falls back to `description` where the standfirst is already short enough to serve as both.
+   */
+  metaDescription: string;
   date: string;
   category: string;
   author: string;
@@ -42,6 +55,7 @@ function parse(file: string): Post {
     slug: file.replace(/\.md$/, ""),
     title: meta.title ?? file,
     description: meta.description ?? "",
+    metaDescription: meta.metaDescription || meta.description || "",
     date: meta.date ?? "",
     category: meta.category ?? "Regulatory",
     author: meta.author ?? "Lenviq",

@@ -1,6 +1,7 @@
 ---
 title: "Spreadsheets vs loan management software: when an NBFC has to move"
 description: "The honest comparison — what spreadsheets do well for a small loan book, the five specific points at which they stop working for an NBFC, what breaks first, and how to migrate without losing the history."
+metaDescription: "What spreadsheets do well for a small book, the five points at which they stop working, and how to migrate without losing the history."
 date: "2026-08-12"
 category: "How-to"
 author: "FastLegal Technologies"

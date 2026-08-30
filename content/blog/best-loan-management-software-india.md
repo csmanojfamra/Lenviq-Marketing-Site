@@ -1,6 +1,7 @@
 ---
 title: "Loan management software in India: the platforms an NBFC actually shortlists"
 description: "An honest survey of the loan management platforms Indian NBFCs evaluate — what each positions itself as, on public information — plus the questions that decide between them and why a ranked list is the wrong shape for this decision."
+metaDescription: "An honest survey of the loan management platforms Indian NBFCs evaluate, and why a ranked list is the wrong shape for this decision."
 date: "2026-08-12"
 category: "Guide"
 author: "FastLegal Technologies"

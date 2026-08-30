@@ -1,6 +1,7 @@
 ---
 title: "How to generate RBI returns for an NBFC without re-keying the book"
 description: "Which returns an NBFC files, what each one is built from, why a return assembled in a spreadsheet will eventually disagree with the ledger, and how to make every figure traceable back to the accounts that produced it."
+metaDescription: "Which returns an NBFC files, what each is built from, and how to make every figure traceable back to the accounts that produced it."
 date: "2026-08-12"
 category: "How-to"
 author: "FastLegal Technologies"

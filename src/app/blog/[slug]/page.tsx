@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Section } from "@/components/ui";
@@ -21,12 +22,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const p = postBySlug(slug);
   if (!p) return {};
-  return {
+  return pageMetadata({
     title: p.title,
-    description: p.description,
-    alternates: { canonical: `/blog/${p.slug}/` },
-    openGraph: { type: "article", title: p.title, description: p.description, publishedTime: p.date },
-  };
+    description: p.metaDescription,
+    path: `/blog/${p.slug}/`,
+    type: "article",
+    publishedTime: p.date,
+  });
 }
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {

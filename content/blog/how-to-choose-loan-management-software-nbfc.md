@@ -1,6 +1,7 @@
 ---
 title: "How to choose loan management software for an NBFC: an evaluation checklist"
 description: "A structured way to evaluate a lending platform — the requirements that actually differentiate, the demo questions that separate depth from a slide deck, how to score vendors, and the contract terms an NBFC needs because of the outsourcing directions."
+metaDescription: "The requirements that actually differentiate, the demo questions that separate depth from a slide deck, and the contract terms you need."
 date: "2026-08-12"
 category: "How-to"
 author: "FastLegal Technologies"

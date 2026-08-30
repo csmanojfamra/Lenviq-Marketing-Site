@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Section, Card } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { COMPANY, SITE } from "@/lib/site";
 import { SignupForm } from "@/components/signup-form";
 
-export const metadata: Metadata = {
-  title: "Create an account — Lenviq",
+export const metadata: Metadata = pageMetadata({
+  title: "Create an account for your NBFC",
   description:
-    "Ask for a Lenviq account for your NBFC. Confirm your email, and our team sets up the tenant, the administrator login and the subscription.",
-  alternates: { canonical: "/signup/" },
-};
+    "Ask for a Lenviq account. Confirm your email, and our team sets up the tenant, the administrator login and the subscription.",
+  path: "/signup/",
+});
 
 /**
  * The signup page.
@@ -49,19 +50,19 @@ export default function SignupPage() {
         </Reveal>
 
         <Reveal className="grid gap-s3">
-        <Card title="1. Confirm your email">
+        <Card title="1. Confirm your email" as="h2">
           <p>
             A six-digit code, valid for ten minutes. It proves the address is yours before anything
             is created in your name.
           </p>
         </Card>
-        <Card title="2. We review it">
+        <Card title="2. We review it" as="h2">
           <p>
             A person checks the details and calls if anything needs clarifying. Nothing is
             provisioned automatically.
           </p>
         </Card>
-        <Card title="3. You are set up">
+        <Card title="3. You are set up" as="h2">
           <p>
             You get your sign-in details and what the subscription covers, in one email. First
             sign-in asks you to set your own password and enrol two-factor authentication.
@@ -71,14 +72,14 @@ export default function SignupPage() {
       </div>
 
       <Reveal className="mt-s6 grid gap-s3 md:grid-cols-2">
-        <Card title="Want to look first?">
+        <Card title="Want to look first?" as="h2">
           <p>
             A demo runs on your own product mix rather than a canned dataset. Ask for one on the{" "}
             <a href="/contact/" className="font-medium text-cta underline underline-offset-4">contact page</a>,
             or say so in the form above and we will set the account up as a trial.
           </p>
         </Card>
-        <Card title="Already a customer?">
+        <Card title="Already a customer?" as="h2">
           <p>
             Sign in at{" "}
             <a href={SITE.appUrl} className="font-medium text-cta underline underline-offset-4 hover:text-cta-hover">

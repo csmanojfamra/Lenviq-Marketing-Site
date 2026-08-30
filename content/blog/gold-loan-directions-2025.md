@@ -1,6 +1,7 @@
 ---
 title: "The 2025 gold loan Directions: what they say, and what they deliberately do not"
 description: "LTV maintained on an ongoing basis, a 12-month cap on bullet consumption loans, renewal only on a standard account with accrued interest paid, and a prescribed valuation reference. Also: the provision that was in the draft and was dropped, and the subject the Directions do not address at all."
+metaDescription: "Ongoing LTV, a 12-month cap on bullet consumption loans, renewal only on a standard account — and the subject the Directions never address."
 date: "2026-08-11"
 category: "Regulatory"
 author: "FastLegal Technologies"

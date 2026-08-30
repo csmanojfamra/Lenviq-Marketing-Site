@@ -1,6 +1,7 @@
 ---
 title: "The Key Facts Statement: what must be disclosed, and where lenders get the APR wrong"
 description: "What the KFS has to contain, how the annual percentage rate is actually computed, and the three mistakes that show up most often."
+metaDescription: "What the KFS has to contain, how the annual percentage rate is actually computed, and the three mistakes that show up most often."
 date: "2026-08-10"
 category: "Regulatory"
 author: "FastLegal Technologies"

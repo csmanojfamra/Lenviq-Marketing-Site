@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Section, SectionHead, Spec, Card } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 
-export const metadata: Metadata = {
-  title: "Security, tenant isolation and audit — Lenviq",
+export const metadata: Metadata = pageMetadata({
+  title: "Lending software security — isolation, roles, audit",
   description:
-    "How data isolation, role-based access, two-factor authentication and the audit trail actually work, in specifics rather than adjectives.",
-  alternates: { canonical: "/security/" },
-};
+    "How tenant isolation, role-based access, two-factor authentication and the append-only audit trail actually work — in specifics rather than adjectives.",
+  path: "/security/",
+});
 
 const SPECS = [
   ["Tenant isolation", "Every table that holds tenant data carries a tenant key with a foreign key to the tenant, and every query path is scoped by it at the data layer rather than by each caller remembering. No option exposed anywhere disables that predicate. Row-level security is enabled underneath as a second line."],

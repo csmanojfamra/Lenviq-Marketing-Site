@@ -1,6 +1,7 @@
 ---
 title: "The APR on a Key Facts Statement is a computation, not a field"
 description: "Every charge recovered from the borrower goes into it. The common errors are the fee that was deducted at disbursement and the charge that was collected by a third party."
+metaDescription: "Every charge recovered from the borrower goes in. The two that get missed are the fee deducted at disbursement and the one a third party collected."
 date: "2026-08-11"
 category: "Regulatory"
 author: "FastLegal Technologies"

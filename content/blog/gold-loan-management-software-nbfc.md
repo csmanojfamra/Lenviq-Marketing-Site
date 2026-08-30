@@ -1,6 +1,7 @@
 ---
 title: "Gold loan management software for NBFCs: what the 2025 directions require"
 description: "What gold loan software has to handle after the RBI's 2025 directions — the valuation reference, LTV monitoring, dual custody, the seven-working-day return clock, part-release, renewal and auction — and the questions to ask a vendor."
+metaDescription: "Valuation reference, LTV monitoring, dual custody, the seven-working-day return clock, part-release, renewal and auction — and what to ask a vendor."
 date: "2026-08-12"
 category: "How-to"
 author: "FastLegal Technologies"

@@ -1,6 +1,7 @@
 ---
 title: "How to scale NBFC lending operations: what breaks at each stage"
 description: "What actually constrains a growing NBFC — not the software, usually — and what breaks in order as the book goes from one branch to many: reconciliation, classification, access control, reporting and the audit trail."
+metaDescription: "What actually constrains a growing NBFC — usually not the software — and what breaks in order as the book goes from one branch to many."
 date: "2026-08-12"
 category: "How-to"
 author: "FastLegal Technologies"

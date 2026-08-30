@@ -1,6 +1,7 @@
 ---
 title: "The Key Facts Statement: what an NBFC must disclose, and what it costs to get wrong"
 description: "What goes into a KFS, how the annual percentage rate is computed and what it must include, the clause that stops a lender recovering an undisclosed charge, the vernacular requirement, and why a typed APR eventually contradicts the schedule beside it."
+metaDescription: "What goes into a KFS, how the APR is computed, and the clause that stops a lender recovering a charge it failed to disclose."
 date: "2026-08-12"
 category: "How-to"
 author: "FastLegal Technologies"

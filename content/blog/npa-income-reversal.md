@@ -1,6 +1,7 @@
 ---
 title: "What happens to interest already booked when an account turns NPA"
 description: "Recognition switches to receipt basis, and income already taken on the account has to come back out in the year of classification. The mechanics are simple; the timing, the status check and the audit trail are where implementations go wrong."
+metaDescription: "Income already taken has to come back out in the year of classification. The mechanics are simple; the timing and the audit trail are not."
 date: "2026-08-11"
 category: "Accounting"
 author: "FastLegal Technologies"

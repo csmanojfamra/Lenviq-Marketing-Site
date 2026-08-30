@@ -1,6 +1,7 @@
 ---
 title: "SMA-0, 1 and 2 are not warnings — they are a reported position"
 description: "The special mention buckets are derived from the same day-end DPD that drives NPA classification, and they are reported to the regulator. What each bucket means, why the first boundary is day one, and why the transition dates matter more than the balances."
+metaDescription: "The buckets come from the same day-end DPD that drives NPA, and they are reported. Why the first boundary is day one."
 date: "2026-08-11"
 category: "Regulatory"
 author: "FastLegal Technologies"

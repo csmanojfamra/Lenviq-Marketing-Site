@@ -49,6 +49,10 @@ ${WHO_ITS_FOR}
 ## Key pages
 
 - [Platform](${absolute("/platform/")}): the modules, from lead to closure.
+- [Personal loan software](${absolute("/personal-loan-software/")}): unsecured lending — bureau, FOIR and its workings, deviations, NACH.
+- [Vehicle loan software](${absolute("/vehicle-loan-software/")}): new and used cases, hypothecation and RC endorsement, insurance expiry, repossession.
+- [Loan against property software](${absolute("/loan-against-property-software/")}): legal opinion and valuation as stage gates, mortgage documentation, long-tenor servicing.
+- [Gold loan software](${absolute("/gold-loan-software/")}): appraisal, ongoing LTV, renewal eligibility, auction and the return-of-collateral clock.
 - [Compliance](${absolute("/compliance/")}): each regulatory position with the direction it comes from.
 - [Reports](${absolute("/reports/")}): the reports produced, and how each states the date it is as at.
 - [Security](${absolute("/security/")}): hosting, access control, data handling.

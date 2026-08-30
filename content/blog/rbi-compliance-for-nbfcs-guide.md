@@ -1,6 +1,7 @@
 ---
 title: "RBI compliance for NBFCs: the positions your systems have to implement"
 description: "A working guide to the RBI requirements that land inside an NBFC's systems rather than its policy files — IRAC classification, income recognition on NPA, penal charges after April 2024, the Key Facts Statement, gold lending under the 2025 directions, and the returns that follow from all of them."
+metaDescription: "The RBI requirements that land inside an NBFC's systems rather than its policy files — IRAC, income recognition, penal charges, KFS and gold."
 date: "2026-08-12"
 category: "Guide"
 author: "FastLegal Technologies"

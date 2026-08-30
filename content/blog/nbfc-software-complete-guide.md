@@ -1,6 +1,7 @@
 ---
 title: "NBFC software: the complete guide to what the stack actually contains"
 description: "LOS, LMS, core lending, accounting, collections and reporting — what each layer does, where the seams are, what a modern NBFC stack looks like, and how to decide what to buy as one system and what to integrate."
+metaDescription: "LOS, LMS, core lending, accounting, collections and reporting — what each layer does, where the seams are, and what to buy as one system."
 date: "2026-08-12"
 category: "Guide"
 author: "FastLegal Technologies"

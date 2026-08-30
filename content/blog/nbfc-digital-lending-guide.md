@@ -1,6 +1,7 @@
 ---
 title: "Digital lending for NBFCs: what the guidelines require of your systems"
 description: "The RBI digital lending guidelines in operational terms — who may hold the money, what a lending service provider may and may not do, the KFS and cooling-off requirements, co-lending mechanics, and what each of these means in the loan management system."
+metaDescription: "Who may hold the money, what a lending service provider may not do, KFS and cooling-off — and what each means inside the loan management system."
 date: "2026-08-12"
 category: "Guide"
 author: "FastLegal Technologies"

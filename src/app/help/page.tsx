@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Section, SectionHead } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { helpSections } from "@/lib/help";
 
-export const metadata: Metadata = {
-  title: "Help — how to do it in Lenviq",
+export const metadata: Metadata = pageMetadata({
+  title: "Help guides for daily NBFC lending work",
   description:
-    "Short, screenshot-led guides for the work an NBFC does every day: taking a lead, completing KYC, sanctioning, disbursing, collecting, day-end reconciliation and the RBI returns.",
-  alternates: { canonical: "/help/" },
-};
+    "Short, screenshot-led guides for the work an NBFC does every day: taking a lead, KYC, sanctioning, disbursing, collecting, day-end and the RBI returns.",
+  path: "/help/",
+});
 
 /**
  * The help index — a different page from the blog, on purpose.

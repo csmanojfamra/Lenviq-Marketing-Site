@@ -1,6 +1,7 @@
 ---
 title: "How to manage multiple loan products in one NBFC system"
 description: "Running gold, property, vehicle and unsecured lending on one platform without four code paths — what varies by product, what must never vary, and how to tell configuration from a hard-coded product name."
+metaDescription: "Running gold, property, vehicle and unsecured lending on one platform without four code paths. What varies, and what must never vary."
 date: "2026-08-12"
 category: "How-to"
 author: "FastLegal Technologies"

@@ -1,6 +1,7 @@
 ---
 title: "Money is an integer: why a lending ledger holds paise, not rupees"
 description: "Floating-point arithmetic cannot represent a tenth exactly. In a loan book that becomes a reconciliation that is off by rupees with every transaction matching. Why integer paise is the only workable representation, and what it looks like when it was not done."
+metaDescription: "Floating point cannot represent a tenth. In a loan book that is a reconciliation off by rupees with every single transaction matching."
 date: "2026-08-11"
 category: "Engineering"
 author: "FastLegal Technologies"

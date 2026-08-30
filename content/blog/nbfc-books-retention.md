@@ -1,6 +1,7 @@
 ---
 title: "How long an NBFC must keep its books, and what that implies for system design"
 description: "Retention under the Companies Act, what it means for a lending system's data model, and why soft delete is not a design preference."
+metaDescription: "Retention under the Companies Act, what it means for a lending system's data model, and why soft delete is not a design preference."
 date: "2026-08-10"
 category: "Regulatory"
 author: "FastLegal Technologies"
