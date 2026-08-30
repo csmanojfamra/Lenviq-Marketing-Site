@@ -50,7 +50,7 @@ const COLUMNS = [
 export function SiteFooter() {
   return (
     <footer className="mt-s9 border-t border-line bg-sand">
-      <div className="mx-auto max-w-6xl px-s3 py-s7">
+      <div className="mx-auto max-w-7xl px-s3 py-s7">
         <div className="grid gap-s5 md:grid-cols-[1.6fr_repeat(2,1fr)] lg:grid-cols-[1.6fr_repeat(4,1fr)]">
           <div>
             {/* eslint-disable-next-line @next/next/no-img-element */}

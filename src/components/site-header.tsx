@@ -5,7 +5,7 @@ import { DesktopNav, MobileNav } from "./site-nav";
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-card/90 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-6xl items-center gap-s4 px-s3">
+      <div className="mx-auto flex h-16 max-w-7xl items-center gap-s4 px-s3">
         <Link href="/" className="flex shrink-0 items-center" aria-label={`${SITE.name} home`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/brand/lockup-horizontal.svg" alt={SITE.name} width={116} height={26} />

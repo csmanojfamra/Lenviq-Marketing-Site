@@ -3,7 +3,25 @@ import { Reveal } from "./reveal";
 
 /** The page measure. One value, so no section is a few pixels off from its neighbour. */
 export function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`mx-auto max-w-6xl px-s3 ${className}`}>{children}</div>;
+  /**
+   * 1280px, not 1152px.
+   *
+   * The measure was `max-w-6xl` and it made the site look smaller than it is. On a 1920px monitor
+   * — the most common desktop this audience opens it on — 1152px of content left 400px of empty
+   * shoulder on each side; at 2560px the page was a narrow island using 45% of the screen, and the
+   * header logo sat 720px in from the left, which reads as centred even though it is pinned to the
+   * container's left edge.
+   *
+   * The fix is the measure rather than the header. Making the header full-bleed on its own would
+   * put the logo at the screen edge and leave the content island floating below it — more obviously
+   * wrong, not less. Widening here moves the header, the footer and every page together, and keeps
+   * the property worth keeping: the header logo, the page H1 and the footer logo sit on exactly the
+   * same x-position at every width.
+   *
+   * Reading length is unaffected — prose is capped separately by `max-w-prose`, so the extra
+   * 128px goes to grids and tables, which is where it is useful.
+   */
+  return <div className={`mx-auto max-w-7xl px-s3 ${className}`}>{children}</div>;
 }
 
 /**
