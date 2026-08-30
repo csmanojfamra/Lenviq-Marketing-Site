@@ -8,7 +8,7 @@ Two tests keep this honest: every URL in the sitemap must appear here, and **no 
 the same primary keyword**. A page added without a stated intent fails the suite; a page that would
 compete with an existing one fails it by name.
 
-92 URLs.
+93 URLs.
 
 ## Priority 1 — the pages the site exists to be found through
 
@@ -32,6 +32,7 @@ compete with an existing one fails it by name.
 | `/tools/` | Help | Informational | **NBFC lending calculators** | free tools for NBFCs · lending calculators India |
 | `/tools/apr-calculator/` | Help | Informational | **apr calculator** | what annual percentage rate must this loan's key facts statement discl · NBFC lending |
 | `/tools/gold-loan-ltv-calculator/` | Help | Informational | **gold loan ltv calculator** | what is this packet worth, and how much may be advanced against it · NBFC lending |
+| `/tools/nbfc-returns-calendar/` | Help | Informational | **nbfc returns calendar** | which supervisory returns does an nbfc like mine file, and when are th · NBFC lending |
 | `/tools/npa-date-calculator/` | Help | Informational | **npa & sma date calculator** | an instalment was missed — on which dates does this account become sma · NBFC lending |
 
 ## Priority 3 — topical depth

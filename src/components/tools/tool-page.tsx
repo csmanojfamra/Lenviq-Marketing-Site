@@ -86,6 +86,17 @@ export function ToolPage({ tool, children }: { tool: Tool; children: React.React
               It is a guide, not advice. Your own board-approved policy, your scheme terms and your
               auditor decide what applies to a particular account.
             </p>
+            {tool.source && (
+              <p className="mt-s3 max-w-prose text-[15px] leading-relaxed text-slate-mid">
+                <strong className="text-ink">Source.</strong> {tool.source}{" "}
+                {tool.sourceUrl && (
+                  <a href={tool.sourceUrl} target="_blank" rel="noopener noreferrer"
+                     className="text-cta underline underline-offset-2 hover:text-cta-hover">
+                    Read the Master Direction
+                  </a>
+                )}
+              </p>
+            )}
           </div>
           <div className="rounded-card border border-line bg-card p-s5">
             <p className="text-[16px] leading-prose text-slate-mid">

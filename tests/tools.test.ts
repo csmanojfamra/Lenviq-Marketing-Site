@@ -4,6 +4,9 @@ import {
   computeEmi, computeApr, goldEligibleValuePaise, ltvPct, maxLendablePaise,
   smaForDpd, statusForDpd, bucketForDpd, daysPastDue, dateAtDpd,
 } from "../src/lib/tools/finance";
+import {
+  RETURNS, applicable, quarterEnds, monthEnds, addDays, type Profile,
+} from "../src/lib/tools/returns";
 
 const R = (rupees: number) => BigInt(Math.round(rupees * 100));
 
@@ -81,5 +84,116 @@ describe("the day-90 boundary, which is the one that moves a quarter", () => {
   it("and reports the date each boundary falls on", () => {
     const due = new Date(Date.UTC(2026, 3, 5));
     expect(dateAtDpd(due, 91).toISOString().slice(0, 10)).toBe("2026-07-05");
+  });
+});
+
+/**
+ * The returns calendar states a REGULATORY OBLIGATION, under a named Company Secretary's byline.
+ *
+ * A calculator that is wrong gives a wrong number. This being wrong tells an NBFC it does not have
+ * to file something it does have to file — so the applicability rules are pinned case by case, and
+ * each case names the fact that drives it.
+ *
+ * Source: Master Direction – Reserve Bank of India (Filing of Supervisory Returns) Directions, 2024
+ * (27 February 2024), read with the Scale Based Regulation Directions, 2023. If a rule below changes
+ * because the Direction changed, update the Direction reference on the page in the same commit.
+ */
+describe("which returns apply, by layer and category", () => {
+  const base = (over: Partial<Profile> = {}): Profile => ({
+    layer: "BASE", category: "ICC", assetsCrore: 250,
+    acceptsDeposits: false, hasOverseasInvestment: false, ...over,
+  });
+  const codes = (p: Profile) => applicable(p).map((r) => r.code).sort();
+
+  it("a small Base Layer lender files the combined return, not the split pair", () => {
+    const c = codes(base({ assetsCrore: 50 }));
+    expect(c).toContain("DNBS02");
+    expect(c).not.toContain("DNBS01");
+    expect(c).not.toContain("DNBS03");
+  });
+
+  it("under ₹100 crore it files no liquidity returns", () => {
+    const c = codes(base({ assetsCrore: 50 }));
+    expect(c).not.toContain("DNBS04A");
+    expect(c).not.toContain("DNBS04B");
+  });
+
+  it("at ₹100 crore the liquidity returns start — and 04B is MONTHLY", () => {
+    const c = codes(base({ assetsCrore: 100 }));
+    expect(c).toContain("DNBS04A");
+    expect(c).toContain("DNBS04B");
+    expect(RETURNS.find((r) => r.code === "DNBS04B")!.frequency).toBe("MONTHLY");
+  });
+
+  it("CRILC starts at ₹500 crore for a Base Layer ICC, and not before", () => {
+    expect(codes(base({ assetsCrore: 499 }))).not.toContain("DNBS08");
+    expect(codes(base({ assetsCrore: 500 }))).toContain("DNBS08");
+    // And the SMA leg is weekly, not quarterly.
+    expect(RETURNS.find((r) => r.code === "DNBS09")!.frequency).toBe("WEEKLY");
+  });
+
+  it("a Base Layer category that is not ICC, MFI or Factor stays out of CRILC however large", () => {
+    expect(codes(base({ category: "AA", assetsCrore: 5000 }))).not.toContain("DNBS08");
+  });
+
+  it("Middle and Upper Layer file the split pair and CRILC regardless of size", () => {
+    for (const layer of ["MIDDLE", "UPPER"] as const) {
+      const c = codes(base({ layer, assetsCrore: 10 }));
+      expect(c, layer).toContain("DNBS01");
+      expect(c, layer).toContain("DNBS03");
+      expect(c, layer).toContain("DNBS08");
+      expect(c, layer).not.toContain("DNBS02");
+    }
+  });
+
+  it("a core investment company files its own pair and no CRILC", () => {
+    const c = codes(base({ layer: "MIDDLE", category: "CIC" }));
+    expect(c).toContain("DNBS11");
+    expect(c).toContain("DNBS12");
+    expect(c).not.toContain("DNBS01");
+    expect(c).not.toContain("DNBS03");
+    expect(c).not.toContain("DNBS08");
+  });
+
+  it("a peer-to-peer platform files DNBS14 instead of DNBS02", () => {
+    const c = codes(base({ category: "P2P" }));
+    expect(c).toContain("DNBS14");
+    expect(c).not.toContain("DNBS02");
+  });
+
+  it("the overseas return appears only when there is an overseas holding", () => {
+    expect(codes(base())).not.toContain("DNBS13");
+    expect(codes(base({ hasOverseasInvestment: true }))).toContain("DNBS13");
+  });
+
+  it("the auditor certificate applies to everybody, in every layer", () => {
+    for (const layer of ["BASE", "MIDDLE", "UPPER"] as const) {
+      expect(codes(base({ layer })), layer).toContain("DNBS10");
+    }
+  });
+
+  it("every return says why, whether it applies or not", () => {
+    const p = base();
+    for (const r of RETURNS) {
+      expect(r.why(p).length, r.code).toBeGreaterThan(20);
+    }
+  });
+});
+
+describe("the dates the calendar computes", () => {
+  it("quarters end on the Indian financial year, not the calendar one", () => {
+    const q = quarterEnds(2026).map((d) => d.toISOString().slice(0, 10));
+    expect(q).toEqual(["2026-06-30", "2026-09-30", "2026-12-31", "2027-03-31"]);
+  });
+
+  it("a 21-day return for Q1 falls due on 21 July", () => {
+    expect(addDays(quarterEnds(2026)[0], 21).toISOString().slice(0, 10)).toBe("2026-07-21");
+  });
+
+  it("twelve month-ends, April through March", () => {
+    const m = monthEnds(2026).map((d) => d.toISOString().slice(0, 10));
+    expect(m).toHaveLength(12);
+    expect(m[0]).toBe("2026-04-30");
+    expect(m[11]).toBe("2027-03-31");
   });
 });

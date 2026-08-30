@@ -20,9 +20,28 @@ export interface Tool {
   description: string;
   /** Who reaches for this — a lender, or a professional advising one. */
   audience: string;
+  /**
+   * The instrument this is built from, where the tool states a regulatory position rather than
+   * doing arithmetic. Shown ON the page: a reader checking their own filing list is entitled to
+   * know which Direction the answer came from, and to go and read it.
+   */
+  source?: string;
+  sourceUrl?: string;
 }
 
 export const TOOLS: Tool[] = [
+  {
+    slug: "nbfc-returns-calendar",
+    name: "NBFC returns calendar",
+    question: "Which supervisory returns does an NBFC like mine file, and when are they due?",
+    title: "NBFC returns calendar — by layer and category",
+    description:
+      "Which DNBS returns your NBFC actually files, filtered by layer, category, asset size and whether it takes deposits — with the next dates.",
+    audience: "Compliance officers, CS and CA advising NBFCs",
+    source:
+      "Master Direction — Reserve Bank of India (Filing of Supervisory Returns) Directions, 2024, dated 27 February 2024, which consolidated twenty earlier instructions and replaced the 2016 NBFC Returns Directions; read with the Scale Based Regulation Directions, 2023 for what each layer means. Several published compliance calendars still list the older NBS-1, NBS-2 and NBS-3 returns, which that repeal removed.",
+    sourceUrl: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx",
+  },
   {
     slug: "apr-calculator",
     name: "APR calculator",
