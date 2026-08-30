@@ -4,6 +4,7 @@ import { publishedPosts } from "@/lib/content";
 import { publishedHelp } from "@/lib/help";
 import { TERMS } from "@/lib/glossary";
 import { PRODUCTS } from "@/lib/products";
+import { TOOLS } from "@/lib/tools";
 
 /**
  * Every URL comes from the same constant the canonical tags do, so the sitemap and the canonical
@@ -18,7 +19,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const pages = ["/", "/platform/", "/compliance/", "/reports/", "/security/",
                  "/about/", "/contact/", "/signup/", "/blog/", "/glossary/", "/help/", "/privacy/", "/terms/",
-                 ...PRODUCTS.map((p) => `/${p.slug}/`)];
+                 ...PRODUCTS.map((p) => `/${p.slug}/`),
+                 "/tools/", ...TOOLS.map((t) => `/tools/${t.slug}/`)];
   return [
     ...pages.map((p) => ({
       url: absolute(p),

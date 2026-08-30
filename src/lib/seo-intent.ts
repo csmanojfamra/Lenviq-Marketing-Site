@@ -3,6 +3,7 @@ import { publishedPosts } from "./content";
 import { publishedHelp } from "./help";
 import { TERMS } from "./glossary";
 import { PRODUCTS } from "./products";
+import { TOOLS } from "./tools";
 
 /**
  * What each page is FOR, in search terms — the map that stops two pages competing for one query.
@@ -77,6 +78,9 @@ const FIXED: IntentEntry[] = [
   { url: "/glossary/", type: "Glossary", intent: "Informational", priority: 3,
     primary: "NBFC lending glossary",
     secondary: ["lending terms India", "RBI lending terminology"] },
+  { url: "/tools/", type: "Help", intent: "Informational", priority: 2,
+    primary: "NBFC lending calculators",
+    secondary: ["free tools for NBFCs", "lending calculators India"] },
   { url: "/help/", type: "Help", intent: "Informational", priority: 4,
     primary: "Lenviq help guides",
     secondary: ["how to use Lenviq", "NBFC software documentation"] },
@@ -103,6 +107,23 @@ const productEntries = (): IntentEntry[] =>
     priority: 1 as const,
     primary: p.slug.replace(/-/g, " "),
     secondary: [`${p.eyebrow.toLowerCase()} for NBFCs`, "NBFC lending software"],
+  }));
+
+/**
+ * Tools are priority 2, above the glossary and below the commercial pages.
+ *
+ * They answer a question somebody has RIGHT NOW, which is the highest-converting kind of visit
+ * short of a demo request — and they are the pages a Chartered Accountant advising several NBFCs
+ * keeps and sends on, which is a referral channel no blog post reaches.
+ */
+const toolEntries = (): IntentEntry[] =>
+  TOOLS.map((t) => ({
+    url: `/tools/${t.slug}/`,
+    type: "Help" as const,
+    intent: "Informational" as const,
+    priority: 2 as const,
+    primary: t.name.toLowerCase(),
+    secondary: [t.question.toLowerCase().replace(/\?$/, "").slice(0, 70), "NBFC lending"],
   }));
 
 const glossaryEntries = (): IntentEntry[] =>
@@ -137,7 +158,7 @@ const helpEntries = (): IntentEntry[] =>
 
 /** Every indexable URL, with what it is for. Ordered by priority, then by URL. */
 export function intentMap(): IntentEntry[] {
-  return [...FIXED, ...productEntries(), ...glossaryEntries(), ...blogEntries(), ...helpEntries()]
+  return [...FIXED, ...productEntries(), ...toolEntries(), ...glossaryEntries(), ...blogEntries(), ...helpEntries()]
     .sort((a, b) => a.priority - b.priority || a.url.localeCompare(b.url));
 }
 

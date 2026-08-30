@@ -30,6 +30,7 @@ const COLUMNS = [
   {
     title: "Regulatory",
     links: [
+      { href: "/tools/", label: "Free tools" },
       { href: "/compliance/", label: "Compliance" },
       { href: "/help/", label: "Help" },
       { href: "/glossary/", label: "Glossary" },

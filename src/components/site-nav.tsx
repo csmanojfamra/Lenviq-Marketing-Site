@@ -46,6 +46,7 @@ export const NAV: NavItem[] = [
       { href: "/gold-loan-software/", label: "Gold loans", note: "LTV, renewal, auction" },
     ],
   },
+  { href: "/tools/", label: "Tools" },
   { href: "/compliance/", label: "Compliance" },
   { href: "/reports/", label: "Reports" },
   { href: "/security/", label: "Security" },
