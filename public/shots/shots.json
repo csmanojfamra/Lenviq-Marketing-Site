@@ -1,172 +1,172 @@
 [
   {
     "name": "dashboard",
-    "v": "208b0e9e",
+    "v": "178caa80",
     "width": 1800,
     "height": 1125,
     "path": "/dashboard",
     "small": {
       "width": 900,
-      "height": 562
+      "height": 563
     }
   },
   {
     "name": "loan-accounts",
-    "v": "288224f8",
+    "v": "575e896a",
     "width": 1800,
     "height": 1125,
     "path": "/lms/loans",
     "small": {
       "width": 900,
-      "height": 562
+      "height": 563
     }
   },
   {
     "name": "loan-account",
-    "v": "1e625d7f",
+    "v": "fb42c9e7",
     "width": 1800,
     "height": 1125,
     "path": "/lms/loans/193ce0d0-8804-4ce8-a783-e44da7319e27",
     "small": {
       "width": 900,
-      "height": 562
+      "height": 563
     }
   },
   {
     "name": "application-stages",
-    "v": "a28ec987",
+    "v": "bffdb347",
     "width": 1800,
     "height": 1125,
     "path": "/applications/398c0bb0-b42d-4709-a547-3c7f81f6eab7",
     "small": {
       "width": 900,
-      "height": 562
+      "height": 563
     }
   },
   {
     "name": "application-record",
-    "v": "33da7158",
+    "v": "eeb1004b",
     "width": 1800,
     "height": 1125,
     "path": "/applications/398c0bb0-b42d-4709-a547-3c7f81f6eab7/record",
     "small": {
       "width": 900,
-      "height": 562
+      "height": 563
     }
   },
   {
     "name": "applications",
-    "v": "952c16ef",
+    "v": "5830bed1",
     "width": 1800,
     "height": 1125,
     "path": "/applications",
     "small": {
       "width": 900,
-      "height": 562
+      "height": 563
     }
   },
   {
     "name": "parties",
-    "v": "198c43a7",
+    "v": "a443b0bb",
     "width": 1800,
     "height": 1125,
     "path": "/parties",
     "small": {
       "width": 900,
-      "height": 562
+      "height": 563
     }
   },
   {
     "name": "party-kyc",
-    "v": "16f36d5f",
+    "v": "3f3c2c42",
     "width": 1800,
     "height": 1125,
     "path": "/parties/e73534aa-cc93-41f5-af8e-571c3c24cf92",
     "small": {
       "width": 900,
-      "height": 562
+      "height": 563
     }
   },
   {
     "name": "reports",
-    "v": "b2a947ea",
+    "v": "6bc04588",
     "width": 1800,
     "height": 1125,
     "path": "/lms/reports",
     "small": {
       "width": 900,
-      "height": 562
+      "height": 563
     }
   },
   {
     "name": "rbi-returns",
-    "v": "0af39b88",
+    "v": "d3971dfd",
     "width": 1800,
     "height": 1125,
     "path": "/rbi-returns",
     "small": {
       "width": 900,
-      "height": 562
+      "height": 563
     }
   },
   {
     "name": "accounting",
-    "v": "21983a5e",
+    "v": "b07085d2",
     "width": 1800,
     "height": 1125,
     "path": "/accounting",
     "small": {
       "width": 900,
-      "height": 562
+      "height": 563
     }
   },
   {
     "name": "disbursement-register",
-    "v": "efff87e5",
+    "v": "704c222b",
     "width": 1800,
     "height": 1125,
     "path": "/disbursement-register",
     "small": {
       "width": 900,
-      "height": 562
+      "height": 563
     }
   },
   {
     "name": "schemes",
-    "v": "e347dbc3",
+    "v": "5ef14638",
     "width": 1800,
     "height": 1125,
     "path": "/schemes",
     "small": {
       "width": 900,
-      "height": 562
+      "height": 563
     }
   },
   {
     "name": "approvals-inbox",
-    "v": "064886bb",
+    "v": "1e9fafc3",
     "width": 1800,
     "height": 1125,
     "path": "/approvals-inbox",
     "small": {
       "width": 900,
-      "height": 562
+      "height": 563
     }
   },
   {
     "name": "leads",
-    "v": "f58fd227",
+    "v": "b96f921b",
     "width": 1800,
     "height": 1125,
     "path": "/leads",
     "small": {
       "width": 900,
-      "height": 562
+      "height": 563
     }
   },
   {
     "name": "field-home",
-    "v": "095c4287",
+    "v": "2869fd21",
     "width": 824,
     "height": 1830,
     "path": "/mobile",
@@ -177,7 +177,7 @@
   },
   {
     "name": "field-accounts",
-    "v": "95b531dc",
+    "v": "2caef656",
     "width": 824,
     "height": 1830,
     "path": "/mobile/accounts",
@@ -188,7 +188,7 @@
   },
   {
     "name": "field-account-summary",
-    "v": "7609eda0",
+    "v": "358a7ca2",
     "width": 824,
     "height": 1830,
     "path": "/mobile/accounts/193ce0d0-8804-4ce8-a783-e44da7319e27",
@@ -199,7 +199,7 @@
   },
   {
     "name": "field-collect",
-    "v": "df984ffa",
+    "v": "a8132321",
     "width": 824,
     "height": 1830,
     "path": "/mobile/collections/193ce0d0-8804-4ce8-a783-e44da7319e27",
@@ -210,13 +210,24 @@
   },
   {
     "name": "field-day-end",
-    "v": "6ca3e778",
+    "v": "560708db",
     "width": 824,
     "height": 1830,
     "path": "/mobile/collections/eod",
     "small": {
       "width": 620,
       "height": 1377
+    }
+  },
+  {
+    "name": "gold-loan-ltv",
+    "v": "c23c7b57",
+    "width": 1800,
+    "height": 1125,
+    "path": "/lms/loans/3238209b-f052-4b0f-9655-62d5fbe10b6b",
+    "small": {
+      "width": 900,
+      "height": 563
     }
   }
 ]
