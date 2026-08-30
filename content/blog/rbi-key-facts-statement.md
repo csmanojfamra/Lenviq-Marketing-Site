@@ -4,7 +4,7 @@ description: "What the KFS has to contain, how the annual percentage rate is act
 metaDescription: "What the KFS has to contain, how the annual percentage rate is actually computed, and the three mistakes that show up most often."
 date: "2026-08-10"
 category: "Regulatory"
-author: "FastLegal Technologies"
+author: "CA Anil Agarwal"
 draft: false
 ---
 

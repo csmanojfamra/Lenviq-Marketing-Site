@@ -267,7 +267,7 @@ export const TERMS: Term[] = [
     matters:
       "Because \u201cEMI\u201d is treated as though it were the only repayment shape, and it is not. A gold loan is often interest-only with the principal falling due at maturity; a construction loan may step up; a seasonal borrower may need a structured schedule. A system that models only level EMIs quietly forces every product into one shape.",
     inProduct:
-      "Seven repayment shapes are supported, not one: level EMI, bullet, structured, interest-only, step-up, and instalments either calculated by the system or set by the lender. The shape is a property of the scheme, so a new product is configuration rather than a release. Every amount is held in paise as a whole number, and rounding is carried into the last instalment so the schedule closes exactly.",
+      "Seven repayment shapes are supported, not one: level EMI, bullet, structured, interest-only, step-up, and instalments either calculated by the system or set by the lender. The shape is a property of the scheme, so a new product is configuration rather than a release. Rounding is carried into the last instalment, so the principal components add up to the sanctioned amount exactly rather than nearly.",
     related: ["apr", "interest-accrual", "moratorium", "prepayment"],
   },
   {

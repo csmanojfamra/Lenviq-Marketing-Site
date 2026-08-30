@@ -4,7 +4,7 @@ description: "The statutory requirement is an edit log of every change, with the
 metaDescription: "The statutory requirement is an edit log of every change, with the prior value, that cannot be switched off. How to test yours in ten minutes."
 date: "2026-08-11"
 category: "Compliance"
-author: "FastLegal Technologies"
+author: "CS Manoj Famra"
 draft: false
 ---
 

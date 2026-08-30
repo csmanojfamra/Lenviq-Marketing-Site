@@ -4,7 +4,7 @@ description: "The Reserve Bank's position on outsourcing by NBFCs is consistent 
 metaDescription: "The RBI's position has been consistent for a decade, and the 2024 gold loan review showed what happens when it is treated as a formality."
 date: "2026-08-11"
 category: "Compliance"
-author: "FastLegal Technologies"
+author: "CS Sushil Choudhary"
 draft: false
 ---
 

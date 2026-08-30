@@ -4,7 +4,7 @@ description: "An honest survey of the loan management platforms Indian NBFCs eva
 metaDescription: "An honest survey of the loan management platforms Indian NBFCs evaluate, and why a ranked list is the wrong shape for this decision."
 date: "2026-08-12"
 category: "Guide"
-author: "FastLegal Technologies"
+author: "CS Manoj Famra"
 draft: false
 ---
 

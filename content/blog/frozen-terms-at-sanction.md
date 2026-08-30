@@ -4,7 +4,7 @@ description: "Product masters change. Loans sanctioned under the old terms must 
 metaDescription: "Product masters change; loans sanctioned under the old terms must keep them. Why the terms belong on the loan, not behind a pointer to a table."
 date: "2026-08-11"
 category: "Engineering"
-author: "FastLegal Technologies"
+author: "CA Tanmay Saini"
 draft: false
 ---
 
@@ -166,3 +166,14 @@ cannot be recovered from them at all — so the snapshot is what evidences which
 [Loan management software for an NBFC](/blog/loan-management-software-for-nbfc/)
 
 [Ask for a walk-through](/contact/) — change a scheme and then open a loan sanctioned before it.
+
+## A worked example
+
+A scheme prices at 14% in March. Two hundred loans are sanctioned on it. In July the board reprices
+the product to 16% for new business.
+
+If the loans read the rate from the master, all two hundred silently reprice — the borrowers' own
+agreements now disagree with the system, and every schedule, every interest certificate and every
+Key Facts Statement issued since March is wrong. If each loan holds the terms it was sanctioned on,
+the July change applies to what is written after it and to nothing before, which is what the
+agreements already say.

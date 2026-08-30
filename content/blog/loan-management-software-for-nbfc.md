@@ -4,7 +4,7 @@ description: "What a loan management system actually has to handle for an Indian
 metaDescription: "Origination, servicing, IRAC classification, penal charges, accounting and RBI returns — and the questions that separate a demo from a system."
 date: "2026-08-12"
 category: "Guide"
-author: "FastLegal Technologies"
+author: "CS Manoj Famra"
 draft: false
 ---
 

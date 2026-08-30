@@ -4,7 +4,7 @@ description: "Every charge recovered from the borrower goes into it. The common 
 metaDescription: "Every charge recovered from the borrower goes in. The two that get missed are the fee deducted at disbursement and the one a third party collected."
 date: "2026-08-11"
 category: "Regulatory"
-author: "FastLegal Technologies"
+author: "CA Anil Agarwal"
 draft: false
 ---
 

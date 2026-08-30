@@ -4,7 +4,7 @@ description: "Penal charges after 1 April 2024: how to compute them, why they ar
 metaDescription: "How to compute penal charges after 1 April 2024, why they are not interest, and how the statement and the trial balance can honestly differ."
 date: "2026-08-12"
 category: "How-to"
-author: "FastLegal Technologies"
+author: "CA Anil Agarwal"
 draft: false
 ---
 

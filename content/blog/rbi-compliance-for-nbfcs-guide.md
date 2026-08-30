@@ -4,7 +4,7 @@ description: "A working guide to the RBI requirements that land inside an NBFC's
 metaDescription: "The RBI requirements that land inside an NBFC's systems rather than its policy files — IRAC, income recognition, penal charges, KFS and gold."
 date: "2026-08-12"
 category: "Guide"
-author: "FastLegal Technologies"
+author: "CS Manoj Famra"
 draft: false
 ---
 

@@ -49,7 +49,7 @@ export const PERSONAL: ProductSpec = {
       "A gold loan is underwritten on a weight anyone can re-measure. A personal loan is underwritten on an arithmetic that has to be reproducible months later, in front of somebody who did not do it.",
     points: [
       ["The FOIR is stored with its workings, not just its answer", "The ratio is computed from the income of the parties whose income is considered and the obligations actually counted, plus the proposed instalment — and what it was made of is kept alongside it. A number a credit committee cannot take apart is a number they have to trust, and trust is not a control."],
-      ["Other income is haircut, and the haircut is a product decision", "Net monthly income counts in full because documents stand behind it. Other income carries no income type and no document trail, so it counts at a percentage set on the scheme — a credit-policy choice per product, not a constant in the code. The arithmetic runs in basis points on integers throughout, so the ratio does not drift through a float."],
+      ["Other income is haircut, and the haircut is a product decision", "Net monthly income counts in full because documents stand behind it. Other income carries no income type and no document trail, so it counts at a percentage set on the scheme — a credit-policy choice per product, not a constant in the code. The ratio is computed exactly, so two people running it on the same file get the same number."],
       ["The proposed EMI is priced at the ceiling and booked at the floor", "Assessment computes the instalment at the top of the scheme’s rate band, deliberately, so a file is not approved on a rate the borrower may not get. The sanction then books the floor. Underwriting on the best case is how a marginal file becomes an approved one."],
       ["A breach is a deviation, and a deviation has a level", "Exceeding the scheme’s FOIR or DBR ceiling does not silently pass and does not simply block. It records a deviation, and each deviation carries the approval level its master says it requires — so the file rises to the person entitled to allow it, and the fact that it was an exception is on the record permanently."],
       ["Collections without a security", "The instrument is the mandate, so the reports that matter are presentation and returns. A bounce is an event with its own register, and the arrears position drives the same day-end DPD, SMA and IRAC classification as every secured product."],
@@ -118,7 +118,7 @@ export const PERSONAL: ProductSpec = {
     },
     {
       q: "Is the haircut on other income configurable?",
-      a: "Yes — it is a field on the scheme, because how much undocumented income to count is a credit-policy choice per product rather than a constant. Net monthly income counts in full; other income counts at that percentage, and the arithmetic runs in basis points on integers so the ratio cannot drift through floating-point.",
+      a: "Yes — it is a field on the scheme, because how much undocumented income to count is a credit-policy choice per product rather than a constant. Net monthly income counts in full and other income counts at that percentage. The ratio is computed exactly rather than approximately, which matters when a file sits a fraction under the ceiling.",
     },
     {
       q: "What happens when a file breaches the FOIR ceiling?",

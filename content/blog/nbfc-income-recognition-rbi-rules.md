@@ -4,7 +4,7 @@ description: "Income recognition on non-performing assets — why accrued intere
 metaDescription: "Why accrued interest is reversed at classification, what receipt basis means in the ledger, and the half of the rule most systems never implement."
 date: "2026-08-12"
 category: "How-to"
-author: "FastLegal Technologies"
+author: "CA Himanshu Sharma"
 draft: false
 ---
 

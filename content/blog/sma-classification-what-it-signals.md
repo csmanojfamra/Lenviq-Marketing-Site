@@ -4,7 +4,7 @@ description: "The special mention buckets are derived from the same day-end DPD 
 metaDescription: "The buckets come from the same day-end DPD that drives NPA, and they are reported. Why the first boundary is day one."
 date: "2026-08-11"
 category: "Regulatory"
-author: "FastLegal Technologies"
+author: "CA Himanshu Sharma"
 draft: false
 ---
 

@@ -4,7 +4,7 @@ description: "What gold loan software has to handle after the RBI's 2025 directi
 metaDescription: "Valuation reference, LTV monitoring, dual custody, the seven-working-day return clock, part-release, renewal and auction — and what to ask a vendor."
 date: "2026-08-12"
 category: "How-to"
-author: "FastLegal Technologies"
+author: "CA Tanmay Saini"
 draft: false
 ---
 

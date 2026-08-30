@@ -4,7 +4,7 @@ description: "Running gold, property, vehicle and unsecured lending on one platf
 metaDescription: "Running gold, property, vehicle and unsecured lending on one platform without four code paths. What varies, and what must never vary."
 date: "2026-08-12"
 category: "How-to"
-author: "FastLegal Technologies"
+author: "CA Tanmay Saini"
 draft: false
 ---
 

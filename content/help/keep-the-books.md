@@ -23,8 +23,11 @@ levy and a provision each post their own voucher at the moment they happen.
 - **Immutable postings** — a financial entry is never updated or deleted. A correction is a reversal
   entry, so the history of what was believed and when survives.
 
-## Money is in paise
+## Rounding lands in one place
 
-Every amount — interest, penal, bounce, provision — is held as an integer in paise, never as a
-floating point number. Rounding lands on the last instalment, which is where a lender's own
-documents put it.
+Interest is rounded once, when it is booked, and the last instalment of a schedule carries whatever
+remainder is left — so the principal components add up to the sanctioned amount exactly, not nearly.
+
+That is the check worth running on any lending system: add a loan's posted interest and see whether
+it equals the accrued figure on the account, to the rupee. If it is close rather than exact, the
+difference will turn up later as a rounding journal nobody can explain.

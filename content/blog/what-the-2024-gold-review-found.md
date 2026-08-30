@@ -4,7 +4,7 @@ description: "The September 2024 review named specific practices across banks an
 metaDescription: "The September 2024 review named specific practices. Two are the kind a lender's own system either prevents or quietly permits."
 date: "2026-08-11"
 category: "Supervision"
-author: "FastLegal Technologies"
+author: "CS Sushil Choudhary"
 draft: false
 ---
 

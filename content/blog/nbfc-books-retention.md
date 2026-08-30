@@ -4,7 +4,7 @@ description: "Retention under the Companies Act, what it means for a lending sys
 metaDescription: "Retention under the Companies Act, what it means for a lending system's data model, and why soft delete is not a design preference."
 date: "2026-08-10"
 category: "Regulatory"
-author: "FastLegal Technologies"
+author: "CS Manoj Famra"
 draft: false
 ---
 

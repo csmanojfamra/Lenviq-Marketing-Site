@@ -25,6 +25,31 @@ function inline(s: string): string {
     );
 }
 
+/**
+ * A stable, readable anchor from a heading's own words.
+ *
+ * Derived rather than stored, so the id and the heading cannot drift apart — and the same function
+ * builds the contents list, so a link there always points at a heading that exists.
+ */
+export function headingId(text: string): string {
+  return text
+    .replace(/[*_`]/g, "")
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 60);
+}
+
+/** The `## headings` of a document, for a contents list. */
+export function outline(src: string): { text: string; id: string }[] {
+  return src
+    .split("\n")
+    .map((l) => /^##\s+(.*)$/.exec(l.trim()))
+    .filter((m): m is RegExpExecArray => !!m)
+    .map((m) => ({ text: m[1].replace(/[*_`]/g, ""), id: headingId(m[1]) }));
+}
+
 export function renderMarkdown(src: string): string {
   const out: string[] = [];
   const lines = src.split("\n");
@@ -42,7 +67,14 @@ export function renderMarkdown(src: string): string {
     if (/^---+$/.test(line.trim())) { closeList(); out.push("<hr>"); continue; }
 
     const h = /^(#{2,4})\s+(.*)$/.exec(line);
-    if (h) { closeList(); const n = h[1].length; out.push(`<h${n}>${inline(h[2])}</h${n}>`); continue; }
+    if (h) {
+      closeList();
+      const n = h[1].length;
+      // An `id` on every heading, so a contents list can link to it and so a reader can share a
+      // link to the part of a two-thousand-word post they were actually reading.
+      out.push(`<h${n} id="${headingId(h[2])}">${inline(h[2])}</h${n}>`);
+      continue;
+    }
 
     const q = /^>\s?(.*)$/.exec(line);
     if (q) { closeList(); out.push(`<blockquote><p>${inline(q[1])}</p></blockquote>`); continue; }

@@ -4,7 +4,7 @@ description: "The RBI digital lending guidelines in operational terms — who ma
 metaDescription: "Who may hold the money, what a lending service provider may not do, KFS and cooling-off — and what each means inside the loan management system."
 date: "2026-08-12"
 category: "Guide"
-author: "FastLegal Technologies"
+author: "CS Sushil Choudhary"
 draft: false
 ---
 

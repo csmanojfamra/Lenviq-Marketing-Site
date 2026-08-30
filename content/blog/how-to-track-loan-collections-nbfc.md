@@ -4,7 +4,7 @@ description: "Building a collections process that holds up: demand generated fro
 metaDescription: "Demand from due events, allocation that reflects risk, and field receipts that appropriate exactly as branch receipts do. Without losing the trail."
 date: "2026-08-12"
 category: "How-to"
-author: "FastLegal Technologies"
+author: "CA Tanmay Saini"
 draft: false
 ---
 

@@ -4,7 +4,7 @@ description: "Recognition switches to receipt basis, and income already taken on
 metaDescription: "Income already taken has to come back out in the year of classification. The mechanics are simple; the timing and the audit trail are not."
 date: "2026-08-11"
 category: "Accounting"
-author: "FastLegal Technologies"
+author: "CA Himanshu Sharma"
 draft: false
 ---
 

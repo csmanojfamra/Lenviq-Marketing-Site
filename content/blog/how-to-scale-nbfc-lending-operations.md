@@ -4,7 +4,7 @@ description: "What actually constrains a growing NBFC — not the software, usua
 metaDescription: "What actually constrains a growing NBFC — usually not the software — and what breaks in order as the book goes from one branch to many."
 date: "2026-08-12"
 category: "How-to"
-author: "FastLegal Technologies"
+author: "CS Sushil Choudhary"
 draft: false
 ---
 

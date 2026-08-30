@@ -4,7 +4,7 @@ description: "Managing a loan book means being able to answer five questions at 
 metaDescription: "What is out, what is due, what is deteriorating, what is concentrated, what it earns. How to build the five views so they agree with each other."
 date: "2026-08-12"
 category: "How-to"
-author: "FastLegal Technologies"
+author: "CA Tanmay Saini"
 draft: false
 ---
 

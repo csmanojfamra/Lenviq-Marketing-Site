@@ -4,7 +4,7 @@ description: "Collection efficiency, DCB, static pool and vintage analysis — w
 metaDescription: "Collection efficiency, DCB, static pool and vintage analysis — what each is meant to reveal, and what a portfolio-level number hides."
 date: "2026-08-10"
 category: "Operations"
-author: "FastLegal Technologies"
+author: "CS Sushil Choudhary"
 draft: false
 ---
 
@@ -135,3 +135,15 @@ same date. A difference is not fatal, but being unable to explain it is.
 [Classification is a day-end event](/blog/irac-day-end-classification/)
 
 [Ask for a walk-through](/contact/) of the four views against your own book.
+
+## A worked example
+
+A book raises demand of ₹1 crore in a month, collects ₹98 lakh against it, and starts the month with
+₹30 lakh of arrears brought forward, of which ₹10 lakh is recovered.
+
+Against current-month demand alone, collection efficiency is **98%**. Against demand plus the opening
+arrears, it is **83%**. Both are arithmetically correct, and a diligence pack quoting the first
+without saying so is not.
+
+That is the whole reason the definition has to travel with the number — and the reason a lender asks
+for the DCB alongside it rather than taking the percentage on its own.

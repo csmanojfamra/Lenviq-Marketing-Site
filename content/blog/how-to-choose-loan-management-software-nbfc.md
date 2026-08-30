@@ -4,7 +4,7 @@ description: "A structured way to evaluate a lending platform — the requiremen
 metaDescription: "The requirements that actually differentiate, the demo questions that separate depth from a slide deck, and the contract terms you need."
 date: "2026-08-12"
 category: "How-to"
-author: "FastLegal Technologies"
+author: "CS Manoj Famra"
 draft: false
 ---
 

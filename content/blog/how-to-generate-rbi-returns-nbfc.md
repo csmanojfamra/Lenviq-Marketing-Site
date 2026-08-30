@@ -4,7 +4,7 @@ description: "Which returns an NBFC files, what each one is built from, why a re
 metaDescription: "Which returns an NBFC files, what each is built from, and how to make every figure traceable back to the accounts that produced it."
 date: "2026-08-12"
 category: "How-to"
-author: "FastLegal Technologies"
+author: "CA Tanmay Saini"
 draft: false
 ---
 

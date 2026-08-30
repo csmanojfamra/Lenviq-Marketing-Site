@@ -4,7 +4,7 @@ description: "The honest comparison — what spreadsheets do well for a small lo
 metaDescription: "What spreadsheets do well for a small book, the five points at which they stop working, and how to migrate without losing the history."
 date: "2026-08-12"
 category: "How-to"
-author: "FastLegal Technologies"
+author: "CA Himanshu Sharma"
 draft: false
 ---
 

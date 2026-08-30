@@ -4,7 +4,7 @@ description: "The Credit Information Reporting Directions, 2025 set a fortnightl
 metaDescription: "The 2025 Directions set a fortnightly cycle. From July 2026 NBFCs go further: four reference dates a month, plus a full file."
 date: "2026-08-11"
 category: "Reporting"
-author: "FastLegal Technologies"
+author: "CA Tanmay Saini"
 draft: false
 ---
 

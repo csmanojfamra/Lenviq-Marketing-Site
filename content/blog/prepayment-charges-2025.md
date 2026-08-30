@@ -4,7 +4,7 @@ description: "Paragraph 5(i) binds every lender. Paragraph 5(ii) names entity cl
 metaDescription: "Paragraph 5(i) binds every lender. Paragraph 5(ii) names entity classes and omits the Base Layer. And MSE is not the same as not-an-individual."
 date: "2026-08-11"
 category: "Regulatory"
-author: "FastLegal Technologies"
+author: "CA Anil Agarwal"
 draft: false
 ---
 

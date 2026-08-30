@@ -4,7 +4,7 @@ description: "Automating SMA and NPA staging under RBI norms: what has to be com
 metaDescription: "What has to run nightly, why overdue means demanded-and-unpaid, and the upgrade rule that catches most systems out."
 date: "2026-08-12"
 category: "How-to"
-author: "FastLegal Technologies"
+author: "CA Himanshu Sharma"
 draft: false
 ---
 

@@ -4,7 +4,7 @@ description: "The arrangement is commercially attractive and operationally unfor
 metaDescription: "The share, the classification and the customer interface all have to be unambiguous before the first rupee is disbursed. What each side owns."
 date: "2026-08-11"
 category: "Operations"
-author: "FastLegal Technologies"
+author: "CS Sushil Choudhary"
 draft: false
 ---
 
@@ -143,3 +143,15 @@ accrues and the other recognises on receipt, and reversals applied on one book b
 [What cannot be outsourced](/blog/outsourcing-what-cannot-be-outsourced/)
 
 [Ask for a walk-through](/contact/) of how shares, classification and recovery are held separately.
+
+## A worked example
+
+A ₹50 lakh loan is co-lent 80:20 — ₹40 lakh from the bank, ₹10 lakh from the NBFC. The borrower pays
+an instalment of ₹1,20,000.
+
+Each partner receives its share of that receipt in its own books: ₹96,000 and ₹24,000. If the account
+later goes 95 days past due, **both** classify their own share as non-performing on their own norms,
+and each provides against its own ₹40 lakh and ₹10 lakh. There is no single classification that
+travels between them.
+
+The borrower, meanwhile, has one loan, one schedule and one number to call.

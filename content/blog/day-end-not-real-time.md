@@ -4,7 +4,7 @@ description: "Classification is a question about the close of a named day. A len
 metaDescription: "Classification is a question about the close of a named day. Compare timestamps in UTC and every date on an Indian book is wrong by 5½ hours."
 date: "2026-08-11"
 category: "Engineering"
-author: "FastLegal Technologies"
+author: "CA Anil Agarwal"
 draft: false
 ---
 
@@ -149,6 +149,16 @@ somewhere.
 **Related reading:** [Classification is a day-end event](/blog/irac-day-end-classification/) ·
 [How to automate NPA classification](/blog/how-to-automate-npa-classification-nbfc/) ·
 [How to generate RBI returns](/blog/how-to-generate-rbi-returns-nbfc/) ·
-[Interest in paise, not float](/blog/interest-in-paise-not-float/)
+[Why a reconciliation is off by a few rupees when every entry matches](/blog/reconciliation-off-by-rupees/)
 
 [Ask for a walk-through](/contact/) — book one at 2am and see what it does.
+
+## A worked example
+
+A borrower pays at 4pm on 30 June. The system stores the moment in UTC, which is 10:30am on 30 June —
+same day, no harm done.
+
+Now a borrower pays at 4am on 1 July. In UTC that is 10:30pm on **30 June**. A month-end report built
+by comparing timestamps puts a July receipt into June: June's collection is overstated, July's is
+understated, and the two reports still each foot. Every Indian book is five and a half hours away
+from the date its own staff would write on a receipt.

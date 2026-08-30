@@ -3,7 +3,7 @@ title: "Why an intra-day NPA number is not the same number"
 description: "IRAC classification is computed on the day-end position. What that means for a report run at 11am, and what it does to a month-end close."
 date: "2026-08-10"
 category: "Regulatory"
-author: "FastLegal Technologies"
+author: "CA Himanshu Sharma"
 draft: false
 ---
 
@@ -141,3 +141,13 @@ their own rules, and this post does not enumerate them.*
 [Day-end is a business date](/blog/day-end-not-real-time/)
 
 [Ask for a walk-through](/contact/) — part-pay an NPA account and see whether it upgrades.
+
+## A worked example
+
+An instalment falls due on 5 April and is not paid. Counting from that date, the account is 90 days
+past due on 4 July and **more than** 90 days past due on 5 July — so it becomes non-performing in
+the day-end process of 5 July, not 4 July.
+
+That one day is not academic. It decides which quarter the provision lands in, which quarter the
+income reversal lands in, and what the credit bureau is told. A system that classifies on day 90
+reports every one of those a day early, all year.

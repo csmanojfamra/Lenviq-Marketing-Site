@@ -4,7 +4,7 @@ description: "What to automate between lead and disbursement — deduplication, 
 metaDescription: "What to automate between lead and disbursement, what must stay a judgement, and where automation quietly removes a check nobody meant to remove."
 date: "2026-08-12"
 category: "How-to"
-author: "FastLegal Technologies"
+author: "CS Sushil Choudhary"
 draft: false
 ---
 

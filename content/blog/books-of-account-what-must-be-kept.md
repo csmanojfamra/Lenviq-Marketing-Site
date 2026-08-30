@@ -4,7 +4,7 @@ description: "The Companies Act sets the floor for every NBFC. Electronic record
 metaDescription: "What an NBFC must keep, in what form, and for how long. Electronic records carry conditions that are easy to fail without noticing."
 date: "2026-08-11"
 category: "Compliance"
-author: "FastLegal Technologies"
+author: "CS Manoj Famra"
 draft: false
 ---
 

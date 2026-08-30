@@ -4,7 +4,7 @@ description: "Why penal amounts stopped being interest, what that means for comp
 metaDescription: "Why penal amounts stopped being interest in August 2023, and what that changed for compounding, capitalisation and the general ledger."
 date: "2026-08-10"
 category: "Regulatory"
-author: "FastLegal Technologies"
+author: "CA Anil Agarwal"
 draft: false
 ---
 
@@ -143,3 +143,16 @@ from the first; the dates from the second.*
 [Terms are frozen at sanction](/blog/frozen-terms-at-sanction/)
 
 [Ask for a walk-through](/contact/) — levy a charge and look at the trial balance.
+
+## A worked example
+
+An instalment of ₹25,000 falls due on 5 April and is paid on 20 May — 45 days late. The board has
+approved a penal charge of 2% a month on the overdue amount, and the loan agreement and the Key
+Facts Statement both disclose it.
+
+The charge is ₹25,000 × 2% × 45/30 = **₹750**. It is levied on the overdue instalment, not on the
+outstanding principal, and it stops on the day the arrears clear.
+
+What it is not: it is not added to the ₹25,000, it does not earn interest, and it does not appear in
+the profit and loss account on 20 May unless the borrower actually paid it. If they paid ₹25,000 and
+not the ₹750, the charge stays outstanding on the statement and out of income.

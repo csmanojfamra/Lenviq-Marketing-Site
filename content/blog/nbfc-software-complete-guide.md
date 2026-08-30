@@ -4,7 +4,7 @@ description: "LOS, LMS, core lending, accounting, collections and reporting — 
 metaDescription: "LOS, LMS, core lending, accounting, collections and reporting — what each layer does, where the seams are, and what to buy as one system."
 date: "2026-08-12"
 category: "Guide"
-author: "FastLegal Technologies"
+author: "CS Manoj Famra"
 draft: false
 ---
 

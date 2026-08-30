@@ -4,7 +4,7 @@ description: "What goes into a KFS, how the annual percentage rate is computed a
 metaDescription: "What goes into a KFS, how the APR is computed, and the clause that stops a lender recovering a charge it failed to disclose."
 date: "2026-08-12"
 category: "How-to"
-author: "FastLegal Technologies"
+author: "CA Anil Agarwal"
 draft: false
 ---
 

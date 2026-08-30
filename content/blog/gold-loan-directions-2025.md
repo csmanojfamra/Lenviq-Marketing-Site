@@ -4,7 +4,7 @@ description: "LTV maintained on an ongoing basis, a 12-month cap on bullet consu
 metaDescription: "Ongoing LTV, a 12-month cap on bullet consumption loans, renewal only on a standard account — and the subject the Directions never address."
 date: "2026-08-11"
 category: "Regulatory"
-author: "FastLegal Technologies"
+author: "CA Tanmay Saini"
 draft: false
 ---
 
@@ -164,3 +164,13 @@ rather than a prescribed one.
 [RBI compliance for NBFCs](/blog/rbi-compliance-for-nbfcs-guide/)
 
 [Ask for a walk-through](/contact/) against your own packet and rate data.
+
+## A worked example
+
+A borrower pledges ornaments with a 22-carat equivalent net weight of 40 grams. At a reference rate
+of ₹6,800 a gram the eligible value is ₹2,72,000, and a 75% cap allows an advance of ₹2,04,000.
+
+Three months later the rate falls to ₹6,200. The same ornaments are now worth ₹2,48,000, and the same
+₹2,04,000 outstanding is **82% LTV** — above the cap, with nothing having happened to the loan. That
+is why the Directions require loan-to-value to be maintained through the life of the loan rather than
+tested once at sanction, and why a renewal or a top-up has to be priced on today's valuation.

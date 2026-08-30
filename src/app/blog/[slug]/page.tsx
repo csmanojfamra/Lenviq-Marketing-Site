@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import { Section, ButtonLink } from "@/components/ui";
 import { publishedPosts, postBySlug, postFaqs, relatedPosts } from "@/lib/content";
 import { absolute, COMPANY } from "@/lib/site";
-import { renderMarkdown } from "@/lib/markdown";
+import { renderMarkdown, outline } from "@/lib/markdown";
+import { autolinkGlossary } from "@/lib/autolink";
 
 /**
  * Only PUBLISHED posts get a route.
@@ -37,6 +38,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   if (!p) notFound();
 
   const related = relatedPosts(p.slug);
+  const contents = outline(p.body);
 
   const article = {
     "@context": "https://schema.org",
@@ -49,7 +51,16 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
      * every article as modified on every deploy claims a revision that did not happen.
      */
     dateModified: p.updated ?? p.date,
-    author: { "@type": "Organization", name: COMPANY.legalName },
+    /**
+     * A PERSON, not the company.
+     *
+     * Every post carried `Organization` as its author, which is the weakest possible answer to
+     * "who says so" on regulatory writing. These are named professionals — a Company Secretary on
+     * company law, governance and supervision; a Chartered Accountant on accounting, income
+     * recognition and classification — and the byline matches the subject rather than rotating at
+     * random, because a byline that does not match what it is signing is worse than none.
+     */
+    author: { "@type": "Person", name: p.author },
     publisher: { "@type": "Organization", name: COMPANY.legalName },
     mainEntityOfPage: absolute(`/blog/${p.slug}/`),
   };
@@ -96,13 +107,40 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         {p.title}
       </h1>
       <p className="mt-s3 text-[13px] text-muted">
-        {p.category} · {p.date}
-        {p.updated ? ` · updated ${p.updated}` : ""} · {p.author} · {p.readingMinutes} min read
-        (estimated)
+        <span className="font-medium text-ink">{p.author}</span>
+        {" · "}{p.category} · {p.date}
+        {p.updated ? ` · updated ${p.updated}` : ""} · {p.readingMinutes} min read (estimated)
       </p>
+      {/*
+        * A contents list, on anything long enough to need one.
+        *
+        * These run 1,000 to 2,200 words with eight headings on average, and the reader is usually
+        * looking for one of them rather than reading start to finish — a compliance officer wants
+        * the bit about the upgrade rule, not the introduction. Four headings is the threshold:
+        * below that a list is longer than the scrolling it saves.
+        *
+        * Plain anchors to real `id`s, both derived from the heading text by the same function, so a
+        * link here cannot point at a heading that is not there.
+        */}
+      {contents.length >= 4 && (
+        <nav className="mt-s5 max-w-prose rounded-card border border-line bg-subtle p-s4" aria-label="On this page">
+          <p className="text-[13px] font-semibold uppercase tracking-wide text-muted">On this page</p>
+          <ol className="mt-s2 grid gap-1.5">
+            {contents.map((c, i) => (
+              <li key={c.id} className="grid grid-cols-[1.4rem_1fr] text-[15px] leading-snug">
+                <span className="tabular-nums text-muted">{i + 1}.</span>
+                <a href={`#${c.id}`} className="text-cta underline-offset-2 hover:underline">
+                  {c.text}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+
       <div
         className="prose-lenviq mt-s5 max-w-prose"
-        dangerouslySetInnerHTML={{ __html: renderMarkdown(p.body) }}
+        dangerouslySetInnerHTML={{ __html: autolinkGlossary(renderMarkdown(p.body)) }}
       />
       <p className="mt-s7 border-t border-line pt-s4 text-[15px] leading-relaxed text-slate-mid">
         Lenviq implements the positions described here — see{" "}
