@@ -93,19 +93,6 @@ The immediate cause is fixed in code: every screenshot URL now carries a content
 still worth setting, because it is what makes the fingerprinted assets cacheable for a useful length
 of time instead of being re-fetched on every visit.
 
-This is an nginx change on the server, not something this repository can make:
-
-```nginx
-# Fingerprinted and content-addressed — safe to keep for a year.
-location ~* ^/(_next/static|fonts)/ {
-    add_header Cache-Control "public, max-age=31536000, immutable";
-}
-# Screenshots carry ?v=<hash>, so the URL changes whenever the bytes do.
-location ^~ /shots/ {
-    add_header Cache-Control "public, max-age=604800";
-}
-# HTML must revalidate, or a deploy is invisible until the cache expires.
-location / {
-    add_header Cache-Control "public, max-age=0, must-revalidate";
-}
-```
+The config is `deploy/nginx-cache.conf` — paste it inside the site's `server { }` block
+(aaPanel: Website → lenviq.in → Config File), reload nginx, then run `npm run check:delivery`
+to confirm. It is a real file rather than a snippet here so there is one copy of it.
