@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Section } from "@/components/ui";
-import { publishedPosts, postBySlug, postFaqs } from "@/lib/content";
+import { Section, ButtonLink } from "@/components/ui";
+import { publishedPosts, postBySlug, postFaqs, relatedPosts } from "@/lib/content";
 import { absolute, COMPANY } from "@/lib/site";
 import { renderMarkdown } from "@/lib/markdown";
 
@@ -36,12 +36,19 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const p = postBySlug(slug);
   if (!p) notFound();
 
+  const related = relatedPosts(p.slug);
+
   const article = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: p.title,
     description: p.description,
     datePublished: p.date,
+    /**
+     * The publication date unless the post was genuinely revised. Not the build date: stamping
+     * every article as modified on every deploy claims a revision that did not happen.
+     */
+    dateModified: p.updated ?? p.date,
     author: { "@type": "Organization", name: COMPANY.legalName },
     publisher: { "@type": "Organization", name: COMPANY.legalName },
     mainEntityOfPage: absolute(`/blog/${p.slug}/`),
@@ -89,19 +96,55 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         {p.title}
       </h1>
       <p className="mt-s3 text-[13px] text-muted">
-        {p.category} · {p.date} · {p.author} · {p.readingMinutes} min read (estimated)
+        {p.category} · {p.date}
+        {p.updated ? ` · updated ${p.updated}` : ""} · {p.author} · {p.readingMinutes} min read
+        (estimated)
       </p>
       <div
         className="prose-lenviq mt-s5 max-w-prose"
         dangerouslySetInnerHTML={{ __html: renderMarkdown(p.body) }}
       />
-      <p className="mt-s7 border-t border-line pt-s4 text-[15px] text-slate-mid">
-        Lenviq implements the positions described here — see the{" "}
+      <p className="mt-s7 border-t border-line pt-s4 text-[15px] leading-relaxed text-slate-mid">
+        Lenviq implements the positions described here — see{" "}
         <Link href="/compliance/" className="text-cta underline underline-offset-2 hover:text-cta-hover">
-          compliance page
+          what it implements and the direction each one comes from
         </Link>
         .
       </p>
+
+      {/*
+        * Read next, then the ask — in that order.
+        *
+        * A reader who has finished a two-thousand-word regulatory piece is either done or wants
+        * more of the same, and offering the demo first answers a question they have not asked yet.
+        * Three related posts also give every article outbound links to its own topic cluster,
+        * which the blog had none of: each post was a leaf.
+        */}
+      {related.length > 0 && (
+        <section className="mt-s6 border-t border-line pt-s4">
+          <h2 className="font-display text-[19px] font-bold tracking-display text-ink">Read next</h2>
+          <ul className="mt-s3 space-y-s3">
+            {related.map((r) => (
+              <li key={r.slug}>
+                <Link
+                  href={`/blog/${r.slug}/`}
+                  className="font-display text-[16px] font-bold tracking-display text-ink underline decoration-line-strong underline-offset-4 hover:text-cta"
+                >
+                  {r.title}
+                </Link>
+                <p className="mt-1 text-[14px] leading-relaxed text-slate-mid">{r.metaDescription}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <div className="mt-s6 flex flex-wrap items-center justify-between gap-s3 rounded-card border border-line bg-subtle p-s5">
+        <p className="max-w-prose text-[15px] leading-relaxed text-slate-mid">
+          Seeing how this works in a running system is faster than reading about it.
+        </p>
+        <ButtonLink href="/contact/">Request a demo</ButtonLink>
+      </div>
     </Section>
   );
 }

@@ -20,6 +20,24 @@ const LOS = [
   ["Sanction and disbursement", "Sanction snapshots the scheme's terms, so a later change to the scheme cannot alter a loan already sanctioned. Disbursement is maker-checker."],
 ];
 
+/**
+ * The loan lifecycle as a reader would narrate it — numbered because it genuinely is a sequence,
+ * which is the only reason to number anything.
+ */
+const LIFECYCLE: [string, string][] = [
+  ["Loan origination", "A lead becomes an application, with the borrower, co-applicants and guarantors held as party records rather than as fields on a form — so a second loan starts from what is already known."],
+  ["Credit and underwriting", "Bureau pulls recorded against the file with the report attached, income and obligations assessed into a ratio whose workings are stored, and deviations that carry the approval level they require."],
+  ["Approval", "An approval matrix routes by sanctioned amount through its slabs. Master activation and disbursement are maker-checker: the person who prepares is never the person who releases."],
+  ["Documentation", "The sanction and disbursement pack generated from the loan\u2019s own terms — application, agreement for the asset class, Key Facts Statement, promissory note, mandate — on your letterhead, with the borrower declaration in fourteen languages."],
+  ["Disbursement", "Released against the sanctioned terms, with the funding instrument recorded and the accounting entry posted as it happens rather than at month end."],
+  ["Loan servicing", "Schedules, receipts, part payment and foreclosure. Seven repayment shapes, because a gold loan and a twenty-year property loan do not repay alike."],
+  ["Interest and charges", "Interest accrued nightly on the balance outstanding that day. Charges levied under their own rules — penal amounts as charges rather than interest, never compounded and never added to principal."],
+  ["Collections", "Allocation, follow-up and field collection on a phone that works without a signal, with a receipt that cannot post twice if the network retries."],
+  ["Accounting", "Double-entry vouchers generated from the loan events themselves, into a chart of accounts a Tally-trained accountant recognises. GST on fees, TDS against certificates, statements that foot."],
+  ["Compliance and reporting", "Day-end IRAC classification, SMA buckets, provisioning and income reversal on NPA — then the returns and the operational MIS that follow from them, each naming the date it is as at."],
+  ["Audit trail", "Every mutation writes who, when, and the before and after. Sanction, disbursement and rejection are immutable events; a correction is a reversing entry, never an edit. This is the stage that makes the other ten defensible."],
+];
+
 const LMS = [
   ["Servicing", "Schedules, repayments, receipts, part payment and foreclosure, with the statutory bar on pre-payment charges applied by the system rather than by the scheme."],
   ["Collections", "Allocation, follow-up, and collection efficiency measured the way a lender's diligence pack asks for it."],
@@ -57,7 +75,38 @@ export default function PlatformPage() {
         />
       </Section>
 
+      {/*
+        * The lifecycle end to end, before the module lists.
+        *
+        * The two lists below are good at saying what the system HAS. Neither says what actually
+        * happens to a loan, in order, and that is the question somebody evaluating a lending
+        * platform is really asking — five of these stages had no mention anywhere on the page
+        * (documentation, interest and charges, compliance, reporting, the audit trail) even though
+        * all five are the product. Named stages also give the page the vocabulary a reader is
+        * searching with, without a keyword being written twice.
+        */}
       <Section tone="sand">
+        <SectionHead
+          eyebrow="The lifecycle"
+          title="What happens to a loan, in order"
+          lead="Eleven stages, one system. The point is not that each exists — it is that a loan carries its record forward through all of them, so the answer at the end can be traced to the event at the beginning."
+        />
+        <ol className="mt-s5 grid gap-s3 md:grid-cols-2">
+          {LIFECYCLE.map(([stage, body], i) => (
+            <Reveal key={stage} stage={((i % 3) + 1) as 1 | 2 | 3}>
+              <li className="h-full rounded-card border border-line bg-card p-s4">
+                <p className="font-display text-[13px] font-bold uppercase tracking-wide text-cta">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3 className="mt-1 font-display text-[17px] font-bold tracking-display text-ink">{stage}</h3>
+                <p className="mt-s2 text-[15px] leading-relaxed text-slate-mid">{body}</p>
+              </li>
+            </Reveal>
+          ))}
+        </ol>
+      </Section>
+
+      <Section>
         <SectionHead eyebrow="Origination" title="Lead to disbursement" />
         <dl className="mt-s4 border-b border-line">
           {LOS.map(([t, b]) => <Reveal key={t}><Spec term={t}>{b}</Spec></Reveal>)}

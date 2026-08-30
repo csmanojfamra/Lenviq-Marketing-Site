@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
      * summary for the index page, and a four-word meta description wastes the only sales copy a
      * search result has.
      */
-    title: `What is ${t.term}?`,
+    title: t.question,
     description: t.meta,
     path: `/glossary/${t.slug}/`,
   });
@@ -75,7 +75,7 @@ export default async function TermPage({ params }: { params: Promise<{ slug: str
         </Link>
       </nav>
       <h1 className="mt-s2 max-w-3xl text-[32px] font-extrabold leading-[1.12] tracking-display-tight text-ink sm:text-[40px]">
-        What is {t.term}?
+        {t.question}
       </h1>
       <p className="mt-s3 max-w-prose text-[18px] font-medium leading-prose text-ink">{t.short}</p>
       <p className="mt-s4 max-w-prose text-[16px] leading-prose text-slate-mid">{t.body}</p>

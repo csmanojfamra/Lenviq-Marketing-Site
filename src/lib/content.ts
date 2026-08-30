@@ -31,6 +31,16 @@ export interface Post {
    * Falls back to `description` where the standfirst is already short enough to serve as both.
    */
   metaDescription: string;
+  /**
+   * The date of the last SUBSTANTIVE revision, from an optional `updated:` in the front matter.
+   *
+   * Absent on a post that has not been revised, and then `dateModified` in the structured data is
+   * the publication date — which is the truthful answer. Stamping today's date on every build to
+   * look fresh is the freshness signal everybody tries, and it is worthless: it claims a revision
+   * that did not happen, on every article at once, which is exactly the pattern it would be
+   * discounted for. A regulatory post that has genuinely been revised gets a real date here.
+   */
+  updated?: string;
   date: string;
   category: string;
   author: string;
@@ -56,6 +66,7 @@ function parse(file: string): Post {
     title: meta.title ?? file,
     description: meta.description ?? "",
     metaDescription: meta.metaDescription || meta.description || "",
+    updated: meta.updated || undefined,
     date: meta.date ?? "",
     category: meta.category ?? "Regulatory",
     author: meta.author ?? "Lenviq",
@@ -108,4 +119,25 @@ export function postFaqs(body: string): { q: string; a: string }[] {
     if (head?.trim() && answer) out.push({ q: head.trim(), a: answer });
   }
   return out;
+}
+
+/**
+ * Up to three posts to read next.
+ *
+ * Category first, because on this site the category IS the topic — a reader on a penal-charges
+ * post wants the other Regulatory pieces, not the most recent thing published. Topped up with
+ * recent posts only when a category is too small to fill three, so a one-post category still gets
+ * a block rather than a gap.
+ *
+ * Never itself, and the order is stable across builds: `publishedPosts()` is already sorted by
+ * date, so two builds of the same content link to the same three articles.
+ */
+export function relatedPosts(slug: string, limit = 3): Post[] {
+  const all = publishedPosts();
+  const self = all.find((p) => p.slug === slug);
+  if (!self) return [];
+  const others = all.filter((p) => p.slug !== slug);
+  const sameTopic = others.filter((p) => p.category === self.category);
+  const rest = others.filter((p) => p.category !== self.category);
+  return [...sameTopic, ...rest].slice(0, limit);
 }

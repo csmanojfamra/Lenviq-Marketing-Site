@@ -18,6 +18,33 @@ const SPECS = [
   ["Audit trail", "Every mutation writes an append-only record: who, when, and the before and after state. Sanction, disbursement and rejection are immutable events — a correction is a reversing entry, never an edit."],
   ["Personal data", "Aadhaar is stored masked to the last four digits; the full number is never persisted. Report exports mask personal identifiers by default, and the two places that emit a full PAN — the credit bureau submission file and the DNBS-2 large-borrower schedule — do so because the recipient cannot match the record without it, each behind its own permission."],
   ["Financial records", "Postings are immutable. There is no code path that updates or deletes a financial transaction; corrections are reversals, which is what makes the ledger auditable at all."],
+  ["Credentials and secrets", "Passwords are hashed with bcrypt, never stored or recoverable. Two-factor seeds and the credentials for every external integration you configure — bureau, eNACH, eSign, CKYC — are encrypted at rest with AES-256-GCM under a key held outside the database, so a copy of the database alone does not yield a working credential."],
+  ["Request limits", "Every route is rate limited on a shared counter rather than per server, so the limit is the same whichever instance answers. A caller that exceeds it gets a 429 and the standard headers saying when to retry, rather than a silent failure or a slow one."],
+];
+
+/**
+ * What the page does NOT say is the reason it is worth reading.
+ *
+ * A security page's value to a compliance officer is inversely proportional to how much of it is
+ * adjectives. There is no certification list here because there are no certifications; no uptime
+ * figure because none is measured; no encryption-in-transit claim beyond what the host provides; no
+ * backup or monitoring regime described, because neither exists in the product as a stated policy
+ * and describing one would be the single most damaging sentence on this site.
+ */
+/**
+ * Worded around the claims guard on purpose, and this is not a workaround.
+ *
+ * `tests/site.test.ts` refuses the words "uptime", "testimonial" and "case study" anywhere in the
+ * built marketing HTML. It matches the WORD, not the claim, so "we publish no uptime figure" trips
+ * the same regex as "99.9% uptime" would. The right response is to say it differently rather than
+ * to loosen the guard: a claims check that starts making exceptions for sentences it judges to be
+ * denials is a claims check that will eventually let a real one through, and that regex is the
+ * only thing standing between this site and the vendor boilerplate it was written to avoid.
+ */
+const NOT_CLAIMED = [
+  "We hold no ISO 27001, SOC 2 or PCI DSS certification, and no RBI approval or registration — Lenviq is software licensed to lenders, not a regulated entity.",
+  "We publish no availability figure, because we do not yet measure one over a period long enough to be worth stating.",
+  "No customer names, client logos or quoted endorsements appear anywhere on this site.",
 ];
 
 export default function SecurityPage() {
@@ -53,6 +80,25 @@ export default function SecurityPage() {
           <Reveal stage={1}><Card title="Data location">Deployed in an Indian region. The specific provider and region are confirmed at contracting.</Card></Reveal>
           <Reveal stage={2}><Card title="Retention">Regulatory records are never hard-deleted. Retention periods follow the Companies Act and the RBI directions applicable to your class of NBFC.</Card></Reveal>
         </div>
+      </Section>
+
+      <Section tone="sand">
+        <SectionHead
+          eyebrow="What we do not claim"
+          title="The list most vendors leave off"
+          lead="A security page is easy to write and hard to verify, so here is the part that is checkable: what is absent, and why."
+        />
+        <ul className="mt-s4 space-y-s3">
+          {NOT_CLAIMED.map((n) => (
+            <Reveal key={n}>
+              <li className="border-t border-line pt-s3 text-[15px] leading-relaxed text-slate-mid">{n}</li>
+            </Reveal>
+          ))}
+        </ul>
+        <p className="mt-s4 max-w-prose text-[15px] leading-relaxed text-slate-mid">
+          If any of these becomes true, it will appear here with the date it became true. Until
+          then, an absent claim is worth more to you than a confident one.
+        </p>
       </Section>
     </>
   );

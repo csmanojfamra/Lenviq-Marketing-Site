@@ -26,6 +26,15 @@
 export interface Term {
   slug: string;
   term: string;
+  /**
+   * The heading and the search title, written out rather than generated.
+   *
+   * `What is ${term}?` produced "What is Penal charges?", "What is IRAC norms?" and "What is
+   * SMA-0, SMA-1, SMA-2?" — plurals taking a singular verb, and a capital letter landing in the
+   * middle of a sentence on ten of the twenty-two pages. It is the exact phrase a reader types and
+   * the first thing they see, so it is worth writing by hand.
+   */
+  question: string;
   /** One line. The index page's summary, and the `DefinedTerm` description in structured data. */
   short: string;
   /** ~150 characters, written to be clicked. A search result is not the place for four words. */
@@ -49,6 +58,7 @@ export interface Term {
 export const TERMS: Term[] = [
   {
     slug: "dpd",
+    question: "What is DPD (days past due)?",
     term: "DPD (days past due)",
     short: "How many days an instalment has been overdue.",
     meta: "What days past due counts, why it is measured at day-end rather than intra-day, and how it drives SMA and NPA classification in an NBFC.",
@@ -64,10 +74,11 @@ export const TERMS: Term[] = [
       "The Reserve Bank's November 2021 clarification requires an account to be flagged overdue in the day-end process for the due date itself. Classification starts on day one; there is no flagging grace.",
     inProduct:
       "One DPD engine serves every product and takes no per-product branch. Products differ by the due events they generate, never by having their own classification path — what silently diverges between two such paths is NPA classification.",
-    related: ["sma", "npa", "irac", "collection-efficiency"],
+    related: ["overdue", "sma", "npa", "irac", "penal-charges"],
   },
   {
     slug: "dcb",
+    question: "What is DCB (demand, collection, balance)?",
     term: "DCB (demand, collection, balance)",
     short: "What was due, what came in, what is left.",
     meta: "Demand, collection and balance — the three-column view a lender's diligence pack asks for, and what it exposes that a portfolio total cannot.",
@@ -85,6 +96,7 @@ export const TERMS: Term[] = [
   },
   {
     slug: "irac",
+    question: "What are the IRAC norms?",
     term: "IRAC norms",
     short: "Income recognition, asset classification and provisioning.",
     meta: "The RBI framework governing when income may be recognised, how an account is classified as it deteriorates, and what must be provided against it.",
@@ -100,10 +112,11 @@ export const TERMS: Term[] = [
       "The Master Circular on income recognition, asset classification and provisioning, together with the November 2021 clarification on overdue flagging and the February 2021 rule that an upgrade requires the entire arrears to be cleared.",
     inProduct:
       "Classification runs as a scheduled day-end job rather than on user request, and reads the day-end position. Reversal of accrued income on classification is posted to suspense as its own event.",
-    related: ["npa", "sma", "provisioning", "dpd"],
+    related: ["npa", "sma", "provisioning", "interest-accrual"],
   },
   {
     slug: "sma",
+    question: "What do SMA-0, SMA-1 and SMA-2 mean?",
     term: "SMA-0, SMA-1, SMA-2",
     short: "Special mention accounts — the stages before NPA.",
     meta: "The three special mention buckets that sit ahead of NPA, what each signals, why the first boundary is day one, and why they are a reported position.",
@@ -119,10 +132,11 @@ export const TERMS: Term[] = [
       "The SMA framework and its reporting cadence sit alongside the IRAC norms; the November 2021 clarification fixed the day-one boundary explicitly.",
     inProduct:
       "SMA buckets are derived from the same day-end DPD the classification uses, so a watch list and an NPA report cannot disagree about an account. The SMA Watch List is a live report.",
-    related: ["dpd", "npa", "irac"],
+    related: ["dpd", "overdue", "npa", "irac"],
   },
   {
     slug: "npa",
+    question: "What is an NPA (non-performing asset)?",
     term: "NPA (non-performing asset)",
     short: "An account where payment is overdue beyond the prescribed period.",
     meta: "When an account becomes non-performing, why classification is a day-end computation, and the upgrade rule that most systems implement incorrectly.",
@@ -138,10 +152,11 @@ export const TERMS: Term[] = [
       "Upgrading back to standard requires the ENTIRE arrears of interest and principal to be paid — not part of them. That is the February 2021 clarification, and it is the rule most implementations get wrong, because part payment feels like progress and the code lets it act like a cure.",
     inProduct:
       "Upgrade is refused while any demanded and unpaid amount remains, tested against the same schedule rows the DPD engine reads. Income reversal on classification is a posted event, and a correction is a reversing entry rather than an edit.",
-    related: ["irac", "sma", "provisioning", "dpd"],
+    related: ["irac", "sma", "provisioning", "interest-accrual", "penal-charges"],
   },
   {
     slug: "provisioning",
+    question: "What is provisioning in lending?",
     term: "Provisioning",
     short: "The amount set aside against expected loss.",
     meta: "What provisioning is, how the rates step up through the classification stages, and why the coverage ratio is what a lender is actually asked about.",
@@ -155,10 +170,11 @@ export const TERMS: Term[] = [
       "Provisioning is where asset quality reaches the accounts. A book can look stable on a classification report and be deteriorating in the provision movement, which is why the movement matters more than the balance.",
     inProduct:
       "Provision movement is a ledger of its own rather than a recomputed figure, so the change between two dates is answerable and the postings behind it can be opened.",
-    related: ["npa", "irac", "sma"],
+    related: ["npa", "irac", "sma", "interest-accrual"],
   },
   {
     slug: "ltv",
+    question: "What is LTV (loan to value)?",
     term: "LTV (loan to value)",
     short: "The loan as a percentage of the security's value.",
     meta: "Loan to value as a ceiling at sanction and a monitored figure afterwards — and why for gold the 2025 Directions make the second part mandatory.",
@@ -177,7 +193,48 @@ export const TERMS: Term[] = [
     related: ["foreclosure", "npa"],
   },
   {
+    slug: "apr",
+    question: "What is APR (annual percentage rate)?",
+    term: "APR (annual percentage rate)",
+    short: "The all-in cost of a loan, expressed as a yearly rate.",
+    meta: "What the annual percentage rate includes, why it is almost always higher than the interest rate quoted, and how it is actually computed.",
+    body:
+      "The true yearly cost of borrowing, counting the interest AND every charge the lender recovers from the borrower. The headline interest rate prices only the money; the APR prices the whole arrangement, which is why the two are rarely the same number and why the Key Facts Statement asks for the second one.",
+    computed:
+      "It is not a formula you can type — it is solved for. Take what the borrower actually RECEIVES (the sanctioned amount less anything deducted up front), and the instalments they actually pay. The APR is the rate at which those instalments, discounted back, equal what was received. There is no closed-form answer, so a lending system searches for it numerically.",
+    example:
+      "₹5,00,000 at 18% over 24 months, with a 2% processing fee deducted at disbursement. The borrower receives ₹4,90,000 but repays as though they had received ₹5,00,000. The interest rate is still 18%; the APR is above it, because the same instalments are now buying less money. Shorten the tenor and the gap widens — the fee is spread over fewer months.",
+    matters:
+      "Two loans quoted at the same rate can cost meaningfully different amounts, and the APR is the only number that shows it. It is also the number a borrower can hold the lender to: a charge left out of the disclosure is a charge that cannot be recovered later.",
+    regulatory:
+      "The Key Facts Statement requires the APR in a prescribed format, computed from the actual cash flows and inclusive of all charges recovered from the borrower — including a fee collected by a third party on the lender's behalf.",
+    inProduct:
+      "The APR is solved for rather than entered, from the loan's own schedule and its upfront charges, and printed on the generated Key Facts Statement. This matters more than it sounds: a typed APR sits next to a printed repayment schedule that was produced separately, and the day the two disagree, the borrower is holding both.",
+    related: ["kfs", "emi", "penal-charges"],
+  },
+  {
+    slug: "penal-charges",
+    question: "What are penal charges?",
+    term: "Penal charges",
+    short: "What a lender may levy for a default — as a charge, not as extra interest.",
+    meta: "Why penal amounts stopped being interest in 2024, what that changed in the ledger, and why a borrower statement and a trial balance can honestly differ.",
+    body:
+      "The amount a lender levies when a borrower misses a payment or breaches a term. Since April 2024 these are charges and not interest, and the distinction is not cosmetic \u2014 it decides whether the amount can compound, whether it can be added to the loan, and when it may be recognised as income.",
+    computed:
+      "On the overdue amount, for the days it was overdue beyond any grace the lender has chosen to give, at a rate the lender must have disclosed. What it may NOT do is as important: it does not compound, it is not added to principal, and it does not itself attract interest.",
+    example:
+      "An instalment of ₹25,000 is thirty days late. A penal charge is levied on that overdue amount for the chargeable days and appears on the borrower's statement immediately. Nothing has yet reached the profit and loss account \u2014 that happens only when the borrower actually pays it. So the statement shows the charge and the books do not, and both are right.",
+    matters:
+      "The old treatment let a penalty behave like interest: it compounded, it was capitalised into the loan, and a borrower already in difficulty was pushed further into it by arithmetic. Removing that is the point of the change, and a system that levies penal amounts the old way is now non-compliant regardless of what the loan agreement says.",
+    regulatory:
+      "The Reserve Bank's direction on penal charges, effective 1 April 2024: penal charges rather than penal interest, no capitalisation, no compounding, and disclosure of the quantum and reason.",
+    inProduct:
+      "Levied nightly as a shadow entry with no accounting posting, because income is recognised only on receipt. When a payment arrives it is applied across the loan-level buckets first \u2014 costs, bounce, penal, in the order the scheme sets \u2014 and only then to interest and principal, oldest instalment first. Levy stops when an account turns non-performing, and existing charges are suspended; recovery on them still posts on receipt.",
+    related: ["overdue", "dpd", "npa", "kfs"],
+  },
+  {
     slug: "kfs",
+    question: "What is a Key Facts Statement (KFS)?",
     term: "KFS (Key Facts Statement)",
     short: "A standard-format summary of what a loan actually costs.",
     meta: "What the Key Facts Statement must disclose, how the APR is computed from actual cash flows, and the clause that bites when a charge is left out.",
@@ -193,10 +250,49 @@ export const TERMS: Term[] = [
       "The Key Facts Statement requirement, including the prescribed format, the APR definition and the vernacular obligation.",
     inProduct:
       "The KFS is a generated document and the APR is computed from the schedule rather than typed into a field. A typed APR eventually contradicts the schedule printed beside it, and the borrower is holding both.",
-    related: ["moratorium", "foreclosure"],
+    related: ["apr", "penal-charges", "moratorium", "foreclosure"],
+  },
+  {
+    slug: "emi",
+    question: "What is an EMI (equated monthly instalment)?",
+    term: "EMI (equated monthly instalment)",
+    short: "A fixed monthly payment covering both interest and principal.",
+    meta: "How an EMI is calculated, why the early instalments are mostly interest, and the repayment shapes that are not EMIs at all.",
+    body:
+      "A single repayment amount that stays the same every month while its composition changes: early instalments are mostly interest, later ones mostly principal. The amount is level; what it is buying is not.",
+    computed:
+      "From three inputs — the principal, the monthly rate, and the number of months — solved so that the last instalment lands exactly on zero. Each month, interest is charged on the balance still outstanding and whatever is left of the instalment reduces that balance, which is why the split shifts as the loan ages.",
+    example:
+      "₹5,00,000 at 18% over 24 months gives an instalment near ₹24,970. In month one roughly ₹7,500 of that is interest; by month twenty-four almost all of it is principal. A borrower who prepays in year one is therefore prepaying a balance that has barely moved — which is exactly why part-payment early is worth so much more to them than late.",
+    matters:
+      "Because \u201cEMI\u201d is treated as though it were the only repayment shape, and it is not. A gold loan is often interest-only with the principal falling due at maturity; a construction loan may step up; a seasonal borrower may need a structured schedule. A system that models only level EMIs quietly forces every product into one shape.",
+    inProduct:
+      "Seven repayment shapes are supported, not one: level EMI, bullet, structured, interest-only, step-up, and instalments either calculated by the system or set by the lender. The shape is a property of the scheme, so a new product is configuration rather than a release. Every amount is held in paise as a whole number, and rounding is carried into the last instalment so the schedule closes exactly.",
+    related: ["apr", "interest-accrual", "moratorium", "prepayment"],
+  },
+  {
+    slug: "interest-accrual",
+    question: "What is interest accrual?",
+    term: "Interest accrual",
+    short: "Interest earned as time passes, whether or not it has been collected.",
+    meta: "The difference between interest earned and interest collected, why accrual runs nightly, and what stops on the day an account turns bad.",
+    body:
+      "Interest is earned by the passage of time, not by the arrival of a payment. Accrual is the daily recognition of what has been earned so far — income the lender has a right to, sitting alongside the cash that has actually come in. Healthy books show the two tracking each other; the gap between them is one of the earliest signs that they are not.",
+    computed:
+      "Daily, on the balance outstanding that day, at the rate applying that day. Running it nightly rather than monthly matters because almost nothing in a loan book happens neatly on the first of the month: a disbursement mid-month, a part payment on the nineteenth, a rate that changes with the loan's age.",
+    example:
+      "₹4,00,000 outstanding at 14% accrues roughly ₹153 a day. Over a month that is about ₹4,670 recognised as income — even in a month where the borrower paid nothing at all. That is correct accounting right up to the point the account stops performing, and then it is not.",
+    matters:
+      "It is the difference between profit that exists and profit that has merely been booked. An NBFC whose accrued interest is growing faster than its collections is reporting income it has not received, and the correction, when it comes, arrives all at once.",
+    regulatory:
+      "Once an account is non-performing, income recognition switches to a receipt basis and interest already accrued but not collected must be reversed out. Accruing on a bad account is the single most common way a book overstates its own earnings.",
+    inProduct:
+      "Accrual runs as a nightly scheduled job, never on user request. It is sequenced deliberately AFTER the day's classification sweep, not before: a loan that turns non-performing tonight must not accrue income tonight. Running the two in the other order books a day of income the same night the account stops being entitled to it.",
+    related: ["npa", "irac", "emi", "overdue"],
   },
   {
     slug: "foir",
+    question: "What is FOIR (fixed obligation to income ratio)?",
     term: "FOIR (fixed obligation to income ratio)",
     short: "What share of a borrower's income is already committed to debt.",
     meta: "How FOIR is computed for an unsecured loan, what counts as income and what is haircut, and what should happen when a file breaches the ceiling.",
@@ -210,10 +306,11 @@ export const TERMS: Term[] = [
       "Because it is the ratio the credit committee argues about, and an argument is only possible if the workings are visible. A FOIR that arrives as a single number has to be trusted, and trust is not a control.",
     inProduct:
       "The haircut is a field on the scheme, because how much undocumented income to count is a credit-policy choice per product rather than a constant. The workings are stored with the answer, and a breach of the scheme's ceiling records a deviation carrying the approval level it requires — so the file rises to the person entitled to allow it rather than silently passing.",
-    related: ["kfs", "dpd"],
+    related: ["emi", "kfs", "dpd"],
   },
   {
     slug: "cic",
+    question: "What is a CIC (credit information company)?",
     term: "CIC (credit information company)",
     short: "A credit bureau.",
     meta: "What a credit information company is, the four operating in India, and the reporting obligation that runs in the opposite direction to the pull.",
@@ -229,6 +326,7 @@ export const TERMS: Term[] = [
   },
   {
     slug: "ckyc",
+    question: "What is CKYC?",
     term: "CKYC",
     short: "The central KYC records registry.",
     meta: "The CERSAI central KYC registry: what it is for, what a lender must do with it in both directions, and where the manual step still sits.",
@@ -242,6 +340,7 @@ export const TERMS: Term[] = [
   },
   {
     slug: "static-pool",
+    question: "What is static pool analysis?",
     term: "Static pool analysis",
     short: "How one cohort of loans performed over time.",
     meta: "Static pool analysis: why tracking a fixed cohort exposes what a portfolio-level NPA percentage hides in a growing book.",
@@ -257,6 +356,7 @@ export const TERMS: Term[] = [
   },
   {
     slug: "vintage-analysis",
+    question: "What is vintage analysis?",
     term: "Vintage analysis",
     short: "Delinquency by months-on-book across cohorts.",
     meta: "Vintage analysis compares cohorts at the same age on book — the view that answers whether underwriting is getting better or worse.",
@@ -270,6 +370,7 @@ export const TERMS: Term[] = [
   },
   {
     slug: "collection-efficiency",
+    question: "What is collection efficiency?",
     term: "Collection efficiency",
     short: "Collections as a percentage of what was due.",
     meta: "Collection efficiency, and why the figure means nothing unless the definition — arrears, prepayments, foreclosures — travels with it.",
@@ -283,10 +384,51 @@ export const TERMS: Term[] = [
       "A collection efficiency figure that silently omits brought-forward arrears flatters the portfolio, and it is quoted more often than any other number in lending.",
     inProduct:
       "Specified and partially gated: current-month demand and collection are both flows and derivable today, but the opening and closing arrears carry-forward needs the daily position snapshot. It is not shipped unlabelled, precisely because the unlabelled version is the flattering one.",
-    related: ["dcb", "dpd", "static-pool"],
+    related: ["dcb", "overdue", "dpd", "static-pool"],
+  },
+  {
+    slug: "overdue",
+    question: "What does overdue mean in lending?",
+    term: "Overdue",
+    short: "An amount the lender demanded and the borrower did not pay.",
+    meta: "What makes an amount overdue, why it starts on day one, and the difference between flagging an account and charging it.",
+    body:
+      "An amount is overdue when it was due on a date the lender fixed and was not paid by that date. The word carries more weight than it looks: it is the trigger for the days-past-due count, the special mention buckets, the classification of the asset, and what gets reported to the credit bureaus.",
+    computed:
+      "From what was DEMANDED and left unpaid — not from what has merely accrued. Interest that has built up but has not yet fallen due is not overdue, and counting it inflates every downstream number. The question is always what the sanction makes due, and when.",
+    example:
+      "An instalment falls due on 5 April and is unpaid. The account is overdue on 5 April itself, in that night's processing — not on 6 April, and not after a week's grace. If the lender's policy is not to levy a late charge for the first seven days, that is a decision about CHARGING, and it does not delay the account being flagged.",
+    matters:
+      "Because two settings get confused, and confusing them is how a book under-reports stress. Grace on levying a charge is a commercial choice a lender is free to make. Grace on flagging an account is not available, and treating one as the other delays classification, the special mention buckets, and the days-past-due figure sent to the bureaus.",
+    regulatory:
+      "The Reserve Bank's November 2021 clarification requires an account to be flagged overdue in the day-end process for the due date itself. Classification begins on day one.",
+    inProduct:
+      "Two separate settings, never one doing both work. Overdue flagging has no grace; the penal grace period only limits which days are chargeable, and it cannot move classification, the SMA buckets, the NPA date or the bureau figure. One engine computes days past due for every product — products differ by the payments they demand, never by having their own way of counting.",
+    related: ["dpd", "sma", "npa", "penal-charges"],
+  },
+  {
+    slug: "prepayment",
+    question: "What is prepayment on a loan?",
+    term: "Prepayment",
+    short: "Paying off part of a loan early, without closing it.",
+    meta: "How part-prepayment differs from foreclosure, what it does to the schedule, and when a lender may not levy a charge for it.",
+    body:
+      "Paying more than the instalment due, so the outstanding balance falls faster than the schedule intended. Distinct from foreclosure, which pays the whole balance and closes the account \u2014 the two are treated differently both in the schedule and in the rules about what may be charged for them.",
+    computed:
+      "The extra amount reduces the principal, and the schedule is then rebuilt one of two ways: a shorter tenor with the instalment unchanged, or the same tenor with a smaller instalment. Shortening the tenor saves the borrower considerably more interest, and is the option they are least often offered.",
+    example:
+      "₹4,00,000 outstanding at 14% with eight years left. A ₹1,00,000 part payment applied to the tenor ends the loan roughly two years early; applied to the instalment it lowers the monthly payment by a few thousand rupees and saves a fraction as much interest. Same money, materially different outcome.",
+    matters:
+      "For the borrower it is the cheapest interest they will ever save. For the lender it is a yield question and a conduct question at the same time \u2014 and increasingly the second one is decided outside the loan agreement.",
+    regulatory:
+      "Whether a charge may be levied turns on the rate type, the borrower's constitution and the purpose of the loan. The 2025 Directions have two limbs that must be read separately: one binds every lender, while the other names entity classes and omits the Base Layer.",
+    inProduct:
+      "The quote and the posting run the SAME eligibility test and the same charge calculation from one place, so a screen cannot quote nil and then charge. Where the charge is nil, the reason is stated rather than left blank \u2014 ₹0 with no explanation cannot be told apart from a mistake. The statutory bar is applied by the system, not left to whoever configured the scheme.",
+    related: ["foreclosure", "emi", "kfs", "apr"],
   },
   {
     slug: "foreclosure",
+    question: "What is foreclosure of a loan?",
     term: "Foreclosure",
     short: "Closing a loan by paying the whole outstanding early.",
     meta: "Foreclosure versus part payment, and why whether a charge may be levied is now a regulatory question rather than only a contractual one.",
@@ -298,10 +440,11 @@ export const TERMS: Term[] = [
       "Whether a charge may be levied on foreclosure or part payment turns on the rate type, the borrower's constitution and the purpose of the loan. The 2025 Directions have two limbs that must be read separately: one binds every lender, the other names entity classes and omits the Base Layer.",
     inProduct:
       "The statutory bar is applied by the system rather than by the scheme configuration, and a foreclosure quotation is generated as its own document so the figure the borrower is given is the figure the account settles at.",
-    related: ["kfs", "ltv"],
+    related: ["prepayment", "kfs", "ltv"],
   },
   {
     slug: "moratorium",
+    question: "What is a moratorium on a loan?",
     term: "Moratorium",
     short: "A period where repayment is deferred.",
     meta: "What a moratorium defers and what it does not, and why the distinction belongs in the Key Facts Statement rather than in a footnote.",
@@ -313,7 +456,7 @@ export const TERMS: Term[] = [
       "Because it is routinely mis-sold as free time. The cost is unchanged and often higher; only the timing moves.",
     regulatory:
       "The distinction belongs in the Key Facts Statement, where the all-in cost is disclosed as an annual percentage rate computed from the actual cash flows — which is where a moratorium shows up honestly.",
-    related: ["kfs", "dpd"],
+    related: ["emi", "interest-accrual", "kfs"],
   },
 ];
 
