@@ -1092,3 +1092,32 @@ describe("the site does not narrate its own authoring", () => {
     expect(found).toEqual([]);
   });
 });
+
+/**
+ * The answer comes before the navigation.
+ *
+ * The contents list sat above the article. On a phone that is 311px of navigation before a single
+ * word — the opening paragraph, which is the whole reason these posts answer the query in line one,
+ * began at y=766 on an 844px screen. Nobody read it without scrolling, which makes answering first
+ * pointless.
+ *
+ * It is below the opening now, and the split is derived: the answer is whatever precedes the first
+ * `<h2>`, which is the shape every post here already has.
+ */
+describe("a post answers before it navigates", () => {
+  const OUT = resolve(__dirname, "../out");
+
+  it.runIf(existsSync(OUT))("puts prose before the contents list on every post", () => {
+    const posts = execSync(`find ${OUT}/blog -name index.html`, { encoding: "utf8" })
+      .trim().split("\n").filter((f) => !f.endsWith("blog/index.html"));
+
+    const wrong = posts.filter((f) => {
+      const html = readFileSync(f, "utf8");
+      const toc = html.indexOf('aria-label="On this page"');
+      if (toc < 0) return false; // Short posts get no contents list at all.
+      const prose = html.indexOf('class="prose-lenviq');
+      return prose < 0 || prose > toc;
+    });
+    expect(wrong.map((f) => f.replace(`${OUT}/`, ""))).toEqual([]);
+  });
+});

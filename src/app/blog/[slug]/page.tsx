@@ -45,6 +45,18 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const mid = splitAtMidHeading(body);
 
   /**
+   * The opening answer, and everything from the first heading on.
+   *
+   * Split here rather than in the markdown so a post does not have to carry a marker: the answer is
+   * by definition whatever comes before the first `##`, which is the shape every post on this site
+   * already has.
+   */
+  const firstHeading = (mid ? mid[0] : body).search(/<h2\b/);
+  const head = mid ? mid[0] : body;
+  const opening = firstHeading > 0 ? head.slice(0, firstHeading) : head;
+  const rest = firstHeading > 0 ? head.slice(firstHeading) : "";
+
+  /**
    * The in-article card offers a free tool where the subject has one, and says nothing about the
    * product where it does not.
    *
@@ -154,21 +166,6 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         */}
       <div className="mt-s5 grid gap-s6 xl:grid-cols-[minmax(0,1fr)_18rem] xl:items-start">
         <div>
-          {contents.length >= 4 && (
-          <nav className="max-w-prose rounded-card border border-line bg-subtle p-s4" aria-label="On this page">
-            <p className="text-[13px] font-semibold uppercase tracking-wide text-muted">On this page</p>
-            <ol className="mt-s2 grid gap-1.5">
-              {contents.map((c, i) => (
-                <li key={c.id} className="grid grid-cols-[1.4rem_1fr] text-[15px] leading-snug">
-                  <span className="tabular-nums text-muted">{i + 1}.</span>
-                  <a href={`#${c.id}`} className="text-cta underline-offset-2 hover:underline">
-                    {c.text}
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </nav>
-          )}
 
           {/*
           * The article, and a rail that stays with it.
@@ -184,7 +181,33 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           * corner, and two fixed elements competing for a phone screen is how a reader loses the
           * paragraph they were on.
           */}
-          <div className={`prose-lenviq max-w-prose ${contents.length >= 4 ? "mt-s5" : ""}`} dangerouslySetInnerHTML={{ __html: mid ? mid[0] : body }} />
+          {/*
+            * The answer first, THEN the contents list.
+            *
+            * It used to sit above the article. On a phone that is 311px of navigation before a
+            * single word — the opening paragraph, which is the whole point of answering the query
+            * in line one, started at y=766 on an 844px screen and nobody saw it without scrolling.
+            *
+            * Two columns from `sm` up, because nine items in one column is a list you scroll past
+            * rather than read.
+            */}
+          <div className="prose-lenviq max-w-prose" dangerouslySetInnerHTML={{ __html: opening }} />
+          {contents.length >= 4 && (
+          <nav className="mt-s5 max-w-prose rounded-card border border-line bg-subtle p-s4" aria-label="On this page">
+            <p className="text-[13px] font-semibold uppercase tracking-wide text-muted">On this page</p>
+            <ol className="mt-s2 grid gap-1.5 sm:grid-cols-2 sm:gap-x-s4">
+              {contents.map((c, i) => (
+                <li key={c.id} className="grid grid-cols-[1.4rem_1fr] text-[15px] leading-snug">
+                  <span className="tabular-nums text-muted">{i + 1}.</span>
+                  <a href={`#${c.id}`} className="text-cta underline-offset-2 hover:underline">
+                    {c.text}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+          )}
+          <div className="prose-lenviq mt-s5 max-w-prose" dangerouslySetInnerHTML={{ __html: rest }} />
           {mid && (
             <>
               <div className="max-w-prose xl:hidden">
