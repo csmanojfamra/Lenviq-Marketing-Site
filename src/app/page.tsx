@@ -135,7 +135,7 @@ export default function HomePage() {
       </Section>
 
       {/* ---------------------------------------------------------------- who */}
-      <Section tone="sand">
+      <Section id="who-it-is-for" tone="sand">
         {/*
           This section used to be an exclusion — "one kind of company, not for everyone" — and the
           exclusion was doing no work the argument needed. What made it persuasive was the REASON
@@ -201,7 +201,7 @@ export default function HomePage() {
       </Section>
 
       {/* ---------------------------------------------------------------- compliance */}
-      <Section tone="sand">
+      <Section id="compliance" tone="sand">
         <SectionHead
           eyebrow="Compliance"
           title="The regulatory positions, implemented and citable"
@@ -235,7 +235,7 @@ export default function HomePage() {
       </Section>
 
       {/* ---------------------------------------------------------------- reports */}
-      <Section>
+      <Section id="reports">
         <SectionHead
           eyebrow="Reports"
           title="The reports a lender is asked for, not a chart builder"
@@ -249,7 +249,7 @@ export default function HomePage() {
       </Section>
 
       {/* ---------------------------------------------------------------- documents */}
-      <Section tone="sand">
+      <Section id="documents" tone="sand">
         <SectionHead
           eyebrow="Documents"
           title="The pack, generated from the loan"
@@ -269,7 +269,7 @@ export default function HomePage() {
       </Section>
 
       {/* ---------------------------------------------------------------- security */}
-      <Section>
+      <Section id="multi-tenancy">
         <SectionHead
           eyebrow="Security and multi-tenancy"
           title="Isolation that is structural, not configured"
@@ -283,7 +283,7 @@ export default function HomePage() {
       </Section>
 
       {/* ---------------------------------------------------------------- who built it */}
-      <Section tone="sand">
+      <Section id="company" tone="sand">
         <SectionHead
           eyebrow="Who built it"
           title="FastLegal Technologies"
@@ -312,7 +312,7 @@ export default function HomePage() {
       </Section>
 
       {/* ---------------------------------------------------------------- closing */}
-      <Section tone="sand">
+      <Section id="demo" tone="sand">
         <Reveal className="rounded-card border border-sand-border bg-card p-s6 text-center shadow-e2">
           <h2 className="text-[28px] font-bold tracking-display text-ink sm:text-[32px]">
             See it against your own book

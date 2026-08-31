@@ -1201,10 +1201,10 @@ describe("section links land where they say", () => {
    * a sales conversation. This asserts they keep them, and that nothing links to one that is gone.
    */
   it.runIf(existsSync(OUT))("gives the long product pages linkable sections", () => {
-    for (const [page, least] of [["platform", 7], ["compliance", 4], ["reports", 3], ["security", 3]] as const) {
+    for (const [page, least] of [["platform", 7], ["compliance", 4], ["reports", 3], ["security", 3], ["", 9]] as const) {
       const html = readFileSync(join(OUT, page, "index.html"), "utf8");
       const ids = html.match(/<section id="[a-z-]+"/g) ?? [];
-      expect(ids.length, `${page} has ${ids.length} linkable sections`).toBeGreaterThanOrEqual(least);
+      expect(ids.length, `${page || "home"} has ${ids.length} linkable sections`).toBeGreaterThanOrEqual(least);
     }
   });
 
@@ -1219,5 +1219,26 @@ describe("section links land where they say", () => {
       }
     }
     expect(dangling).toEqual([]);
+  });
+});
+
+/**
+ * The contact page offers a person before it offers a form.
+ *
+ * The number sat in a card BELOW the whole form, so a reader who would rather ring than fill
+ * anything in had to scroll past the exact thing they were avoiding to find it — and the column
+ * beside the form's lower half was blank while they did.
+ */
+describe("contact offers the number without the form", () => {
+  const OUT = resolve(__dirname, "../out");
+
+  it.runIf(existsSync(OUT))("puts the phone before the submit button", () => {
+    const html = readFileSync(join(OUT, "contact/index.html"), "utf8")
+      .replace(/<header[\s\S]*?<\/header>|<footer[\s\S]*?<\/footer>/g, "");
+    const phone = html.indexOf("Phone and WhatsApp");
+    const submit = html.indexOf("No newsletter, no drip sequence");
+    expect(phone, "the contact page does not show a number").toBeGreaterThan(-1);
+    expect(submit).toBeGreaterThan(-1);
+    expect(phone, "the number is below the form again").toBeLessThan(submit);
   });
 });

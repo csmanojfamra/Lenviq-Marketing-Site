@@ -65,12 +65,35 @@ export default function ContactPage() {
         the page empty and pushed "here is our email and our number" below the fold — the two things
         somebody who does not want to fill in a form is looking for.
       */}
+      {/*
+        * Explicit placement, because the right order is not the same on both.
+        *
+        * On a phone the DOM order is what a reader gets, and the number should not sit under the
+        * form somebody opened this page to avoid — least of all on the device they would ring
+        * from. So the phone card is FIRST in the DOM and moves to the top of the second column
+        * from `lg` up, where the form takes the first column and both its rows.
+        */}
       <div className="mt-s6 grid items-start gap-s5 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
-        <Reveal className="rounded-2xl border border-sand-border bg-card p-s4 sm:p-s5">
-          <DemoForm />
-        </Reveal>
+        <Reveal className="grid gap-s3 lg:col-start-2 lg:row-start-1">
+          <Card title="Phone and WhatsApp" as="h2">
+            <p>
+              <a href={`tel:${COMPANY.phone}`} className="text-[17px] font-medium text-cta underline underline-offset-4 hover:text-cta-hover">
+                {COMPANY.phoneDisplay}
+              </a>
+            </p>
+            <p className="mt-s2 text-[14px] text-muted">
+              The same number is on{" "}
+              <a
+                href={`https://wa.me/${COMPANY.phone.replace("+", "")}`}
+                className="font-medium text-cta underline underline-offset-4 hover:text-cta-hover"
+                rel="noopener"
+              >
+                WhatsApp
+              </a>
+              . No form needed.
+            </p>
+          </Card>
 
-        <Reveal className="grid gap-s3">
         <Card title="Email" as="h2">
           <p>
             <a
@@ -95,27 +118,13 @@ export default function ContactPage() {
           </p>
         </Card>
         </Reveal>
+
+        <Reveal className="rounded-2xl border border-sand-border bg-card p-s4 sm:p-s5 lg:col-start-1 lg:row-start-1">
+          <DemoForm />
+        </Reveal>
       </div>
 
-      <Reveal className="mt-s3 grid gap-s3 md:grid-cols-2">
-        <Card title="Phone and WhatsApp" as="h2">
-          <p>
-            <a href={`tel:${COMPANY.phone}`} className="text-[17px] font-medium text-cta underline underline-offset-4 hover:text-cta-hover">
-              {COMPANY.phoneDisplay}
-            </a>
-          </p>
-          <p className="mt-s2">
-            The same number is on{" "}
-            <a
-              href={`https://wa.me/${COMPANY.phone.replace("+", "")}`}
-              className="font-medium text-cta underline underline-offset-4 hover:text-cta-hover"
-              rel="noopener"
-            >
-              WhatsApp
-            </a>
-            .
-          </p>
-        </Card>
+      <Reveal className="mt-s3">
         <Card title="What happens next" as="h2">
           <p>
             A reply from someone who can answer technical questions, and a demo scheduled at a time
