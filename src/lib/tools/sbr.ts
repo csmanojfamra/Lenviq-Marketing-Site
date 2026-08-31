@@ -49,7 +49,18 @@ export interface SbrResult {
 }
 
 const ALWAYS_BASE: SbrCategory[] = ["P2P", "AA", "NOFHC"];
-const ALWAYS_MIDDLE: SbrCategory[] = ["CIC", "HFC", "IFC", "IDF", "SPD"];
+
+/**
+ * Two different rules, and conflating them overstates the answer.
+ *
+ * `PINNED_MIDDLE` genuinely cannot be anywhere else. `NEVER_BASE` is the larger group — the
+ * framework keeps these out of the Base Layer whatever their size, so they land in the Middle
+ * Layer, but the Reserve Bank can and does name one into the Upper Layer. Saying "the Middle Layer
+ * whatever its asset size" of a CIC is wrong: three of the seventeen named NBFCs are exactly these
+ * categories.
+ */
+const PINNED_MIDDLE: SbrCategory[] = ["IDF", "SPD"];
+const NEVER_BASE: SbrCategory[] = ["CIC", "HFC", "IFC"];
 
 export const SBR_CATEGORY_LABEL: Record<SbrCategory, string> = {
   ICC: "Investment and Credit Company (NBFC-ICC)",
@@ -94,13 +105,26 @@ export function findLayer(a: SbrAnswers): SbrResult {
     };
   }
 
-  if (ALWAYS_MIDDLE.includes(a.category)) {
+  if (PINNED_MIDDLE.includes(a.category)) {
     return {
       layer: "MIDDLE",
       because: `A ${SBR_CATEGORY_LABEL[a.category]} sits in the Middle Layer whatever its asset size.`,
       notes: a.assetsCrore < THRESHOLD_CRORE
         ? [`Assets of ₹${a.assetsCrore.toLocaleString("en-IN")} crore do not move it — the category decides.`]
         : [],
+    };
+  }
+
+  if (NEVER_BASE.includes(a.category)) {
+    return {
+      layer: "MIDDLE",
+      because: `A ${SBR_CATEGORY_LABEL[a.category]} is kept out of the Base Layer whatever its asset size, so it sits in the Middle Layer.`,
+      notes: [
+        "It is not pinned there. These categories can be named into the Upper Layer, and some have been — tick the Upper Layer box above if this one is on the published list.",
+        ...(a.assetsCrore < THRESHOLD_CRORE
+          ? [`Assets of ₹${a.assetsCrore.toLocaleString("en-IN")} crore do not pull it down to the Base Layer — the category decides that part.`]
+          : []),
+      ],
     };
   }
 

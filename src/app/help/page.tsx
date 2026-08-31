@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Section, SectionHead } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { helpSections, helpSequence } from "@/lib/help";
+import { ProductCta } from "@/components/product-cta";
 
 export const metadata: Metadata = pageMetadata({
   title: "Help guides for daily NBFC lending work",
@@ -93,6 +94,11 @@ export default function HelpIndex() {
           <p className="text-[16px] text-slate-mid">Guides are being written.</p>
         </Section>
       )}
+
+      <Section>
+        <ProductCta line="Every screenshot in these guides is the running product. A demo walks the same path with your own products and schemes in it."
+        secondary={{ href: "/platform/", label: "What the platform covers" }} />
+      </Section>
     </>
   );
 }

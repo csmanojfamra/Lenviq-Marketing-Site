@@ -5,6 +5,7 @@ import { Section } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { TERMS } from "@/lib/glossary";
 import { absolute } from "@/lib/site";
+import { ProductCta } from "@/components/product-cta";
 
 export const metadata: Metadata = pageMetadata({
   title: "NBFC lending glossary — DPD, IRAC, NPA, KFS, LTV",
@@ -55,6 +56,8 @@ export default function GlossaryIndex() {
           </Reveal>
         ))}
       </dl>
+
+      <ProductCta line="Every term here describes something a lending system has to actually do. Lenviq does them — and records the direction each one comes from, so an auditor asking “on what basis” gets an answer." />
     </Section>
   );
 }

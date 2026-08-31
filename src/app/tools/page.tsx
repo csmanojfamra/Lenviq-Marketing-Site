@@ -4,6 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 import { Section } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { TOOLS } from "@/lib/tools";
+import { ProductCta } from "@/components/product-cta";
 
 export const metadata: Metadata = pageMetadata({
   title: "Free lending calculators for NBFCs and lenders",
@@ -83,6 +84,10 @@ export default function ToolsIndex() {
             </p>
           </div>
         </div>
+      </Section>
+
+      <Section>
+        <ProductCta line="Each tool settles one account. The reason lenders move to the platform is the other direction — the same arithmetic run across the whole book, every day, with the classification and the returns that follow from it." />
       </Section>
     </>
   );

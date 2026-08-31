@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Section } from "@/components/ui";
 import { TERMS, termBySlug, type Term } from "@/lib/glossary";
 import { absolute } from "@/lib/site";
+import { ProductCta } from "@/components/product-cta";
 
 export function generateStaticParams() {
   return TERMS.map((t) => ({ slug: t.slug }));
@@ -106,13 +107,7 @@ export default async function TermPage({ params }: { params: Promise<{ slug: str
         </section>
       )}
 
-      <p className="mt-s6 text-[15px] leading-relaxed text-slate-mid">
-        Each regulatory position above is implemented against a named direction —{" "}
-        <Link href="/compliance/" className="text-cta underline underline-offset-2 hover:text-cta-hover">
-          see what Lenviq implements and where it comes from
-        </Link>
-        .
-      </p>
+      <ProductCta line="The section above describes what a lending system has to do about this term. Lenviq does it — on every account, computed at day-end, with the direction it comes from recorded against it." />
     </Section>
   );
 }

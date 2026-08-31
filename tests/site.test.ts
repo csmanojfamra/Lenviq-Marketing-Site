@@ -1,10 +1,14 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { createHash } from "node:crypto";
-import { join, sep } from "node:path";
+import { join, sep, resolve } from "node:path";
+import { execSync } from "node:child_process";
 import { stripComments } from "./helpers/every-match";
 import { intentMap } from "../src/lib/seo-intent";
 import sitemap from "../src/app/sitemap";
+import { COMPANY } from "../src/lib/site";
+import { TOOLS, toolsMenu } from "../src/lib/tools";
+import { autolinkGlossary } from "../src/lib/autolink";
 
 /**
  * The marketing site, checked from the product's suite because that is the gate that runs.
@@ -457,7 +461,17 @@ describe("one descriptor, and the product uses the same words", () => {
  * except through `pageMetadata`, which is the property that makes the HTML right.
  */
 describe("one page, one identity", () => {
-  const pages = walkExt(join(SITE, "src/app"), /^page\.tsx$/);
+  /**
+   * `/preview/` is excluded, and only this one exclusion exists.
+   *
+   * `pageMetadata()` states a page's canonical URL and its `og:url`. A preview has neither — it is
+   * never built, never in the sitemap and has no live address — so putting it through the helper
+   * would have it declare a canonical for a URL that does not resolve. It carries `noindex`
+   * instead, and the preceding describe block asserts it never reaches the build at all.
+   */
+  const pages = walkExt(join(SITE, "src/app"), /^page\.tsx$/).filter(
+    (f) => !f.includes(`${sep}preview${sep}`),
+  );
 
   it("finds the pages at all", () => {
     expect(pages.length).toBeGreaterThan(10);
@@ -620,5 +634,200 @@ describe("no two pages compete for the same query", () => {
       "/", "/compliance/", "/gold-loan-software/", "/loan-against-property-software/",
       "/personal-loan-software/", "/platform/", "/vehicle-loan-software/",
     ]);
+  });
+});
+
+/**
+ * Every page a stranger lands on from a search result says who is behind it and how to reach them.
+ *
+ * These pages are written well enough to be mistaken for a consultancy's, which is the failure this
+ * guards: a reader agrees with a worked provisioning example, leaves, and never learns that the
+ * people who wrote it sell the software that does it. The listing hubs count too — they rank in
+ * their own right.
+ */
+describe("a search visitor can always find the product and a person", () => {
+  const OUT = resolve(__dirname, "../out");
+  const pages = existsSync(OUT)
+    ? execSync(`find ${OUT} -name index.html`, { encoding: "utf8" }).trim().split("\n")
+    : [];
+
+  /** Legal and utility pages are not conversion surfaces and are excluded on purpose. */
+  const EXEMPT = /\/(privacy|terms|security|contact|signup|404|_not-found)\/index\.html$/;
+
+  const seoPages = pages.filter((f) => !EXEMPT.test(f) && !f.endsWith("out/index.html"));
+
+  it.runIf(pages.length > 0)("carries a demo ask and a reachable number", () => {
+    const missing = seoPages.filter((f) => {
+      const html = readFileSync(f, "utf8");
+      const asks = /Book a demo|Request a demo|See it on your own book/.test(html);
+      return !(asks && html.includes(COMPANY.phoneDisplay));
+    });
+    expect(missing.map((f) => f.replace(`${OUT}/`, ""))).toEqual([]);
+  });
+
+  /**
+   * One interruption in the reading column, never two. A second card partway down a page that
+   * already carries one is the point at which a content page starts reading as an advertisement.
+   */
+  it.runIf(pages.length > 0)("interrupts the reading column at most once", () => {
+    const noisy = seoPages.filter((f) => {
+      const body = readFileSync(f, "utf8").split("<!--$")[0];
+      return (body.match(/While you are here/g) ?? []).length > 2;
+    });
+    expect(noisy.map((f) => f.replace(`${OUT}/`, ""))).toEqual([]);
+  });
+});
+
+/**
+ * A preview is for review, and review is not publication.
+ *
+ * The gate is `generateStaticParams` returning a placeholder outside development, which is only
+ * as good as the assertion that nothing leaked past it — a mistake here does not fail a build,
+ * it quietly publishes an unreviewed page.
+ */
+describe("a preview page never reaches the build", () => {
+  const OUT = resolve(__dirname, "../out");
+
+  it.runIf(existsSync(OUT))("emits no preview content and no preview URL", () => {
+    const previewOnly = readFileSync(
+      resolve(__dirname, "../src/app/preview/[slug]/page.tsx"),
+      "utf8",
+    ).includes("Preview — not published");
+    expect(previewOnly).toBe(true);
+
+    const files = execSync(`find ${OUT} -type f`, { encoding: "utf8" }).trim().split("\n");
+    const leaked = files.filter((f) => readFileSync(f, "utf8").includes("Preview — not published"));
+    expect(leaked).toEqual([]);
+
+    const sitemapXml = readFileSync(join(OUT, "sitemap.xml"), "utf8");
+    expect(sitemapXml).not.toContain("/preview/");
+  });
+});
+
+/**
+ * `.prose-lenviq > * + *` is what puts a gap between two paragraphs, and the `>` is load-bearing.
+ *
+ * Wrapping the article HTML in one more `<div>` — which is the obvious way to insert anything into
+ * the middle of it — makes every paragraph a grandchild, the rule stops matching, and every post on
+ * the site loses its paragraph spacing. Nothing errors and nothing looks broken in a diff; it is
+ * visible only in a screenshot of a rendered page. That is exactly the class of regression a test
+ * has to hold, so this one asserts the relationship the CSS depends on.
+ */
+describe("article paragraphs are spaced", () => {
+  const OUT = resolve(__dirname, "../out");
+
+  it.runIf(existsSync(OUT))("keeps prose as a direct child of the element that styles it", () => {
+    const posts = execSync(`find ${OUT}/blog -name index.html`, { encoding: "utf8" })
+      .trim().split("\n").filter((f) => !f.endsWith("blog/index.html"));
+    expect(posts.length).toBeGreaterThan(5);
+
+    const broken = posts.filter((f) => {
+      const html = readFileSync(f, "utf8");
+      // The opening tag that carries the class, then whatever it contains first.
+      const m = html.match(/class="prose-lenviq[^"]*"[^>]*>\s*(<[a-z0-9]+)/i);
+      return !m || /^<div$/i.test(m[1]);
+    });
+    expect(broken.map((f) => f.replace(`${OUT}/`, ""))).toEqual([]);
+  });
+});
+
+/**
+ * A fenced block reaches the page as a block.
+ *
+ * The renderer had no block form at all until it was needed for worked arithmetic, and two posts
+ * had been written with fences on the assumption that it did. Their journal entries shipped as
+ * run-on paragraphs with the fence characters visible — for months, on pages whose whole point was
+ * the entries. Nothing errors when this breaks, which is why it is asserted here.
+ */
+describe("worked examples are laid out as written", () => {
+  const OUT = resolve(__dirname, "../out");
+
+  it.runIf(existsSync(OUT))("renders every fence as a block and leaves none visible", () => {
+    const posts = execSync(`find ${OUT}/blog -name index.html`, { encoding: "utf8" })
+      .trim().split("\n").filter((f) => !f.endsWith("blog/index.html"));
+
+    const wrong = posts.filter((f) => readFileSync(f, "utf8").includes("```"));
+    expect(wrong.map((f) => f.replace(`${OUT}/`, ""))).toEqual([]);
+
+    // Every post whose source is fenced must actually emit a <pre>.
+    const SRC = resolve(__dirname, "../content/blog");
+    const fenced = readdirSync(SRC)
+      .filter((n) => n.endsWith(".md") && readFileSync(join(SRC, n), "utf8").includes("\n```"))
+      .map((n) => n.replace(/\.md$/, ""));
+    expect(fenced.length).toBeGreaterThan(0);
+
+    const missing = fenced.filter((slug) => {
+      const f = join(OUT, "blog", slug, "index.html");
+      return existsSync(f) && !readFileSync(f, "utf8").includes("<pre>");
+    });
+    expect(missing).toEqual([]);
+  });
+});
+
+/**
+ * The navigation cannot omit a tool, and cannot miscount them.
+ *
+ * The menu was a hand-written list that also announced how many tools there were. Adding the ninth
+ * left the menu showing eight and the label reading "Eight free calculators" — a live page with no
+ * route into it from the navigation, beside a number that was simply wrong. The list is derived
+ * now; this asserts that it stays derived.
+ */
+describe("every tool is reachable from the navigation", () => {
+  it("lists all of them, and counts them correctly", () => {
+    const menu = toolsMenu();
+    for (const t of TOOLS) {
+      expect(menu.map((m) => m.href)).toContain(`/tools/${t.slug}/`);
+    }
+    expect(menu[0].note).toContain(String(TOOLS.length));
+  });
+
+  it("keeps the nav list out of the component that renders it", () => {
+    const nav = readFileSync(resolve(__dirname, "../src/components/site-nav.tsx"), "utf8");
+    const hardcoded = nav.match(/href: "\/tools\/[a-z-]+\//g) ?? [];
+    expect(hardcoded).toEqual([]);
+  });
+});
+
+/**
+ * The autolinker never writes a link inside a link.
+ *
+ * It rewrites HTML it is itself producing, which is the whole difficulty: the protected regions
+ * have to be recomputed after every insertion, or a later phrase matches text inside an anchor the
+ * previous phrase just wrote. One post shipped `href="/glossary/<a href="/glossary/dcb/">collection`
+ * for exactly that reason, and neither the build nor the type-checker had anything to say about it.
+ */
+describe("glossary links are well formed", () => {
+  const OUT = resolve(__dirname, "../out");
+
+  it("produces no nested anchor and no anchor inside an attribute", () => {
+    const html = autolinkGlossary(
+      "<p>Collection efficiency against demand, collection and balance, with days past due.</p>",
+    );
+    expect(html).not.toMatch(/href="[^"]*<a\b/);
+    expect(html).not.toMatch(/<a\b[^>]*>[^<]*<a\b/);
+  });
+
+  it.runIf(existsSync(OUT))("ships none across the whole site", () => {
+    const pages = execSync(`find ${OUT} -name index.html`, { encoding: "utf8" }).trim().split("\n");
+    const broken = pages.filter((f) => /href="[^"]*<a\b/.test(readFileSync(f, "utf8")));
+    expect(broken.map((f) => f.replace(`${OUT}/`, ""))).toEqual([]);
+  });
+});
+
+/**
+ * A menu that renders its links only after a click gives those pages nothing in the markup.
+ *
+ * The dropdowns were `{open && …}`, so the built HTML carried no link from the site-wide navigation
+ * to any of the nine tool pages or the four product pages. They were reachable through their hubs,
+ * but the strongest internal signal a page gets was missing from every page on the site.
+ */
+describe("navigation links exist in the HTML, not just after a click", () => {
+  const OUT = resolve(__dirname, "../out");
+
+  it.runIf(existsSync(OUT))("links every tool from the home page markup", () => {
+    const home = readFileSync(join(OUT, "index.html"), "utf8");
+    for (const t of TOOLS) {
+      expect(home, `no nav link to ${t.slug}`).toContain(`href="/tools/${t.slug}/"`);
+    }
   });
 });

@@ -53,19 +53,36 @@ const PROTECTED = /(<a\b[^>]*>[\s\S]*?<\/a>|<h[1-6]\b[^>]*>[\s\S]*?<\/h[1-6]>|<c
 export function autolinkGlossary(html: string, opts: { skipSlug?: string } = {}): string {
   const used = new Set<string>();
   let count = 0;
+  let out = html;
 
-  const parts = html.split(PROTECTED);
-  for (let i = 0; i < parts.length; i++) {
-    // Odd indices are the protected regions themselves — left untouched.
-    if (i % 2 === 1) continue;
-    for (const { re, slug } of PHRASES) {
-      if (count >= MAX_PER_DOC) return parts.join("");
-      if (used.has(slug) || slug === opts.skipSlug) continue;
+  /*
+   * Re-split before every phrase, not once at the start.
+   *
+   * Splitting once looks equivalent and is not: each replacement writes a new `<a href="...">` into
+   * the part it just edited, and that anchor is not in the protected list, because the list was
+   * computed before it existed. A later phrase then matches text inside it — including inside the
+   * `href` — and the page ships an anchor nested in an attribute.
+   *
+   * That is not theoretical. "Collection efficiency" was linked, then "collection" (a bracketed
+   * word from "DCB (demand, collection, balance)") matched inside the href it had just written, and
+   * one post went live with `href="/glossary/<a href="/glossary/dcb/">collection`.
+   */
+  for (const { re, slug } of PHRASES) {
+    if (count >= MAX_PER_DOC) break;
+    if (used.has(slug) || slug === opts.skipSlug) continue;
+
+    const parts = out.split(PROTECTED);
+    let done = false;
+    for (let i = 0; i < parts.length && !done; i += 2) {
       if (!re.test(parts[i])) continue;
       parts[i] = parts[i].replace(re, (m) => `<a href="/glossary/${slug}/">${m}</a>`);
-      used.add(slug);
-      count++;
+      done = true;
     }
+    if (!done) continue;
+
+    out = parts.join("");
+    used.add(slug);
+    count++;
   }
-  return parts.join("");
+  return out;
 }

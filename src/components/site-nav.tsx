@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SITE } from "@/lib/site";
+import { toolsMenu } from "@/lib/tools";
 
 /**
  * The site navigation — and, below `md`, the fact that there was any.
@@ -59,17 +60,7 @@ export const NAV: NavItem[] = [
   {
     href: "/tools/",
     label: "Tools",
-    children: [
-      { href: "/tools/", label: "All tools", note: "Eight free calculators, no sign-up" },
-      { href: "/tools/emi-calculator/", label: "EMI calculator", note: "Instalment, schedule, and what a flat rate really costs" },
-      { href: "/tools/apr-calculator/", label: "APR calculator", note: "The rate a Key Facts Statement discloses" },
-      { href: "/tools/npa-date-calculator/", label: "NPA & SMA dates", note: "When a missed instalment changes classification" },
-      { href: "/tools/gold-loan-ltv-calculator/", label: "Gold loan LTV", note: "Value a packet and see the permitted advance" },
-      { href: "/tools/penal-charge-calculator/", label: "Penal charges", note: "The charge, and the 2024 rules around it" },
-      { href: "/tools/kfs-checklist/", label: "KFS checklist", note: "What the prescribed format requires" },
-      { href: "/tools/nbfc-layer-finder/", label: "NBFC layer finder", note: "Base, Middle or Upper — and what changes" },
-      { href: "/tools/nbfc-returns-calendar/", label: "Returns calendar", note: "Which returns you file, and when" },
-    ],
+    children: toolsMenu(),
   },
   { href: "/compliance/", label: "Compliance" },
   { href: "/reports/", label: "Reports" },
@@ -178,8 +169,19 @@ function NavMenu({ item, pathname }: { item: NavItem; pathname: string | null })
         </button>
       </div>
 
-      {open && (
-        <div className="absolute left-0 top-full z-50 pt-2">
+      {/*
+        * Always in the DOM, hidden when closed — not conditionally rendered.
+        *
+        * `{open && …}` meant the menu's links existed only after a click, so the built HTML carried
+        * no link to any of the nine tool pages or the four product pages from the site-wide
+        * navigation. They were reachable through their hubs, but a nav link is the strongest
+        * internal signal a page gets and these had none of it in the markup.
+        *
+        * The `hidden` attribute rather than a class: it takes the panel out of the accessibility
+        * tree and the tab order too, which `display:none` alone through a utility class is easy to
+        * get wrong.
+        */}
+      <div hidden={!open} className="absolute left-0 top-full z-50 pt-2">
           <ul className="w-[21rem] overflow-hidden rounded-card border border-line bg-card p-1.5 shadow-e2">
             {children.map((c) => {
               const on = pathname === c.href;
@@ -202,8 +204,7 @@ function NavMenu({ item, pathname }: { item: NavItem; pathname: string | null })
               );
             })}
           </ul>
-        </div>
-      )}
+      </div>
     </div>
   );
 }

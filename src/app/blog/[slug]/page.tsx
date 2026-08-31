@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Section, ButtonLink } from "@/components/ui";
+import { Section } from "@/components/ui";
 import { publishedPosts, postBySlug, postFaqs, relatedPosts } from "@/lib/content";
 import { absolute, COMPANY } from "@/lib/site";
-import { renderMarkdown, outline } from "@/lib/markdown";
+import { renderMarkdown, outline, splitAtMidHeading } from "@/lib/markdown";
 import { autolinkGlossary } from "@/lib/autolink";
+import { ProductCta, ProductCtaCompact } from "@/components/product-cta";
 
 /**
  * Only PUBLISHED posts get a route.
@@ -39,6 +40,16 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   const related = relatedPosts(p.slug);
   const contents = outline(p.body);
+  const body = autolinkGlossary(renderMarkdown(p.body));
+  const mid = splitAtMidHeading(body);
+  /**
+   * The card's line names the post's own subject rather than the product's features. A generic
+   * "book a demo" beside a piece on provisioning is an advertisement; "this arithmetic, on every
+   * account, at day-end" is the reason the reader is on the page.
+   */
+  const ctaLine = `${p.category === "Regulatory" || p.category === "Compliance" || p.category === "Supervision"
+    ? "The positions in this article are implemented in the product, against the direction each one comes from."
+    : "What this article works through by hand, the platform does on every account on the book, at day-end."}`;
 
   const article = {
     "@context": "https://schema.org",
@@ -138,17 +149,37 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         </nav>
       )}
 
-      <div
-        className="prose-lenviq mt-s5 max-w-prose"
-        dangerouslySetInnerHTML={{ __html: autolinkGlossary(renderMarkdown(p.body)) }}
-      />
-      <p className="mt-s7 border-t border-line pt-s4 text-[15px] leading-relaxed text-slate-mid">
-        Lenviq implements the positions described here — see{" "}
-        <Link href="/compliance/" className="text-cta underline underline-offset-2 hover:text-cta-hover">
-          what it implements and the direction each one comes from
-        </Link>
-        .
-      </p>
+      {/*
+        * The article, and a rail that stays with it.
+        *
+        * The ask used to sit only under the "read next" list at the very bottom, which converts the
+        * readers who finish and nobody else — and these run to eight or nine headings. Two
+        * placements answer that without turning the page into an advertisement: a quiet card in a
+        * rail that stays in view on a wide screen, and, where the piece is long enough to warrant
+        * it, ONE card in the reading column at its midpoint for the phones and tablets a rail
+        * cannot serve.
+        *
+        * No sticky bar at the foot of the viewport. The WhatsApp button already occupies that
+        * corner, and two fixed elements competing for a phone screen is how a reader loses the
+        * paragraph they were on.
+        */}
+      <div className="mt-s5 grid gap-s6 xl:grid-cols-[minmax(0,1fr)_18rem] xl:items-start">
+        <div className="max-w-prose">
+          <div className="prose-lenviq" dangerouslySetInnerHTML={{ __html: mid ? mid[0] : body }} />
+          {mid && (
+            <>
+              <div className="xl:hidden">
+                <ProductCtaCompact variant="inline" line={ctaLine} />
+              </div>
+              <div className="prose-lenviq" dangerouslySetInnerHTML={{ __html: mid[1] }} />
+            </>
+          )}
+        </div>
+
+        <div className="hidden xl:block xl:sticky xl:top-24">
+          <ProductCtaCompact line={ctaLine} />
+        </div>
+      </div>
 
       {/*
         * Read next, then the ask — in that order.
@@ -177,12 +208,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         </section>
       )}
 
-      <div className="mt-s6 flex flex-wrap items-center justify-between gap-s3 rounded-card border border-line bg-subtle p-s5">
-        <p className="max-w-prose text-[15px] leading-relaxed text-slate-mid">
-          Seeing how this works in a running system is faster than reading about it.
-        </p>
-        <ButtonLink href="/contact/">Request a demo</ButtonLink>
-      </div>
+      <ProductCta line="Seeing it run on your own book is faster than reading about it — a demo works through your products, your schemes and your classification rules, not a generic tour." />
     </Section>
   );
 }

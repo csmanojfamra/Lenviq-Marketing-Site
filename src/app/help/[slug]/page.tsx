@@ -7,6 +7,7 @@ import { Shot, PhoneShot, type ShotMark } from "@/components/shot";
 import { publishedHelp, helpBySlug, helpNeighbours } from "@/lib/help";
 import { absolute, COMPANY } from "@/lib/site";
 import { renderMarkdown } from "@/lib/markdown";
+import { ProductCta } from "@/components/product-cta";
 
 export function generateStaticParams() {
   return publishedHelp().map((p) => ({ slug: p.slug }));
@@ -194,6 +195,11 @@ export default async function HelpPage({ params }: { params: Promise<{ slug: str
         {" "}and the terms are defined in the{" "}
         <Link href="/glossary/" className="text-cta underline underline-offset-2 hover:text-cta-hover">glossary</Link>.
       </p>
+
+      <ProductCta
+        line="Every screenshot on this page is the running product, taken from a demo tenant. A demo walks the same path with your own products and schemes in it."
+        secondary={{ href: "/help/", label: "The rest of the path" }}
+      />
     </Section>
   );
 }

@@ -10,6 +10,8 @@ import {
 import { findLayer, type SbrAnswers } from "../src/lib/tools/sbr";
 import { penalCharge, type PenalInput } from "../src/lib/tools/penal";
 import { KFS_FIELDS, KFS_RULES, kfsGaps } from "../src/lib/tools/kfs";
+import { provisionFor, DOUBTFUL_SECURED, BANK_DOUBTFUL_SECURED } from "../src/lib/tools/provision";
+import { prepaymentEligibility, MSE_CAP_PAISE } from "../src/lib/tools/prepayment";
 
 const R = (rupees: number) => BigInt(Math.round(rupees * 100));
 
@@ -446,5 +448,145 @@ describe("the Key Facts Statement checklist", () => {
     expect(joined).toMatch(/on behalf of a third party/);
     expect(joined).toMatch(/part of the loan agreement/);
     expect(joined).toMatch(/1 October 2024/);
+  });
+});
+
+describe("provisioning, at each classification", () => {
+  const base = {
+    layer: "BASE" as const,
+    standardKind: "GENERAL" as const,
+    doubtfulAge: "UPTO_1Y" as const,
+    outstandingPaise: 100_000_000, // ₹10,00,000
+    securedPaise: 0,
+  };
+
+  it("provides on a standard asset — it is not provision-free", () => {
+    const r = provisionFor({ ...base, classification: "STANDARD" });
+    expect(r.totalPaise).toBe(250_000); // ₹2,500 = 0.25%
+    expect(r.effectivePct).toBe(0.25);
+  });
+
+  it("charges the Middle Layer a higher standard rate than the Base Layer", () => {
+    const bl = provisionFor({ ...base, classification: "STANDARD" });
+    const ml = provisionFor({ ...base, layer: "MIDDLE", classification: "STANDARD" });
+    expect(ml.effectivePct).toBe(0.4);
+    expect(ml.totalPaise).toBeGreaterThan(bl.totalPaise);
+  });
+
+  it("takes ten per cent of the WHOLE outstanding on a sub-standard asset, security or not", () => {
+    const unsecured = provisionFor({ ...base, classification: "SUB_STANDARD" });
+    const secured = provisionFor({ ...base, classification: "SUB_STANDARD", securedPaise: 100_000_000 });
+    expect(unsecured.totalPaise).toBe(10_000_000); // ₹1,00,000
+    expect(secured.totalPaise).toBe(unsecured.totalPaise);
+  });
+
+  /**
+   * The reason this file exists. Publishing the bank table under an NBFC heading is a live error on
+   * other sites, and at the far band it doubles the provision.
+   */
+  it("uses the NBFC doubtful rates, which are not the bank rates", () => {
+    expect(DOUBTFUL_SECURED).toEqual({ UPTO_1Y: 20, "1_TO_3Y": 30, OVER_3Y: 50 });
+    expect(BANK_DOUBTFUL_SECURED).toEqual({ UPTO_1Y: 25, "1_TO_3Y": 40, OVER_3Y: 100 });
+    for (const age of ["UPTO_1Y", "1_TO_3Y", "OVER_3Y"] as const) {
+      expect(DOUBTFUL_SECURED[age]).toBeLessThan(BANK_DOUBTFUL_SECURED[age]);
+    }
+  });
+
+  it("splits a doubtful asset, and provides the unsecured part in full", () => {
+    // The worked example on the blog: ₹40,00,000 outstanding, ₹28,00,000 realisable.
+    const r = provisionFor({
+      ...base, classification: "DOUBTFUL",
+      outstandingPaise: 400_000_000, securedPaise: 280_000_000,
+    });
+    expect(r.totalPaise).toBe(176_000_000); // ₹5,60,000 + ₹12,00,000
+    expect(r.effectivePct).toBe(44);
+  });
+
+  it("raises the secured rate with time in the doubtful category", () => {
+    const at = (doubtfulAge: "UPTO_1Y" | "1_TO_3Y" | "OVER_3Y") =>
+      provisionFor({
+        ...base, classification: "DOUBTFUL", doubtfulAge,
+        outstandingPaise: 400_000_000, securedPaise: 280_000_000,
+      }).totalPaise;
+    expect(at("UPTO_1Y")).toBe(176_000_000);
+    expect(at("1_TO_3Y")).toBe(204_000_000);
+    expect(at("OVER_3Y")).toBe(260_000_000); // ₹26,00,000 — a bank would say ₹40,00,000
+  });
+
+  it("provides a loss asset in full, however much security is held", () => {
+    const r = provisionFor({
+      ...base, classification: "LOSS",
+      outstandingPaise: 400_000_000, securedPaise: 380_000_000,
+    });
+    expect(r.totalPaise).toBe(400_000_000);
+    expect(r.effectivePct).toBe(100);
+  });
+
+  it("never provides on more than the outstanding, even if security is overstated", () => {
+    const r = provisionFor({
+      ...base, classification: "DOUBTFUL",
+      outstandingPaise: 100_000_000, securedPaise: 500_000_000,
+    });
+    expect(r.totalPaise).toBeLessThanOrEqual(100_000_000);
+  });
+});
+
+describe("whether a pre-payment charge may be levied", () => {
+  const loan = {
+    lender: "NBFC_ML" as const,
+    borrower: "INDIVIDUAL" as const,
+    purpose: "NON_BUSINESS" as const,
+    rateAtPrepayment: "FLOATING" as const,
+    sanctionedPaise: 250_000_000, // ₹25 lakh
+    sanctionedOn: "2026-04-01",
+  };
+
+  it("bars the charge on a floating-rate personal loan, at any lender and any amount", () => {
+    for (const lender of ["NBFC_BL", "NBFC_ML", "NBFC_UL", "COMMERCIAL_BANK", "SFB"] as const) {
+      const r = prepaymentEligibility({ ...loan, lender, sanctionedPaise: 10_000_000_000 });
+      expect(r.barred).toBe(true);
+    }
+  });
+
+  /** The test is the rate at pre-payment, not at sanction — the dual-rate trap. */
+  it("does not bar it where the loan is on a fixed rate when the borrower pre-pays", () => {
+    expect(prepaymentEligibility({ ...loan, rateAtPrepayment: "FIXED" }).barred).toBe(false);
+  });
+
+  it("leaves a loan sanctioned before the Directions took effect alone", () => {
+    const r = prepaymentEligibility({ ...loan, sanctionedOn: "2025-12-31" });
+    expect(r.barred).toBe(false);
+    expect(r.because).toContain("1 January 2026");
+  });
+
+  /**
+   * The part of these Directions that is hardest to hold in the head: on a business-purpose loan
+   * the same loan to the same borrower comes out differently at three lenders in a row.
+   */
+  it("splits business-purpose loans by lender tier, not by loan", () => {
+    const biz = { ...loan, purpose: "BUSINESS" as const, borrower: "MSE" as const };
+    const big = { ...biz, sanctionedPaise: 800_000_000 }; // ₹80 lakh, above the ₹50 lakh line
+
+    expect(prepaymentEligibility({ ...big, lender: "COMMERCIAL_BANK" }).barred).toBe(true);
+    expect(prepaymentEligibility({ ...big, lender: "NBFC_UL" }).barred).toBe(true);
+    expect(prepaymentEligibility({ ...big, lender: "NBFC_ML" }).barred).toBe(false);
+    expect(prepaymentEligibility({ ...biz, lender: "NBFC_ML" }).barred).toBe(true); // ₹25 lakh
+    expect(prepaymentEligibility({ ...biz, lender: "NBFC_BL" }).barred).toBe(false);
+  });
+
+  it("measures the cap on the sanctioned amount, so paying down does not bring a loan inside it", () => {
+    const at = (sanctionedPaise: number) =>
+      prepaymentEligibility({
+        ...loan, purpose: "BUSINESS", borrower: "MSE", lender: "NBFC_ML", sanctionedPaise,
+      }).barred;
+    expect(at(MSE_CAP_PAISE)).toBe(true);
+    expect(at(MSE_CAP_PAISE + 1)).toBe(false);
+  });
+
+  it("does not reach a borrower who is neither an individual nor a small enterprise", () => {
+    const r = prepaymentEligibility({
+      ...loan, borrower: "OTHER", purpose: "BUSINESS", lender: "COMMERCIAL_BANK",
+    });
+    expect(r.barred).toBe(false);
   });
 });

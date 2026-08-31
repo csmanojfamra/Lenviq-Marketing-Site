@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { Section, ButtonLink } from "@/components/ui";
+import { Section } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { absolute, COMPANY, SITE } from "@/lib/site";
 import { TOOLS, type Tool } from "@/lib/tools";
+import { ProductCta, ProductCtaCompact } from "@/components/product-cta";
 
 /**
  * The frame every tool sits in.
@@ -99,16 +100,10 @@ export function ToolPage({ tool, children }: { tool: Tool; children: React.React
               </p>
             )}
           </div>
-          <div className="rounded-card border border-line bg-card p-s5">
-            <p className="text-[16px] leading-prose text-slate-mid">
-              This answers one loan. {SITE.name} answers the book — every account, computed at day-end,
-              with the classification, the provisioning and the returns that follow from it.
-            </p>
-            <div className="mt-s4 flex flex-wrap gap-s3">
-              <ButtonLink href="/contact/">See it on your own book</ButtonLink>
-              <ButtonLink href="/platform/" variant="secondary">What it covers</ButtonLink>
-            </div>
-          </div>
+          <ProductCtaCompact
+            variant="rail"
+            line={`This answers one loan. ${SITE.name} answers the book — every account, computed at day-end, with the classification, the provisioning and the returns that follow from it.`}
+          />
         </div>
       </Section>
 
@@ -129,6 +124,10 @@ export function ToolPage({ tool, children }: { tool: Tool; children: React.React
             </li>
           ))}
         </ul>
+
+        <ProductCta
+          line={`A calculator settles one account. The reason lenders move to ${SITE.name} is the other direction — the same rules applied to every account on the book without anyone opening a spreadsheet.`}
+        />
       </Section>
     </>
   );

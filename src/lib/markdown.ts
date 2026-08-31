@@ -64,6 +64,27 @@ export function renderMarkdown(src: string): string {
 
     if (!line.trim()) { closeList(); continue; }
 
+    /*
+     * A fenced block, held exactly as written.
+     *
+     * Added for worked arithmetic — a provisioning calculation laid out over four aligned lines is
+     * the clearest way to show it, and before this the renderer had no block form at all: an
+     * indented block silently became one run-on paragraph, so a worked example read as
+     * "₹28,00,000 × 50% = ₹14,00,000 ₹12,00,000 × 100% = ₹12,00,000 ₹26,00,000". Wrong on a page
+     * whose whole point is the arithmetic.
+     *
+     * Everything inside is escaped and nothing in it is parsed, including the fence's own
+     * info string, which is read but not emitted.
+     */
+    if (/^```/.test(line)) {
+      closeList();
+      const body: string[] = [];
+      i++;
+      while (i < lines.length && !/^```/.test(lines[i])) body.push(lines[i++]);
+      out.push(`<pre><code>${esc(body.join("\n"))}</code></pre>`);
+      continue;
+    }
+
     if (/^---+$/.test(line.trim())) { closeList(); out.push("<hr>"); continue; }
 
     const h = /^(#{2,4})\s+(.*)$/.exec(line);
@@ -103,4 +124,32 @@ export function renderMarkdown(src: string): string {
   }
   closeList();
   return out.join("\n");
+}
+
+/**
+ * Split rendered HTML at a heading near its middle, so one card can be placed in the reading column
+ * without a hand-placed marker in every article.
+ *
+ * The split point is the `<h2>` closest to the halfway mark by character count, never the first and
+ * never the last — a card immediately under the introduction interrupts before the reader has been
+ * given anything, and one just above the closing block is two asks in a row.
+ *
+ * Returns `null` when the piece is too short to carry an interruption at all, which is the honest
+ * answer for a 600-word note: the end of it is already in view.
+ */
+export function splitAtMidHeading(html: string, minHeadings = 6): [string, string] | null {
+  const positions: number[] = [];
+  const re = /<h2\b/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html)) !== null) positions.push(m.index);
+  if (positions.length < minHeadings) return null;
+
+  const candidates = positions.slice(1, -1);
+  if (candidates.length === 0) return null;
+
+  const target = html.length / 2;
+  const at = candidates.reduce((best, p) =>
+    Math.abs(p - target) < Math.abs(best - target) ? p : best,
+  );
+  return [html.slice(0, at), html.slice(at)];
 }

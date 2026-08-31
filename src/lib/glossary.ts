@@ -163,7 +163,7 @@ export const TERMS: Term[] = [
     body:
       "A charge to the profit and loss account against loans that may not be recovered in full, at rates that step up as an account moves through the classification stages. It is not a cash movement — it is an acknowledgement, made in the accounts, that some of what is on the balance sheet will not arrive.",
     computed:
-      "A percentage of the outstanding, by classification stage, with the rate rising as the account ages through substandard, doubtful and loss. Provision held against gross NPA gives the provision coverage ratio.",
+      "A percentage of the outstanding, fixed by the classification. For an NBFC: 0.25% on a standard asset in the Base Layer and 0.40% in the Middle, 10% of the whole outstanding once it is sub-standard, and — once doubtful — 20%, 30% or 50% on the secured portion depending on how long it has been there, with the unsecured portion provided in full. A loss asset is provided at 100%. These are the NBFC rates and not the bank rates, which are 25%, 40% and 100% on that same secured portion. Provision held against gross NPA gives the provision coverage ratio.",
     example:
       "A book with ₹7 crore of advances and ₹8 lakh of gross NPA carrying ₹4 lakh of provision has a gross NPA ratio of 1.14% and a coverage ratio of 50%. The second number is the one a lender diligencing the book asks about, because the first says nothing about how much of it has already been absorbed.",
     matters:

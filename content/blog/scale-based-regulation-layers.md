@@ -9,7 +9,10 @@ draft: false
 ---
 
 Your **layer** under scale-based regulation is no longer a classification you establish once and
-forget. Later instruments key off it directly — the prepayment charges Directions bar an Upper Layer
+forget. It is also not the only label your NBFC carries — the layer sits alongside the *category* on
+your certificate of registration, and the two answer different questions; if that pairing is what
+you are here about, start with
+[why your NBFC has two labels, not one](/blog/nbfc-category-and-layer/). Later instruments key off it directly — the prepayment charges Directions bar an Upper Layer
 NBFC outright, cap a Middle Layer one at ₹50 lakh, and name the Base Layer in neither. Knowing which
 layer you are in is now an input to what your systems must enforce.
 

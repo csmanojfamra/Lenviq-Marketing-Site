@@ -124,17 +124,20 @@ export function ButtonLink({
   children,
   variant = "primary",
   external = false,
+  className: extra = "",
 }: {
   href: string;
   children: React.ReactNode;
   variant?: "primary" | "secondary";
   external?: boolean;
+  /** For the few places the button has to fill its container — a sidebar card, a narrow panel. */
+  className?: string;
 }) {
   const cls =
     variant === "primary"
       ? "bg-cta text-white shadow-e1 hover:bg-cta-hover active:translate-y-px"
       : "border border-line-strong bg-card text-ink hover:bg-subtle active:translate-y-px";
-  const className = `inline-flex items-center justify-center rounded-input px-5 py-2.5 text-[15px] font-medium transition-colors ${cls}`;
+  const className = `inline-flex items-center justify-center rounded-input px-5 py-2.5 text-[15px] font-medium transition-colors ${cls} ${extra}`;
   return external ? (
     <a href={href} className={className}>
       {children}

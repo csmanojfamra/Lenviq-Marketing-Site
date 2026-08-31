@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Section, Card } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { publishedPosts, draftCount } from "@/lib/content";
+import { ProductCta } from "@/components/product-cta";
 
 export const metadata: Metadata = pageMetadata({
   title: "Notes on NBFC lending and RBI compliance",
@@ -65,6 +66,8 @@ export default function BlogIndex() {
           </Card>
         </Reveal>
       )}
+
+      <ProductCta line="The articles here work through the rules by hand. The product applies them to every account on the book, at day-end, without anyone opening a spreadsheet." />
     </Section>
   );
 }

@@ -26,6 +26,9 @@ export interface Tool {
    * and it excludes everyone else on the page's own masthead.
    */
   helps: string;
+  /** Short enough for a navigation menu, where `name` and `question` are both too long. */
+  navLabel: string;
+  navNote: string;
   /**
    * The instrument this is built from, where the tool states a regulatory position rather than
    * doing arithmetic. Shown ON the page: a reader checking their own filing list is entitled to
@@ -38,6 +41,8 @@ export interface Tool {
 export const TOOLS: Tool[] = [
   {
     slug: "emi-calculator",
+    navLabel: "EMI calculator",
+    navNote: "Instalment, schedule, and what a flat rate really costs",
     name: "EMI calculator",
     question: "Work out the monthly instalment, the full repayment schedule, and what a flat rate really costs.",
     title: "EMI calculator with repayment schedule and flat rate",
@@ -46,7 +51,23 @@ export const TOOLS: Tool[] = [
     helps: "See the instalment, the schedule and the true cost — including what a flat rate actually works out to.",
   },
   {
+    slug: "nbfc-provisioning-calculator",
+    navLabel: "Provisioning calculator",
+    navNote: "What to provide at each classification",
+    name: "Provisioning calculator",
+    question: "Work out the provision on a loan once it is classified — standard, sub-standard, doubtful or loss.",
+    title: "NBFC provisioning calculator by asset classification",
+    description:
+      "Work out the provision required on a loan at each asset classification, with the secured and unsecured portions split — using the NBFC rates, which are not the bank rates.",
+    helps: "Provide the right amount on each account, and see exactly which rate produced it.",
+    source:
+      "Master Direction — Reserve Bank of India (Non-Banking Financial Companies — Income Recognition, Asset Classification and Provisioning) Directions, 2025, effective 28 November 2025. The ninety-day non-performing basis applies to every NBFC including the Base Layer, whose glide path ended on 31 March 2026.",
+    sourceUrl: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx",
+  },
+  {
     slug: "penal-charge-calculator",
+    navLabel: "Penal charges",
+    navNote: "The charge, and the 2024 rules around it",
     name: "Penal charge calculator",
     question: "Work out the penal charge on an overdue amount, and check it against the 2024 rules.",
     title: "Penal charge calculator for overdue loan accounts",
@@ -59,6 +80,8 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "kfs-checklist",
+    navLabel: "KFS checklist",
+    navNote: "What the prescribed format requires",
     name: "Key Facts Statement checklist",
     question: "Check a Key Facts Statement against everything the prescribed format requires.",
     title: "Key Facts Statement checklist for lenders",
@@ -71,6 +94,8 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "nbfc-layer-finder",
+    navLabel: "NBFC layer finder",
+    navNote: "Base, Middle or Upper — and what changes",
     name: "NBFC layer finder",
     question: "Work out which layer of the scale-based framework your NBFC is in, and what that changes.",
     title: "NBFC layer finder — Base, Middle or Upper",
@@ -83,6 +108,8 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "nbfc-returns-calendar",
+    navLabel: "Returns calendar",
+    navNote: "Which returns you file, and when",
     name: "NBFC returns calendar",
     question:
       "Find out which supervisory returns your NBFC has to file, and when each one is due.",
@@ -97,6 +124,8 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "apr-calculator",
+    navLabel: "APR calculator",
+    navNote: "The rate a Key Facts Statement discloses",
     name: "APR calculator",
     question:
       "Work out the annual percentage rate a loan's Key Facts Statement has to disclose.",
@@ -108,6 +137,8 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "npa-date-calculator",
+    navLabel: "NPA & SMA dates",
+    navNote: "When a missed instalment changes classification",
     name: "NPA & SMA date calculator",
     question:
       "Find the exact dates a missed instalment turns an account SMA-1, SMA-2 and non-performing.",
@@ -119,6 +150,8 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "gold-loan-ltv-calculator",
+    navLabel: "Gold loan LTV",
+    navNote: "Value a packet and see the permitted advance",
     name: "Gold loan LTV calculator",
     question:
       "Value a packet of ornaments across purities and see how much can be advanced against it.",
@@ -131,3 +164,20 @@ export const TOOLS: Tool[] = [
 ];
 
 export const toolBySlug = (slug: string) => TOOLS.find((t) => t.slug === slug);
+
+
+/**
+ * The menu, derived rather than restated.
+ *
+ * It used to be a hand-written list in `site-nav.tsx` that also announced how many tools there
+ * were. Adding the ninth left the menu showing eight and the count saying "Eight" — a page nobody
+ * could reach from the navigation, and a wrong number beside it. Both are now impossible.
+ */
+export const toolsMenu = () => [
+  {
+    href: "/tools/",
+    label: "All tools",
+    note: `${TOOLS.length} free calculators, no sign-up`,
+  },
+  ...TOOLS.map((t) => ({ href: `/tools/${t.slug}/`, label: t.navLabel, note: t.navNote })),
+];
