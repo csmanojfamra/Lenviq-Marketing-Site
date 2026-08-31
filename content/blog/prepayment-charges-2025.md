@@ -14,6 +14,8 @@ micro and small enterprises the bar is tiered by lender class, and a Base Layer 
 neither tier. Those are two separate limbs with different scopes, and reading them as one rule about
 floating-rate loans is the standard mistake.
 
+To apply all of this to one loan rather than read it in the abstract, the [prepayment charge checker](/tools/prepayment-charge-checker/) takes the four facts that decide it — the rate at the moment of pre-payment, the borrower, the purpose and the lender's tier — and names the limb its answer rests on.
+
 The [Reserve Bank of India (Pre-payment Charges on Loans) Directions,
 2025](https://www.rbi.org.in/scripts/NotificationUser.aspx?Id=12878&Mode=0) (RBI/2025-26/64, 2 July
 2025) are short, and are read wrongly in a predictable way: as a single rule about floating-rate

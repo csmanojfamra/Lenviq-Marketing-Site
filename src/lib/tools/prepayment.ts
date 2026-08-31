@@ -31,6 +31,11 @@ export type BorrowerKind = "INDIVIDUAL" | "MSE" | "OTHER";
 export type Purpose = "BUSINESS" | "NON_BUSINESS";
 export type RateKind = "FLOATING" | "FIXED";
 
+/**
+ * Rendered as written, never case-folded. Half of these are acronyms — lowercasing to fit a
+ * sentence produced "the bar does not name a nbfc — base layer" and "not an sfb, rrb or lab".
+ * The surrounding copy is built around the label instead of bending the label to the copy.
+ */
 export const LENDER_LABEL: Record<LenderKind, string> = {
   COMMERCIAL_BANK: "Commercial bank (not an SFB, RRB or LAB)",
   SFB: "Small Finance Bank",
@@ -156,7 +161,7 @@ export function prepaymentEligibility(i: PrepaymentInput): PrepaymentResult {
       headline: "No pre-payment charge may be levied",
       because: `A floating-rate loan for a business purpose to ${
         i.borrower === "MSE" ? "a micro or small enterprise" : "an individual"
-      }. A ${LENDER_LABEL[i.lender].toLowerCase()} is barred whatever the sanctioned amount.`,
+      }. This lender (${LENDER_LABEL[i.lender]}) is barred whatever the sanctioned amount.`,
       notes: [
         "There is no ₹50 lakh ceiling on this one. The ceiling applies to a different tier of lender.",
         "Part pre-payment and foreclosure both, irrespective of the source of funds, with no minimum lock-in.",
@@ -187,7 +192,7 @@ export function prepaymentEligibility(i: PrepaymentInput): PrepaymentResult {
   return {
     barred: false,
     headline: "Not barred — a charge may be levied",
-    because: `The business-purpose bar does not name a ${LENDER_LABEL[i.lender].toLowerCase()}. Its own board-approved policy governs.`,
+    because: `The business-purpose bar does not name this lender (${LENDER_LABEL[i.lender]}), so its own board-approved policy governs.`,
     notes: [
       POLICY_NOTE,
       "This is the one place where the answer turns on the lender rather than the loan. The same loan, to the same borrower, at the same rate, is barred at a larger lender.",

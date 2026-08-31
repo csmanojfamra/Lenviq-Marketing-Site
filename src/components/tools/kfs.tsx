@@ -53,7 +53,7 @@ export function KfsChecker() {
         <p className="mt-s2 max-w-prose text-[16px] leading-relaxed text-slate-mid">
           {gaps.length === 0
             ? "Every item the format requires for a loan of this shape is accounted for."
-            : `${gaps.length} still missing: ${gaps.map((g) => g.label.toLowerCase()).join(", ")}.`}
+            : `${gaps.length} still missing — ${gaps.map((g) => g.label).join("; ")}.`}
         </p>
       </div>
 

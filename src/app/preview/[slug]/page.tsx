@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import { Section } from "@/components/ui";
-import { PrepaymentEligibility } from "@/components/tools/prepayment";
 
 /**
  * Pages that exist for review and are not published.
@@ -19,12 +18,9 @@ import { PrepaymentEligibility } from "@/components/tools/prepayment";
  * To promote one of these, move it to its own route under `/tools/` and register it in `TOOLS`.
  */
 const PREVIEWS: Record<string, { title: string; blurb: string; render: () => React.ReactNode }> = {
-  "prepayment-eligibility": {
-    title: "Can a pre-payment charge be levied on this loan?",
-    blurb:
-      "The RBI (Pre-payment Charges on Loans) Directions, 2025, applied to one loan. Whether the charge is barred turns on four things at once — the rate at the moment of pre-payment, who the borrower is, what the money was for, and which tier of lender is asking.",
-    render: () => <PrepaymentEligibility />,
-  },
+  // Empty on purpose. The first occupant — a prepayment charge checker — was reviewed here and
+  // promoted to /tools/prepayment-charge-checker/. The route stays because the next page that needs
+  // reviewing before it is published should not have to rebuild the gate.
 };
 
 /**

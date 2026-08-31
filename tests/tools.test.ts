@@ -11,7 +11,7 @@ import { findLayer, type SbrAnswers } from "../src/lib/tools/sbr";
 import { penalCharge, type PenalInput } from "../src/lib/tools/penal";
 import { KFS_FIELDS, KFS_RULES, kfsGaps } from "../src/lib/tools/kfs";
 import { provisionFor, DOUBTFUL_SECURED, BANK_DOUBTFUL_SECURED } from "../src/lib/tools/provision";
-import { prepaymentEligibility, MSE_CAP_PAISE } from "../src/lib/tools/prepayment";
+import { prepaymentEligibility, MSE_CAP_PAISE, LENDER_LABEL } from "../src/lib/tools/prepayment";
 
 const R = (rupees: number) => BigInt(Math.round(rupees * 100));
 
@@ -588,5 +588,38 @@ describe("whether a pre-payment charge may be levied", () => {
       ...loan, borrower: "OTHER", purpose: "BUSINESS", lender: "COMMERCIAL_BANK",
     });
     expect(r.barred).toBe(false);
+  });
+});
+
+/**
+ * A label that is half acronym is never case-folded to fit a sentence.
+ *
+ * "The bar does not name a nbfc — base layer", "not an sfb, rrb or lab", "apr computation sheet".
+ * Each came from calling `.toLowerCase()` on a label so it would read naturally mid-sentence; the
+ * fix is to build the sentence around the label instead.
+ */
+describe("acronyms survive the copy", () => {
+  it("never lower-cases a lender label", () => {
+    const cases = [
+      { lender: "NBFC_BL" as const, purpose: "BUSINESS" as const },
+      { lender: "COMMERCIAL_BANK" as const, purpose: "BUSINESS" as const },
+      { lender: "SFB" as const, purpose: "BUSINESS" as const },
+    ];
+    for (const c of cases) {
+      const r = prepaymentEligibility({
+        ...c, borrower: "MSE", rateAtPrepayment: "FLOATING",
+        sanctionedPaise: 800_000_000, sanctionedOn: "2026-04-01",
+      });
+      const prose = [r.because, ...r.notes].join(" ");
+      for (const bad of ["nbfc", "sfb", "rrb", "lab —", "ucb"]) {
+        expect(prose, `case-folded acronym in: ${prose}`).not.toContain(bad);
+      }
+    }
+  });
+
+  it("keeps every lender label as written", () => {
+    for (const l of Object.values(LENDER_LABEL)) {
+      expect(l).not.toBe(l.toLowerCase());
+    }
   });
 });

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import {
   prepaymentEligibility, LENDER_LABEL, BORROWER_LABEL, MSE_CAP_PAISE, EFFECTIVE_FROM,
   type LenderKind, type BorrowerKind, type Purpose, type RateKind,
@@ -151,6 +152,16 @@ export function PrepaymentEligibility() {
             source of the money makes no difference — a borrower refinancing with a competitor is
             still protected. It covers a part pre-payment as much as a full foreclosure. And no
             minimum lock-in may be imposed to reach the same result by another route.
+          </p>
+          <p className="mt-s3">
+            <strong className="text-ink">Reading the limbs themselves.</strong> Paragraph 5(i) binds
+            every lender; paragraph 5(ii) names entity classes and leaves the Base Layer out. Why
+            that distinction is easy to misread, and what &ldquo;MSE&rdquo; does and does not cover,
+            is worked through in{" "}
+            <Link href="/blog/prepayment-charges-2025/" className="font-medium text-cta underline underline-offset-2 hover:text-cta-hover">
+              prepayment charges after the 2025 Directions
+            </Link>
+            .
           </p>
           <p className="mt-s3">
             <strong className="text-ink">Where it does not apply, disclosure still does.</strong> A

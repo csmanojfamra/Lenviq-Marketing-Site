@@ -65,6 +65,20 @@ export const TOOLS: Tool[] = [
     sourceUrl: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx",
   },
   {
+    slug: "prepayment-charge-checker",
+    name: "Prepayment charge checker",
+    navLabel: "Prepayment charges",
+    navNote: "Whether this loan may be charged at all",
+    question: "Check whether a pre-payment or foreclosure charge may be levied on a particular loan.",
+    title: "Prepayment and foreclosure charge checker for NBFCs and banks",
+    description:
+      "Check whether the 2025 Directions bar a pre-payment or foreclosure charge on a loan — the answer turns on the rate, the borrower, the purpose and which tier of lender is asking.",
+    helps: "Know before you levy, and see which limb of the Directions produced the answer.",
+    source:
+      "Reserve Bank of India (Pre-payment Charges on Loans) Directions, 2025 — issued 2 July 2025, applying to loans and advances sanctioned or renewed on or after 1 January 2026. They reach all commercial banks other than payments banks, co-operative banks, NBFCs including HFCs, and All India Financial Institutions.",
+    sourceUrl: "https://www.rbi.org.in/scripts/NotificationUser.aspx?Id=12878&Mode=0",
+  },
+  {
     slug: "penal-charge-calculator",
     navLabel: "Penal charges",
     navNote: "The charge, and the 2024 rules around it",
