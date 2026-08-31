@@ -76,6 +76,39 @@ export function renderMarkdown(src: string): string {
      * Everything inside is escaped and nothing in it is parsed, including the fence's own
      * info string, which is read but not emitted.
      */
+    /*
+     * A pipe table.
+     *
+     * A header row, a `| --- | --- |` separator, then body rows until a blank line. Added because
+     * the restructured provisioning post needs six of them — a timeline, what the layer changes,
+     * when security counts — and without a parser they render as a wall of pipe characters in one
+     * paragraph. The stylesheet had `.prose-lenviq table` rules all along, written for the JSX
+     * tables on the tool pages, which made it look supported when it never was.
+     *
+     * Wrapped in a scroller: a six-column table has to move sideways inside its own box on a
+     * phone rather than push the article off the screen.
+     */
+    if (/^\s*\|/.test(line) && /^\s*\|[\s:|-]+\|\s*$/.test(lines[i + 1] ?? "")) {
+      closeList();
+      const cells = (row: string) =>
+        row.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
+      const head = cells(line);
+      i += 2;
+      const body: string[][] = [];
+      while (i < lines.length && /^\s*\|/.test(lines[i])) body.push(cells(lines[i++]));
+      i--;
+      out.push(
+        '<div class="table-scroll"><table><thead><tr>' +
+          head.map((c) => `<th>${inline(c)}</th>`).join("") +
+          "</tr></thead><tbody>" +
+          body
+            .map((r) => "<tr>" + r.map((c) => `<td>${inline(c)}</td>`).join("") + "</tr>")
+            .join("") +
+          "</tbody></table></div>",
+      );
+      continue;
+    }
+
     if (/^```/.test(line)) {
       closeList();
       const body: string[] = [];

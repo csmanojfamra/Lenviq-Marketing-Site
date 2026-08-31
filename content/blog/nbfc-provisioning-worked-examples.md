@@ -1,69 +1,101 @@
 ---
-title: "NBFC provisioning, worked line by line: standard, sub-standard, doubtful, loss"
-description: "A standard asset is provided at 0.25% or 0.40%, a sub-standard asset at 10% of the whole outstanding, a doubtful asset at 20/30/50% on the secured portion and 100% on the unsecured, and a loss asset in full. Five accounts taken through the arithmetic, and the one table that is copied from the wrong rulebook more often than any other."
-metaDescription: "Standard 0.25–0.40%, sub-standard 10%, doubtful 20/30/50% secured and 100% unsecured, loss 100% — with five accounts worked through in full."
+title: "NBFC asset classification and provisioning: when a loan turns, and how much you set aside"
+description: "A loan is standard until it is ninety days overdue. On day 91 it becomes an NPA and is sub-standard. It stays there twelve months in the Middle and Upper Layers, eighteen in the Base Layer, and then turns doubtful. This works through each stage — what triggers it, what the layer changes, when security matters and when it does not — and then follows one ₹40 lakh loan through all of them."
+metaDescription: "When a loan turns standard, sub-standard, doubtful or loss — and how much has to be provided at each stage, with one loan followed through all of them."
 date: "2026-08-30"
+updated: "2026-08-31"
 category: "Accounting"
 author: "CA Anil Agarwal"
+tool: "nbfc-provisioning-calculator"
 draft: false
 ---
 
-An NBFC provides **0.25% or 0.40% on a standard asset**, **10% of the whole outstanding on a
-sub-standard asset**, **20%, 30% or 50% on the secured portion of a doubtful asset depending on how
-long it has been doubtful, and 100% on the unsecured portion**, and **100% on a loss asset**. Those
-are the numbers. Everything below is where they come from, which one applies to which account, and
-five accounts taken through the arithmetic in full.
+A loan sits in one of four boxes, and the box decides how much money you set aside against it. The
+short version, in order:
 
-One warning before any of it, because it is the single most common error in this area: **these are
-not the bank percentages.** A bank provides 25%, 40% and 100% on the secured portion of a doubtful
-asset. An NBFC provides 20%, 30% and 50%. Published summaries mix the two tables regularly, and the
-gap is widest exactly where the amounts are largest.
+| Stage | When it starts | Provision |
+| --- | --- | --- |
+| **Standard** | From disbursement until the loan is 90 days overdue | 0.25% or 0.40% |
+| **Sub-standard** | Day 91 — this is the day it becomes an NPA | 10% of the whole outstanding |
+| **Doubtful** | After 12 months as sub-standard (18 in the Base Layer) | 20–50% of the secured part, 100% of the rest |
+| **Loss** | Whenever it is identified as unrecoverable | 100% |
 
-## Where the rules live now
+The rest of this explains each line: what actually moves a loan from one box to the next, what your
+layer changes, when the security you hold matters and when it makes no difference at all, and then
+one real loan followed from disbursement to write-off.
 
-The Reserve Bank consolidated the income recognition, asset classification and provisioning rules
-into a single instrument — the **RBI (Non-Banking Financial Companies — Income Recognition, Asset
-Classification and Provisioning) Directions, 2025**, in force from **28 November 2025**. Before that,
-an NBFC read the same rules out of the Scale Based Regulation Master Direction and a run of
-circulars around it.
+One thing to get out of the way first, because it is the most common error in this subject.
+**These are not the bank percentages.** A bank provides 25%, 40% and 100% on the secured part of a
+doubtful loan. An NBFC provides 20%, 30% and 50%. Published summaries mix the two tables regularly,
+and the gap is widest where the amounts are largest.
 
-One thing changed under the reader's feet in the same period and it is worth stating plainly. The
-Base Layer used to recognise a non-performing asset at a longer overdue period than the Middle and
-Upper Layers did. That glide path **ended on 31 March 2026**. Every NBFC, in every layer, now
-classifies an account as non-performing on the same basis: **more than ninety days past due**.
+## What is asset classification?
 
-If you are working from a note written before that date, check it. The classification date drives
-everything on this page, and a note that still carries the old Base Layer period will produce the
-wrong provision on every account it touches.
+Asset classification is the label your NBFC puts on each loan to say how likely it is to be repaid.
+There are four labels, and every loan on the book carries exactly one.
 
-## The four classifications, and what moves an account between them
+Only the first — **standard** — is a performing loan. The other three are collectively the
+**non-performing assets**, the NPAs. So when a report says gross NPA, it means everything in the
+bottom three boxes added together.
 
-Provisioning is downstream of classification. Get the classification wrong and no amount of care
-with the percentages helps.
+Classification comes first and provisioning follows from it. If a loan is in the wrong box, no
+amount of care with the percentages will produce the right provision.
 
-**Standard.** Not overdue beyond ninety days. Nothing about this account is in doubt, and it is still
-provided for — see the next section, because a standard asset attracting a provision surprises people.
+**Nothing about the label depends on judgement.** Not on the borrower's promise to pay, not on a
+restructuring conversation in progress, not on how good the security looks. With the single
+exception of a loss asset, the label follows the number of days the money has been overdue.
 
-**Sub-standard.** The account is non-performing: more than ninety days past due. It stays
-sub-standard for a fixed period — **twelve months in the Middle and Upper Layers, eighteen months in
-the Base Layer** — and then, if the arrears have not been cleared, it moves on.
+## When does a loan move from one stage to the next?
 
-**Doubtful.** Sub-standard for longer than that period. The provision now splits: the part covered by
-realisable security is provided at a rate that rises with how long the account has been doubtful, and
-everything not covered by security is provided in full immediately.
+This is the part that is hardest to hold in the head, so here it is on a calendar. Take a borrower
+with a Base Layer NBFC who makes their last payment and then stops, with the next instalment falling
+due on 1 April 2026.
 
-**Loss.** Identified as unrecoverable — by the NBFC itself, by its auditor, or on inspection. There
-is no waiting period. An account can be written straight to loss without ever sitting in doubtful, if
-that is the honest assessment, and holding security does not reduce the provision: a loss asset is
-one where recovery is not expected whatever is held.
+| Date | Days overdue | Classification |
+| --- | --- | --- |
+| 1 April 2026 | 1 | **Standard** — an instalment is missed, but the loan is still performing |
+| 30 June 2026 | 90 | **Standard** — the last day it is |
+| **1 July 2026** | **91** | **Sub-standard.** The loan is now an NPA |
+| 1 January 2028 | — | **Doubtful.** 18 months as sub-standard have passed |
+| 1 January 2029 | — | Still doubtful, now in the **1-to-3-year** band |
+| 1 January 2031 | — | Still doubtful, now in the **over-3-year** band |
 
-Note what is *not* in that list. Nothing here turns on the borrower's intentions, on a promise to
-pay, or on a restructuring conversation in progress. Classification follows the account.
+Three things worth pulling out of that table.
 
-## Standard assets are not provision-free
+**Day 91, not day 90.** The rule is *more than* ninety days past due, so an account ninety days
+overdue is still standard. Classification then starts in the day-end process for the day it crosses.
 
-The most frequent misunderstanding on a small book. A standard asset carries a **general provision**,
-made against the performing portfolio as a whole:
+**The clock never pauses for a conversation.** A part payment that does not clear the arrears does
+not stop it either. Only clearing the overdue amount does — at which point the loan goes back to
+standard.
+
+**The doubtful bands count from entry into doubtful**, not from the day the borrower first stopped
+paying. In the table above the loan had already been overdue for a year and a half before its first
+day as doubtful. It is still in the *up-to-one-year* band for the whole of 2028.
+
+You will also meet these bands written as **DA1, DA2 and DA3** — doubtful year one, one to three,
+and beyond three. Same thing, shorter.
+
+**Loss is the exception to all of it.** A loan is a loss asset when the NBFC, its auditor or an
+inspection identifies it as unrecoverable. There is no waiting period, and a loan can go straight
+there from sub-standard without ever sitting in doubtful.
+
+## What does your layer change?
+
+Two things, and it is worth knowing which two, because most of the rules are the same in every
+layer.
+
+**How long a loan stays sub-standard before it turns doubtful.**
+
+| Layer | Sub-standard for |
+| --- | --- |
+| Base Layer | 18 months |
+| Middle and Upper Layers | 12 months |
+
+The same defaulted loan therefore reaches the doubtful stage six months earlier at a Middle Layer
+NBFC — and, because doubtful is where the provision jumps, six months earlier is real money.
+
+**The rate on the standard book.**
 
 | Layer | Standard-asset provision |
 | --- | --- |
@@ -74,125 +106,207 @@ made against the performing portfolio as a whole:
 | Upper Layer — commercial real estate, other | 1.00% |
 | Upper Layer — everything else | 0.40% |
 
-Two points that follow from it. First, only the Upper Layer splits the rate by what the exposure
-actually is; a Base or Middle Layer NBFC applies one rate to its whole standard book. Second, the
-general provision is **not** deducted in arriving at net non-performing assets — it sits against the
-good book, not the bad one, and netting it off overstates asset quality.
+Only the Upper Layer splits that rate by what the exposure actually is. A Base or Middle Layer NBFC
+applies one rate across its whole standard book.
 
-## The five accounts
+**What the layer does not change** is everything else on this page: the ninety-day trigger, the
+sub-standard rate, the doubtful percentages and the treatment of security are identical in every
+layer. Not sure which layer you are in? The
+[layer finder](/tools/nbfc-layer-finder/) works it out.
 
-Each of these can be reproduced in the
-[provisioning calculator](/tools/nbfc-provisioning-calculator/) by typing in the same figures.
+One recent change is worth a line. The Base Layer used to recognise an NPA at a longer overdue
+period than the other layers. That glide path **ended on 31 March 2026**, so every NBFC now uses the
+same ninety days. If you are working from a note written before that date, check it — it will produce
+the wrong classification date on every account it touches.
 
-### 1. A performing personal loan, Base Layer NBFC
+## When does the security matter?
 
-Outstanding ₹10,00,000. Not overdue. The NBFC is in the Base Layer.
+This surprises people, so it gets its own answer: **security only changes the provision at the
+doubtful stage.** Nowhere else.
 
-```
-₹10,00,000 × 0.25%  =  ₹2,500
-```
+| Stage | Does holding security reduce the provision? |
+| --- | --- |
+| Standard | **No.** The rate applies to the outstanding, secured or not |
+| Sub-standard | **No.** 10% of the whole outstanding either way |
+| Doubtful | **Yes — this is the whole calculation.** The secured part is provided at 20–50%, everything else at 100% |
+| Loss | **No.** 100%, whatever is held |
 
-**Provision ₹2,500.** Nothing about the security matters, and nothing about the borrower matters. The
-rate is the layer's rate.
+So a lender holding property worth twice the loan provides exactly the same as one holding nothing,
+for as long as the loan is sub-standard. That is deliberate. Security starts to count once the loan
+is doubtful, and from then on it is the single biggest factor in the number.
 
-### 2. The same loan, ninety-one days past due
+**“Secured” here means realisable, today.** Not the valuation taken at sanction. On a property that
+has been sitting through a default those are rarely the same figure, and an optimistic number
+understates the provision twice over — it shrinks the slice provided at 100% and grows the slice
+provided at 20%.
 
-Outstanding still ₹10,00,000. The account is now non-performing, so it is sub-standard.
+## How much is provided at each stage?
 
-```
-₹10,00,000 × 10%  =  ₹1,00,000
-```
+Everything above, as numbers.
 
-**Provision ₹1,00,000.** Note what does *not* happen here: the secured and unsecured parts are not
-separated. Sub-standard is ten per cent of the whole outstanding whatever is held against it. A
-lender who holds property worth twice the loan provides exactly the same as one who holds nothing.
+| Stage | Provision |
+| --- | --- |
+| Standard | 0.25% or 0.40% of the outstanding, by layer |
+| Sub-standard | **10%** of the total outstanding |
+| Doubtful — secured part, first year | **20%** |
+| Doubtful — secured part, 1 to 3 years | **30%** |
+| Doubtful — secured part, over 3 years | **50%** |
+| Doubtful — unsecured part | **100%**, from the first day |
+| Loss | **100%** |
 
-That is deliberate, and it catches people out. Security starts to matter at the next stage, not this
-one.
+A standard-asset provision is a *general* provision: it is made against the performing book as a
+whole, and it is **not** deducted in arriving at net NPA. Netting it off overstates asset quality.
 
-### 3. A loan against property that has gone doubtful
+## One loan, followed all the way through
 
-Outstanding ₹40,00,000. It went non-performing, sat sub-standard for the full period, and has now
-been doubtful for **eight months**. The property is realistically worth ₹28,00,000 today.
+Every figure below can be reproduced in the
+[provisioning calculator](/tools/nbfc-provisioning-calculator/) by typing in the same numbers.
 
-```
-Secured portion    ₹28,00,000 × 20%   =  ₹5,60,000
-Unsecured portion  ₹12,00,000 × 100%  =  ₹12,00,000
-                                         ──────────
-                                         ₹17,60,000
-```
+**The loan.** A Base Layer NBFC lends ₹40,00,000 against a property. The borrower stops paying. The
+property would realistically fetch **₹28,00,000** today, which leaves **₹12,00,000** not covered by
+security.
 
-**Provision ₹17,60,000 — 44% of the outstanding.** The unsecured portion is doing almost all the work.
-That is the general shape of a doubtful asset: the shortfall against security is provided in full
-from the first day in the category, and the rate on the secured part only creeps up from there.
-
-The word *realisable* is carrying weight in "realisable security". It is what the security would
-actually fetch, now, not the valuation taken at sanction. On a property that has been sitting through
-a default, those are rarely the same number, and an inflated figure here understates the provision
-twice over — it shrinks the 100% slice and it shrinks it in favour of the 20% one.
-
-### 4. The same account, three and a half years later
-
-Outstanding ₹40,00,000, security still realistically ₹28,00,000, and it has now been doubtful for
-more than three years.
-
-```
-Secured portion    ₹28,00,000 × 50%   =  ₹14,00,000
-Unsecured portion  ₹12,00,000 × 100%  =  ₹12,00,000
-                                         ──────────
-                                         ₹26,00,000
-```
-
-**Provision ₹26,00,000 — 65% of the outstanding.**
-
-Here is where the bank table does its damage. Read 100% instead of 50% on that first line and the
-provision comes out at ₹40,00,000 — the entire outstanding, against an account where ₹28,00,000 of
-realisable security is held. Over-providing by ₹14,00,000 on one account is not a conservative
-choice; it is a wrong number in a filed return.
-
-The age band, incidentally, is time **in the doubtful category** — not time since the account first
-went overdue. An account that spent eighteen months sub-standard before turning doubtful is in the
-*up to one year* band for its first year as doubtful, not past it.
-
-### 5. A written-off unsecured loan
-
-Outstanding ₹2,00,000. No security. The borrower is untraceable and the auditor has identified it as
-unrecoverable.
+### While it is performing
 
 ```
-₹2,00,000 × 100%  =  ₹2,00,000
+₹40,00,000 × 0.25%  =  ₹10,000
 ```
 
-**Provision ₹2,00,000.** No waiting period, no age band, no split. Identification is what triggers it.
+**₹10,000.** Nothing about the property matters here, and nothing about the borrower matters. The
+rate is the layer's rate, applied to the outstanding.
+
+### Day 91 — sub-standard
+
+```
+₹40,00,000 × 10%  =  ₹4,00,000
+```
+
+**₹4,00,000.** The provision has gone up forty times, and the property has still made no difference
+to it. Ten per cent of the whole outstanding is the rule, whatever is held.
+
+### Eighteen months later — doubtful, first year
+
+```
+Secured    ₹28,00,000 × 20%   =   ₹5,60,000
+Unsecured  ₹12,00,000 × 100%  =  ₹12,00,000
+                                 ──────────
+                                 ₹17,60,000
+```
+
+**₹17,60,000 — 44% of the outstanding.** This is the stage where the number changes character. Look
+at which line is doing the work: the ₹12,00,000 shortfall against security is provided *in full*,
+immediately, and it is more than twice the provision on the secured part.
+
+### A year on — the 1-to-3-year band
+
+```
+Secured    ₹28,00,000 × 30%   =   ₹8,40,000
+Unsecured  ₹12,00,000 × 100%  =  ₹12,00,000
+                                 ──────────
+                                 ₹20,40,000
+```
+
+**₹20,40,000 — 51%.** Only the secured rate moved. The unsecured line was already at 100% and has
+nowhere further to go.
+
+### Past three years
+
+```
+Secured    ₹28,00,000 × 50%   =  ₹14,00,000
+Unsecured  ₹12,00,000 × 100%  =  ₹12,00,000
+                                 ──────────
+                                 ₹26,00,000
+```
+
+**₹26,00,000 — 65%.**
+
+This is where reading the bank table costs money. Take 100% instead of 50% on that first line and
+the provision comes out at ₹40,00,000 — the entire outstanding, on a loan where ₹28,00,000 of
+realisable property is held. Over-providing by ₹14,00,000 on one account is not conservatism; it is
+a wrong number in a filed return.
+
+### If it is written off
+
+```
+₹40,00,000 × 100%  =  ₹40,00,000
+```
+
+**₹40,00,000.** No band, no split, no credit for the property. A loss asset is one where recovery is
+not expected whatever is held.
+
+## The same journey with no security at all
+
+Change one thing — an unsecured personal loan of ₹2,00,000 instead — and the shape of the whole
+thing changes.
+
+| Stage | Provision | % |
+| --- | --- | --- |
+| Standard | ₹500 | 0.25% |
+| Sub-standard | ₹20,000 | 10% |
+| Doubtful — **any band** | ₹2,00,000 | **100%** |
+| Loss | ₹2,00,000 | 100% |
+
+On an unsecured loan the doubtful bands never bite. There is no secured part for the 20/30/50 rates
+to apply to, so the day the loan turns doubtful it is provided in full — and stays there.
+
+That is the practical difference between a secured and an unsecured book, and it is worth seeing as
+a jump rather than a percentage: the secured loan above went from 10% to 44% at the doubtful stage.
+The unsecured one goes from 10% to 100% on the same day.
 
 ## Two things that regularly go wrong
 
-**Provisioning off the wrong balance.** The provision is computed on the total outstanding — principal
-plus whatever interest has been recognised and remains uncollected. It is not computed on principal
-alone. On an account that ran for a year before defaulting the difference is material.
+**Provisioning on the wrong balance.** The provision is computed on the *total outstanding* —
+principal plus any interest that has been recognised and is still uncollected. Not on principal
+alone. On a loan that ran for a year before defaulting, the difference is material.
 
-**Interest that keeps accruing after the account turns.** Once an account is non-performing, income on
-it moves to a receipt basis, and interest already accrued but not collected is reversed. A book that
-keeps accruing into the profit and loss account on a non-performing loan and *then* provides against
-the resulting balance is reporting a number that means nothing. The reversal comes first.
+**Interest that keeps accruing after the loan turns.** Once a loan is non-performing, income on it
+moves to a receipt basis, and interest already booked but not collected is reversed. A book that
+keeps accruing into the profit and loss account on a defaulted loan and *then* provides against the
+resulting balance is reporting a number that means nothing. The reversal comes first.
 
-## What a system should be doing with this
+## Frequently asked questions
 
-None of the arithmetic above is hard. The part that is hard is that it has to be right on every
-account, on the same day, every month — and that the inputs it runs on are moving. Days past due move
-daily. Classification follows from them. The doubtful age band follows from the classification date.
-The realisable security value has to come from somewhere and be current.
+### When exactly does a loan become an NPA?
 
-Lenviq computes days past due at day-end for every account on the book, moves the classification when
-the period is reached, reverses income on the accounts that turned, and carries the provision that
-falls out of it — with the layer and the security position it used recorded against each account, so
-an auditor asking "why this number" gets an answer rather than a spreadsheet.
+On the day it becomes more than ninety days past due — day 91. At ninety days it is still standard.
+Since 31 March 2026 this is the same for every NBFC, in every layer.
 
-The [calculator](/tools/nbfc-provisioning-calculator/) answers one account. The point of the platform
-is that nobody has to.
+### Is a standard loan really provisioned?
+
+Yes. 0.25% in the Base Layer, 0.40% in the Middle Layer, and by exposure type in the Upper Layer. It
+is a general provision made against the performing book as a whole, and it is not deducted in
+arriving at net NPA.
+
+### Does holding property reduce the provision on a sub-standard loan?
+
+No. Sub-standard is 10% of the whole outstanding whether the loan is fully secured or entirely
+unsecured. Security only changes the number once the loan is doubtful.
+
+### What happens if the borrower clears the arrears?
+
+The loan goes back to standard, and the provision drops to the standard rate. Classification follows
+the arrears, so clearing them reverses it. A part payment that leaves any amount still overdue does
+not.
+
+### How long does a loan stay sub-standard?
+
+Twelve months in the Middle and Upper Layers, eighteen months in the Base Layer. After that, if the
+arrears still stand, it becomes doubtful.
+
+### What are DA1, DA2 and DA3?
+
+The three doubtful bands: up to one year in the doubtful category, one to three years, and beyond
+three. They set the rate on the secured part — 20%, 30% and 50%. The unsecured part is 100% in all
+three.
+
+### Are these the same as the bank provisioning rates?
+
+No, and this is the most common error in the subject. On the secured part of a doubtful loan a bank
+provides 25%, 40% and 100%. An NBFC provides 20%, 30% and 50%. The unsecured part and loss assets are
+100% under both.
 
 ---
 
-*The rates and periods here are from the RBI (Non-Banking Financial Companies — Income Recognition,
-Asset Classification and Provisioning) Directions, 2025. Your board-approved policy may be stricter,
-and it is entitled to be; it may not be looser. Nothing here is advice on a particular account.*
+*Rates and periods here are from the RBI (Non-Banking Financial Companies — Income Recognition, Asset
+Classification and Provisioning) Directions, 2025. Your board-approved policy may be stricter, and is
+entitled to be; it may not be looser. Nothing here is advice on a particular account.*

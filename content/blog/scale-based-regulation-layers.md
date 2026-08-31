@@ -5,6 +5,7 @@ metaDescription: "The layer is not a label. It decides governance, disclosure an
 date: "2026-08-11"
 category: "Regulatory"
 author: "CS Manoj Famra"
+tool: "nbfc-layer-finder"
 draft: false
 ---
 

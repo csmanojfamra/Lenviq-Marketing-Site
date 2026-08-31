@@ -5,6 +5,7 @@ metaDescription: "Ongoing LTV, a 12-month cap on bullet consumption loans, renew
 date: "2026-08-11"
 category: "Regulatory"
 author: "CA Tanmay Saini"
+tool: "gold-loan-ltv-calculator"
 draft: false
 ---
 

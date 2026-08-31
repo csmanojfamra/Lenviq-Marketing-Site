@@ -44,6 +44,12 @@ export interface Post {
   date: string;
   category: string;
   author: string;
+  /**
+   * The slug of the tool this post's subject has one of, from an optional `tool:` in the front
+   * matter. Used by the in-article card, which follows the practice on the sites this competes
+   * with: mid-article points at the free tool, not at the product.
+   */
+  tool?: string;
   draft: boolean;
   body: string;
   readingMinutes: number;
@@ -68,6 +74,7 @@ function parse(file: string): Post {
     metaDescription: meta.metaDescription || meta.description || "",
     updated: meta.updated || undefined,
     date: meta.date ?? "",
+    tool: meta.tool || undefined,
     category: meta.category ?? "Regulatory",
     author: meta.author ?? "Lenviq",
     draft: meta.draft === "true",

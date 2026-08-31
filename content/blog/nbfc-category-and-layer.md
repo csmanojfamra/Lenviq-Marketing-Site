@@ -5,6 +5,7 @@ metaDescription: "Category says what an NBFC does; layer says how much regulatio
 date: "2026-08-30"
 category: "Regulatory"
 author: "CS Sushil Choudhary"
+tool: "nbfc-layer-finder"
 draft: false
 ---
 
@@ -17,9 +18,9 @@ questions:
 - **The layer answers *how much regulation do you get*.** Base, Middle, Upper, Top. It is about size
   and systemic importance.
 
-Every NBFC carries **one of each, at the same time**. "An NBFC-ICC in the Base Layer" is not two
+Every NBFC carries **one of each, at the same time**. “An NBFC-ICC in the Base Layer” is not two
 competing classifications — it is one complete description, in the same way that a vehicle has both a
-type and an engine size and neither is the "real" one.
+type and an engine size and neither is the “real” one.
 
 The confusion is entirely understandable, because the two systems arrived years apart and nobody
 retired the first when the second turned up.
@@ -60,7 +61,7 @@ existing ND-SIs with assets of ₹500 crore and above but below ₹1,000 crore �
 kept them out — were **reclassified into the Base Layer**.
 
 That last part is worth sitting with, because it went the opposite way to most people's instinct. A
-number of NBFCs that had been "systemically important" for years found themselves in the *lowest*
+number of NBFCs that had been “systemically important” for years found themselves in the *lowest*
 layer, with a lighter regime than before. Nothing about them had changed. The threshold had.
 
 If a policy document, a template or a consultant's note still uses NBFC-ND-SI, it predates

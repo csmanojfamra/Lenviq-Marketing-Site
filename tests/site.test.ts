@@ -831,3 +831,43 @@ describe("navigation links exist in the HTML, not just after a click", () => {
     }
   });
 });
+
+/**
+ * A markdown table in a post reaches the page as a table.
+ *
+ * The stylesheet carried `.prose-lenviq table` rules from the beginning — written for the JSX
+ * tables on the tool pages — which made tables look supported in posts when the renderer had no
+ * parser for them at all. Seven of them shipped as a wall of pipe characters in one paragraph.
+ * Two of the rules were also dead: they referenced `--color-border` variables that resolve, but the
+ * code block beside them used `--color-line`, which is a Tailwind utility name and not a variable,
+ * so that border never drew.
+ */
+describe("tables and code blocks in posts render", () => {
+  const OUT = resolve(__dirname, "../out");
+  const SRC = resolve(__dirname, "../content/blog");
+
+  it.runIf(existsSync(OUT))("emits one <table> per markdown table, and no stray pipes", () => {
+    for (const name of readdirSync(SRC).filter((n) => n.endsWith(".md"))) {
+      const src = readFileSync(join(SRC, name), "utf8");
+      const wanted = (src.match(/^\|[\s:|-]+\|\s*$/gm) ?? []).length;
+      if (wanted === 0) continue;
+
+      const f = join(OUT, "blog", name.replace(/\.md$/, ""), "index.html");
+      if (!existsSync(f)) continue;
+      const html = readFileSync(f, "utf8");
+      expect((html.match(/<table>/g) ?? []).length, `${name} tables`).toBe(wanted);
+      expect(html, `${name} has a separator row as text`).not.toMatch(/\|\s*---\s*\|/);
+    }
+  });
+
+  /** Every colour a rule names has to be a variable that exists, or the rule does nothing. */
+  it("names only colour variables that are defined", () => {
+    const css = readFileSync(resolve(__dirname, "../src/app/globals.css"), "utf8");
+    const tokens = readFileSync(resolve(__dirname, "../src/styles/tokens.generated.css"), "utf8");
+    const used = new Set(css.match(/--color-[a-z0-9-]+/g) ?? []);
+    const defined = new Set(tokens.match(/--color-[a-z0-9-]+/g) ?? []);
+    const inGlobals = new Set(css.match(/^\s*(--color-[a-z0-9-]+)\s*:/gm)?.map((m) => m.trim().replace(/\s*:$/, "")) ?? []);
+    const missing = [...used].filter((v) => !defined.has(v) && !inGlobals.has(v));
+    expect(missing).toEqual([]);
+  });
+});

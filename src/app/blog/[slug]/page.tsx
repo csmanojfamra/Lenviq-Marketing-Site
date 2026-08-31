@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Section } from "@/components/ui";
 import { publishedPosts, postBySlug, postFaqs, relatedPosts } from "@/lib/content";
+import { toolBySlug } from "@/lib/tools";
 import { absolute, COMPANY } from "@/lib/site";
 import { renderMarkdown, outline, splitAtMidHeading } from "@/lib/markdown";
 import { autolinkGlossary } from "@/lib/autolink";
@@ -42,14 +43,25 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const contents = outline(p.body);
   const body = autolinkGlossary(renderMarkdown(p.body));
   const mid = splitAtMidHeading(body);
+
   /**
-   * The card's line names the post's own subject rather than the product's features. A generic
-   * "book a demo" beside a piece on provisioning is an advertisement; "this arithmetic, on every
-   * account, at day-end" is the reason the reader is on the page.
+   * The in-article card offers a free tool where the subject has one, and says nothing about the
+   * product where it does not.
+   *
+   * It used to read "what this article works through by hand, the platform does on every account"
+   * beside every post — an assertion that whatever the page happened to explain was a feature,
+   * made without anyone checking. None of the Indian products this sits beside write it that way:
+   * ClearTax's mid-article block points at its own calculator, Zoho Books closes with an
+   * invitation, Tally with a trial. Pointing at a tool on this same site claims nothing and is
+   * more useful anyway.
    */
-  const ctaLine = `${p.category === "Regulatory" || p.category === "Compliance" || p.category === "Supervision"
-    ? "The positions in this article are implemented in the product, against the direction each one comes from."
-    : "What this article works through by hand, the platform does on every account on the book, at day-end."}`;
+  const relatedTool = p.tool ? toolBySlug(p.tool) : undefined;
+  const ctaTool = relatedTool
+    ? { href: `/tools/${relatedTool.slug}/`, name: relatedTool.name }
+    : null;
+  const ctaLine = relatedTool
+    ? relatedTool.helps
+    : "Lending teams use Lenviq to run origination, servicing and the accounting behind them on one system.";
 
   const article = {
     "@context": "https://schema.org",
@@ -133,51 +145,58 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         * Plain anchors to real `id`s, both derived from the heading text by the same function, so a
         * link here cannot point at a heading that is not there.
         */}
-      {contents.length >= 4 && (
-        <nav className="mt-s5 max-w-prose rounded-card border border-line bg-subtle p-s4" aria-label="On this page">
-          <p className="text-[13px] font-semibold uppercase tracking-wide text-muted">On this page</p>
-          <ol className="mt-s2 grid gap-1.5">
-            {contents.map((c, i) => (
-              <li key={c.id} className="grid grid-cols-[1.4rem_1fr] text-[15px] leading-snug">
-                <span className="tabular-nums text-muted">{i + 1}.</span>
-                <a href={`#${c.id}`} className="text-cta underline-offset-2 hover:underline">
-                  {c.text}
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
-      )}
-
       {/*
-        * The article, and a rail that stays with it.
+        * The grid opens HERE, above the contents list, so the rail starts level with it.
         *
-        * The ask used to sit only under the "read next" list at the very bottom, which converts the
-        * readers who finish and nobody else — and these run to eight or nine headings. Two
-        * placements answer that without turning the page into an advertisement: a quiet card in a
-        * rail that stays in view on a wide screen, and, where the piece is long enough to warrant
-        * it, ONE card in the reading column at its midpoint for the phones and tablets a rail
-        * cannot serve.
-        *
-        * No sticky bar at the foot of the viewport. The WhatsApp button already occupies that
-        * corner, and two fixed elements competing for a phone screen is how a reader loses the
-        * paragraph they were on.
+        * It used to open at the body, which put the card a full screen down on a laptop: past the
+        * title, the byline and a nine-item contents list. A rail that only appears after a scroll
+        * is a rail most readers never see, which defeats having one.
         */}
       <div className="mt-s5 grid gap-s6 xl:grid-cols-[minmax(0,1fr)_18rem] xl:items-start">
-        <div className="max-w-prose">
-          <div className="prose-lenviq" dangerouslySetInnerHTML={{ __html: mid ? mid[0] : body }} />
+        <div>
+          {contents.length >= 4 && (
+          <nav className="max-w-prose rounded-card border border-line bg-subtle p-s4" aria-label="On this page">
+            <p className="text-[13px] font-semibold uppercase tracking-wide text-muted">On this page</p>
+            <ol className="mt-s2 grid gap-1.5">
+              {contents.map((c, i) => (
+                <li key={c.id} className="grid grid-cols-[1.4rem_1fr] text-[15px] leading-snug">
+                  <span className="tabular-nums text-muted">{i + 1}.</span>
+                  <a href={`#${c.id}`} className="text-cta underline-offset-2 hover:underline">
+                    {c.text}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+          )}
+
+          {/*
+          * The article, and a rail that stays with it.
+          *
+          * The ask used to sit only under the "read next" list at the very bottom, which converts the
+          * readers who finish and nobody else — and these run to eight or nine headings. Two
+          * placements answer that without turning the page into an advertisement: a quiet card in a
+          * rail that stays in view on a wide screen, and, where the piece is long enough to warrant
+          * it, ONE card in the reading column at its midpoint for the phones and tablets a rail
+          * cannot serve.
+          *
+          * No sticky bar at the foot of the viewport. The WhatsApp button already occupies that
+          * corner, and two fixed elements competing for a phone screen is how a reader loses the
+          * paragraph they were on.
+          */}
+          <div className={`prose-lenviq max-w-prose ${contents.length >= 4 ? "mt-s5" : ""}`} dangerouslySetInnerHTML={{ __html: mid ? mid[0] : body }} />
           {mid && (
             <>
-              <div className="xl:hidden">
-                <ProductCtaCompact variant="inline" line={ctaLine} />
+              <div className="max-w-prose xl:hidden">
+                <ProductCtaCompact variant="inline" line={ctaLine} tool={ctaTool} />
               </div>
-              <div className="prose-lenviq" dangerouslySetInnerHTML={{ __html: mid[1] }} />
+              <div className="prose-lenviq max-w-prose" dangerouslySetInnerHTML={{ __html: mid[1] }} />
             </>
           )}
         </div>
 
         <div className="hidden xl:block xl:sticky xl:top-24">
-          <ProductCtaCompact line={ctaLine} />
+          <ProductCtaCompact line={ctaLine} tool={ctaTool} />
         </div>
       </div>
 

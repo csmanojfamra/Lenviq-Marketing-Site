@@ -5,6 +5,7 @@ metaDescription: "Paragraph 5(i) binds every lender. Paragraph 5(ii) names entit
 date: "2026-08-11"
 category: "Regulatory"
 author: "CA Anil Agarwal"
+tool: "prepayment-charge-checker"
 draft: false
 ---
 

@@ -23,12 +23,24 @@ import { COMPANY, SITE } from "@/lib/site";
  * is not that. The number, the WhatsApp link and the address are all here, unhidden, alongside the
  * demo button rather than behind it.
  *
- * `line` is per-page: the connection between what was just read and what the product does about it.
- * A generic line reads as a footer and gets skipped.
+ * ## Why the copy is an invitation and not a claim
+ *
+ * The first version of this said the product "does this on your whole book" beside every article —
+ * which asserts that whatever the page happens to explain is a feature. On a page about the 2025
+ * Directions that is a compliance claim nobody checked, and it is not how the Indian products this
+ * sits beside write it. Zoho Books closes an academy article with "Experience seamless accounting
+ * with Zoho Books"; Tally offers a trial; ClearTax's mid-article block points at its own free
+ * calculator and its closing block invites, without tying either to the article's subject.
+ *
+ * So: the closing block says what {SITE.name} IS and invites a look at it. The in-article card
+ * points at a free tool where the subject has one — concrete, immediately useful, and true by
+ * construction because the tool is on the same site.
+ *
+ * `line` is per-page, and describes the reader's situation rather than the product's behaviour.
  */
 export function ProductCta({
   line,
-  heading = `${SITE.name} does this on your whole book`,
+  heading = `Run your lending on ${SITE.name}`,
   secondary = { href: "/platform/", label: "What the platform covers" },
 }: {
   line: string;
@@ -97,13 +109,62 @@ export function ProductCta({
 export function ProductCtaCompact({
   line,
   variant = "rail",
+  tool,
 }: {
   line: string;
   variant?: "rail" | "inline";
+  /** A free tool on this site that answers the page's own subject, where one exists. */
+  tool?: { href: string; name: string } | null;
 }) {
   const wa = `https://wa.me/${COMPANY.phone.replace("+", "")}?text=${encodeURIComponent(
     "Hi — I'd like to know more about Lenviq for our NBFC.",
   )}`;
+
+  /*
+   * A tool if the subject has one, the product if it does not.
+   *
+   * Beside an article, a free calculator is both the more useful offer and the more honest one:
+   * it is on this site, it needs no conversation, and pointing at it claims nothing about what the
+   * software does. It is also what ClearTax does in the same position. The product invitation waits
+   * for the end of the page, where a reader who has read the whole thing will see it.
+   */
+  if (tool) {
+    return variant === "rail" ? (
+      <aside className="rounded-card border border-line bg-subtle p-s4">
+        <p className="text-[13px] uppercase tracking-wide text-muted">Free tool</p>
+        <p className="mt-1 font-display text-[16px] font-bold leading-tight tracking-display text-ink">
+          {tool.name}
+        </p>
+        <p className="mt-s2 text-[14px] leading-relaxed text-slate-mid">{line}</p>
+        <ButtonLink href={tool.href} className="mt-s3 w-full justify-center">
+          Open the tool
+        </ButtonLink>
+        <p className="mt-s3 text-[13px] leading-relaxed text-muted">
+          No sign-up. Nothing you type leaves your browser.
+        </p>
+        <p className="mt-s4 border-t border-line pt-s3 text-[13px] leading-relaxed text-muted">
+          {SITE.name} is {SITE.tagline.charAt(0).toLowerCase() + SITE.tagline.slice(1)}.{" "}
+          <Link href="/contact/" className="font-medium text-ink underline underline-offset-2 hover:text-cta">
+            Book a demo
+          </Link>
+          {" or call "}
+          <a href={`tel:${COMPANY.phone}`} className="font-medium text-ink underline underline-offset-2 hover:text-cta">
+            {COMPANY.phoneDisplay}
+          </a>
+          .
+        </p>
+      </aside>
+    ) : (
+      <aside className="my-s5 rounded-card border border-line border-l-[3px] border-l-cta bg-subtle p-s4">
+        <p className="text-[13px] uppercase tracking-wide text-muted">Free tool</p>
+        <p className="mt-s2 max-w-prose text-[16px] leading-relaxed text-slate-mid">{line}</p>
+        <div className="mt-s3 flex flex-wrap items-center gap-x-s3 gap-y-s2">
+          <ButtonLink href={tool.href}>{tool.name}</ButtonLink>
+          <span className="text-[14px] text-muted">No sign-up. Nothing you type leaves your browser.</span>
+        </div>
+      </aside>
+    );
+  }
 
   if (variant === "rail") {
     return (
