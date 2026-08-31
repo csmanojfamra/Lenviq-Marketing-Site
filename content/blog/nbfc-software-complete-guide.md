@@ -127,7 +127,7 @@ changing.
 
 It is not the right answer for every lender. An NBFC with a large existing investment in a specialist
 origination system, or one whose finance function will not move off an ERP, is buying a different
-shape of problem. The [platform page](/platform/) sets out module by module what is included.
+shape of problem. The [product page](/platform/) sets out module by module what is included.
 
 ## Frequently asked questions
 

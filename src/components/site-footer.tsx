@@ -5,7 +5,8 @@ const COLUMNS = [
   {
     title: "Product",
     links: [
-      { href: "/platform/", label: "Platform" },
+      // Same words as the navigation's own first item — the page has one name on this site.
+      { href: "/platform/", label: "Everything it does" },
       { href: "/reports/", label: "Reports" },
       { href: "/security/", label: "Security" },
     ],

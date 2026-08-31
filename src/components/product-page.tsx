@@ -64,7 +64,8 @@ export function ProductPage({ spec }: { spec: ProductSpec }) {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: absolute("/") },
-      { "@type": "ListItem", position: 2, name: "Platform", item: absolute("/platform/") },
+      // The crawler reads the section name a reader sees in the bar, not the one in the URL.
+      { "@type": "ListItem", position: 2, name: "Product", item: absolute("/platform/") },
       { "@type": "ListItem", position: 3, name: spec.eyebrow, item: url },
     ],
   };

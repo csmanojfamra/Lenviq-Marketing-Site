@@ -77,7 +77,7 @@ const FAQ = [
   },
   {
     q: "What does onboarding involve?",
-    a: "A pilot on a single branch with a subset of the book, then migration of the live portfolio. See the implementation notes on the Platform page.",
+    a: "A pilot on a single branch with a subset of the book, then migration of the live portfolio. See the implementation notes on the product page.",
   },
 ];
 
@@ -111,7 +111,7 @@ export default function HomePage() {
               {/* Justified, with hyphenation on — an unhyphenated justified column at this measure
                   opens rivers of white space between the words. */}
               <p className="mt-s4 max-w-prose text-pretty text-[18px] leading-prose text-slate-mid">
-                Origination, servicing, accounting and RBI reporting in one platform. Every posting
+                Origination, servicing, accounting and RBI reporting in one system. Every posting
                 is double-entry, the arithmetic does not drift, and every change records who made it
                 and what it was before — so when a figure is questioned, the answer is in the system
                 rather than in somebody&rsquo;s memory.

@@ -25,23 +25,54 @@ import { toolsMenu } from "@/lib/tools";
  * home page chips and a section on /platform/. That is the weakest discovery a set of commercial
  * pages can have, and they are the pages the site exists to be found through.
  *
- * They sit UNDER Platform rather than as four more top-level items, because five product entries
- * across a row that already has to survive a phone would crowd it, and because that is the real
- * relationship: the platform is the system, and these are what it does for one kind of book.
+ * They sit UNDER Product rather than as four more top-level items, because five entries across a
+ * row that already has to survive a phone would crowd it, and because that is the real
+ * relationship: one product, and these are what it does for one kind of book. The menu says so
+ * with a heading rather than leaving a reader to infer that four of the five are not products.
  */
 export interface NavItem {
   href: string;
   label: string;
-  children?: { href: string; label: string; note: string }[];
+  children?: NavChild[];
+}
+
+export interface NavChild {
+  href: string;
+  label: string;
+  note: string;
+  /**
+   * A small heading printed above this item, where the list changes subject.
+   *
+   * The Product menu holds two different kinds of thing: the product itself, and the loan types it
+   * is used for. Without the break they read as one list of five products, which is how the menu
+   * came to be called "Platform" — a word chosen to cover a mixture rather than to name anything.
+   */
+  groupBefore?: string;
 }
 
 export const NAV: NavItem[] = [
   {
     href: "/platform/",
-    label: "Platform",
+    /*
+     * "Product", not "Platform".
+     *
+     * Checked what comparable companies call this. Zoho, Clear, Lentra and M2P all say "Products" —
+     * but each of them HAS several, and Lenviq is one. The single-product answer is different:
+     * Linear says "Product", and Tally — whose buyer is closest to this one — puts the product's own
+     * name in the bar and "Features" under it. "Platform" appears once in seven, at Nucleus, and
+     * there it is plural because they have two named platforms.
+     *
+     * The site had already settled this without the navigation noticing: the footer's columns are
+     * "Product" and "By loan product", the pages are `/personal-loan-software/`, and the built HTML
+     * says "software" 3,878 times against "platform" 1,665 — of which only 203 are body copy, and
+     * 73 of those are the legal pages where "the Platform" is a defined term and stays.
+     *
+     * The URL does not move. The label is what a reader reads; the URL is what Google remembers.
+     */
+    label: "Product",
     children: [
-      { href: "/platform/", label: "The whole platform", note: "Lead to closure, in one system" },
-      { href: "/personal-loan-software/", label: "Personal loans", note: "Unsecured — bureau, FOIR, NACH" },
+      { href: "/platform/", label: "Everything it does", note: "Lead to closure, in one system" },
+      { href: "/personal-loan-software/", label: "Personal loans", note: "Unsecured — bureau, FOIR, NACH", groupBefore: "By loan product" },
       { href: "/vehicle-loan-software/", label: "Vehicle finance", note: "RC, insurance, repossession" },
       { href: "/loan-against-property-software/", label: "Loans against property", note: "Legal opinion, valuation, mortgage" },
       { href: "/gold-loan-software/", label: "Gold loans", note: "LTV, renewal, auction" },
@@ -187,6 +218,11 @@ function NavMenu({ item, pathname }: { item: NavItem; pathname: string | null })
               const on = pathname === c.href;
               return (
                 <li key={c.href}>
+                  {c.groupBefore && (
+                    <p className="mt-1.5 border-t border-line px-3 pb-1 pt-2.5 text-[12px] font-semibold uppercase tracking-wide text-muted">
+                      {c.groupBefore}
+                    </p>
+                  )}
                   <Link
                     href={c.href}
                     aria-current={on ? "page" : undefined}
@@ -306,6 +342,11 @@ export function MobileNav() {
                           const on = pathname === c.href;
                           return (
                             <li key={c.href}>
+                              {c.groupBefore && (
+                                <p className="px-3 pb-0.5 pt-2 text-[12px] font-semibold uppercase tracking-wide text-muted">
+                                  {c.groupBefore}
+                                </p>
+                              )}
                               <Link
                                 href={c.href}
                                 aria-current={on ? "page" : undefined}

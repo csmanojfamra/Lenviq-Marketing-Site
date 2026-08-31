@@ -123,7 +123,7 @@ trail at the data layer, so a bulk job and a screen edit leave the same record; 
 written every night before anything derived from it runs, because a missed night is a month-end
 position that cannot be reconstructed.
 
-The [platform page](/platform/) sets out the modules; the [reports page](/reports/) sets out what is
+The [product page](/platform/) sets out the modules; the [reports page](/reports/) sets out what is
 produced and how each states the date it is as at.
 
 ## Frequently asked questions

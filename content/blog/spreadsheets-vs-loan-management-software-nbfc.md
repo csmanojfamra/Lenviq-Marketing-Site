@@ -140,7 +140,7 @@ carries an append-only audit record from day one, which is usually the first thi
 off spreadsheets actually notices — not a feature, but the end of a class of question that used to
 have no answer.
 
-The [platform page](/platform/) sets out what is included; migration scope is a conversation about
+The [product page](/platform/) sets out what is included; migration scope is a conversation about
 your data rather than a line on a page.
 
 ## Frequently asked questions

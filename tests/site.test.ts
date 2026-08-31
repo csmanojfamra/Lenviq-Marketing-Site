@@ -1242,3 +1242,47 @@ describe("contact offers the number without the form", () => {
     expect(phone, "the number is below the form again").toBeLessThan(submit);
   });
 });
+
+/**
+ * The product section has one name.
+ *
+ * It was called "Platform" in the bar, "Platform" again in the footer's Product column, and "the
+ * Platform page" in copy that linked to it — while the footer's own column headings had already
+ * settled on "Product" and "By loan product", and the four pages under it are named
+ * `/…-loan-software/`.
+ *
+ * The word was checked against comparable companies before changing it. Zoho, Clear, Lentra and
+ * M2P all say "Products" — and each of them has several. For a single product Linear says
+ * "Product", and Tally, whose buyer is nearest to this one, puts the product's own name in the bar.
+ * "Platform" appeared once in seven, at Nucleus, where it is plural for two named platforms.
+ *
+ * The URL does not move, so this asserts the LABEL, not the path.
+ */
+describe("the product section is called one thing", () => {
+  const OUT = resolve(__dirname, "../out");
+
+  it("labels the navigation and the footer the same way", () => {
+    const nav = src("src/components/site-nav.tsx");
+    expect(nav).toContain('label: "Product"');
+    expect(nav, "the bar calls it Platform again").not.toMatch(/label: "Platform"/);
+
+    // The path is deliberately unchanged — a rename of the label, not of the URL.
+    expect(nav).toContain('href: "/platform/"');
+  });
+
+  it.runIf(existsSync(OUT))("never calls it 'the platform page' in copy", () => {
+    const pages = execSync(`find ${OUT} -name index.html`, { encoding: "utf8" }).trim().split("\n");
+    const stale = pages.filter((f) => {
+      const body = readFileSync(f, "utf8")
+        .replace(/<header[\s\S]*?<\/header>|<footer[\s\S]*?<\/footer>|<script[\s\S]*?<\/script>/g, " ")
+        .replace(/<[^>]+>/g, " ");
+      return /\bplatform page\b/i.test(body);
+    });
+    expect(stale.map((f) => f.replace(`${OUT}/`, ""))).toEqual([]);
+  });
+
+  /** The four loan pages are not four more products, and the menu says so rather than implying it. */
+  it("separates the product from the loan types it is used for", () => {
+    expect(src("src/components/site-nav.tsx")).toContain('groupBefore: "By loan product"');
+  });
+});
