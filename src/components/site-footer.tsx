@@ -83,9 +83,13 @@ export function SiteFooter() {
 
         <div className="mt-s6 border-t border-sand-border pt-s4 text-[13px] leading-relaxed text-muted">
           {/*
-            The number and address are here because they are real and monitored. The registered
-            office is still absent for the same reason it was: it has not been confirmed, and a
-            wrong one on a lender's vendor page is worse than none.
+            Entity, CIN and registered office, on every page.
+            
+            This is where every comparable Indian company puts them — Razorpay, Clear and Khatabook
+            all carry the entity and address in the footer and none of them makes a section of it.
+            They were briefly a "Registration details" block on the About page instead, which no
+            competitor does, and which reached a reader on one page out of forty. A lender running
+            vendor diligence finds them faster here.
           */}
           <p>
             <a href={`tel:${COMPANY.phone}`} className="hover:text-ink">{COMPANY.phoneDisplay}</a>
@@ -99,6 +103,7 @@ export function SiteFooter() {
             {COMPANY.cin ? ` · CIN ${COMPANY.cin}` : ""}
             {COMPANY.gstin ? ` · GSTIN ${COMPANY.gstin}` : ""}
           </p>
+          {COMPANY.registeredOffice && <p className="mt-1">{COMPANY.registeredOffice}</p>}
           <p className="mt-1">
             © {new Date().getFullYear()} {COMPANY.shortName}. Lenviq is a product of{" "}
             {COMPANY.shortName}.

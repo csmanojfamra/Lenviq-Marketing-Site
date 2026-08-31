@@ -227,9 +227,23 @@ describe("nothing is claimed that cannot be checked", () => {
         expect(legal.includes(cin), `${doc}.md states a different CIN`).toBe(true);
       }
     }
-    // Still genuinely unknown. Blank, and no row on the page apologising for it.
+    // Still genuinely unknown. Blank, and nothing on any page apologising for its absence.
     expect(gstin).toBe("");
-    expect(readFileSync(join(SITE, "src/app/about/page.tsx"), "utf8")).not.toContain("GSTIN");
+
+    /*
+     * And where a real number exists, it is in the footer — on every page, unadorned, which is
+     * where Razorpay, Clear and Khatabook all keep theirs. It spent one deploy as a section on the
+     * About page with a sentence explaining why it was not in the footer, which no comparable
+     * company does.
+     */
+    const footer = src("src/components/site-footer.tsx");
+    expect(footer).toContain("COMPANY.cin");
+    expect(footer).toContain("COMPANY.registeredOffice");
+    const about = readFileSync(join(SITE, "src/app/about/page.tsx"), "utf8");
+    expect(about).not.toContain("GSTIN");
+    expect(about, "the About page explains its own layout to the reader").not.toMatch(
+      /footer nobody reads|which is why these are here/,
+    );
   });
 
   it("the contact CTA delivers somewhere, rather than discarding what it is given", () => {

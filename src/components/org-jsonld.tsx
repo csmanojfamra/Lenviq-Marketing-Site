@@ -3,9 +3,10 @@ import { SITE, COMPANY, absolute } from "@/lib/site";
 /**
  * Organization and SoftwareApplication, once, in the root layout.
  *
- * The registration numbers are omitted while they are unconfirmed rather than filled with a
- * plausible value — structured data is read by machines that will not notice a wrong CIN, which
- * makes a wrong one worse here than on a page a person reads.
+ * A registration number appears only where it is confirmed, never filled with a plausible value —
+ * structured data is read by machines that will not notice a wrong CIN, which makes a wrong one
+ * worse here than on a page a person reads. The CIN and the registered office are confirmed and
+ * stated in the legal documents; the GSTIN is not, so `taxID` stays absent.
  */
 export function OrgJsonLd() {
   const org: Record<string, unknown> = {
@@ -19,6 +20,25 @@ export function OrgJsonLd() {
   };
   if (COMPANY.cin) org.identifier = COMPANY.cin;
   if (COMPANY.gstin) org.taxID = COMPANY.gstin;
+  /*
+   * The registered office, as a real `PostalAddress` rather than one string.
+   *
+   * It is what lets a search engine resolve this company to a place, and it is the same address the
+   * footer prints and the legal documents state. Parsed from the one value in `site.ts` so there is
+   * still only one address on this site — a second copy here is a second thing to get wrong.
+   */
+  if (COMPANY.registeredOffice) {
+    const parts = COMPANY.registeredOffice.split(",").map((x) => x.trim());
+    const last = parts[parts.length - 1] ?? "";
+    const postal = /(\d{6})$/.exec(last)?.[1];
+    org.address = {
+      "@type": "PostalAddress",
+      streetAddress: parts.slice(0, -1).join(", "),
+      addressRegion: postal ? last.replace(postal, "").trim() : last,
+      ...(postal ? { postalCode: postal } : {}),
+      addressCountry: "IN",
+    };
+  }
 
   /**
    * `WebSite`, so the site itself is an entity and not only the company and the product.

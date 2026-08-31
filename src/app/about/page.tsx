@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
-import { Section, SectionHead, Card, Spec } from "@/components/ui";
+import { Section, SectionHead, Card } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { COMPANY, SITE } from "@/lib/site";
 import { SISTER_PRODUCTS, SINCE } from "@/lib/sister-products";
@@ -28,6 +28,14 @@ export const metadata: Metadata = pageMetadata({
  * The voice is first person plural, which is what Zoho, Clear and Razorpay all use on this page and
  * what the product cards on this site already use. No counters and no scale claims: the guard in
  * `tests/site.test.ts` forbids them, and Zoho's version of this page manages without any.
+ *
+ * The registration details are NOT here. They were, as a "Registration details" definition list
+ * with a sentence explaining why it was not in the footer — and checking six comparable companies
+ * (Zoho, Clear, Razorpay, Chargebee, Freshworks, Khatabook) found that none of them puts them in an
+ * About page body and none of them explains why it is showing them. Explaining your own editorial
+ * decision to a reader undercuts the thing you are showing. They are in the footer now, on every
+ * page, which is where Razorpay, Clear and Khatabook keep theirs and where somebody running vendor
+ * diligence will actually look. The legal entity is still named in the opening line.
  */
 export default function AboutPage() {
   return (
@@ -86,25 +94,6 @@ export default function AboutPage() {
         </ul>
       </Section>
 
-      <Section tone="sand">
-        <SectionHead
-          eyebrow="The company"
-          title="Registration details"
-          lead="A company you can look up is itself a trust signal, which is why these are here rather than in a footer nobody reads."
-        />
-        <dl className="mt-s4 border-b border-line">
-          <Reveal><Spec term="Legal name">{COMPANY.legalName}</Spec></Reveal>
-          <Reveal><Spec term="CIN">{COMPANY.cin}</Spec></Reveal>
-          <Reveal><Spec term="Registered office">{COMPANY.registeredOffice}</Spec></Reveal>
-        </dl>
-        <p className="mt-s4 max-w-prose text-[15px] leading-relaxed text-slate-mid">
-          The same details appear in the{" "}
-          <a href="/privacy/" className="font-medium text-cta underline underline-offset-2 hover:text-cta-hover">Privacy Policy</a>
-          {" and the "}
-          <a href="/terms/" className="font-medium text-cta underline underline-offset-2 hover:text-cta-hover">Terms of Service</a>, and the CIN can be
-          checked against the MCA register.
-        </p>
-      </Section>
     </>
   );
 }
