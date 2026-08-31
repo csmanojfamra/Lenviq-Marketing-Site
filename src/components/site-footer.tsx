@@ -29,7 +29,10 @@ const COLUMNS = [
     ],
   },
   {
-    title: "Regulatory",
+    // "Regulatory" of these five, only Compliance was. Help is about running the product,
+    // Glossary is lending vocabulary and Free tools are calculators — the column had become
+    // whatever was left over. Six of the nine comparable sites call this one Resources.
+    title: "Resources",
     links: [
       { href: "/tools/", label: "Free tools" },
       { href: "/compliance/", label: "Compliance" },

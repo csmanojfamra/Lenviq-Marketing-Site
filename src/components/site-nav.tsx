@@ -97,6 +97,15 @@ export const NAV: NavItem[] = [
   { href: "/reports/", label: "Reports" },
   { href: "/security/", label: "Security" },
   { href: "/blog/", label: "Blog" },
+  /*
+   * About, in the bar.
+   *
+   * Seven of the nine comparable sites carry a Company or About item; this one had it in the
+   * phone menu and the footer but nowhere in the desktop bar. That is the page holding the CIN,
+   * the registered office and what this company has shipped since 2018 — the trust artefact a
+   * small vendor selling to a regulated buyer has, reachable only from the foot of the page.
+   */
+  { href: "/about/", label: "About" },
 ];
 
 const isCurrent = (pathname: string | null, href: string) =>

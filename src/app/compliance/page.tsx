@@ -25,6 +25,8 @@ export const metadata: Metadata = pageMetadata({
 const POSITIONS = [
   {
     term: "Key Facts Statement",
+    id: "kfs",
+    short: "Every retail and MSME term loan gets a prescribed one-page statement, with an APR computed from the actual cash flows.",
     cite: "RBI/2024-25/18 DOR.STR.REC.13/13.03.00/2024-25, 15 April 2024 — applies to new retail and MSME term loans sanctioned on or after 1 October 2024",
     body: (
       <>
@@ -41,6 +43,8 @@ const POSITIONS = [
   },
   {
     term: "Penal charges, not penal interest",
+    id: "penal",
+    short: "A default charge is a charge, not interest — no compounding, no capitalisation, recognised on receipt.",
     cite: "RBI/2023-24/53 DoR.MCS.REC.28/01.01.001/2023-24, 18 August 2023, as extended by RBI/2023-24/102 of 29 December 2023 — fresh loans from 1 April 2024, existing loans by 30 June 2024",
     body: (
       <>
@@ -53,6 +57,8 @@ const POSITIONS = [
   },
   {
     term: "IRAC classification at day-end",
+    id: "irac",
+    short: "Classification is the position at the close of a named day, not a figure recomputed on demand.",
     cite: "RBI/2021-2022/125 DOR.STR.REC.68/21.04.048/2021-22, 12 November 2021",
     body: (
       <>
@@ -66,6 +72,8 @@ const POSITIONS = [
   },
   {
     term: "Upgrade only on full clearance",
+    id: "upgrade",
+    short: "An NPA returns to standard only when the entire arrears of interest and principal are paid.",
     cite: "RBI/2021-2022/125, 12 November 2021",
     body: (
       <>
@@ -77,6 +85,8 @@ const POSITIONS = [
   },
   {
     term: "SMA buckets",
+    id: "sma",
+    short: "SMA-0, 1 and 2 are a reported position with day-one boundaries, not an internal early warning.",
     cite: "RBI/2021-2022/125, 12 November 2021",
     body: (
       <>
@@ -87,6 +97,8 @@ const POSITIONS = [
   },
   {
     term: "Income reversal on NPA",
+    id: "income-reversal",
+    short: "Interest already booked on an account that turns is reversed, and income moves to a receipt basis.",
     cite: "Master Circular — income recognition",
     body: (
       <>
@@ -98,6 +110,8 @@ const POSITIONS = [
   },
   {
     term: "Pre-payment charges",
+    id: "prepayment",
+    short: "Barred on floating-rate loans to individuals, and on business-purpose loans by lender tier.",
     cite: "RBI/2025-26/64 — Reserve Bank of India (Pre-payment Charges on Loans) Directions, 2025, 2 July 2025, applying to all loans and advances sanctioned or renewed on or after 1 January 2026",
     body: (
       <>
@@ -121,6 +135,8 @@ const POSITIONS = [
   },
   {
     term: "CKYC",
+    id: "ckyc",
+    short: "KYC records are filed with the Central Registry and fetched back on an existing identifier.",
     cite: "Prevention of Money-laundering Act, 2002 s.12 and the Maintenance of Records rules; CERSAI",
     body: (
       <>
@@ -131,6 +147,8 @@ const POSITIONS = [
   },
   {
     term: "Credit information reporting",
+    id: "cir",
+    short: "Fortnightly submission, with the dispute and correction path the Directions require.",
     cite: "RBI/DoR/2024-25/125 — Master Direction (Credit Information Reporting) Directions, 2025, 6 January 2025, which repealed the August 2024 circular on reporting frequency",
     body: (
       <>
@@ -149,6 +167,8 @@ const POSITIONS = [
   },
   {
     term: "RBI returns",
+    id: "returns",
+    short: "DNBS returns built from the book itself rather than re-keyed from an extract.",
     cite: "DNBS filing requirements",
     body: (
       <>
@@ -161,20 +181,117 @@ const POSITIONS = [
   },
 ] as const;
 
+/**
+ * Asked before a shortlist, every time — and answered here rather than in a call.
+ *
+ * Plain strings, because they also become the `FAQPage` block below and a JSX fragment cannot be
+ * serialised into structured data.
+ */
+const FAQS = [
+  {
+    q: "Is Lenviq certified or approved by the RBI?",
+    a: "No, and no lending software is. The Reserve Bank regulates lenders, not the software they buy. What a vendor can be held to is whether each position it implements matches the instrument it names, which is what this page is for.",
+  },
+  {
+    q: "Does this make our NBFC compliant?",
+    a: "It implements the positions above. Your board-approved policy, your scheme terms and the people who sign your returns are what make an NBFC compliant — a system can make the numbers right and can evidence how they were arrived at, and that is the part it is responsible for.",
+  },
+  {
+    q: "What happens when a circular changes?",
+    a: "The position changes with it and this page names the instrument that changed it — the penal charges row carries the December 2023 extension, and the credit information row carries the 2025 Directions that repealed the August 2024 circular. A page that quietly reworded itself would be worth less than one that says what moved.",
+  },
+  {
+    q: "Can we see the classification a figure came from?",
+    a: "Yes. Days past due, the classification it produced and the day it was computed on are held against the account, so a figure in a return can be opened back to the position it came from rather than recomputed and hoped to match.",
+  },
+  {
+    q: "Which of these are configurable?",
+    a: "The commercial choices — rate bands, charge amounts, penal grace, approval slabs. The regulatory positions are not: an SMA boundary or a ninety-day trigger that a tenant could move is a setting that produces a wrong return.",
+  },
+  {
+    q: "Do you hold ISO 27001, SOC 2 or PCI DSS?",
+    a: "No. The security page states what is and is not in place rather than implying a certification we do not hold.",
+  },
+] as const;
+
 export default function CompliancePage() {
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <Section className="pt-s7">
+        {/*
+          * The heading answers the question; it used to describe the page.
+          *
+          * "Every position below names the direction it comes from" is a sentence about this page's
+          * editorial habit, which is not what somebody searching for NBFC compliance software wants
+          * from a first line. The nearest comparable vendor, LendSphere, heads the same page "RBI
+          * audit-ready operations and compliance controls" — an outcome. The citation discipline is
+          * still the differentiator here, so it keeps the sentence under the heading rather than
+          * the heading itself.
+          *
+          * The count is derived. A hand-typed "ten" is a number that goes stale the first time an
+          * eleventh position is added.
+          */}
         <Reveal>
           <p className="text-[13px] font-semibold uppercase tracking-wide text-cta">Compliance</p>
           <h1 className="mt-s2 max-w-4xl text-[34px] font-extrabold leading-[1.1] tracking-display-tight text-ink sm:text-[46px]">
-            Every position below names the direction it comes from.
+            {POSITIONS.length} RBI positions, and the direction each one comes from.
           </h1>
           <p className="mt-s4 max-w-prose text-[18px] leading-prose text-slate-mid">
-            That is deliberate. A compliance head can check each line against the circular rather
-            than take it on trust — and a vendor who is willing to be checked is telling you
-            something a page of adjectives cannot.
+            A compliance head can check every line below against the circular rather than take it on
+            trust. Each one names the instrument, its number and its date — and where a rule changed,
+            the circular that changed it.
           </p>
+        </Reveal>
+
+        {/*
+          * The whole page in one table, before the detail.
+          *
+          * It was ten definition rows of prose, so somebody who came to find out one thing — does it
+          * do SMA, does it handle the prepayment Directions — had to read the other nine to get
+          * there. The table answers that in a scan and links into the row that explains it.
+          */}
+        <Reveal>
+          <div className="mt-s6 overflow-x-auto">
+            <table className="w-full min-w-[40rem] border-collapse text-[15px]">
+              <caption className="sr-only">The RBI positions this software implements</caption>
+              <thead>
+                <tr className="border-b border-line text-left text-[13px] uppercase tracking-wide text-muted">
+                  <th className="pb-2 pr-4 font-medium">Position</th>
+                  <th className="pb-2 pr-4 font-medium">What it requires</th>
+                  <th className="pb-2 font-medium">Instrument</th>
+                </tr>
+              </thead>
+              <tbody>
+                {POSITIONS.map((p) => (
+                  <tr key={p.id} className="border-b border-line/60 align-top">
+                    <td className="py-3 pr-4">
+                      <a
+                        href={`#${p.id}`}
+                        className="font-medium text-cta underline-offset-4 hover:underline"
+                      >
+                        {p.term}
+                      </a>
+                    </td>
+                    <td className="py-3 pr-4 leading-relaxed text-slate-mid">{p.short}</td>
+                    <td className="py-3 text-[14px] leading-relaxed text-muted">
+                      {p.cite.split("—")[0].trim()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </Reveal>
       </Section>
 
@@ -182,10 +299,12 @@ export default function CompliancePage() {
         <dl className="border-b border-line">
           {POSITIONS.map((p) => (
             <Reveal key={p.term}>
+              <div id={p.id} className="scroll-mt-24">
               <Spec term={p.term}>
                 {p.body}
                 <p className="mt-s2 text-[13px] text-muted">{p.cite}</p>
               </Spec>
+              </div>
             </Reveal>
           ))}
         </dl>
@@ -276,6 +395,26 @@ export default function CompliancePage() {
             statutory auditor and your compliance officer remain the people who sign.
           </p>
         </Reveal>
+      </Section>
+
+      {/*
+        * The questions a compliance head actually asks before a shortlist.
+        *
+        * The blog posts carry an FAQ and this page did not, though it is the page those questions
+        * get asked on. It also emits FAQPage, which is the shape an answer engine lifts.
+        */}
+      <Section id="questions">
+        <SectionHead eyebrow="Questions" title="What a compliance head asks first" />
+        <dl className="mt-s5 max-w-prose">
+          {FAQS.map((f) => (
+            <Reveal key={f.q}>
+              <div className="border-b border-line py-s4">
+                <dt className="font-display text-[18px] font-bold tracking-display text-ink">{f.q}</dt>
+                <dd className="mt-s2 text-[16px] leading-prose text-slate-mid">{f.a}</dd>
+              </div>
+            </Reveal>
+          ))}
+        </dl>
       </Section>
 
       <Section id="reading" tone="sand">
