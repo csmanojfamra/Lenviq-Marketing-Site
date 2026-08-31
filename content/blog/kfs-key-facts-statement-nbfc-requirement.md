@@ -5,6 +5,7 @@ metaDescription: "What goes into a KFS, how the APR is computed, and the clause 
 date: "2026-08-12"
 category: "How-to"
 author: "CA Anil Agarwal"
+tool: "kfs-checklist"
 draft: false
 ---
 

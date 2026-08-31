@@ -5,6 +5,7 @@ metaDescription: "What the KFS has to contain, how the annual percentage rate is
 date: "2026-08-10"
 category: "Regulatory"
 author: "CA Anil Agarwal"
+tool: "kfs-checklist"
 draft: false
 ---
 

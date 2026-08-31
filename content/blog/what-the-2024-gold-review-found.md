@@ -5,6 +5,7 @@ metaDescription: "The September 2024 review named specific practices. Two are th
 date: "2026-08-11"
 category: "Supervision"
 author: "CS Sushil Choudhary"
+tool: "gold-loan-ltv-calculator"
 draft: false
 ---
 

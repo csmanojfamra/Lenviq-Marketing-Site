@@ -5,6 +5,7 @@ metaDescription: "Why penal amounts stopped being interest in August 2023, and w
 date: "2026-08-10"
 category: "Regulatory"
 author: "CA Anil Agarwal"
+tool: "penal-charge-calculator"
 draft: false
 ---
 

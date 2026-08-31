@@ -5,6 +5,7 @@ metaDescription: "How to compute penal charges after 1 April 2024, why they are 
 date: "2026-08-12"
 category: "How-to"
 author: "CA Anil Agarwal"
+tool: "penal-charge-calculator"
 draft: false
 ---
 

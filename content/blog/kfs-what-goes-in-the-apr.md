@@ -5,6 +5,7 @@ metaDescription: "Every charge recovered from the borrower goes in. The two that
 date: "2026-08-11"
 category: "Regulatory"
 author: "CA Anil Agarwal"
+tool: "apr-calculator"
 draft: false
 ---
 
@@ -53,15 +54,15 @@ computed from is what makes it a statement of fact rather than a rendering.
 
 | | In the APR | Disclosed elsewhere |
 |---|---|---|
-| Contracted interest | ✓ | |
-| Processing / documentation fee | ✓ | |
-| Fee deducted at disbursement | ✓ (and it raises the APR more) | |
-| Insurance premium financed by the lender | ✓ | |
-| GST on the lender's own charges | ✓ | |
-| Penal charges | | Contingent charges |
-| Bounce charges | | Contingent charges |
-| Foreclosure / prepayment charges | | Contingent charges |
-| Statutory levies genuinely passed through | | Disclosed as pass-through |
+| Contracted interest | ✓ | — |
+| Processing / documentation fee | ✓ | — |
+| Fee deducted at disbursement | ✓ (and it raises the APR more) | — |
+| Insurance premium financed by the lender | ✓ | — |
+| GST on the lender's own charges | ✓ | — |
+| Penal charges | ✗ | Contingent charges |
+| Bounce charges | ✗ | Contingent charges |
+| Foreclosure / prepayment charges | ✗ | Contingent charges |
+| Statutory levies genuinely passed through | ✗ | Disclosed as pass-through |
 
 Contingent charges are excluded because the APR prices the loan **as contracted**, not as defaulted.
 A borrower comparing two offers is comparing the cost of performing, and folding a hypothetical

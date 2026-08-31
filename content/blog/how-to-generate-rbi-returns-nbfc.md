@@ -5,6 +5,7 @@ metaDescription: "Which returns an NBFC files, what each is built from, and how 
 date: "2026-08-12"
 category: "How-to"
 author: "CA Tanmay Saini"
+tool: "nbfc-returns-calendar"
 draft: false
 ---
 

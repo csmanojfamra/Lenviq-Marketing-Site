@@ -4,6 +4,7 @@ description: "IRAC classification is computed on the day-end position. What that
 date: "2026-08-10"
 category: "Regulatory"
 author: "CA Himanshu Sharma"
+tool: "npa-date-calculator"
 draft: false
 ---
 

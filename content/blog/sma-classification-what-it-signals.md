@@ -5,6 +5,7 @@ metaDescription: "The buckets come from the same day-end DPD that drives NPA, an
 date: "2026-08-11"
 category: "Regulatory"
 author: "CA Himanshu Sharma"
+tool: "npa-date-calculator"
 draft: false
 ---
 
@@ -18,7 +19,7 @@ who treats them as a dashboard colour is reporting a number they have not checke
 | Bucket | Overdue | What it means |
 |---|---|---|
 | SMA-0 | 1–30 days | Principal or interest overdue, no impairment |
-| SMA-1 | 31–60 days | |
+| SMA-1 | 31–60 days | A second cycle missed. Still standard, still accruing income |
 | SMA-2 | 61–90 days | The last stage before the account becomes non-performing |
 | NPA | Over 90 days | Sub-standard, with the income and provisioning consequences that follow |
 

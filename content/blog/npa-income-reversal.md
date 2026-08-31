@@ -5,6 +5,7 @@ metaDescription: "Income already taken has to come back out in the year of class
 date: "2026-08-11"
 category: "Accounting"
 author: "CA Himanshu Sharma"
+tool: "npa-date-calculator"
 draft: false
 ---
 

@@ -871,3 +871,50 @@ describe("tables and code blocks in posts render", () => {
     expect(missing).toEqual([]);
   });
 });
+
+/**
+ * The structural standard every post is held to.
+ *
+ * Two things, both learnt from auditing the corpus rather than decided in advance.
+ *
+ * **A blank cell in the body of a table is a content gap, not a formatting choice.** Twelve of them
+ * shipped — an SMA-1 row with no description, a Loss row with no explanation — and they read as
+ * omissions because that is what they were. A blank leading cell in a HEADER row is different: it
+ * is the empty corner of a comparison table, and it is allowed.
+ *
+ * **Every post carries a FAQ section**, which is what produces the FAQPage schema an answer engine
+ * lifts. It is also the discipline that catches a post which never states its own question.
+ */
+describe("every post meets the structural standard", () => {
+  const SRC = resolve(__dirname, "../content/blog");
+  const posts = readdirSync(SRC)
+    .filter((n) => n.endsWith(".md"))
+    .map((n) => ({ slug: n.replace(/\.md$/, ""), raw: readFileSync(join(SRC, n), "utf8") }))
+    .filter((p) => !/^draft:\s*true/m.test(p.raw.split("---\n")[1] ?? ""))
+    .map((p) => ({ ...p, body: p.raw.split("---\n").slice(2).join("---\n") }));
+
+  it("finds the posts", () => {
+    expect(posts.length).toBeGreaterThan(30);
+  });
+
+  it("has a FAQ section in each, so each emits FAQPage", () => {
+    const without = posts.filter((p) => !/^## Frequently asked questions\s*$/m.test(p.body));
+    expect(without.map((p) => p.slug)).toEqual([]);
+  });
+
+  it("leaves no blank cell in the body of a table", () => {
+    const sep = /^\|[\s:|-]+\|\s*$/;
+    const bad: string[] = [];
+    for (const p of posts) {
+      const lines = p.body.split("\n");
+      lines.forEach((l, i) => {
+        const t = l.trim();
+        if (!t.startsWith("|") || sep.test(t)) return;
+        const cells = t.replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
+        // cells[0] may be blank: that is the empty corner of a comparison table's header.
+        if (cells.slice(1).some((c) => c === "")) bad.push(`${p.slug}:${i + 1}`);
+      });
+    }
+    expect(bad).toEqual([]);
+  });
+});

@@ -5,6 +5,7 @@ metaDescription: "Classification is a question about the close of a named day. C
 date: "2026-08-11"
 category: "Engineering"
 author: "CA Anil Agarwal"
+tool: "npa-date-calculator"
 draft: false
 ---
 

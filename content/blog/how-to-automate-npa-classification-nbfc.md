@@ -5,6 +5,7 @@ metaDescription: "What has to run nightly, why overdue means demanded-and-unpaid
 date: "2026-08-12"
 category: "How-to"
 author: "CA Himanshu Sharma"
+tool: "npa-date-calculator"
 draft: false
 ---
 
@@ -61,13 +62,13 @@ credit bureaus. Two separate settings, never one doing both.
 
 | Stage | Days overdue | Note |
 |---|---|---|
-| Standard | 0 | |
+| Standard | 0–90 | Performing. The three SMA buckets below are sub-divisions of it, not stages after it |
 | SMA-0 | 1–30 | Early warning. Not impairment |
-| SMA-1 | 31–60 | |
+| SMA-1 | 31–60 | A second cycle missed. Still standard, still accruing income |
 | SMA-2 | 61–90 | Reported to CRILC for large borrowers |
-| Sub-standard (NPA) | > 90 | |
-| Doubtful | 12 months as sub-standard | Sub-categorised by further ageing |
-| Loss | Identified as such | |
+| Sub-standard (NPA) | > 90 | The first non-performing stage. Income moves to a receipt basis |
+| Doubtful | 12 months as sub-standard, 18 in the Base Layer | Sub-categorised by further ageing — up to a year, one to three, beyond three |
+| Loss | Identified as such | No waiting period. An auditor or an inspection can name it at any stage |
 
 ## The upgrade rule that catches most systems out
 

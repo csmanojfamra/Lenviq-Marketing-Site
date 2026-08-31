@@ -5,6 +5,7 @@ metaDescription: "The RBI requirements that land inside an NBFC's systems rather
 date: "2026-08-12"
 category: "Guide"
 author: "CS Manoj Famra"
+tool: "nbfc-returns-calendar"
 draft: false
 ---
 
@@ -27,11 +28,11 @@ follows from how long it stays that way.
 | Stage | Trigger | What it is |
 |---|---|---|
 | SMA-0 | Overdue 1–30 days | Special Mention Account — early warning, not impairment |
-| SMA-1 | Overdue 31–60 days | |
+| SMA-1 | Overdue 31–60 days | Still a standard asset. A second cycle missed |
 | SMA-2 | Overdue 61–90 days | The last stage before impairment |
 | NPA (Sub-standard) | Overdue more than 90 days | Non-performing asset |
-| Doubtful | 12 months as sub-standard | |
-| Loss | Identified as such | |
+| Doubtful | 12 months as sub-standard, 18 in the Base Layer | The provision now splits — the secured part by age, the rest in full |
+| Loss | Identified as such | Unrecoverable. Provided at 100%, or written off |
 
 Three points decide whether an implementation is right.
 

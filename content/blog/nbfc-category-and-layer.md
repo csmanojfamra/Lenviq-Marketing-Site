@@ -144,6 +144,41 @@ If somebody asks what kind of NBFC you are, the complete answer has two halves a
 something the other two do not, and dropping one is how people end up applying the wrong provisioning
 rate or filing the wrong return.
 
+## Frequently asked questions
+
+### Is NBFC-ICC a layer or a category?
+
+A category. It says what the NBFC does — lending and investment generally. The layer is separate and
+says how much regulation applies. Every NBFC carries one of each at the same time.
+
+### Does NBFC-ND-SI still exist?
+
+No. Scale Based Regulation ended the split between systemically important and non-systemically
+important NBFCs. References to NBFC-ND-SI now read as NBFC-ML or NBFC-UL, and a number of former
+ND-SIs were reclassified into the Base Layer.
+
+### Which category is on my certificate of registration?
+
+Whichever one the Reserve Bank granted. It is not something to work out — read it off the
+certificate. Most ordinary lenders are NBFC-ICC, because that is the general category rather than a
+specialist one.
+
+### Can an NBFC change its category?
+
+Only by applying to the Reserve Bank. A change of category is a change to the certificate of
+registration, not something that follows from a change in the business mix.
+
+### Which categories can be in any layer?
+
+NBFC-ICC, NBFC-MFI, NBFC-Factor and NBFC-MGC are placed by size. NBFC-P2P, NBFC-AA and NOFHC are
+always Base Layer. IDF-NBFC and SPD are always Middle Layer. Deposit-taking NBFCs, CICs, IFCs and
+HFCs are never Base Layer.
+
+### Does the layer or the category decide my provisioning rate?
+
+The layer, for the standard-asset rate and for how long a loan stays sub-standard. The category does
+not change either.
+
 ---
 
 *Sources: RBI notification on harmonisation of NBFC categories, 22 February 2019; Master Direction —

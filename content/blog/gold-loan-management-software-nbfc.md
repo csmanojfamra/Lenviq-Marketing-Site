@@ -5,6 +5,7 @@ metaDescription: "Valuation reference, LTV monitoring, dual custody, the seven-w
 date: "2026-08-12"
 category: "How-to"
 author: "CA Tanmay Saini"
+tool: "gold-loan-ltv-calculator"
 draft: false
 ---
 

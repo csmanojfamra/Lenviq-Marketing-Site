@@ -17,7 +17,7 @@ The tell is precise, and it is worth knowing because it saves a week of looking 
 **every transaction matches and the totals do not.** A missing entry breaks a transaction. This
 breaks only the sum.
 
-## What causes it
+## Why does this happen?
 
 Computers store fractions in binary, and binary cannot hold one-tenth exactly — for the same reason
 a decimal cannot hold one-third exactly. Ten paise added ten times does not come to one rupee. It
@@ -27,7 +27,7 @@ On one instalment nobody sees it. On a book of fifty thousand instalments, each 
 and interest, added into a trial balance and matched against a bank statement, the residue is a
 number in your accounts with no document behind it.
 
-## Why rounding the display does not fix it
+## Why doesn’t rounding the display fix it?
 
 The instinct is to show a rounded figure. That hides the difference rather than removing it.
 
@@ -38,7 +38,7 @@ because there is no longer one answer to check against.
 Rounding at every step is worse still. Each rounding adds its own small error, and the errors do not
 cancel out — they lean the same way, because the amounts do.
 
-## What it costs if it is left alone
+## What does it cost if it is left alone?
 
 Three things happen, in this order.
 
@@ -54,23 +54,31 @@ and the schedule in the system are different documents — and the borrower is h
 80C or for a tax filing. The figure is computed fresh, the ledger figure was accumulated, and the
 two are not the same. That conversation is expensive.
 
-## How to test your own system in an afternoon
+### What that looks like in rupees
 
-You do not need access to the code. Four checks, all from reports you already have:
+A book of 50,000 live instalments, each split into principal and interest, loses a fraction of a
+paisa on each of the two components. At around half a paisa a component that is roughly ₹500 a month
+of unexplained difference — small enough that the first month is absorbed without comment, and
+₹6,000 by the end of the year sitting in a suspense head with no entries behind it.
 
-1. **Take one loan and add up its posted interest.** Does the total equal the accrued interest shown
-   on the account? It should be exact.
-2. **Add the principal components of a full repayment schedule.** Does the sum equal the sanctioned
-   amount to the rupee, with the last instalment carrying any remainder?
-3. **Look for a rounding-difference or suspense head in the trial balance.** Is there a balance in
-   it? Has it grown over the last four quarters?
-4. **Ask for the same figure twice from two places** — a report and the ledger. Do they agree
-   exactly, or nearly?
+The figure itself is never the problem. The problem is that nobody can produce the transactions that
+made it, so it cannot be written off and it cannot be explained.
 
-Three exact answers and an empty suspense head means the arithmetic is sound. A "nearly" anywhere is
+## How do you test your own system?
+
+You do not need access to the code. Four checks, all from reports you already have.
+
+| Check | What you should see | What it means if you do not |
+| --- | --- | --- |
+| Add up one loan’s posted interest | Exactly the accrued interest shown on the account | The postings and the accrual are computed on different values |
+| Add the principal components of a full schedule | Exactly the sanctioned amount, with the last instalment carrying the remainder | The schedule does not close on the loan, and somebody is adjusting it by hand |
+| Look for a rounding-difference or suspense head | No balance, or one that is not growing | The gap is being absorbed every month and nobody is reading it |
+| Ask two places for the same figure — a report and the ledger | The same number, to the paisa | There is no longer one answer to check anything against |
+
+Three exact answers and an empty suspense head means the arithmetic is sound. A “nearly” anywhere is
 the signature above.
 
-## How it should be built
+## How should it be built?
 
 The amounts are held as whole paise rather than as decimal rupees, so nothing is lost in the
 arithmetic to begin with. Rates are held the same way, in hundredths of a percent, because a rate
@@ -85,12 +93,33 @@ None of this is a regulatory requirement. It is the decision that determines whe
 be closed at all, it is taken once and early, and it is close to impossible to change afterwards —
 which is why it is worth asking about before you buy, not after.
 
-## What it looks like with numbers
+## Frequently asked questions
 
-A book of 50,000 live instalments, each split into principal and interest, loses a fraction of a
-paisa on each of the two components. At around half a paisa a component that is roughly ₹500 a month
-of unexplained difference — small enough that the first month is absorbed without comment, and
-₹6,000 by the end of the year sitting in a suspense head with no entries behind it.
+### Is a few rupees a month actually a problem?
 
-The figure itself is never the problem. The problem is that nobody can produce the transactions that
-made it, so it cannot be written off and it cannot be explained.
+The amount is not the problem; the absence of entries behind it is. A balance nobody can support
+with transactions cannot be written off cleanly and cannot be explained to an auditor, and it grows
+every month it is left.
+
+### Can it be fixed after the system is live?
+
+Only with difficulty. Changing how amounts are stored means recomputing every posting ever made and
+reconciling the result against what was already reported. It is the reason this is worth asking
+about before you buy rather than after.
+
+### Does rounding every figure to two decimals solve it?
+
+No. Rounding at each step adds its own error, and the errors lean the same way rather than
+cancelling out, because the amounts do. Rounding has to happen once, at a defined point, not
+everywhere.
+
+### Why does the last instalment differ from the others?
+
+Because it should. The instalment is a rounded figure, so the schedule cannot close on the
+sanctioned amount unless the final one carries whatever remainder is left. A schedule where every
+instalment is identical to the paisa does not sum to the loan.
+
+### Is this a regulatory requirement?
+
+No. No direction tells a lender how to store an amount. It is an engineering decision that decides
+whether the books can be closed at all, which is why it is worth confirming rather than assuming.

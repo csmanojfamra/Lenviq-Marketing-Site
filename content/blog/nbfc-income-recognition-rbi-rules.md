@@ -5,6 +5,7 @@ metaDescription: "Why accrued interest is reversed at classification, what recei
 date: "2026-08-12"
 category: "How-to"
 author: "CA Himanshu Sharma"
+tool: "nbfc-provisioning-calculator"
 draft: false
 ---
 
