@@ -918,3 +918,68 @@ describe("every post meets the structural standard", () => {
     expect(bad).toEqual([]);
   });
 });
+
+/**
+ * A heading names what is under it, and no two headings claim the same anchor.
+ *
+ * The contents list is built from the `##` headings and links to ids derived from their own words,
+ * so two identical headings produce two elements with one id — both entries in the list scroll to
+ * the first, and the second section becomes unreachable. One post shipped two sections called
+ * "A worked example".
+ *
+ * The second rule is editorial rather than mechanical. A contents list is the first thing a reader
+ * uses, and an entry reading "The principle", "The floor", "The cycle" or "The test" tells them
+ * nothing about whether the section is the one they want. Every heading has to carry a noun from
+ * its own subject.
+ */
+describe("headings say what is under them", () => {
+  const SRC = resolve(__dirname, "../content/blog");
+  const posts = readdirSync(SRC)
+    .filter((n) => n.endsWith(".md"))
+    .map((n) => ({ slug: n.replace(/\.md$/, ""), body: readFileSync(join(SRC, n), "utf8").split("---\n").slice(2).join("---\n") }));
+
+  const anchor = (t: string) =>
+    t.replace(/[*_`]/g, "").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").toLowerCase()
+     .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60);
+
+  it("gives every heading in a post its own anchor", () => {
+    const clashes: string[] = [];
+    for (const p of posts) {
+      const ids = (p.body.match(/^##+ (.+)$/gm) ?? []).map((h) => anchor(h.replace(/^#+\s+/, "")));
+      const seen = new Set<string>();
+      for (const id of ids) {
+        if (seen.has(id)) clashes.push(`${p.slug}#${id}`);
+        seen.add(id);
+      }
+    }
+    expect(clashes).toEqual([]);
+  });
+
+  /**
+   * A mechanical floor, not a style check.
+   *
+   * It catches the shape the corpus actually produced: a heading of four words or fewer that opens
+   * with a bare article or pronoun and carries no proper noun or figure — "The principle", "The
+   * floor", "The cycle", "The test", "What that argues for". Those tell a reader scanning the
+   * contents list nothing about whether the section is the one they want.
+   *
+   * A short heading that names something specific passes, which is why the proper-noun escape
+   * exists: "The other clock: PMLA" is four words and perfectly clear. Everything beyond this floor
+   * is editorial judgement and is not asserted here.
+   */
+  it("uses no section heading of four words that names nothing", () => {
+    const BARE_OPENER = /^(The|What (that|this|it)|Why (it|this)|How (it|this))\b/i;
+    const vague: string[] = [];
+    for (const p of posts) {
+      for (const h of p.body.match(/^## (.+)$/gm) ?? []) {
+        const text = h.replace(/^##\s+/, "").trim();
+        const words = text.split(/\s+/);
+        if (words.length > 4 || !BARE_OPENER.test(text)) continue;
+        // A capital or a digit anywhere but the first word means it names something.
+        const namesSomething = words.slice(1).some((w) => /[A-Z0-9]/.test(w));
+        if (!namesSomething) vague.push(`${p.slug}: ${text}`);
+      }
+    }
+    expect(vague).toEqual([]);
+  });
+});

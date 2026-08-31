@@ -74,7 +74,7 @@ For a lender there is a fourth category worth separating: some events are not ed
 editable in the first place. A correction is a reversal entry with its own record, not an update to
 the original. The audit trail then records the reversal, and the original stands as it was made.
 
-## The test worth running
+## The ten-minute test for your own system
 
 Ten minutes, on any system you are evaluating or already own.
 

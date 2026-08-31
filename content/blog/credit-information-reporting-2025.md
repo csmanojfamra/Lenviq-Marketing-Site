@@ -19,7 +19,7 @@ The Master Direction — [Reserve Bank of India (Credit Information Reporting) D
 credit reporting under section 11 of the Credit Information Companies (Regulation) Act, 2005 into one
 instrument covering banks, financial institutions and NBFCs alike.
 
-## The cycle
+## How often must credit information be reported?
 
 Credit information is updated **fortnightly** — on the 15th and on the last day of each month — and
 submitted to the credit information companies **within seven calendar days** of the reference date.

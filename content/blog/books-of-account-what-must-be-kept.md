@@ -17,7 +17,7 @@ An NBFC's record-keeping obligations start with the Companies Act, 2013 and are 
 Reserve Bank's directions and by tax law. The Companies Act floor is the one that decides system
 design, because it is the longest and the most specific about form.
 
-## The floor
+## How long must the books be kept?
 
 Books of account and relevant papers must be kept for **not less than eight financial years**
 immediately preceding the current one — and where an investigation has been ordered, for as long as
@@ -44,7 +44,7 @@ received, and nothing in the system says so.
 **"Not rendered unusable."** A record you can produce but cannot read without a version of software
 that no longer runs is retained in name.
 
-## What that argues for
+## What eight years argues for in the system
 
 **Immutability where the record is the event.** A sanction letter, a disbursement voucher, a receipt
 — generated once, stored as generated, never re-rendered from current data.

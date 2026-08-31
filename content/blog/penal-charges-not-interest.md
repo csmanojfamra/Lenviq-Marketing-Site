@@ -20,7 +20,7 @@ dated 18 August 2023) drew a line that a lot of
 loan systems had been living on the wrong side of: a penalty for non-compliance with a material term
 is a **charge**, not a component of the interest rate.
 
-## What follows from the distinction
+## Three things that follow from charge, not interest
 
 Once a penal amount is a charge rather than interest, three things follow mechanically.
 
@@ -35,7 +35,7 @@ they have repaid against it. A penal charge sits outside that balance.
 **It is disclosed as a charge.** In the Key Facts Statement it appears among contingent charges,
 not in the rate.
 
-## What it means in the general ledger
+## How penal charges are posted in the general ledger
 
 If a penal amount is income only when it is received, then accruing it into income at the moment it
 is levied overstates income for every account where it is never collected — which, on a delinquent
@@ -46,7 +46,7 @@ Settlement order matters too. Where a receipt is less than the total due, which 
 changes both the borrower's outstanding and the lender's income. That order should be a stated
 policy applied consistently rather than an emergent property of the code.
 
-## The dates, which moved
+## The dates the circular applied from, and how they moved
 
 The original circular set 1 January 2024. It was then extended by
 [RBI/2023-24/102](https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12585&Mode=0) dated
@@ -75,7 +75,7 @@ on the statement, part of what is owed, and posted to the general ledger only on
 A quick check: levy a charge and look at the trial balance. If it moved, the treatment is
 accrual-based and inconsistent with the receipt basis.
 
-## The other direction of error
+## The opposite error: under-charging, and what it costs
 
 Most attention goes to over-charging, and the circular is squarely aimed at it. There is an opposite
 error worth naming, because it is easy to introduce while fixing the first one.

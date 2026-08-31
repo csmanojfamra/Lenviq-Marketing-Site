@@ -81,7 +81,7 @@ this belong to**". Then:
   shows the borrower the previous day. That is a communication error rather than an accounting one,
   but it is the kind that produces a complaint.
 
-## The test
+## The two-minute test for your own system
 
 Book a loan at 02:00 IST and check that its first due date matches one booked at 14:00 IST the same
 day. If they differ by a day, every downstream figure on that loan differs too — quietly, and for its

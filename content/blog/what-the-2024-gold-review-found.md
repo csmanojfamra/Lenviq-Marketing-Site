@@ -49,7 +49,7 @@ The 2025 Directions closed the gap in the rulebook: renewal only on a standard a
 after accrued interest is paid. Whether it is closed in a given lender's software is a separate
 question, and it is answered by trying it.
 
-## The check worth running
+## Try a renewal on an overdue account
 
 Attempt a renewal on an account you know is overdue. If the system permits it, the control does not
 exist — a guard that nobody has watched refuse is not a guard. The same test applies to LTV at

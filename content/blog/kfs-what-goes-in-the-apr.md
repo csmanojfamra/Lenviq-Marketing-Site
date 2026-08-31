@@ -18,13 +18,13 @@ The Key Facts Statement gives a retail or MSME borrower one page they can compar
 The comparison only works if the annual percentage rate on it is computed the same way everywhere,
 which is why the requirement specifies what goes into it rather than leaving it to the lender.
 
-## The principle
+## What does the APR have to include?
 
 The APR is the all-in annualised cost of credit **including every charge levied by the lender and
 recovered from the borrower**. It is not the interest rate, and a KFS on which the APR equals the
 interest rate is either a loan with no charges at all or a computation that skipped some.
 
-## Three that get left out
+## Three charges that get left out
 
 **The fee deducted at disbursement.** A processing fee netted off the payout does not feel like a
 charge to the borrower — they simply receive less. It is a charge, the borrower funded it, and it
@@ -40,7 +40,7 @@ it as a condition of the credit, not who banks it.
 Statutory levies and genuine pass-through recoveries that the lender does not retain are treated
 separately — but "we do not retain it" is a fact to be able to evidence, not an assumption.
 
-## Why it is a systems question
+## Why a reproducible APR is a systems question
 
 An APR is only reproducible if the charges that fed it are frozen with the loan. If the KFS quotes
 today's charge master and the charge master has since changed, the document cannot be regenerated —

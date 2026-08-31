@@ -22,7 +22,7 @@ Scale-Based Regulation ([RBI/2021-22/112](https://rbi.org.in/Scripts/Notificatio
 read it once, established they were in the Base Layer, and moved on. That was reasonable in 2022 and
 is no longer enough, because later instruments have started keying off the layer directly.
 
-## The four layers
+## What are the four layers?
 
 **Base Layer** — asset size below ₹1,000 crore, plus P2P platforms, account aggregators, NOFHCs, and
 NBFCs with neither public funds nor public interface.
@@ -48,7 +48,7 @@ that assumed the stricter reading applied to it would be refusing itself a charg
 entitled to levy; one that crosses into the Middle Layer and does not notice would be levying one it
 is not.
 
-## What that means operationally
+## What to write down rather than remember
 
 Two things worth having written down rather than remembered.
 

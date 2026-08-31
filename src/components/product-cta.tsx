@@ -106,6 +106,63 @@ export function ProductCta({
  * glanced at, so it is quiet and small; the inline card interrupts the reading column, so it has to
  * earn the interruption by connecting to what was just read.
  */
+/**
+ * The product, as its own object beside an article.
+ *
+ * ## Why this is a separate card and not the foot of the tool card
+ *
+ * It used to be the last paragraph inside the tool card, at the same 13px muted as the "no sign-up"
+ * disclaimer directly above it — so the one sentence saying a company builds lending software
+ * carried exactly the weight of fine print, and its call to action was an underlined word inside a
+ * sentence, competing with a phone number on the same line. The tool got a full-width button; the
+ * product got a hyperlink.
+ *
+ * Two propositions, two cards. That is also what the sites this sits beside do: ClearTax's
+ * mid-article tool block and its product ask are separate blocks, not one with a footnote.
+ *
+ * The card carries the lockup, a plain statement of what the company provides, a real button and
+ * the number. It sits on the card ground rather than the tool card's subtle ground, so the two read
+ * as two things rather than one long panel.
+ */
+function ProductRailCard() {
+  const wa = `https://wa.me/${COMPANY.phone.replace("+", "")}?text=${encodeURIComponent(
+    "Hi — I'd like to know more about Lenviq for our NBFC.",
+  )}`;
+  return (
+    <aside className="rounded-card border border-line bg-card p-s4">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/brand/lockup-horizontal.svg" alt={SITE.name} width={98} height={22} />
+      <p className="mt-s3 text-[15px] leading-relaxed text-slate-mid">
+        <strong className="font-semibold text-ink">
+          We build the lending software NBFCs run on
+        </strong>{" "}
+        — {SITE.tagline.charAt(0).toLowerCase() + SITE.tagline.slice(1).replace(" for NBFCs", "")},
+        on one system.
+      </p>
+      <ButtonLink href="/contact/" className="mt-s4 w-full justify-center">
+        Book a demo
+      </ButtonLink>
+      <p className="mt-s3 text-[13px] leading-relaxed text-muted">
+        <a href={`tel:${COMPANY.phone}`} className="font-medium text-ink underline underline-offset-2 hover:text-cta">
+          {COMPANY.phoneDisplay}
+        </a>
+        {" · "}
+        <a href={wa} target="_blank" rel="noopener noreferrer" className="font-medium text-ink underline underline-offset-2 hover:text-cta">
+          WhatsApp
+        </a>
+      </p>
+    </aside>
+  );
+}
+
+/**
+ * The in-article offer.
+ *
+ * `rail` stacks two cards on a wide screen: the free tool where the subject has one, then the
+ * product as its own card. `inline` is the single card a phone gets in the reading column, and it
+ * carries the tool ONLY — the product ask is at the foot of the page, and two of them in one
+ * scroll is how a content page starts reading as an advertisement.
+ */
 export function ProductCtaCompact({
   line,
   variant = "rail",
@@ -120,41 +177,8 @@ export function ProductCtaCompact({
     "Hi — I'd like to know more about Lenviq for our NBFC.",
   )}`;
 
-  /*
-   * A tool if the subject has one, the product if it does not.
-   *
-   * Beside an article, a free calculator is both the more useful offer and the more honest one:
-   * it is on this site, it needs no conversation, and pointing at it claims nothing about what the
-   * software does. It is also what ClearTax does in the same position. The product invitation waits
-   * for the end of the page, where a reader who has read the whole thing will see it.
-   */
-  if (tool) {
-    return variant === "rail" ? (
-      <aside className="rounded-card border border-line bg-subtle p-s4">
-        <p className="text-[13px] uppercase tracking-wide text-muted">Free tool</p>
-        <p className="mt-1 font-display text-[16px] font-bold leading-tight tracking-display text-ink">
-          {tool.name}
-        </p>
-        <p className="mt-s2 text-[14px] leading-relaxed text-slate-mid">{line}</p>
-        <ButtonLink href={tool.href} className="mt-s3 w-full justify-center">
-          Open the tool
-        </ButtonLink>
-        <p className="mt-s3 text-[13px] leading-relaxed text-muted">
-          No sign-up. Nothing you type leaves your browser.
-        </p>
-        <p className="mt-s4 border-t border-line pt-s3 text-[13px] leading-relaxed text-muted">
-          {SITE.name} is {SITE.tagline.charAt(0).toLowerCase() + SITE.tagline.slice(1)}.{" "}
-          <Link href="/contact/" className="font-medium text-ink underline underline-offset-2 hover:text-cta">
-            Book a demo
-          </Link>
-          {" or call "}
-          <a href={`tel:${COMPANY.phone}`} className="font-medium text-ink underline underline-offset-2 hover:text-cta">
-            {COMPANY.phoneDisplay}
-          </a>
-          .
-        </p>
-      </aside>
-    ) : (
+  if (variant === "inline") {
+    return tool ? (
       <aside className="my-s5 rounded-card border border-line border-l-[3px] border-l-cta bg-subtle p-s4">
         <p className="text-[13px] uppercase tracking-wide text-muted">Free tool</p>
         <p className="mt-s2 max-w-prose text-[16px] leading-relaxed text-slate-mid">{line}</p>
@@ -163,47 +187,41 @@ export function ProductCtaCompact({
           <span className="text-[14px] text-muted">No sign-up. Nothing you type leaves your browser.</span>
         </div>
       </aside>
-    );
-  }
-
-  if (variant === "rail") {
-    return (
-      <aside className="rounded-card border border-line bg-subtle p-s4">
-        <p className="font-display text-[16px] font-bold leading-tight tracking-display text-ink">
-          {SITE.name}
-        </p>
-        <p className="mt-1 text-[14px] leading-relaxed text-slate-mid">{SITE.tagline}.</p>
-        <p className="mt-s3 text-[14px] leading-relaxed text-slate-mid">{line}</p>
-        <ButtonLink href="/contact/" className="mt-s3 w-full justify-center">
-          Book a demo
-        </ButtonLink>
-        <p className="mt-s3 text-[13px] leading-relaxed text-muted">
-          Or call{" "}
-          <a href={`tel:${COMPANY.phone}`} className="font-medium text-ink underline underline-offset-2 hover:text-cta">
+    ) : (
+      <aside className="my-s5 rounded-card border border-line border-l-[3px] border-l-cta bg-subtle p-s4">
+        <p className="text-[13px] uppercase tracking-wide text-muted">While you are here</p>
+        <p className="mt-s2 max-w-prose text-[16px] leading-relaxed text-slate-mid">{line}</p>
+        <div className="mt-s3 flex flex-wrap items-center gap-x-s3 gap-y-s2">
+          <ButtonLink href="/contact/">Book a demo</ButtonLink>
+          <a href={`tel:${COMPANY.phone}`} className="text-[15px] font-medium text-ink underline decoration-line-strong underline-offset-4 hover:text-cta">
             {COMPANY.phoneDisplay}
           </a>
-          {" · "}
-          <a href={wa} target="_blank" rel="noopener noreferrer" className="font-medium text-ink underline underline-offset-2 hover:text-cta">
+          <a href={wa} target="_blank" rel="noopener noreferrer" className="text-[15px] font-medium text-ink underline decoration-line-strong underline-offset-4 hover:text-cta">
             WhatsApp
           </a>
-        </p>
+        </div>
       </aside>
     );
   }
 
   return (
-    <aside className="my-s5 rounded-card border border-line border-l-[3px] border-l-cta bg-subtle p-s4">
-      <p className="text-[13px] uppercase tracking-wide text-muted">While you are here</p>
-      <p className="mt-s2 max-w-prose text-[16px] leading-relaxed text-slate-mid">{line}</p>
-      <div className="mt-s3 flex flex-wrap items-center gap-x-s3 gap-y-s2">
-        <ButtonLink href="/contact/">Book a demo</ButtonLink>
-        <a href={`tel:${COMPANY.phone}`} className="text-[15px] font-medium text-ink underline decoration-line-strong underline-offset-4 hover:text-cta">
-          {COMPANY.phoneDisplay}
-        </a>
-        <a href={wa} target="_blank" rel="noopener noreferrer" className="text-[15px] font-medium text-ink underline decoration-line-strong underline-offset-4 hover:text-cta">
-          WhatsApp
-        </a>
-      </div>
-    </aside>
+    <div className="grid gap-s3">
+      {tool && (
+        <aside className="rounded-card border border-line bg-subtle p-s4">
+          <p className="text-[13px] uppercase tracking-wide text-muted">Free tool</p>
+          <p className="mt-1 font-display text-[16px] font-bold leading-tight tracking-display text-ink">
+            {tool.name}
+          </p>
+          <p className="mt-s2 text-[14px] leading-relaxed text-slate-mid">{line}</p>
+          <ButtonLink href={tool.href} variant="secondary" className="mt-s3 w-full justify-center">
+            Open the tool
+          </ButtonLink>
+          <p className="mt-s3 text-[13px] leading-relaxed text-muted">
+            No sign-up. Nothing you type leaves your browser.
+          </p>
+        </aside>
+      )}
+      <ProductRailCard />
+    </div>
   );
 }

@@ -29,7 +29,7 @@ gold held in the BC's custody, and transported to branches without adequate secu
 Each of those is an outsourced activity that had, in practice, taken the decision with it. The
 lender had not merely delegated the work; it had stopped being the party that decided.
 
-## The line that is actually drawn
+## Where is the line actually drawn?
 
 **Core decisions stay with the lender.** Credit appraisal, sanction, and the classification of an
 asset are the lender's. A vendor may gather, verify and present; it may not decide.
@@ -40,7 +40,7 @@ custody is still the lender's pledge, and the borrower's recourse is to the lend
 **Grievance redressal cannot be delegated away.** The borrower's complaint is against the regulated
 entity.
 
-## The practical questions
+## Three questions to ask about any outsourced function
 
 For any outsourced function, three things should be answerable without reading the contract:
 

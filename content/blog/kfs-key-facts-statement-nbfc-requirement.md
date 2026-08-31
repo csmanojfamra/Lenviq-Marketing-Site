@@ -69,7 +69,7 @@ smaller net disbursal. Somebody typing a number into a template will type the in
 rounding, and the schedule printed on the same page will contradict it. A borrower's counsel reads
 both.
 
-## The clause with teeth
+## A charge not in the KFS cannot be recovered
 
 Charges not disclosed in the KFS cannot be recovered at any later stage.
 
@@ -93,7 +93,7 @@ dispute.
 The validity period matters too: the KFS states how long the offer holds. Terms that change after it
 lapses require a fresh statement.
 
-## The vernacular requirement
+## What language must the KFS be in?
 
 The KFS must be in a language the borrower understands. In practice that means the lender needs the
 statement, and the declaration alongside it, available in the languages its borrowers actually use,

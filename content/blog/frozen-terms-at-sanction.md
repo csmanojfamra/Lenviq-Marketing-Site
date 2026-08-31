@@ -96,7 +96,7 @@ of editing a master.
 - **No record of who changed the master, and when.** Even with snapshots, the master's history is
   part of the answer to why two loans differ.
 
-## A worked example
+## A worked example: the appropriation order changes mid-loan
 
 A gold loan is sanctioned in January. The scheme's appropriation order is charges, then interest,
 then principal, and its interest slab schedule starts at 1% a month.
@@ -167,7 +167,7 @@ cannot be recovered from them at all — so the snapshot is what evidences which
 
 [Ask for a walk-through](/contact/) — change a scheme and then open a loan sanctioned before it.
 
-## A worked example
+## A worked example: the product is repriced after sanction
 
 A scheme prices at 14% in March. Two hundred loans are sanctioned on it. In July the board reprices
 the product to 16% for new business.

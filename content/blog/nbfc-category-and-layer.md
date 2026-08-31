@@ -137,7 +137,7 @@ file depends on your layer *and* your category *and* whether you accept deposits
 thing again. [The returns calendar](/tools/nbfc-returns-calendar/) asks all three, because two of them
 is not enough to produce a correct filing list.
 
-## The one-line answer
+## How to state your own classification
 
 If somebody asks what kind of NBFC you are, the complete answer has two halves and a possible third:
 **an NBFC-ICC, in the Base Layer, non-deposit-taking.** Category, layer, deposits. Each answers
