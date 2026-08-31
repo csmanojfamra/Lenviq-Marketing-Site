@@ -56,10 +56,74 @@ export default function AboutPage() {
       </Section>
 
       <Section tone="sand">
-        <SectionHead eyebrow="Why it exists" title="The gap this was built into" />
+        <SectionHead
+          eyebrow="Why it exists"
+          title="The gaps this was built into"
+          lead="Six things that go wrong in lending software often enough to be worth naming. Each one is a position this product took early, and each has a piece behind it working the reasoning through."
+        />
+        {/*
+          * Six, not two.
+          *
+          * The section carried two cards of forty words. It is the page's own argument for why the
+          * product exists, and two sentences is not an argument — a reader who wants to know what
+          * is different has to leave and read the platform page.
+          *
+          * Every card names a concrete failure, which is what the competitors do not do: Stripe's
+          * About page never states a problem at all, and Lentra — the nearest Indian comparison —
+          * stays at "errors and inaccuracies" and "faster go-to-market". Naming the exact way a
+          * lending system goes wrong is the one thing available to a small vendor that a large one
+          * does not bother with.
+          *
+          * Each card links to the article that works it through, so the claim is checkable and the
+          * page stops being a leaf.
+          */}
         <div className="mt-s5 grid gap-s3 md:grid-cols-2">
-          <Reveal stage={1}><Card title="Compliance treated as reporting">Most lending software computes what it likes and assembles a compliance view at quarter-end. That works until a position has to be defended, at which point the number in the return and the number in the ledger are two different numbers.</Card></Reveal>
-          <Reveal stage={2}><Card title="Books kept somewhere else">A loan system that hands a summary to an accounting package leaves the reconciliation to a person. Here the posting is the loan event.</Card></Reveal>
+          <Reveal stage={1}>
+            <Card title="Compliance treated as reporting" href="/blog/rbi-compliance-for-nbfcs-guide/">
+              Most lending software computes what it likes and assembles a compliance view at
+              quarter-end. That works until a position has to be defended, at which point the number
+              in the return and the number in the ledger are two different numbers — and no one can
+              say which is right.
+            </Card>
+          </Reveal>
+          <Reveal stage={2}>
+            <Card title="Books kept somewhere else" href="/blog/reconciliation-off-by-rupees/">
+              A loan system that hands a summary to an accounting package leaves the reconciliation
+              to a person, every month, forever. Here the posting is the loan event: a disbursement
+              writes its own double entry, so there is nothing to tie back.
+            </Card>
+          </Reveal>
+          <Reveal stage={3}>
+            <Card title="An NPA number that changes with the time of day" href="/blog/irac-day-end-classification/">
+              Classification asks what position the book stood in at the close of a named day. A
+              system that recomputes it on demand answers a different question each time it is
+              asked, and the figure in a board pack stops matching the one filed a week earlier.
+            </Card>
+          </Reveal>
+          <Reveal stage={4}>
+            <Card title="A loan that reads its terms from today's master" href="/blog/frozen-terms-at-sanction/">
+              Reprice a scheme and every loan ever sanctioned on it silently reprices with it. A
+              loan should carry a copy of what it was sanctioned on — the rate band, the
+              appropriation order, the charges — so the agreement in the borrower&rsquo;s hand and the
+              account in the system say the same thing.
+            </Card>
+          </Reveal>
+          <Reveal stage={1}>
+            <Card title="A code path per product" href="/blog/how-to-manage-multiple-loan-products-nbfc/">
+              When a product is written into the software rather than configured in it, every new
+              scheme is a release, and the gold book and the vehicle book slowly diverge on rules
+              that were meant to be identical. Products here are data; behaviour binds to the asset
+              class, not to a name.
+            </Card>
+          </Reveal>
+          <Reveal stage={2}>
+            <Card title="Corrections made by editing" href="/blog/audit-trail-what-counts/">
+              A wrong posting fixed in place leaves a record of the corrected state and no record of
+              the correction. Financial entries here are never updated or deleted — a mistake is
+              reversed, and both the error and the reversal stand in the ledger where an auditor can
+              see them.
+            </Card>
+          </Reveal>
         </div>
       </Section>
 
