@@ -64,13 +64,13 @@ export default function SecurityPage() {
         </Reveal>
       </Section>
 
-      <Section tone="sand">
+      <Section id="posture" tone="sand">
         <dl className="border-b border-line">
           {SPECS.map(([t, b]) => <Reveal key={t}><Spec term={t}>{b}</Spec></Reveal>)}
         </dl>
       </Section>
 
-      <Section>
+      <Section id="hosting">
         <SectionHead
           eyebrow="Hosting and continuity"
           title="Where it runs, and what we will confirm in writing"
@@ -82,7 +82,7 @@ export default function SecurityPage() {
         </div>
       </Section>
 
-      <Section tone="sand">
+      <Section id="not-claimed" tone="sand">
         <SectionHead
           eyebrow="What we do not claim"
           title="The list most vendors leave off"

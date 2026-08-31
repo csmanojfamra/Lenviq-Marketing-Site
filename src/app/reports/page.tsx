@@ -87,7 +87,7 @@ export default function ReportsPage() {
         </Reveal>
       </Section>
 
-      <Section tone="sand">
+      <Section id="catalogue" tone="sand">
         <div className="grid gap-s3 md:grid-cols-2 lg:grid-cols-3">
           {GROUPS.map((g, i) => (
             <Reveal key={g.name} stage={((i % 4) + 1) as 1 | 2 | 3 | 4}>
@@ -106,7 +106,7 @@ export default function ReportsPage() {
         </div>
       </Section>
 
-      <Section>
+      <Section id="freshness">
         <SectionHead
           eyebrow="Why it is built this way"
           title="A report is only worth what its date is worth"
@@ -134,7 +134,7 @@ export default function ReportsPage() {
         </div>
       </Section>
 
-      <Section tone="sand">
+      <Section id="operating" tone="sand">
         <SectionHead
           eyebrow="How they behave"
           title="The parts that matter once you rely on them"

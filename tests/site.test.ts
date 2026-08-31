@@ -1177,3 +1177,47 @@ describe("glossary headings read as English", () => {
     }
   });
 });
+
+/**
+ * Every anchor on the site clears the sticky header, and every section link resolves.
+ *
+ * A jump used to land its target at scroll-top, which is behind the 65px header — so the heading a
+ * reader clicked in a contents list was the one thing they could not see. That had been true of
+ * every post since contents lists were added; the platform page's section links only made it easy
+ * to notice. One `scroll-padding-top` on the scroll container fixes all of them at once.
+ */
+describe("section links land where they say", () => {
+  const OUT = resolve(__dirname, "../out");
+
+  it("offsets anchor targets past the sticky header", () => {
+    const css = readFileSync(resolve(__dirname, "../src/app/globals.css"), "utf8");
+    const m = /scroll-padding-top:\s*([\d.]+)rem/.exec(css);
+    expect(m, "no scroll-padding-top — anchors will land behind the header").toBeTruthy();
+    expect(Number(m![1]) * 16).toBeGreaterThan(65);
+  });
+
+  /**
+   * The long product pages had no ids at all, so no part of them could be linked from an email or
+   * a sales conversation. This asserts they keep them, and that nothing links to one that is gone.
+   */
+  it.runIf(existsSync(OUT))("gives the long product pages linkable sections", () => {
+    for (const [page, least] of [["platform", 7], ["compliance", 4], ["reports", 3], ["security", 3]] as const) {
+      const html = readFileSync(join(OUT, page, "index.html"), "utf8");
+      const ids = html.match(/<section id="[a-z-]+"/g) ?? [];
+      expect(ids.length, `${page} has ${ids.length} linkable sections`).toBeGreaterThanOrEqual(least);
+    }
+  });
+
+  it.runIf(existsSync(OUT))("has no in-page link pointing at a missing anchor", () => {
+    const pages = execSync(`find ${OUT} -name index.html`, { encoding: "utf8" }).trim().split("\n");
+    const dangling: string[] = [];
+    for (const f of pages) {
+      const html = readFileSync(f, "utf8");
+      const ids = new Set([...html.matchAll(/id="([a-zA-Z0-9_-]+)"/g)].map((m) => m[1]));
+      for (const m of html.matchAll(/href="#([a-zA-Z0-9_-]+)"/g)) {
+        if (!ids.has(m[1])) dangling.push(`${f.replace(`${OUT}/`, "")} → #${m[1]}`);
+      }
+    }
+    expect(dangling).toEqual([]);
+  });
+});

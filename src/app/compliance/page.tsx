@@ -178,7 +178,7 @@ export default function CompliancePage() {
         </Reveal>
       </Section>
 
-      <Section tone="sand">
+      <Section id="positions" tone="sand">
         <dl className="border-b border-line">
           {POSITIONS.map((p) => (
             <Reveal key={p.term}>
@@ -210,7 +210,7 @@ export default function CompliancePage() {
         * behind it is worth. These are generated from the running product against a demonstration
         * book, so the picture and the paragraph cannot drift apart.
         */}
-      <Section tone="sand">
+      <Section id="classification" tone="sand">
         <SectionHead
           eyebrow="What it looks like"
           title="The classification, and what it was computed from"
@@ -238,7 +238,7 @@ export default function CompliancePage() {
         </p>
       </Section>
 
-      <Section>
+      <Section id="controls">
         <SectionHead
           eyebrow="How the positions are held"
           title="Configured by you, enforced by the system, evidenced afterwards"
@@ -278,7 +278,7 @@ export default function CompliancePage() {
         </Reveal>
       </Section>
 
-      <Section tone="sand">
+      <Section id="reading" tone="sand">
         <Reveal className="rounded-card border border-sand-border bg-card p-s6">
           <h2 className="text-[26px] font-bold tracking-display text-ink">
             Read the longer pieces

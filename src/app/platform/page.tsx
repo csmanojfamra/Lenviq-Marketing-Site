@@ -62,6 +62,36 @@ export default function PlatformPage() {
           </p>
         </Reveal>
         {/*
+          * Nine screens of page, and no way to see what is on it.
+          *
+          * This is the page a prospect is sent to, and it runs to 9,378px. Somebody who wants to
+          * know what it does about accounting was scrolling past six sections to find out, or
+          * giving up. Every long product page a buyer compares this against — Stripe's, Zoho's —
+          * carries a jump list; this one had not even given its sections an id, so no part of it
+          * could be linked to in an email either.
+          *
+          * Inline rather than sticky: the header already sticks, and a second fixed strip plus the
+          * WhatsApp button is more chrome than a reading page can carry.
+          */}
+        <Reveal>
+          <nav aria-label="On this page" className="mt-s5 flex flex-wrap gap-x-s4 gap-y-s2 border-y border-line py-s3 text-[15px]">
+            {[
+              ["#lifecycle", "The lifecycle"],
+              ["#origination", "Origination"],
+              ["#servicing", "Servicing"],
+              ["#field", "The field app"],
+              ["#accounting", "Accounting"],
+              ["#books", "Books and returns"],
+              ["#pilot", "What a pilot looks like"],
+            ].map(([href, label]) => (
+              <a key={href} href={href} className="text-slate-mid underline-offset-4 transition-colors hover:text-cta hover:underline">
+                {label}
+              </a>
+            ))}
+          </nav>
+        </Reveal>
+
+        {/*
           * The product, above the argument for it.
           *
           * A buyer evaluating a lending platform wants to see a loan file before they read a list of
@@ -85,7 +115,7 @@ export default function PlatformPage() {
         * all five are the product. Named stages also give the page the vocabulary a reader is
         * searching with, without a keyword being written twice.
         */}
-      <Section tone="sand">
+      <Section id="lifecycle" tone="sand">
         <SectionHead
           eyebrow="The lifecycle"
           title="What happens to a loan, in order"
@@ -106,7 +136,7 @@ export default function PlatformPage() {
         </ol>
       </Section>
 
-      <Section>
+      <Section id="origination">
         <SectionHead eyebrow="Origination" title="Lead to disbursement" />
         <dl className="mt-s4 border-b border-line">
           {LOS.map(([t, b]) => <Reveal key={t}><Spec term={t}>{b}</Spec></Reveal>)}
@@ -118,7 +148,7 @@ export default function PlatformPage() {
         />
       </Section>
 
-      <Section>
+      <Section id="servicing">
         <SectionHead eyebrow="Loan management" title="Disbursement to closure" />
         <dl className="mt-s4 border-b border-line">
           {LMS.map(([t, b]) => <Reveal key={t}><Spec term={t}>{b}</Spec></Reveal>)}
@@ -133,7 +163,7 @@ export default function PlatformPage() {
       {/*
         * The field app, which is the half of the product a competitor's screenshot never shows.
         */}
-      <Section tone="sand">
+      <Section id="field" tone="sand">
         <SectionHead
           eyebrow="In the field"
           title="The round, on the phone that is already in their pocket"
@@ -163,7 +193,7 @@ export default function PlatformPage() {
         </p>
       </Section>
 
-      <Section tone="sand">
+      <Section id="accounting" tone="sand">
         <SectionHead
           eyebrow="Accounting"
           title="Double entry, not a summary"
@@ -184,7 +214,7 @@ export default function PlatformPage() {
         * narrower question they ask next. Section 7 of the brief — the platform page links out to
         * all four — and each anchor says what the page is rather than naming the loan.
         */}
-      <Section>
+      <Section id="books">
         <SectionHead
           eyebrow="By loan product"
           title="Four books, one system"
@@ -201,7 +231,7 @@ export default function PlatformPage() {
         </div>
       </Section>
 
-      <Section>
+      <Section id="pilot">
         <SectionHead
           eyebrow="Implementation"
           title="What a pilot actually looks like"

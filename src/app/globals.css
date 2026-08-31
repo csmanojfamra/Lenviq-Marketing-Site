@@ -12,6 +12,15 @@
 
 html {
   scroll-behavior: smooth;
+  /*
+   * Anything an anchor can land on clears the sticky header.
+   *
+   * Without this every jump on the site put its target at scroll-top — which is BEHIND the 65px
+   * header, so the heading a reader clicked was the one thing they could not see. It had been that
+   * way for every contents list on the blog since the day they were added; the platform page's new
+   * section links only made it easy to notice.
+   */
+  scroll-padding-top: 5.5rem;
 }
 
 body {
