@@ -108,7 +108,7 @@ Middle Layer.
 those NBFCs and publishes the list — seventeen names currently — using a scoring model that no
 company can run on itself. You cannot compute your way into the Upper Layer and you cannot compute
 your way out. [The layer finder](/tools/nbfc-layer-finder/) works this out for the three layers where
-it is a question of fact, and asks you about the fourth rather than pretending.
+it is a question of fact, and asks you about the fourth.
 
 ## What each label actually decides
 

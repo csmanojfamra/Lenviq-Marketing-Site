@@ -51,7 +51,7 @@ export const LAP: ProductSpec = {
       ["The pending stage requires nothing, on purpose", "LEGAL_VALUATION_PENDING is where the opinion and the valuation are obtained, so requiring them to enter it would make the stage unreachable. They are required to LEAVE it. A pipeline that demands an artefact at the stage that produces it is the most common way a workflow ends up bypassed in practice."],
       ["Multiple properties, and the arithmetic that follows", "Security is per property, not per file. Eligible value and the resulting LTV are computed across what is actually mortgaged, so a file secured on two properties is assessed on two."],
       ["Long tenor changes which reports matter", "A twenty-year loan is barely amortising in year two. The maturity profile and the prepayment and foreclosure register carry more information about a LAP book than a portfolio total does, and the prepayment position is now a regulatory question rather than only a contractual one."],
-      ["The system does not pretend to know how stale a valuation is", "The collateral register carries the security’s value but not a valuation date, so it does not print a valuation age. That column would have to be fabricated, and an invented staleness figure is worse than an absent one — it is precisely the column the report would be trusted for."],
+      ["The system does not pretend to know how stale a valuation is", "The collateral register carries the security’s value but not a valuation date, so it does not print a valuation age. Capture valuation dates and the column follows."],
     ],
     evidence: [
       "src/lib/applications/stage-requirements.ts — PROPERTY_LEGAL_OPINION, PROPERTY_VALUATION on CREDIT_REVIEW; LEGAL_VALUATION_PENDING requires: []",
@@ -133,7 +133,7 @@ export const LAP: ProductSpec = {
     },
     {
       q: "Does the collateral register show how old a valuation is?",
-      a: "No. The security records carry an eligible value but no valuation date, so a valuation age would have to be invented — and an invented staleness figure is worse than an absent one, because it is the column the report would be trusted for. If valuation dates are captured later, the column follows.",
+      a: "No. The security records carry an eligible value but no valuation date, so there is nothing to compute an age from. Once valuation dates are captured, the column follows.",
     },
     {
       q: "Does a change to the product scheme affect loans already sanctioned?",

@@ -1046,3 +1046,49 @@ describe("the help guides know which screen they document", () => {
     expect(new Set(routes).size).toBe(routes.length);
   });
 });
+
+/**
+ * The site does not explain its own editorial decisions to the reader.
+ *
+ * A page said the registration details were in the body "rather than in a footer nobody reads",
+ * and then that they could be checked against the MCA register. Both were the site narrating how
+ * it was written, and neither is something any comparable company does — Zoho, Clear, Razorpay,
+ * Chargebee, Freshworks and Khatabook were all checked, and none writes a sentence justifying what
+ * it is showing. Stating a fact is stronger than explaining why you are stating it.
+ *
+ * Sweeping for the same shape found four more: a tool page arguing that a calculator disagreeing
+ * with its own software "would be worse than no calculator", a product page explaining twice why a
+ * column is absent, and two places saying the site asks a question "rather than pretending" to
+ * answer it.
+ *
+ * The line this draws: a sentence about LENDING or about what Lenviq does is content. A sentence
+ * about how this website was written is not. Disclaimers are content — "nothing here is a legal
+ * opinion" tells a reader something they need — and so is the security page's list of what the
+ * company does not claim.
+ */
+describe("the site does not narrate its own authoring", () => {
+  const OUT = resolve(__dirname, "../out");
+
+  const NARRATES_ITSELF = [
+    /footer nobody reads/i,
+    /which is why (these|this|it) (are|is) here/i,
+    /rather than pretending/i,
+    /would be worse than no /i,
+    /this site (still )?(runs|sets|shows|carries)/i,
+    /appear anywhere on this site/i,
+  ];
+
+  it.runIf(existsSync(OUT))("has none of it in the built pages", () => {
+    const pages = execSync(`find ${OUT} -name index.html`, { encoding: "utf8" }).trim().split("\n");
+    const found: string[] = [];
+    for (const f of pages) {
+      const text = readFileSync(f, "utf8")
+        .replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, " ")
+        .replace(/<[^>]+>/g, " ");
+      for (const re of NARRATES_ITSELF) {
+        if (re.test(text)) found.push(`${f.replace(`${OUT}/`, "")}: ${re}`);
+      }
+    }
+    expect(found).toEqual([]);
+  });
+});

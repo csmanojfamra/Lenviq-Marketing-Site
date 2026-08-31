@@ -44,7 +44,7 @@ const SPECS = [
 const NOT_CLAIMED = [
   "We hold no ISO 27001, SOC 2 or PCI DSS certification, and no RBI approval or registration — Lenviq is software licensed to lenders, not a regulated entity.",
   "We publish no availability figure, because we do not yet measure one over a period long enough to be worth stating.",
-  "No customer names, client logos or quoted endorsements appear anywhere on this site.",
+  "We name no customers and quote no endorsements — we would rather show the product than a logo wall.",
 ];
 
 export default function SecurityPage() {

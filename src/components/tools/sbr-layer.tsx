@@ -128,8 +128,8 @@ export function SbrLayerFinder() {
             Base and Middle follow from facts about the company — its category, its size, whether it
             takes deposits. The <strong className="text-ink">Upper Layer is a designation</strong>:
             the Reserve Bank identifies those NBFCs and publishes their names, seventeen on the
-            current list. No company puts itself there and none can compute its way in, which is why
-            this asks the question rather than pretending to answer it.
+            current list. No company puts itself there and none can compute its way in, so this asks
+            you instead.
           </p>
           <p className="mt-s3 max-w-prose text-[16px] leading-relaxed text-slate-mid">
             Being named brings enhanced regulation for at least five years, including a requirement

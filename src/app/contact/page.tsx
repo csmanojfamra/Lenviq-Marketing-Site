@@ -82,7 +82,7 @@ export default function ContactPage() {
           </p>
           <p className="mt-s2 text-[14px] text-muted">
             If you would rather not use the form, the link pre-fills the same details. Either way it
-            reaches the same inbox — and this site still runs no analytics and sets no cookie.
+            reaches the same inbox — and we run no analytics and set no cookie.
           </p>
         </Card>
         <Card title="Already a customer?" as="h2">

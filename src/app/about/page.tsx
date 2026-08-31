@@ -8,7 +8,7 @@ import { SISTER_PRODUCTS, SINCE } from "@/lib/sister-products";
 export const metadata: Metadata = pageMetadata({
   title: "About FastLegal Technologies",
   description:
-    "Built by FastLegal Technologies, which has made compliance software for Indian regulated entities since 2018. Registration details, and what else we build.",
+    "Built by FastLegal Technologies, which has made compliance software for Indian regulated entities since 2018. What else we build, and why this one exists.",
   path: "/about/",
 });
 

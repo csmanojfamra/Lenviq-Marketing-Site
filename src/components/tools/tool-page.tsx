@@ -16,7 +16,7 @@ import { ProductCta, ProductCtaCompact } from "@/components/product-cta";
 const PROVENANCE: Record<string, { head: string; body: string }> = {
   pinned: {
     head: "Where these numbers come from",
-    body: `This runs the same arithmetic as the ${SITE.name} platform, and it is held to it: the platform emits a table of worked cases from its own code, and a test here fails the build if this page reproduces any of them differently. A calculator that quietly disagreed with the software it advertises would be worse than no calculator.`,
+    body: `This runs the same arithmetic as the ${SITE.name} platform, and it is held to it: the platform emits a table of worked cases from its own code, and a test here fails the build if this page reproduces any of them differently.`,
   },
   computed: {
     head: "Where these numbers come from",
