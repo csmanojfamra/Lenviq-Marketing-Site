@@ -53,11 +53,21 @@ export interface Term {
   inProduct?: string;
   /** Slugs of terms a reader of this one will want next. */
   related?: string[];
+  /**
+   * True where the term is a plural noun, for verb agreement in the derived section headings.
+   *
+   * "How is penal charges calculated?" and "Why does IRAC norms matter?" are what a template gets
+   * wrong when it assumes every entry is a singular mass noun. Two of the twenty-two are not.
+   */
+  plural?: boolean;
+  /** A tool on this site that answers this term, where one exists. */
+  tool?: string;
 }
 
 export const TERMS: Term[] = [
   {
     slug: "dpd",
+    tool: "npa-date-calculator",
     question: "What is DPD (days past due)?",
     term: "DPD (days past due)",
     short: "How many days an instalment has been overdue.",
@@ -96,6 +106,8 @@ export const TERMS: Term[] = [
   },
   {
     slug: "irac",
+    plural: true,
+    tool: "npa-date-calculator",
     question: "What are the IRAC norms?",
     term: "IRAC norms",
     short: "Income recognition, asset classification and provisioning.",
@@ -116,6 +128,7 @@ export const TERMS: Term[] = [
   },
   {
     slug: "sma",
+    tool: "npa-date-calculator",
     question: "What do SMA-0, SMA-1 and SMA-2 mean?",
     term: "SMA-0, SMA-1, SMA-2",
     short: "Special mention accounts — the stages before NPA.",
@@ -136,6 +149,7 @@ export const TERMS: Term[] = [
   },
   {
     slug: "npa",
+    tool: "npa-date-calculator",
     question: "What is an NPA (non-performing asset)?",
     term: "NPA (non-performing asset)",
     short: "An account where payment is overdue beyond the prescribed period.",
@@ -156,6 +170,7 @@ export const TERMS: Term[] = [
   },
   {
     slug: "provisioning",
+    tool: "nbfc-provisioning-calculator",
     question: "What is provisioning in lending?",
     term: "Provisioning",
     short: "The amount set aside against expected loss.",
@@ -176,6 +191,7 @@ export const TERMS: Term[] = [
   },
   {
     slug: "ltv",
+    tool: "gold-loan-ltv-calculator",
     question: "What is LTV (loan to value)?",
     term: "LTV (loan to value)",
     short: "The loan as a percentage of the security's value.",
@@ -196,6 +212,7 @@ export const TERMS: Term[] = [
   },
   {
     slug: "apr",
+    tool: "apr-calculator",
     question: "What is APR (annual percentage rate)?",
     term: "APR (annual percentage rate)",
     short: "The all-in cost of a loan, expressed as a yearly rate.",
@@ -216,6 +233,8 @@ export const TERMS: Term[] = [
   },
   {
     slug: "penal-charges",
+    plural: true,
+    tool: "penal-charge-calculator",
     question: "What are penal charges?",
     term: "Penal charges",
     short: "What a lender may levy for a default — as a charge, not as extra interest.",
@@ -236,6 +255,7 @@ export const TERMS: Term[] = [
   },
   {
     slug: "kfs",
+    tool: "kfs-checklist",
     question: "What is a Key Facts Statement (KFS)?",
     term: "KFS (Key Facts Statement)",
     short: "A standard-format summary of what a loan actually costs.",
@@ -256,6 +276,7 @@ export const TERMS: Term[] = [
   },
   {
     slug: "emi",
+    tool: "emi-calculator",
     question: "What is an EMI (equated monthly instalment)?",
     term: "EMI (equated monthly instalment)",
     short: "A fixed monthly payment covering both interest and principal.",
@@ -412,6 +433,7 @@ export const TERMS: Term[] = [
   },
   {
     slug: "prepayment",
+    tool: "prepayment-charge-checker",
     question: "What is prepayment on a loan?",
     term: "Prepayment",
     short: "Paying off part of a loan early, without closing it.",
@@ -432,6 +454,7 @@ export const TERMS: Term[] = [
   },
   {
     slug: "foreclosure",
+    tool: "prepayment-charge-checker",
     question: "What is foreclosure of a loan?",
     term: "Foreclosure",
     short: "Closing a loan by paying the whole outstanding early.",

@@ -1121,3 +1121,59 @@ describe("a post answers before it navigates", () => {
     expect(wrong.map((f) => f.replace(`${OUT}/`, ""))).toEqual([]);
   });
 });
+
+/**
+ * A derived heading has to be grammatical for every term it is derived from.
+ *
+ * The glossary's section headings carry the term, which is the SEO point — "How is DPD calculated?"
+ * is a question somebody types. Deriving them from a template got two things wrong: it kept the
+ * capital, so a heading read "How is Provisioning calculated?", and it assumed every entry was a
+ * singular mass noun, so two came out as "How is Penal charges calculated?" and "How is IRAC norms
+ * calculated?".
+ */
+describe("glossary headings read as English", () => {
+  const OUT = resolve(__dirname, "../out");
+
+  it.runIf(existsSync(OUT))("agrees in number and does not capitalise mid-sentence", () => {
+    const pages = execSync(`find ${OUT}/glossary -name index.html`, { encoding: "utf8" })
+      .trim().split("\n").filter((f) => !f.endsWith("glossary/index.html"));
+    expect(pages.length).toBeGreaterThan(15);
+
+    const bad: string[] = [];
+    for (const f of pages) {
+      const html = readFileSync(f, "utf8").replace(/<footer[\s\S]*?<\/footer>/g, "");
+      for (const m of html.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/g)) {
+        const h = m[1].replace(/<[^>]+>/g, "").trim();
+        // A term is plural when the heading says so; the two forms must never be mixed.
+        if (/^How is .* (charges|norms|buckets) calculated\?$/.test(h)) bad.push(`${f}: ${h}`);
+        if (/^Why does .* (charges|norms|buckets) matter\?$/.test(h)) bad.push(`${f}: ${h}`);
+        // Mid-sentence capital on an ordinary word: "How is Provisioning calculated?"
+        const mid = /^(?:How (?:is|are)|Why (?:does|do)|What the regulations say about|What a lending system has to do about) ([A-Z][a-z])/.exec(h);
+        if (mid) bad.push(`${f}: ${h}`);
+      }
+    }
+    expect(bad.map((b) => b.replace(`${OUT}/`, ""))).toEqual([]);
+  });
+
+  /**
+   * The rail: a definition page and a guide both left the right half of a wide screen blank. What
+   * goes there differs by page, and deliberately — a glossary term offers the tool that answers it,
+   * a guide offers the rest of the path. A guide must NOT offer a demo: these are linked from
+   * inside the running product, so a customer is as likely a reader as a prospect.
+   */
+  it.runIf(existsSync(OUT))("gives a glossary term its tool and a guide its path", () => {
+    const gloss = readFileSync(join(OUT, "glossary/provisioning/index.html"), "utf8");
+    expect(gloss).toContain("Open the tool");
+    expect(gloss).toContain("Provisioning calculator");
+
+    const guides = execSync(`find ${OUT}/help -name index.html`, { encoding: "utf8" })
+      .trim().split("\n").filter((f) => !f.endsWith("help/index.html"));
+    for (const f of guides) {
+      const html = readFileSync(f, "utf8");
+      expect(html, `${f} has no path rail`).toContain('aria-label="All guides"');
+      expect(html, `${f} pitches a demo in the rail`).not.toMatch(
+        /aria-label="All guides"[\s\S]{0,4000}?Book a demo/,
+      );
+    }
+  });
+});

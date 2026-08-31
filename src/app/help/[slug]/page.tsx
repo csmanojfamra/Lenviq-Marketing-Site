@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Section } from "@/components/ui";
 import { Shot, PhoneShot, type ShotMark } from "@/components/shot";
-import { publishedHelp, helpBySlug, helpNeighbours } from "@/lib/help";
+import { publishedHelp, helpBySlug, helpNeighbours, helpSections } from "@/lib/help";
 import { absolute, COMPANY } from "@/lib/site";
 import { renderMarkdown } from "@/lib/markdown";
 import { ProductCta } from "@/components/product-cta";
@@ -137,7 +137,20 @@ export default async function HelpPage({ params }: { params: Promise<{ slug: str
         {p.audience ? ` · ${p.audience}` : ""}
       </p>
 
-      <div className="mt-s5 max-w-prose">
+      {/*
+        * The sequence in the rail, not a demo ask.
+        *
+        * The right half of a wide screen was blank on every guide. What belongs there is what a
+        * documentation site puts there — where you are and what else there is — and NOT the product
+        * card the blog carries: these pages are linked from inside the running product now, so a
+        * customer halfway through configuring a scheme is as likely a reader as a prospect, and
+        * "Book a demo" is the wrong thing to show somebody who has already bought it.
+        *
+        * The screenshots keep the reading column. They are 900px wide at source and render at 794,
+        * so a wider column would upscale them rather than show more.
+        */}
+      <div className="mt-s5 grid gap-s6 xl:grid-cols-[minmax(0,1fr)_16rem] xl:items-start">
+        <div className="max-w-prose">
         {blocks(p.body).map((b, i) =>
           b.kind === "md" ? (
             <div key={i} className="prose-lenviq" dangerouslySetInnerHTML={{ __html: renderMarkdown(b.text) }} />
@@ -147,6 +160,35 @@ export default async function HelpPage({ params }: { params: Promise<{ slug: str
             <Shot key={i} name={b.name} alt={b.alt} caption={b.caption} marks={b.marks} />
           ),
         )}
+        </div>
+
+        <nav className="hidden xl:block xl:sticky xl:top-24" aria-label="All guides">
+          <p className="text-[13px] font-semibold uppercase tracking-wide text-muted">The path</p>
+          <ol className="mt-s3 grid gap-s3">
+            {helpSections().map((group) => (
+              <li key={group.section}>
+                <p className="text-[13px] font-medium text-ink">{group.section}</p>
+                <ul className="mt-1 grid gap-1">
+                  {group.pages.map((g) => (
+                    <li key={g.slug}>
+                      <Link
+                        href={`/help/${g.slug}/`}
+                        aria-current={g.slug === p.slug ? "page" : undefined}
+                        className={
+                          g.slug === p.slug
+                            ? "block border-l-2 border-cta pl-s2 text-[14px] font-medium leading-snug text-ink"
+                            : "block border-l-2 border-transparent pl-s2 text-[14px] leading-snug text-slate-mid transition-colors hover:border-line-strong hover:text-ink"
+                        }
+                      >
+                        {g.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ol>
+        </nav>
       </div>
 
       {/*

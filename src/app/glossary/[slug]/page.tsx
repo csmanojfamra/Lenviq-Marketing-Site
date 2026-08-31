@@ -5,7 +5,9 @@ import { notFound } from "next/navigation";
 import { Section } from "@/components/ui";
 import { TERMS, termBySlug, type Term } from "@/lib/glossary";
 import { absolute } from "@/lib/site";
-import { ProductCta } from "@/components/product-cta";
+import { ProductCta, ProductCtaCompact } from "@/components/product-cta";
+import { toolBySlug } from "@/lib/tools";
+import { SITE } from "@/lib/site";
 
 export function generateStaticParams() {
   return TERMS.map((t) => ({ slug: t.slug }));
@@ -66,8 +68,28 @@ export default async function TermPage({ params }: { params: Promise<{ slug: str
   const t = termBySlug(slug);
   if (!t) notFound();
 
-  /** "DPD (days past due)" is the H1's job; the section headings use what people say: "DPD". */
-  const short = t.term.replace(/\s*\([^)]*\)\s*/g, " ").trim();
+  /**
+   * The term as it reads mid-sentence.
+   *
+   * "DPD (days past due)" is the H1's job; a heading uses what people say. Two things the first
+   * version of this got wrong: it kept the capital, so a heading read "How is Provisioning
+   * calculated?", and it assumed every term was a singular mass noun, so two of them came out as
+   * "How is Penal charges calculated?" and "How is IRAC norms calculated?".
+   *
+   * Only the FIRST word is lowercased, and only when it is not itself an acronym — "penal charges"
+   * and "static pool analysis", but "IRAC norms" and "DPD" untouched.
+   */
+  const bare = t.term.replace(/\s*\([^)]*\)\s*/g, " ").trim();
+  const [firstWord, ...restWords] = bare.split(" ");
+  const short =
+    firstWord === firstWord.toUpperCase()
+      ? bare
+      : [firstWord.toLowerCase(), ...restWords].join(" ");
+  /** The same term at the start of a heading, where a lowercase first letter reads as a typo. */
+  const Short = short.charAt(0).toUpperCase() + short.slice(1);
+  const tool = t.tool ? toolBySlug(t.tool) : undefined;
+  const is = t.plural ? "are" : "is";
+  const does = t.plural ? "do" : "does";
 
   const related = (t.related ?? []).map(termBySlug).filter(Boolean) as Term[];
 
@@ -98,17 +120,38 @@ export default async function TermPage({ params }: { params: Promise<{ slug: str
           Glossary
         </Link>
       </nav>
+      {/*
+        * A rail, as the blog has.
+        *
+        * On a wide screen the definition sat in a reading column with the entire right half of the
+        * page blank. Twelve of the twenty-two terms have a free tool on this site that answers them
+        * — the NPA date calculator beside NPA, the provisioning calculator beside provisioning —
+        * and offering it next to the definition is both more useful than blank space and more
+        * useful than the closing block alone, which only reaches a reader who finishes.
+        */}
+      <div className="grid gap-s6 xl:grid-cols-[minmax(0,1fr)_18rem] xl:items-start">
+        <div>
       <h1 className="mt-s2 max-w-3xl text-[32px] font-extrabold leading-[1.12] tracking-display-tight text-ink sm:text-[40px]">
         {t.question}
       </h1>
       <p className="mt-s3 max-w-prose text-[18px] font-medium leading-prose text-ink">{t.short}</p>
       <p className="mt-s4 max-w-prose text-[16px] leading-prose text-slate-mid">{t.body}</p>
 
-      <Part id="how-it-is-calculated" head={`How is ${short} calculated?`}>{t.computed}</Part>
-      <Part id="worked-example" head={`${short}: a worked example`}>{t.example}</Part>
-      <Part id="why-it-matters" head={`Why does ${short} matter?`}>{t.matters}</Part>
+      <Part id="how-it-is-calculated" head={`How ${is} ${short} calculated?`}>{t.computed}</Part>
+      <Part id="worked-example" head={`${Short}: a worked example`}>{t.example}</Part>
+      <Part id="why-it-matters" head={`Why ${does} ${short} matter?`}>{t.matters}</Part>
       <Part id="regulatory-position" head={`What the regulations say about ${short}`}>{t.regulatory}</Part>
       <Part id="in-a-lending-system" head={`What a lending system has to do about ${short}`}>{t.inProduct}</Part>
+
+        </div>
+
+        <div className="hidden xl:block xl:sticky xl:top-24">
+          <ProductCtaCompact
+            line={tool ? tool.helps : `Lending teams use ${SITE.name} to run origination, servicing and the accounting behind them on one system.`}
+            tool={tool ? { href: `/tools/${tool.slug}/`, name: tool.name } : null}
+          />
+        </div>
+      </div>
 
       {related.length > 0 && (
         <section className="mt-s6 border-t border-line pt-s4">
