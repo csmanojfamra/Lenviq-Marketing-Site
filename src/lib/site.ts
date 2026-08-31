@@ -40,13 +40,22 @@ export const COMPANY = {
   legalName: "FastLegal Technologies Private Limited",
   shortName: "FastLegal Technologies",
   /**
-   * Left blank deliberately rather than invented. The CIN and GSTIN are real numbers that a
-   * prospect will check against the MCA and GST portals, and a wrong one is worse than an absent
-   * one — see DECISIONS_PENDING.md, BRAND-1 open item.
+   * Published, and checkable against the MCA register.
+   *
+   * These were blank for a while, on the rule that a wrong number is worse than an absent one. They
+   * are not unknown any more — the CIN and the registered office are stated in the Privacy Policy,
+   * the Terms and the Subscription Agreement, and CoSecOffice's own footer carries the same CIN —
+   * so the About page saying "to be published" was telling a visitor a fact was unavailable while
+   * two other pages on the same site printed it.
+   *
+   * The GSTIN is still genuinely unknown, so there is no row for it rather than a row apologising
+   * for itself.
    */
-  cin: "",
+  cin: "U74999RJ2018PTC060472",
   gstin: "",
-  registeredOffice: "",
+  registeredOffice: "S-226, Time Square, Central Spine, Vidhyadhar Nagar, Jaipur, Rajasthan 302039",
+  /** The year of incorporation, from the CIN. Used wherever the site would otherwise reach for an adjective. */
+  since: 2018,
   /** The address a demo request goes to — confirmed monitored. */
   email: "hello@lenviq.in",
   /** Confirmed monitored, and the same number on WhatsApp. E.164 for the tel: and wa.me links. */

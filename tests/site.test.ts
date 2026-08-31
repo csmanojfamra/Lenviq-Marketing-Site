@@ -206,11 +206,30 @@ describe("nothing is claimed that cannot be checked", () => {
     expect(html!).not.toMatch(/testimonial|case stud|as featured in|our customers include/i);
   });
 
-  it("the registration numbers are blank rather than invented", () => {
-    // A CIN is checked against the MCA register. A wrong one is worse than an absent one.
+  /**
+   * A registration number is blank, or it is the real one — never an approximation.
+   *
+   * This used to assert the CIN stayed empty, which was right while nobody had it. It is known now
+   * and printed on three pages, so the guard moves to the thing it was actually protecting: the
+   * number in `site.ts` must be a well-formed CIN AND must be the same one the legal documents
+   * state. A prospect checks it against the MCA register, and a site that quotes two different CINs
+   * is worse than one that quotes none.
+   */
+  it("states a registration number only where it is the real one", () => {
     const site = src("src/lib/site.ts");
-    expect(site).toMatch(/cin: ""/);
-    expect(site).toMatch(/gstin: ""/);
+    const cin = /cin: "([^"]*)"/.exec(site)?.[1] ?? "";
+    const gstin = /gstin: "([^"]*)"/.exec(site)?.[1] ?? "";
+
+    if (cin) {
+      expect(cin, "not a well-formed CIN").toMatch(/^[UL]\d{5}[A-Z]{2}\d{4}[A-Z]{3}\d{6}$/);
+      for (const doc of ["privacy", "terms", "subscription-agreement"]) {
+        const legal = readFileSync(join(SITE, `content/legal/${doc}.md`), "utf8");
+        expect(legal.includes(cin), `${doc}.md states a different CIN`).toBe(true);
+      }
+    }
+    // Still genuinely unknown. Blank, and no row on the page apologising for it.
+    expect(gstin).toBe("");
+    expect(readFileSync(join(SITE, "src/app/about/page.tsx"), "utf8")).not.toContain("GSTIN");
   });
 
   it("the contact CTA delivers somewhere, rather than discarding what it is given", () => {
