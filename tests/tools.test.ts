@@ -12,6 +12,7 @@ import { penalCharge, type PenalInput } from "../src/lib/tools/penal";
 import { KFS_FIELDS, KFS_RULES, kfsGaps } from "../src/lib/tools/kfs";
 import { provisionFor, DOUBTFUL_SECURED, BANK_DOUBTFUL_SECURED } from "../src/lib/tools/provision";
 import { prepaymentEligibility, MSE_CAP_PAISE, LENDER_LABEL } from "../src/lib/tools/prepayment";
+import { TOOLS } from "../src/lib/tools";
 
 const R = (rupees: number) => BigInt(Math.round(rupees * 100));
 
@@ -620,6 +621,44 @@ describe("acronyms survive the copy", () => {
   it("keeps every lender label as written", () => {
     for (const l of Object.values(LENDER_LABEL)) {
       expect(l).not.toBe(l.toLowerCase());
+    }
+  });
+});
+
+/**
+ * A tool may only claim the provenance it actually has.
+ *
+ * Every tool page carried the same paragraph — "this runs the same arithmetic as the platform, and
+ * a test fails the build if it differs" — which is true of the four whose cases the product emits
+ * and false of the six that either compute from a published rate or compute nothing at all. This
+ * asserts the `pinned` set is exactly the set the fixture file actually covers, so the claim cannot
+ * outgrow the evidence.
+ */
+describe("a tool claims only the provenance it has", () => {
+  it("pins exactly the tools the product emits cases for", () => {
+    const pinned = TOOLS.filter((t) => t.provenance === "pinned").map((t) => t.slug).sort();
+    expect(pinned).toEqual([
+      "apr-calculator",
+      "emi-calculator",
+      "gold-loan-ltv-calculator",
+      "npa-date-calculator",
+    ]);
+  });
+
+  it("gives every tool a provenance, and names a source wherever it states a position", () => {
+    for (const t of TOOLS) {
+      expect(["pinned", "computed", "stated"], t.slug).toContain(t.provenance);
+      if (t.provenance === "stated") {
+        expect(t.source, `${t.slug} states a position with no source`).toBeTruthy();
+      }
+    }
+  });
+
+  /** The fixture file has to actually carry cases for each family the pinned tools rely on. */
+  it("has a fixture case behind each pinned family", () => {
+    for (const family of ["emi", "apr", "gold", "dpd"]) {
+      const cases = (fixtures as Record<string, unknown>)[family];
+      expect(Array.isArray(cases) && cases.length > 0, `no fixtures for ${family}`).toBe(true);
     }
   });
 });

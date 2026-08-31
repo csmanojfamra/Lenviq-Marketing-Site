@@ -26,6 +26,19 @@ export interface Tool {
    * and it excludes everyone else on the page's own masthead.
    */
   helps: string;
+  /**
+   * Where this tool's answer actually comes from. Three honest categories, because the page used to
+   * tell all ten of them the same story — "this runs the same arithmetic as the platform, and a
+   * test fails the build if it differs" — which is true of four.
+   *
+   * `pinned`   the product emits worked cases from its own code and a test asserts this page
+   *            reproduces every one. EMI, APR, gold LTV, the classification dates.
+   * `computed` the arithmetic is this page's own, applied to a rate published in the instrument
+   *            named on the page. Provisioning, penal charges.
+   * `stated`   no arithmetic at all. It applies a Direction to the facts you enter and names the
+   *            clause. The checklist, the layer finder, the returns calendar, the prepayment checker.
+   */
+  provenance: "pinned" | "computed" | "stated";
   /** Short enough for a navigation menu, where `name` and `question` are both too long. */
   navLabel: string;
   navNote: string;
@@ -41,6 +54,7 @@ export interface Tool {
 export const TOOLS: Tool[] = [
   {
     slug: "emi-calculator",
+    provenance: "pinned",
     navLabel: "EMI calculator",
     navNote: "Instalment, schedule, and what a flat rate really costs",
     name: "EMI calculator",
@@ -52,6 +66,7 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "nbfc-provisioning-calculator",
+    provenance: "computed",
     navLabel: "Provisioning calculator",
     navNote: "What to provide at each classification",
     name: "Provisioning calculator",
@@ -66,6 +81,7 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "prepayment-charge-checker",
+    provenance: "stated",
     name: "Prepayment charge checker",
     navLabel: "Prepayment charges",
     navNote: "Whether this loan may be charged at all",
@@ -80,6 +96,7 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "penal-charge-calculator",
+    provenance: "computed",
     navLabel: "Penal charges",
     navNote: "The charge, and the 2024 rules around it",
     name: "Penal charge calculator",
@@ -94,6 +111,7 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "kfs-checklist",
+    provenance: "stated",
     navLabel: "KFS checklist",
     navNote: "What the prescribed format requires",
     name: "Key Facts Statement checklist",
@@ -108,6 +126,7 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "nbfc-layer-finder",
+    provenance: "stated",
     navLabel: "NBFC layer finder",
     navNote: "Base, Middle or Upper — and what changes",
     name: "NBFC layer finder",
@@ -122,6 +141,7 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "nbfc-returns-calendar",
+    provenance: "stated",
     navLabel: "Returns calendar",
     navNote: "Which returns you file, and when",
     name: "NBFC returns calendar",
@@ -138,6 +158,7 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "apr-calculator",
+    provenance: "pinned",
     navLabel: "APR calculator",
     navNote: "The rate a Key Facts Statement discloses",
     name: "APR calculator",
@@ -151,6 +172,7 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "npa-date-calculator",
+    provenance: "pinned",
     navLabel: "NPA & SMA dates",
     navNote: "When a missed instalment changes classification",
     name: "NPA & SMA date calculator",
@@ -164,6 +186,7 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "gold-loan-ltv-calculator",
+    provenance: "pinned",
     navLabel: "Gold loan LTV",
     navNote: "Value a packet and see the permitted advance",
     name: "Gold loan LTV calculator",

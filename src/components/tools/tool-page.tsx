@@ -6,6 +6,29 @@ import { TOOLS, type Tool } from "@/lib/tools";
 import { ProductCta, ProductCtaCompact } from "@/components/product-cta";
 
 /**
+ * What each kind of tool can honestly say about where its answer comes from.
+ *
+ * Every tool used to carry the `pinned` paragraph. It is true of four of them. Telling a reader
+ * that a checklist runs arithmetic held to the product's own code — when it runs none, and is not
+ * held to anything but the Direction it names — is exactly the sort of claim this site refuses to
+ * make about the product elsewhere.
+ */
+const PROVENANCE: Record<string, { head: string; body: string }> = {
+  pinned: {
+    head: "Where these numbers come from",
+    body: `This runs the same arithmetic as the ${SITE.name} platform, and it is held to it: the platform emits a table of worked cases from its own code, and a test here fails the build if this page reproduces any of them differently. A calculator that quietly disagreed with the software it advertises would be worse than no calculator.`,
+  },
+  computed: {
+    head: "Where these numbers come from",
+    body: "The arithmetic is this page's own and runs in your browser. The rates it applies are not — they are read straight from the instrument named below, and a test fails the build if any of them is changed without the source changing with it.",
+  },
+  stated: {
+    head: "Where this answer comes from",
+    body: "This computes nothing. It applies the instrument named below to the facts you enter, and tells you which clause produced the answer, so you can go and read it rather than take this page's word for it.",
+  },
+};
+
+/**
  * The frame every tool sits in.
  *
  * Two decisions worth stating, because both are the opposite of what a lead-generation page does.
@@ -76,13 +99,10 @@ export function ToolPage({ tool, children }: { tool: Tool; children: React.React
         <div className="grid gap-s5 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
             <h2 className="font-display text-[22px] font-bold tracking-display text-ink">
-              Where these numbers come from
+              {PROVENANCE[tool.provenance].head}
             </h2>
             <p className="mt-s3 max-w-prose text-[16px] leading-prose text-slate-mid">
-              This runs the same arithmetic as the {SITE.name} platform, and it is held to it: the
-              platform emits a table of worked cases from its own code, and a test here fails the
-              build if this page reproduces any of them differently. A calculator that quietly
-              disagreed with the software it advertises would be worse than no calculator.
+              {PROVENANCE[tool.provenance].body}
             </p>
             <p className="mt-s3 max-w-prose text-[16px] leading-prose text-slate-mid">
               It is a guide, not advice. Your own board-approved policy, your scheme terms and your

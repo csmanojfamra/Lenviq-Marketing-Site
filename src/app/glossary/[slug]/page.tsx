@@ -31,20 +31,43 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 /** One optional part of an entry. Absent means absent — a padded section is worse than a short page. */
-function Part({ head, children }: { head: string; children?: string }) {
+/**
+ * One section of a definition.
+ *
+ * ## Why the heading carries the term
+ *
+ * Every term page used the same five headings — "How it is calculated", "Why it matters", "The
+ * regulatory position" — which are labels rather than headings: identical on twenty-two pages, and
+ * naming nothing. "How is DPD calculated?" is a question somebody types into a search box and a
+ * heading a snippet can be lifted from; "How it is calculated" is neither.
+ *
+ * The SHAPE stays fixed on purpose. A reference page earns its keep by being the same shape every
+ * time, so a reader who has used one knows where the regulatory position sits on all of them. What
+ * changes is that each heading now names its own subject.
+ *
+ * The `id` makes each section addressable, so a post can link to the part of a definition it
+ * actually means rather than to the top of the page.
+ */
+function Part({ id, head, children }: { id: string; head: string; children?: string }) {
   if (!children) return null;
   return (
     <section className="mt-s5">
-      <h2 className="font-display text-[19px] font-bold tracking-display text-ink">{head}</h2>
+      <h2 id={id} className="font-display text-[19px] font-bold tracking-display text-ink">
+        {head}
+      </h2>
       <p className="mt-s2 max-w-prose text-[16px] leading-prose text-slate-mid">{children}</p>
     </section>
   );
 }
 
+
 export default async function TermPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const t = termBySlug(slug);
   if (!t) notFound();
+
+  /** "DPD (days past due)" is the H1's job; the section headings use what people say: "DPD". */
+  const short = t.term.replace(/\s*\([^)]*\)\s*/g, " ").trim();
 
   const related = (t.related ?? []).map(termBySlug).filter(Boolean) as Term[];
 
@@ -81,11 +104,11 @@ export default async function TermPage({ params }: { params: Promise<{ slug: str
       <p className="mt-s3 max-w-prose text-[18px] font-medium leading-prose text-ink">{t.short}</p>
       <p className="mt-s4 max-w-prose text-[16px] leading-prose text-slate-mid">{t.body}</p>
 
-      <Part head="How it is calculated">{t.computed}</Part>
-      <Part head="A worked example">{t.example}</Part>
-      <Part head="Why it matters">{t.matters}</Part>
-      <Part head="The regulatory position">{t.regulatory}</Part>
-      <Part head="What a lending system has to do about it">{t.inProduct}</Part>
+      <Part id="how-it-is-calculated" head={`How is ${short} calculated?`}>{t.computed}</Part>
+      <Part id="worked-example" head={`${short}: a worked example`}>{t.example}</Part>
+      <Part id="why-it-matters" head={`Why does ${short} matter?`}>{t.matters}</Part>
+      <Part id="regulatory-position" head={`What the regulations say about ${short}`}>{t.regulatory}</Part>
+      <Part id="in-a-lending-system" head={`What a lending system has to do about ${short}`}>{t.inProduct}</Part>
 
       {related.length > 0 && (
         <section className="mt-s6 border-t border-line pt-s4">
