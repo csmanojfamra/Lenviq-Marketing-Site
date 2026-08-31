@@ -2,6 +2,7 @@
 title: Prepare an RBI return
 description: Generate the return from the book rather than from a spreadsheet somebody maintains, and see what it was built from.
 section: The books and the regulator
+route: "/rbi-returns"
 order: 20
 audience: Compliance
 ---

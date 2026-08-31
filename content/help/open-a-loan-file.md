@@ -2,6 +2,7 @@
 title: Open a loan application
 description: Turn a customer into a loan file, choose the scheme, and see what is blocking the next stage before you press anything.
 section: Origination
+route: "/applications"
 order: 30
 audience: Credit officer
 ---

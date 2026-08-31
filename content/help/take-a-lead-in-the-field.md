@@ -2,6 +2,7 @@
 title: Take a lead at the customer's door
 description: Capture an enquiry on a phone, check it is not somebody you already lend to, and create the customer without going back to the branch.
 section: Origination
+route: "/leads"
 order: 10
 audience: Sales officer
 ---

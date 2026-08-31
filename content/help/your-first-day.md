@@ -2,6 +2,7 @@
 title: Your first day in Lenviq
 description: Sign in, understand what your role lets you see, and read the dashboard — the three things that make every other guide make sense.
 section: Getting started
+route: "/dashboard"
 order: 10
 audience: Everyone
 ---

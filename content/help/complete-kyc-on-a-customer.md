@@ -2,6 +2,7 @@
 title: Complete a customer's KYC
 description: Fill in what a doorstep capture could not, attach the identity documents, and get the record to a state a loan file can be opened on.
 section: Origination
+route: "/parties"
 order: 20
 audience: Credit / Operations
 ---

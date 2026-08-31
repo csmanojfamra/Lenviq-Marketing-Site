@@ -2,6 +2,7 @@
 title: Set up a loan product
 description: Define a scheme — its rate band, its caps, its approval slab and what it requires — without anybody writing code.
 section: Getting started
+route: "/schemes"
 order: 20
 audience: Product / Credit head
 ---

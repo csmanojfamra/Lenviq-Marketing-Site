@@ -2,6 +2,7 @@
 title: See where the book stands
 description: DPD, SMA and NPA computed at day-end from the same due events, with the provisioning that follows from them.
 section: Servicing and collections
+route: "/lms/loans"
 order: 30
 audience: Credit head / Operations
 ---

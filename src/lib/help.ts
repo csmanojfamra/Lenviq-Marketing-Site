@@ -34,6 +34,14 @@ export interface HelpPage {
   order: number;
   /** Who does this: "Sales officer", "Credit", "Operations", "Field agent". */
   audience: string;
+  /**
+   * The product screen this guide documents, if it documents one.
+   *
+   * Declared HERE rather than in the product, because the guide is what knows which screen it opens
+   * on — and because a slug renamed on this side has to be able to break a build rather than quietly
+   * 404 a link inside somebody's lending system. `scripts/emit-help-map.mjs` writes it across.
+   */
+  route?: string;
   draft: boolean;
   body: string;
 }
@@ -80,6 +88,7 @@ function parse(file: string): HelpPage {
     section: meta.section ?? "Using Lenviq",
     order: meta.order ? Number(meta.order) : 999,
     audience: meta.audience ?? "",
+    route: meta.route || undefined,
     draft: meta.draft === "true",
     body: m[2],
   };

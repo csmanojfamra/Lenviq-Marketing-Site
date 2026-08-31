@@ -2,6 +2,7 @@
 title: Disburse a loan
 description: Raise a tranche, have somebody else release it, and see the money reach the borrower and the books at the same moment.
 section: Origination
+route: "/approvals-inbox"
 order: 40
 audience: Operations
 ---

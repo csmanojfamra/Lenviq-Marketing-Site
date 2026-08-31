@@ -983,3 +983,33 @@ describe("headings say what is under them", () => {
     expect(vague).toEqual([]);
   });
 });
+
+/**
+ * Every guide either documents a product screen or says it does not.
+ *
+ * The product puts a "How this works" link on the screens these name, and the map is emitted from
+ * here by `scripts/emit-help-map.mjs`. Two guides are deliberately unrouted — both document the
+ * field app, a phone UI in two languages where a link to a browser page is the wrong affordance —
+ * so this asserts a route is *decided*, not that every guide has one.
+ */
+describe("the help guides know which screen they document", () => {
+  const SRC = resolve(__dirname, "../content/help");
+  const guides = readdirSync(SRC)
+    .filter((n) => n.endsWith(".md"))
+    .map((n) => ({ slug: n.replace(/\.md$/, ""), raw: readFileSync(join(SRC, n), "utf8") }));
+
+  const FIELD_ONLY = ["collect-a-payment-in-the-field", "watch-the-collection-book"];
+
+  it("routes every guide except the two written about the field app", () => {
+    const routed = guides.filter((g) => /^route:/m.test(g.raw.split("---")[1] ?? "")).map((g) => g.slug);
+    const unrouted = guides.map((g) => g.slug).filter((s) => !routed.includes(s));
+    expect(unrouted.sort()).toEqual(FIELD_ONLY.sort());
+  });
+
+  it("never points two guides at the same screen", () => {
+    const routes = guides
+      .map((g) => /^route:\s*"([^"]+)"/m.exec(g.raw.split("---")[1] ?? "")?.[1])
+      .filter(Boolean);
+    expect(new Set(routes).size).toBe(routes.length);
+  });
+});
