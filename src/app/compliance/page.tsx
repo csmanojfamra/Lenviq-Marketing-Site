@@ -56,10 +56,72 @@ const POSITIONS = [
     ),
   },
   {
+    term: "NBFC provisioning rates, not bank rates",
+    id: "provisioning-rates",
+    short: "A sub-standard asset takes 10% of the whole outstanding; a doubtful one is split, and the secured portion takes 20, 30 or 50% by age.",
+    cite: "RBI/DOR/2025-26/356 — IRACP Directions, 2025",
+    body: (
+      <>
+        The two tables are confused constantly, including by pages that publish one under the
+        other&rsquo;s heading. A bank provides 25, 40 and 100% on the secured portion of a doubtful
+        asset; an NBFC provides{" "}
+        <strong className="font-semibold text-ink">20, 30 and 50%</strong>. Sub-standard is 10% of
+        the whole outstanding whatever security is held — the split belongs to doubtful, where the
+        secured portion takes the rate above and everything beyond the realisable value of the
+        security takes 100%. That is a split, not a netting: security worth more than the loan does
+        not reduce the provision to nothing.{" "}
+        <Link href="/tools/nbfc-provisioning-calculator" className="underline decoration-line underline-offset-4 hover:text-ink">
+          The calculator
+        </Link>{" "}
+        works an example either way.
+      </>
+    ),
+  },
+  {
+    term: "The standard-asset rate follows the layer",
+    id: "standard-provision-layer",
+    short: "0.25% in the Base Layer and 0.40% in the Middle and Upper, with finer rates above the Base Layer for particular exposures.",
+    cite: "RBI/DOR/2025-26/356 — IRACP Directions, 2025, read with the Scale Based Regulation Directions",
+    body: (
+      <>
+        The standard book is the largest number an NBFC carries, so the rate against it is the
+        largest provision on the balance sheet — and it is{" "}
+        <strong className="font-semibold text-ink">not one rate</strong>. A Middle Layer lender
+        holding the Base Layer&rsquo;s 0.25% is short by nearly two fifths. Lenviq applies the rate
+        the tenant&rsquo;s layer carries. Above the Base Layer the Directions distinguish exposures
+        further still — individual housing and SME at 0.25%, CRE residential housing at 0.75%, other
+        CRE at 1.00%, teaser-rate housing at 2.00% in its first year — and that finer split needs an
+        exposure classification the product does not yet record, so those rates are on the roadmap
+        rather than in the engine.{" "}
+        <Link href="/tools/nbfc-layer-finder" className="underline decoration-line underline-offset-4 hover:text-ink">
+          Which layer applies
+        </Link>{" "}
+        is worked from the balance sheet, not chosen.
+      </>
+    ),
+  },
+  {
+    term: "Classification is borrower-wise",
+    id: "borrower-wise",
+    short: "If one facility of a borrower is non-performing, every facility of that borrower is.",
+    cite: "RBI/DOR/2025-26/356 — IRACP Directions, 2025",
+    body: (
+      <>
+        The Directions are explicit that asset classification is{" "}
+        <strong className="font-semibold text-ink">borrower-wise and not facility-wise</strong>. A
+        borrower with a defaulted personal loan and a vehicle loan paid to the day has two
+        non-performing assets, not one — and the second is provided for accordingly rather than
+        sitting at the standard rate. It does not run the other way: a facility is not rescued
+        because a sibling was repaid, since an upgrade needs the entire arrears across all of the
+        borrower&rsquo;s facilities.
+      </>
+    ),
+  },
+  {
     term: "IRAC classification at day-end",
     id: "irac",
     short: "Classification is the position at the close of a named day, not a figure recomputed on demand.",
-    cite: "RBI/2021-2022/125 DOR.STR.REC.68/21.04.048/2021-22, 12 November 2021",
+    cite: "RBI/DOR/2025-26/356 — RBI (Non-Banking Financial Companies — Income Recognition, Asset Classification and Provisioning) Directions, 2025, effective 28 November 2025, which consolidated the NBFC prudential norms and carries forward the day-end rule first clarified in RBI/2021-2022/125 of 12 November 2021",
     body: (
       <>
         Days-past-due and asset classification are computed from the{" "}
@@ -74,7 +136,7 @@ const POSITIONS = [
     term: "Upgrade only on full clearance",
     id: "upgrade",
     short: "An NPA returns to standard only when the entire arrears of interest and principal are paid.",
-    cite: "RBI/2021-2022/125, 12 November 2021",
+    cite: "RBI/DOR/2025-26/356 — IRACP Directions, 2025, restating the upgrade rule clarified in RBI/2021-2022/125 of 12 November 2021",
     body: (
       <>
         An account classified as non-performing is upgraded to standard only when{" "}
