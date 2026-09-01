@@ -1,5 +1,5 @@
 ---
-title: "NBFC-ICC in the Base Layer: why your NBFC has two labels, not one"
+title: "NBFC-ICC and the Base Layer: what your category means, what your layer means, and why you have both"
 description: "The category says what an NBFC does. The layer says how much regulation it gets. They are separate questions with separate answers, every NBFC carries one of each, and the reason it feels like a contradiction is that they arrived seven years apart. Also: what happened to NBFC-ND-SI."
 metaDescription: "Category says what an NBFC does; layer says how much regulation it gets. Every NBFC carries one of each — and NBFC-ND-SI no longer exists."
 date: "2026-08-30"

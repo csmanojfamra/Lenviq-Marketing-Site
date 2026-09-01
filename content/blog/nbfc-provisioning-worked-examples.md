@@ -1,5 +1,5 @@
 ---
-title: "NBFC asset classification and provisioning: when a loan turns, and how much you set aside"
+title: "NBFC asset classification and provisioning: standard, sub-standard, doubtful, loss — and what you provide at each"
 description: "A loan is standard until it is ninety days overdue. On day 91 it becomes an NPA and is sub-standard. It stays there twelve months in the Middle and Upper Layers, eighteen in the Base Layer, and then turns doubtful. This works through each stage — what triggers it, what the layer changes, when security matters and when it does not — and then follows one ₹40 lakh loan through all of them."
 metaDescription: "When a loan turns standard, sub-standard, doubtful or loss — and how much has to be provided at each stage, with one loan followed through all of them."
 date: "2026-08-30"

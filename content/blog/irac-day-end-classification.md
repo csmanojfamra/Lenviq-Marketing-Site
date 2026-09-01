@@ -1,5 +1,5 @@
 ---
-title: "Why an intra-day NPA number is not the same number"
+title: "Why an NPA figure run at 11am differs from the same figure at day-end"
 description: "IRAC classification is computed on the day-end position. What that means for a report run at 11am, and what it does to a month-end close."
 date: "2026-08-10"
 category: "Regulatory"

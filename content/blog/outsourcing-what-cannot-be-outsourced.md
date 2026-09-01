@@ -1,5 +1,5 @@
 ---
-title: "You can outsource the activity. You cannot outsource the accountability"
+title: "RBI outsourcing rules for NBFCs: what you may outsource, and what stays yours"
 description: "The Reserve Bank's position on outsourcing by NBFCs is consistent across a decade of instruments, and the 2024 gold loan review showed what happens when it is treated as a formality."
 metaDescription: "The RBI's position has been consistent for a decade, and the 2024 gold loan review showed what happens when it is treated as a formality."
 date: "2026-08-11"

@@ -1,5 +1,5 @@
 ---
-title: "Prepayment charges after the 2025 Directions: read the limbs separately"
+title: "Prepayment charges after the 2025 Directions: who may levy them, and on which loans"
 description: "Paragraph 5(i) binds every lender. Paragraph 5(ii) names entity classes and omits the Base Layer. And 'MSE' is not the same as 'not an individual'."
 metaDescription: "Paragraph 5(i) binds every lender. Paragraph 5(ii) names entity classes and omits the Base Layer. And MSE is not the same as not-an-individual."
 date: "2026-08-11"

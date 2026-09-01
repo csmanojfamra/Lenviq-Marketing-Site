@@ -664,7 +664,8 @@ describe("no two pages compete for the same query", () => {
     // exists to be found through — not whatever was published most recently.
     const top = map.filter((e) => e.priority === 1).map((e) => e.url).sort();
     expect(top).toEqual([
-      "/", "/compliance/", "/gold-loan-software/", "/loan-against-property-software/",
+      "/", "/business-loan-software/", "/cash-credit-software/", "/compliance/",
+      "/gold-loan-software/", "/loan-against-property-software/",
       "/personal-loan-software/", "/platform/", "/vehicle-loan-software/",
     ]);
   });
