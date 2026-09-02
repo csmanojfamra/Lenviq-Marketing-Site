@@ -1,5 +1,5 @@
 ---
-title: "RBI compliance for NBFCs: the six rules a lending system has to get right"
+title: "RBI compliance for NBFCs: asset classification, penal charges, the KFS and the returns"
 description: "Six requirements that land inside an NBFC's systems rather than its policy files: how a loan is classified, what happens to income once it turns, why a penal amount is a charge and not interest, what the Key Facts Statement must contain, what the 2025 gold Directions changed, and the returns that follow from all of it."
 metaDescription: "Six RBI rules a lending system has to get right: classification, income on NPA, penal charges, the KFS, gold lending, and the returns."
 date: "2026-08-12"
