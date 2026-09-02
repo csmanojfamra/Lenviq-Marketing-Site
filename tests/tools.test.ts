@@ -12,6 +12,7 @@ import {
   RETURNS, applicable, quarterEnds, monthEnds, addDays, type Profile,
 } from "../src/lib/tools/returns";
 import { findLayer, type SbrAnswers } from "../src/lib/tools/sbr";
+import { effectiveMonthlyRate } from "../src/lib/tools/finance";
 import { penalCharge, type PenalInput } from "../src/lib/tools/penal";
 import { KFS_FIELDS, KFS_RULES, kfsGaps } from "../src/lib/tools/kfs";
 import { provisionFor, DOUBTFUL_SECURED, BANK_DOUBTFUL_SECURED } from "../src/lib/tools/provision";
@@ -711,5 +712,43 @@ describe("the calculators fit a phone", () => {
         expect(w, `${name}: ${w} needs min-w-0`).toMatch(/min-w-0/);
       }
     }
+  });
+});
+
+describe("the EMI calculator solves the rate when the instalment is fixed", () => {
+  /**
+   * Of principal, instalment, tenure and rate, any three settle the fourth — and every calculator
+   * on the internet assumes the lender picked the rate. A great many did not: "₹5,000 a month for
+   * 24 months" fixes the instalment and the term, and the rate is the consequence. It is also the
+   * figure that has to be disclosed, and the one a lender cannot work out anywhere.
+   */
+  it("₹1,00,000 as 24 × ₹5,000 is about 18.16% reducing", () => {
+    const monthly = effectiveMonthlyRate(10_000_000n, 500_000n, 24);
+    expect(monthly * 12 * 100).toBeCloseTo(18.16, 1);
+  });
+
+  it("agrees with the product engine, which is the point of both existing", () => {
+    /**
+     * `src/lib/lms/emi-engine.ts` under `USER_DEFINED_TENURED` runs the same bisection and returns
+     * 1816 bps for these inputs, with a schedule that closes at exactly zero over 24 instalments.
+     * A public calculator that disagreed with the software behind it would be worse than not
+     * publishing one.
+     */
+    const bps = Math.round(effectiveMonthlyRate(10_000_000n, 500_000n, 24) * 12 * 10_000);
+    expect(bps).toBe(1816);
+  });
+
+  it("a longer term on the same instalment is a lower rate", () => {
+    const short = effectiveMonthlyRate(10_000_000n, 500_000n, 24);
+    const long = effectiveMonthlyRate(10_000_000n, 500_000n, 36);
+    expect(long).toBeGreaterThan(short); // more instalments of the same size is MORE total interest
+  });
+
+  it("instalments that never repay the principal have no rate to find", () => {
+    // 12 × ₹5,000 against ₹1,00,000 is a negative rate, not a cheap loan. The calculator names it
+    // rather than showing a number.
+    const emi = readFileSync(join(SITE, "src/components/tools/emi.tsx"), "utf8");
+    expect(emi).toMatch(/const repays = fixedEmi \* months > principal/);
+    expect(emi).toMatch(/do not repay the amount borrowed/);
   });
 });

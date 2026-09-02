@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { computeEmi, computeApr, amortise, flatRate } from "@/lib/tools/finance";
+import { computeEmi, computeApr, amortise, flatRate, effectiveMonthlyRate } from "@/lib/tools/finance";
 import { Field, Result, rupees } from "./field";
 
 const R = (r: number) => BigInt(Math.round((Number.isFinite(r) ? r : 0) * 100));
@@ -12,21 +12,44 @@ const R = (r: number) => BigInt(Math.round((Number.isFinite(r) ? r : 0) * 100));
  * Everyone has an EMI calculator, and they all stop at the instalment. What a borrower or a lender
  * still cannot see is: what a FLAT rate really costs in reducing-balance terms, whether the
  * schedule actually closes on the amount sanctioned, and what is still owed part-way through.
+ *
+ * AND WHICH WAY ROUND THE ARITHMETIC RUNS. Of principal, instalment, tenure and rate, any three
+ * settle the fourth — but every calculator assumes the lender picked a rate. A great many did not:
+ * a lender who quotes "Rs 5,000 a month for 24 months" has fixed the instalment and the tenure, and
+ * the rate is the consequence. That is the figure they have to disclose and the one they cannot
+ * work out anywhere. Solving it is the same bisection this file already uses to turn a flat quote
+ * into its reducing equivalent.
  */
 export function EmiCalculator() {
   const [principal, setPrincipal] = React.useState(500000);
   const [rate, setRate] = React.useState(12);
   const [months, setMonths] = React.useState(24);
   const [basis, setBasis] = React.useState<"REDUCING" | "FLAT">("REDUCING");
+  const [known, setKnown] = React.useState<"RATE" | "INSTALMENT">("RATE");
+  const [fixedEmi, setFixedEmi] = React.useState(25000);
   const [showAll, setShowAll] = React.useState(false);
 
-  const ok = principal > 0 && months > 0 && rate >= 0;
-  const flat = ok ? flatRate(R(principal), rate, months) : null;
+  /*
+   * With the instalment fixed, the rate is solved and everything else follows from it. The one
+   * input that can be nonsense is an instalment that never repays the principal — 12 x Rs 5,000
+   * against Rs 1,00,000 is a negative rate, not a cheap loan — so it is named rather than shown as
+   * a number.
+   */
+  const repays = fixedEmi * months > principal;
+  const solvedPct = known === "INSTALMENT" && principal > 0 && months > 0 && repays
+    ? effectiveMonthlyRate(R(principal), R(fixedEmi), months) * 12 * 100
+    : 0;
+
+  const ok = known === "INSTALMENT"
+    ? principal > 0 && months > 0 && repays
+    : principal > 0 && months > 0 && rate >= 0;
+  const flat = ok && known === "RATE" ? flatRate(R(principal), rate, months) : null;
 
   // On a flat quote the borrower's real cost is the reducing rate behind it — so the schedule is
   // built on that, which is what the loan actually behaves like.
-  const effectiveRate = basis === "FLAT" ? (flat?.effectiveReducingPct ?? 0) : rate;
-  const emi = basis === "FLAT" ? (flat?.emiPaise ?? 0n) : ok ? computeEmi(R(principal), rate, months) : 0n;
+  const effectiveRate = known === "INSTALMENT" ? solvedPct : basis === "FLAT" ? (flat?.effectiveReducingPct ?? 0) : rate;
+  const emi = known === "INSTALMENT" ? R(fixedEmi)
+    : basis === "FLAT" ? (flat?.emiPaise ?? 0n) : ok ? computeEmi(R(principal), rate, months) : 0n;
   const rows = ok ? amortise(R(principal), effectiveRate, months) : [];
   const totalInterest = rows.reduce((s, r) => s + r.interestPaise, 0n);
   const apr = ok ? computeApr(R(principal), 0n, emi, months) : 0;
@@ -37,6 +60,30 @@ export function EmiCalculator() {
     <div className="mt-s5 grid gap-s5 [&>*]:min-w-0 lg:grid-cols-[minmax(0,20rem)_1fr]">
       <div className="grid gap-s4 self-start rounded-card border border-line bg-subtle p-s4">
         <Field id="e-p" label="Loan amount" value={principal} onChange={setPrincipal} unit="₹" step={10000} />
+
+        <fieldset>
+          <legend className="text-[14px] font-medium text-ink">What the lender fixed</legend>
+          <div className="mt-1 grid grid-cols-2 gap-2">
+            {(["RATE", "INSTALMENT"] as const).map((k) => (
+              <button
+                key={k} type="button" onClick={() => setKnown(k)} aria-pressed={known === k}
+                className={
+                  "rounded-input border px-3 py-2 text-[14px] font-medium transition-colors " +
+                  (known === k ? "border-cta bg-cta text-white" : "border-line-strong bg-card text-ink hover:border-cta")
+                }
+              >
+                {k === "RATE" ? "The rate" : "The instalment"}
+              </button>
+            ))}
+          </div>
+          <p className="mt-1 text-[13px] leading-snug text-muted">
+            {known === "RATE"
+              ? "The usual way round: a rate is quoted and the instalment follows from it."
+              : "“₹5,000 a month for 24 months.” The instalment and the term are the promise, and the rate is whatever falls out of them — which is the figure that has to be disclosed."}
+          </p>
+        </fieldset>
+
+        {known === "RATE" && (
         <fieldset>
           <legend className="text-[14px] font-medium text-ink">How the rate is quoted</legend>
           <div className="mt-1 grid grid-cols-2 gap-2">
@@ -58,13 +105,28 @@ export function EmiCalculator() {
               : "Interest on the whole original amount for the whole tenure, even after most of it is repaid."}
           </p>
         </fieldset>
-        <Field id="e-r" label={basis === "FLAT" ? "Flat rate" : "Interest rate"} value={rate} onChange={setRate} unit="% p.a." step={0.25} />
-        <Field id="e-m" label="Tenure" value={months} onChange={setMonths} unit="months" step={1} min={1} />
+        )}
+
+        {known === "RATE"
+          ? <Field id="e-r" label={basis === "FLAT" ? "Flat rate" : "Interest rate"} value={rate} onChange={setRate} unit="% p.a." step={0.25} />
+          : <Field id="e-e" label="Instalment" value={fixedEmi} onChange={setFixedEmi} unit="₹ / month" step={500}
+                   hint={!repays && principal > 0 && months > 0
+                     ? "Over this term these instalments do not repay the amount borrowed, so there is no rate to find."
+                     : undefined} />}
+        <Field id="e-m" label={known === "INSTALMENT" ? "Number of instalments" : "Tenure"} value={months} onChange={setMonths} unit="months" step={1} min={1} />
       </div>
 
       <div className="grid gap-s3 [&>*]:min-w-0">
         <div className="grid gap-s3 sm:grid-cols-3">
-          <Result label="Monthly instalment" value={ok ? rupees(emi) : "—"} sub={ok ? `× ${months} months` : undefined} />
+          {/*
+            * The headline swaps with the mode, because the answer swaps. Someone who fixed the
+            * instalment already knows it — showing it back to them as the result is the thing every
+            * other calculator does and it tells them nothing.
+            */}
+          {known === "INSTALMENT"
+            ? <Result label="Interest rate, solved" value={ok ? `${solvedPct.toFixed(2)}%` : "—"}
+                      sub={ok ? "per annum, reducing balance" : undefined} tone="good" />
+            : <Result label="Monthly instalment" value={ok ? rupees(emi) : "—"} sub={ok ? `× ${months} months` : undefined} />}
           <Result label="Total interest" value={ok ? rupees(totalInterest) : "—"}
             sub={ok ? `${((Number(totalInterest) / (principal * 100)) * 100).toFixed(1)}% of the amount borrowed` : undefined} />
           <Result label="Total repayment" value={ok ? rupees(R(principal) + totalInterest) : "—"} />
