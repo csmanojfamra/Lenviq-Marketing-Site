@@ -164,7 +164,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         * title, the byline and a nine-item contents list. A rail that only appears after a scroll
         * is a rail most readers never see, which defeats having one.
         */}
-      <div className="mt-s5 grid gap-s6 xl:grid-cols-[minmax(0,1fr)_18rem] xl:items-start">
+      <div className="mt-s5 grid gap-s6 [&>*]:min-w-0 xl:grid-cols-[minmax(0,1fr)_18rem] xl:items-start">
         <div>
 
           {/*

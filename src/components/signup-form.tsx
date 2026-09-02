@@ -32,7 +32,7 @@ const PRODUCTS = [
 ] as const;
 
 const field =
-  "mt-1 w-full rounded-lg border border-line bg-card px-3 py-2.5 text-[15px] text-ink " +
+  "mt-1 w-full rounded-lg border border-line bg-card px-3 py-2.5 text-[16px] text-ink " +
   "outline-none transition focus:border-cta focus:ring-2 focus:ring-cta/20";
 const label = "text-[14px] font-medium text-ink";
 

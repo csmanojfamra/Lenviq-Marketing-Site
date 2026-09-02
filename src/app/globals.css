@@ -166,6 +166,9 @@ h1, h2, h3, h4 {
  * pushing the whole page sideways on a phone — which is where most of this traffic is.
  */
 .prose-lenviq pre {
+  /* A scroller inside a grid item still needs to be allowed to shrink; `overflow-x` alone
+     leaves `min-width: auto` deciding the width, and the code block widens the whole page. */
+  min-width: 0;
   background: var(--color-subtle);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
@@ -191,6 +194,7 @@ h1, h2, h3, h4 {
  * columns shrink-wrap instead of sharing the width. The wrapper scrolls; the table lays out.
  */
 .prose-lenviq .table-scroll {
+  min-width: 0;
   overflow-x: auto;
   margin-inline: -2px;
   padding-inline: 2px;
@@ -220,3 +224,17 @@ h1, h2, h3, h4 {
 /* Figures line up down a column. Every numeric column in the product is tabular; the site's
    tables quote the product's own output, so they are too. */
 .tabular { font-variant-numeric: tabular-nums; }
+
+/**
+ * A legal document carries things prose does not: signature blanks written as long runs of
+ * underscores, reference numbers, clause citations. A run of forty-one underscores is one
+ * unbreakable token 392px wide, which pushed the whole page to 433px on a 390px phone and made it
+ * scroll sideways — the document itself is reviewed text and is not the thing to edit.
+ *
+ * `anywhere` rather than `break-word` on purpose: only `anywhere` affects the MIN-CONTENT size, and
+ * min-content is what was widening the column. `break-word` would let the run wrap visually and
+ * leave the box just as wide.
+ */
+.legal-doc {
+  overflow-wrap: anywhere;
+}

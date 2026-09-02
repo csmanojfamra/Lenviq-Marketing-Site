@@ -134,7 +134,10 @@ export default function PlatformPage() {
               ["#books", "Books and returns"],
               ["#pilot", "What a pilot looks like"],
             ].map(([href, label]) => (
-              <a key={href} href={href} className="text-slate-mid underline-offset-4 transition-colors hover:text-cta hover:underline">
+              // `py-1` takes the link from 23px to 31px. WCAG 2.5.8 asks for 24 and these were one
+              // pixel under. Inline links inside a sentence are exempt from that rule; these are
+              // not inline — they are a standalone jump list a thumb has to hit.
+              <a key={href} href={href} className="py-1 text-slate-mid underline-offset-4 transition-colors hover:text-cta hover:underline">
                 {label}
               </a>
             ))}

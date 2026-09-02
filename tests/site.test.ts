@@ -1322,3 +1322,46 @@ describe("the mobile menu can be reached to the bottom", () => {
     expect(nav).toMatch(/<details open=\{current\}/);
   });
 });
+
+describe("nothing on a phone scrolls sideways", () => {
+  /**
+   * Every one of these was measured in a browser at 390px, not reasoned about. The cause was the
+   * same each time and it is not obvious from reading the CSS: a grid item carries
+   * `min-width: auto` and refuses to be narrower than its content, so an `overflow-x-auto` wrapper
+   * inside one never gets the chance to scroll — it simply widens the page instead.
+   */
+  it("the article layout lets its columns shrink", () => {
+    // A code block or a wide table in a post pushed every blog page to 466px on a 390px phone.
+    const post = readFileSync(join(SITE, "src/app/blog/[slug]/page.tsx"), "utf8");
+    for (const line of post.split("\n")) {
+      if (line.includes("grid-cols-[minmax(")) expect(line).toMatch(/\[&>\*\]:min-w-0/);
+    }
+  });
+
+  it("prose scrollers can shrink", () => {
+    // `overflow-x` was already on both and both were still widening the page.
+    const css = readFileSync(join(SITE, "src/app/globals.css"), "utf8");
+    const pre = css.slice(css.indexOf(".prose-lenviq pre {"), css.indexOf(".prose-lenviq pre {") + 260);
+    const tbl = css.slice(css.indexOf(".prose-lenviq .table-scroll {"), css.indexOf(".prose-lenviq .table-scroll {") + 160);
+    expect(pre).toMatch(/min-width:\s*0/);
+    expect(tbl).toMatch(/min-width:\s*0/);
+  });
+
+  it("the legal documents can break a run of underscores", () => {
+    /**
+     * The Terms carry signature blanks written as forty-one underscores — one unbreakable token
+     * 392px wide, which took the page to 433px. `anywhere` and not `break-word`: only `anywhere`
+     * affects the min-content size, and min-content was what widened the column.
+     */
+    const css = readFileSync(join(SITE, "src/app/globals.css"), "utf8");
+    expect(css).toMatch(/\.legal-doc\s*\{[^}]*overflow-wrap:\s*anywhere/);
+  });
+
+  it("no form field is small enough to zoom iOS on focus", () => {
+    // Safari zooms the whole page when a text-entry control under 16px takes focus.
+    for (const f of ["src/components/demo-form.tsx", "src/components/signup-form.tsx"]) {
+      expect(readFileSync(join(SITE, f), "utf8"), `${f}: a field is under 16px`)
+        .not.toMatch(/bg-card px-3 py-2\.5 text-\[1[0-5]px\]/);
+    }
+  });
+});
