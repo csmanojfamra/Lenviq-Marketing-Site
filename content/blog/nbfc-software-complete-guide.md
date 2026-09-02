@@ -17,6 +17,19 @@ hands data to another and the two stop agreeing.
 This guide describes each layer, what has to be true at the joins, and how to decide what belongs in
 one system.
 
+## What is NBFC software?
+
+NBFC software is the system a non-banking financial company runs its lending on: the origination of
+a loan, the servicing of it once it exists, the accounting underneath both, the collection of what
+falls overdue, and the returns that go to the Reserve Bank. It is bought either as one platform or
+as several specialists stitched together.
+
+The phrase is used loosely, and that is worth being precise about, because two lenders comparing
+"NBFC software" are frequently comparing different things. A loan origination system is not a loan
+management system. A core lending platform that does both may still not do the accounting. A
+collections tool is not a lending system at all. What a lender is actually deciding is **which of
+five layers they buy as one thing**, and where they will accept a seam.
+
 ## What are the layers of an NBFC technology stack?
 
 | Layer | What it owns | The question it answers |

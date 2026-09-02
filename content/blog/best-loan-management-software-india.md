@@ -13,21 +13,9 @@ claims otherwise is usually written by one of the vendors on it. What exists is 
 credible platforms with genuinely different centres of gravity — origination-led, servicing-led,
 co-lending-led, accounting-led — and a set of questions that decide which one fits your book.
 
-This page is the survey plus the questions. We build one of these platforms, so read the last section
-accordingly, and read the disclosure at the foot about how the rest were described.
-
-## Why is a ranked list the wrong shape?
-
-Because the deciding variables are yours, not the vendor's.
-
-An NBFC lending exclusively against gold from twelve branches has almost nothing in common, as a
-buyer, with one doing co-lent unsecured personal loans through a partner bank. The first needs
-physical custody, purity-adjusted valuation and a daily loan-to-value test. The second needs
-share-level classification, apportioned collections and two sets of reporting. A ranking that puts
-one platform above another has silently assumed a book.
-
-The useful output of an evaluation is not a winner. It is a shortlist of two or three that can each
-do the unusual thing your lending does, followed by the demo questions in the section below.
+The survey is immediately below, then the reason none of it is ranked, then the questions that
+decide it. We build one of these platforms, so read the section that says so accordingly, and read
+the disclosure about how the rest were described.
 
 ## The platforms an Indian NBFC commonly evaluates
 
@@ -56,6 +44,19 @@ one, and worth checking specifically how the lending module handles the regulato
 
 **Lenviq.** Ours. Origination, loan management, double-entry accounting and RBI reporting in one
 system, built around the regulatory positions an Indian lender is examined on. More below.
+
+## Why none of them is ranked above the others
+
+Because the deciding variables are yours, not the vendor's.
+
+An NBFC lending exclusively against gold from twelve branches has almost nothing in common, as a
+buyer, with one doing co-lent unsecured personal loans through a partner bank. The first needs
+physical custody, purity-adjusted valuation and a daily loan-to-value test. The second needs
+share-level classification, apportioned collections and two sets of reporting. A ranking that puts
+one platform above another has silently assumed a book.
+
+The useful output of an evaluation is not a winner. It is a shortlist of two or three that can each
+do the unusual thing your lending does, followed by the demo questions in the section below.
 
 ## What actually decides between them?
 

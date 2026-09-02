@@ -226,3 +226,5 @@ not.
 
 Want to see this against your own product mix? [Ask for a demonstration](/contact/) — it is a
 conversation with someone who can answer the questions above, not a slide deck.
+
+The [loan management system](/loan-management-system/) page sets out what each part of the servicing half holds, and [what a loan origination system is](/what-is-a-loan-origination-system/) covers the half before it.
