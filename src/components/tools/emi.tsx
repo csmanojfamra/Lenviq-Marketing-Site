@@ -61,26 +61,43 @@ export function EmiCalculator() {
       <div className="grid gap-s4 self-start rounded-card border border-line bg-subtle p-s4">
         <Field id="e-p" label="Loan amount" value={principal} onChange={setPrincipal} unit="₹" step={10000} />
 
+        {/*
+          * A RADIO GROUP, not a second pill toggle — and that is the whole point of it.
+          *
+          * This was a segmented control identical to the "How the rate is quoted" one below it: two
+          * stacked pairs of filled buttons, the lower one appearing and disappearing depending on
+          * the upper. Nothing distinguished the mode from the sub-option of the mode, so the form
+          * opened with two controls of equal weight and no way to tell which governed which.
+          *
+          * Three things change, all presentational:
+          *  - a different KIND of control, so it cannot be read as a sibling of the toggle below;
+          *  - framed by the ANSWER wanted rather than by what the lender fixed — nobody arrives at a
+          *    calculator thinking about which input they hold, they arrive wanting a number;
+          *  - the rare path is one line of ordinary text instead of half a filled button bar.
+          *    Solving for the rate is the uncommon case and should not lead the form as though it
+          *    were a choice everybody has to make.
+          *
+          * The radio idiom is the site's own, from the pre-payment calculator.
+          */}
         <fieldset>
-          <legend className="text-[14px] font-medium text-ink">What the lender fixed</legend>
-          <div className="mt-1 grid grid-cols-2 gap-2">
-            {(["RATE", "INSTALMENT"] as const).map((k) => (
-              <button
-                key={k} type="button" onClick={() => setKnown(k)} aria-pressed={known === k}
-                className={
-                  "rounded-input border px-3 py-2 text-[14px] font-medium transition-colors " +
-                  (known === k ? "border-cta bg-cta text-white" : "border-line-strong bg-card text-ink hover:border-cta")
-                }
-              >
-                {k === "RATE" ? "The rate" : "The instalment"}
-              </button>
+          <legend className="block text-[14px] font-medium text-ink">What do you want to work out?</legend>
+          <div className="mt-1 grid gap-1.5">
+            {([["RATE", "The instalment", "from a rate the lender quoted"],
+               ["INSTALMENT", "The interest rate", "from an instalment the lender fixed"]] as const).map(([k, label, sub]) => (
+              <label key={k} className="flex items-start gap-2 text-[15px] text-ink">
+                <input type="radio" name="emi-solve-for" checked={known === k}
+                  onChange={() => setKnown(k)} className="mt-1.5" />
+                <span>{label} <span className="text-muted">— {sub}</span></span>
+              </label>
             ))}
           </div>
-          <p className="mt-1 text-[13px] leading-snug text-muted">
-            {known === "RATE"
-              ? "The usual way round: a rate is quoted and the instalment follows from it."
-              : "“₹5,000 a month for 24 months.” The instalment and the term are the promise, and the rate is whatever falls out of them — which is the figure that has to be disclosed."}
-          </p>
+          {/* Only on the uncommon branch, where it earns its space: the default needs no explaining. */}
+          {known === "INSTALMENT" && (
+            <p className="mt-1 text-[13px] leading-snug text-muted">
+              “₹5,000 a month for 24 months” fixes the instalment and the term, and the rate is whatever
+              falls out of them — which is the figure that has to be disclosed.
+            </p>
+          )}
         </fieldset>
 
         {known === "RATE" && (
@@ -113,7 +130,7 @@ export function EmiCalculator() {
                    hint={!repays && principal > 0 && months > 0
                      ? "Over this term these instalments do not repay the amount borrowed, so there is no rate to find."
                      : undefined} />}
-        <Field id="e-m" label={known === "INSTALMENT" ? "Number of instalments" : "Tenure"} value={months} onChange={setMonths} unit="months" step={1} min={1} />
+        <Field id="e-m" label="Tenure" value={months} onChange={setMonths} unit="months" step={1} min={1} />
       </div>
 
       <div className="grid gap-s3 [&>*]:min-w-0">

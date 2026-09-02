@@ -744,6 +744,28 @@ describe("the EMI calculator solves the rate when the instalment is fixed", () =
     expect(long).toBeGreaterThan(short); // more instalments of the same size is MORE total interest
   });
 
+  /**
+   * REPORTED: the calculator became confusing once this mode was added. It was a segmented pill
+   * toggle identical to the "How the rate is quoted" one directly beneath it — two stacked pairs of
+   * filled buttons, the lower appearing and disappearing with the upper, and nothing to say which
+   * governed which. The fix is presentational and the arithmetic above is untouched: a radio group,
+   * which is a different KIND of control and cannot be read as a sibling of the toggle.
+   */
+  it("the mode selector is a radio group, not a second pill toggle", () => {
+    const emi = readFileSync(join(SITE, "src/components/tools/emi.tsx"), "utf8");
+    expect(emi).toMatch(/type="radio" name="emi-solve-for"/);
+    // The pill toggle belongs to the rate basis and to nothing else. Two of them is the defect.
+    const pills = emi.match(/aria-pressed/g) ?? [];
+    expect(pills.length, "only the reducing/flat toggle may be a pill control").toBe(1);
+  });
+
+  it("is framed by the answer wanted, not by which input the lender happened to fix", () => {
+    // Nobody arrives at a calculator thinking about which input they hold.
+    const emi = readFileSync(join(SITE, "src/components/tools/emi.tsx"), "utf8");
+    expect(emi).toMatch(/What do you want to work out\?/);
+    expect(emi).not.toMatch(/legend[^>]*>What the lender fixed/);
+  });
+
   it("instalments that never repay the principal have no rate to find", () => {
     // 12 × ₹5,000 against ₹1,00,000 is a negative rate, not a cheap loan. The calculator names it
     // rather than showing a number.
