@@ -325,15 +325,46 @@ export function MobileNav() {
       </button>
 
       {open && (
-        <div id="site-menu" className="fixed inset-x-0 top-16 z-40 border-b border-line bg-card shadow-e1">
-          <nav className="mx-auto max-w-7xl px-s3 py-s3" aria-label="Main">
+        /*
+         * A bounded height and its own scroll — and NOT `bottom-0`, which is the trap here.
+         *
+         * The panel was `fixed top-16` with no height bound and no scroll container, while the
+         * effect above locks `body` scroll so the page cannot move underneath it. Anything past the
+         * fold was therefore unreachable: not clipped visibly, simply gone. It went unnoticed while
+         * the panel was short and stopped being short when Product grew to ten entries and Tools to
+         * twelve.
+         *
+         * The obvious fix is `top-16 bottom-0`, and it collapses the panel to one pixel. The header
+         * this lives inside carries `backdrop-blur`, and `backdrop-filter` establishes a containing
+         * block for fixed descendants — so `bottom-0` resolves to the bottom of a 65px header
+         * rather than of the viewport. `top-16` survives only because the header is itself at the
+         * top of the page, which is luck rather than design. Measured, after shipping the wrong fix
+         * to a build and looking at the box: height 1px, scrollHeight 1140.
+         *
+         * So the height is bounded by `max-height` against the viewport directly, which no
+         * containing block can reinterpret. `dvh` rather than `vh` because a phone's address bar
+         * changes the viewport and `vh` is measured against the larger of the two, which would put
+         * the last row under the browser chrome. `overscroll-contain` stops a flick at the end of
+         * the list from scrolling the page behind it.
+         */
+        <div
+          id="site-menu"
+          className="fixed inset-x-0 top-16 z-40 overflow-y-auto overscroll-contain border-b border-line bg-card shadow-e1"
+          style={{ maxHeight: "calc(100dvh - 4rem)" }}
+        >
+          <nav className="mx-auto max-w-7xl px-s3 pb-s5 pt-s3" aria-label="Main">
             {/*
-              * The submenu is EXPANDED here, not a second tap.
+              * The submenus COLLAPSE, and the group you are inside opens itself.
               *
-              * On a phone the panel is already a full-width list with room to spare, so collapsing
-              * four product pages behind another disclosure buys nothing and costs a tap on the
-              * four pages the site most wants found. They are indented under Platform with a rule,
-              * which is enough to show the relationship without an accordion to operate.
+              * They used to be expanded, on the reasoning that a phone panel is "a full-width list
+              * with room to spare" and that collapsing four product pages behind a second tap cost
+              * more than it saved. That was true of four. Product now holds ten entries and Tools
+              * twelve, and an expanded panel pushed Contact and About some twenty rows down — a
+              * reader looking for either scrolled past the entire catalogue to reach them.
+              *
+              * `<details>` rather than React state: it is a disclosure, the browser already knows
+              * how to be one, and it works before hydration. `open` is set from the current path, so
+              * arriving on a tools page and opening the menu shows the tools.
               */}
             <ul className="grid gap-1">
               {NAV.map((n) => {
@@ -355,6 +386,13 @@ export function MobileNav() {
                       </svg>
                     </Link>
                     {kids.length > 0 && (
+                      <details open={current} className="group">
+                        <summary className="flex cursor-pointer list-none items-center justify-between rounded-lg px-3 py-2 text-[13px] font-semibold uppercase tracking-wide text-muted marker:content-['']">
+                          {kids.length} pages
+                          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="transition-transform group-open:rotate-90">
+                            <path d="M9 6l6 6-6 6" />
+                          </svg>
+                        </summary>
                       <ul className="ml-3 mt-1 grid gap-0.5 border-l border-line pl-3">
                         {kids.map((c) => {
                           const on = pathname === c.href;
@@ -379,6 +417,7 @@ export function MobileNav() {
                           );
                         })}
                       </ul>
+                      </details>
                     )}
                   </li>
                 );

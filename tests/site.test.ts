@@ -1288,3 +1288,37 @@ describe("the product section is called one thing", () => {
     expect(src("src/components/site-nav.tsx")).toContain('groupBefore: "By loan product"');
   });
 });
+
+describe("the mobile menu can be reached to the bottom", () => {
+  const nav = readFileSync(join(SITE, "src/components/site-nav.tsx"), "utf8");
+  const header = readFileSync(join(SITE, "src/components/site-header.tsx"), "utf8");
+
+  it("the panel bounds its own height and scrolls", () => {
+    /**
+     * It did neither. `fixed top-16` with no height bound and no scroll container, while the panel
+     * locks `body` scroll — so everything past the fold was unreachable. Harmless while the menu was
+     * short; the Product menu is now ten entries and Tools twelve, and the panel is 1,140px against
+     * a 720px phone.
+     */
+    expect(nav).toMatch(/id="site-menu"[\s\S]{0,400}overflow-y-auto/);
+    expect(nav).toMatch(/maxHeight: "calc\(100dvh - 4rem\)"/);
+  });
+
+  it("and does NOT use bottom-0, which collapses it to a pixel", () => {
+    /**
+     * The obvious fix is `top-16 bottom-0`. It cannot work here: the header carries `backdrop-blur`,
+     * and `backdrop-filter` establishes a containing block for fixed descendants — so `bottom-0`
+     * resolves against a 65px header rather than the viewport. Measured at height 1px with
+     * scrollHeight 1140 before this was understood. If the blur ever leaves the header this
+     * assertion can go, which is why it names the reason.
+     */
+    expect(header).toMatch(/backdrop-blur/);
+    const panel = nav.slice(nav.indexOf('id="site-menu"'), nav.indexOf('id="site-menu"') + 400);
+    expect(panel).not.toMatch(/\bbottom-0\b/);
+  });
+
+  it("the submenus collapse, and the group you are in opens itself", () => {
+    // Twenty-two children expanded pushed Contact and About twenty rows down the panel.
+    expect(nav).toMatch(/<details open=\{current\}/);
+  });
+});
