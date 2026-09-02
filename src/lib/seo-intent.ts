@@ -51,9 +51,20 @@ const FIXED: IntentEntry[] = [
   { url: "/", type: "Homepage", intent: "Commercial", priority: 1,
     primary: "NBFC loan management software",
     secondary: ["lending software for NBFCs", "loan management system India", "NBFC software"] },
+  /*
+   * The platform page claimed "loan origination and management system" — both halves at once —
+   * which is what a single page does when the market searches for two things. It is the NBFC
+   * software page now, and each half has its own.
+   */
   { url: "/platform/", type: "Platform", intent: "Commercial", priority: 1,
-    primary: "loan origination and management system",
-    secondary: ["LOS and LMS", "loan lifecycle management", "lending workflow software"] },
+    primary: "NBFC software",
+    secondary: ["NBFC lending software", "lending software for NBFCs", "loan lifecycle management"] },
+  { url: "/loan-origination-software/", type: "Platform", intent: "Commercial", priority: 1,
+    primary: "loan origination software",
+    secondary: ["LOS for NBFC", "loan origination system", "digital loan origination"] },
+  { url: "/loan-management-system/", type: "Platform", intent: "Commercial", priority: 1,
+    primary: "loan management system",
+    secondary: ["LMS for NBFC", "loan servicing software", "loan management system India"] },
   { url: "/compliance/", type: "Compliance", intent: "Commercial", priority: 1,
     primary: "NBFC compliance software",
     secondary: ["RBI lending compliance", "IRAC classification software", "NBFC regulatory reporting"] },

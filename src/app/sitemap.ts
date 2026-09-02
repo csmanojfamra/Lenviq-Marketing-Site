@@ -17,7 +17,13 @@ export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const pages = ["/", "/platform/", "/compliance/", "/reports/", "/security/",
+  /**
+   * The two lifecycle-half pages sit beside /platform: "loan origination software" and "loan
+   * management system" are the terms this market is searched by, and a page absent from the
+   * sitemap is a page nobody submitted.
+   */
+  const pages = ["/", "/platform/", "/loan-origination-software/", "/loan-management-system/",
+                 "/compliance/", "/reports/", "/security/",
                  "/about/", "/contact/", "/signup/", "/blog/", "/glossary/", "/help/", "/privacy/", "/terms/",
                  ...PRODUCTS.map((p) => `/${p.slug}/`),
                  "/tools/", ...TOOLS.map((t) => `/tools/${t.slug}/`)];
@@ -34,7 +40,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
        */
       priority:
         p === "/" ? 1
-        : p === "/compliance/" || p === "/signup/" || PRODUCTS.some((x) => `/${x.slug}/` === p) ? 0.9
+        : p === "/compliance/" || p === "/signup/" || p === "/platform/"
+          || p === "/loan-origination-software/" || p === "/loan-management-system/"
+          || PRODUCTS.some((x) => `/${x.slug}/` === p) ? 0.9
         : 0.7,
     })),
     ...TERMS.map((t) => ({ url: absolute(`/glossary/${t.slug}/`), lastModified: now, priority: 0.5 })),

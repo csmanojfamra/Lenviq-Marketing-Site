@@ -665,8 +665,9 @@ describe("no two pages compete for the same query", () => {
     const top = map.filter((e) => e.priority === 1).map((e) => e.url).sort();
     expect(top).toEqual([
       "/", "/business-loan-software/", "/cash-credit-software/", "/compliance/",
-      "/gold-loan-software/", "/loan-against-property-software/",
-      "/personal-loan-software/", "/platform/", "/vehicle-loan-software/",
+      "/gold-loan-software/", "/loan-against-property-software/", "/loan-management-system/",
+      "/loan-origination-software/", "/personal-loan-software/", "/platform/",
+      "/vehicle-loan-software/",
     ]);
   });
 });

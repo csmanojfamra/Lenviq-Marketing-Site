@@ -72,10 +72,19 @@ export const NAV: NavItem[] = [
     label: "Product",
     children: [
       { href: "/platform/", label: "Everything it does", note: "Lead to closure, in one system" },
+      /*
+       * The two halves of the lifecycle, each its own page — because the market searches for them
+       * separately and one page cannot answer both queries. They sit under the whole system rather
+       * than beside the loan types, which are a different kind of thing.
+       */
+      { href: "/loan-origination-software/", label: "Loan origination", note: "Lead to disbursement", groupBefore: "By stage" },
+      { href: "/loan-management-system/", label: "Loan management", note: "Disbursement to closure" },
       { href: "/personal-loan-software/", label: "Personal loans", note: "Unsecured — bureau, FOIR, NACH", groupBefore: "By loan product" },
       { href: "/vehicle-loan-software/", label: "Vehicle finance", note: "RC, insurance, repossession" },
       { href: "/loan-against-property-software/", label: "Loans against property", note: "Legal opinion, valuation, mortgage" },
       { href: "/gold-loan-software/", label: "Gold loans", note: "LTV, renewal, auction" },
+      { href: "/business-loan-software/", label: "Business loans", note: "Eleven constitutions, promoter guarantees" },
+      { href: "/cash-credit-software/", label: "Cash credit and overdraft", note: "Drawing power, stock statements, renewal" },
     ],
   },
   /**
