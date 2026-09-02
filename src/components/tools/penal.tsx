@@ -29,7 +29,7 @@ export function PenalCalculator() {
   const failed = r.checks.filter((c) => !c.ok);
 
   return (
-    <div className="mt-s5 grid gap-s5 lg:grid-cols-[minmax(0,20rem)_1fr]">
+    <div className="mt-s5 grid gap-s5 [&>*]:min-w-0 lg:grid-cols-[minmax(0,20rem)_1fr]">
       <div className="grid gap-s4 self-start rounded-card border border-line bg-subtle p-s4">
         <Field id="p-amt" label="Amount in default" value={overdueRupees} onChange={setOverdue} unit="₹" step={1000}
           hint="The instalment or amount that was not paid — not the outstanding principal." />
@@ -61,7 +61,7 @@ export function PenalCalculator() {
         )}
       </div>
 
-      <div className="grid gap-s3">
+      <div className="grid gap-s3 [&>*]:min-w-0">
         <div className="grid gap-s3 sm:grid-cols-3">
           <Result label="Penal charge" value={inr(r.chargeRupees)} tone={failed.length ? "warn" : "good"}
             sub={basis === "FLAT_PER_INSTANCE" ? "Per instance" : `over ${r.chargeableDays} chargeable days`} />

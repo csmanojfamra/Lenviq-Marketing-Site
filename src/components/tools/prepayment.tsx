@@ -25,12 +25,12 @@ export function PrepaymentEligibility() {
   const amountMatters = purpose === "BUSINESS" && rate === "FLOATING" && borrower !== "OTHER";
 
   return (
-    <div className="mt-s5 grid gap-s5 lg:grid-cols-[minmax(0,22rem)_1fr]">
+    <div className="mt-s5 grid gap-s5 [&>*]:min-w-0 lg:grid-cols-[minmax(0,22rem)_1fr]">
       <div className="grid gap-s4 self-start rounded-card border border-line bg-subtle p-s4">
         <label className="block">
           <span className="block text-[14px] font-medium text-ink">Who is the lender?</span>
           <select value={lender} onChange={(e) => setLender(e.target.value as LenderKind)}
-            className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[15px] text-ink outline-none focus:border-cta">
+            className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[16px] text-ink outline-none focus:border-cta">
             {(Object.keys(LENDER_LABEL) as LenderKind[]).map((l) => (
               <option key={l} value={l}>{LENDER_LABEL[l]}</option>
             ))}
@@ -43,7 +43,7 @@ export function PrepaymentEligibility() {
         <label className="block">
           <span className="block text-[14px] font-medium text-ink">Who is the borrower?</span>
           <select value={borrower} onChange={(e) => setBorrower(e.target.value as BorrowerKind)}
-            className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[15px] text-ink outline-none focus:border-cta">
+            className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[16px] text-ink outline-none focus:border-cta">
             {(Object.keys(BORROWER_LABEL) as BorrowerKind[]).map((b) => (
               <option key={b} value={b}>{BORROWER_LABEL[b]}</option>
             ))}
@@ -91,7 +91,7 @@ export function PrepaymentEligibility() {
           hint={`The Directions reach loans sanctioned or renewed on or after ${EFFECTIVE_FROM}. A renewal counts as a fresh sanction.`} />
       </div>
 
-      <div className="grid gap-s3">
+      <div className="grid gap-s3 [&>*]:min-w-0">
         <div className={`rounded-card border border-line border-l-[3px] bg-card p-s5 ${
           r.barred ? "border-l-[color:var(--color-success)]" : "border-l-[color:var(--color-warning)]"
         }`}>
@@ -122,7 +122,7 @@ export function PrepaymentEligibility() {
             business. A loan to an individual for anything <em>other</em> than business is barred
             everywhere on this list, at any amount — that rule has no tiers.
           </p>
-          <div className="mt-s4 overflow-x-auto">
+          <div className="mt-s4 min-w-0 overflow-x-auto">
             <table className="w-full min-w-[30rem] border-collapse text-[15px]">
               <thead>
                 <tr className="border-b border-line text-left text-[13px] uppercase tracking-wide text-muted">

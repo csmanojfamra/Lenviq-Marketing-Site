@@ -59,9 +59,9 @@ export function GoldLtvCalculator() {
   const stressedLtv = ltvPct(advance, stressed);
 
   return (
-    <div className="mt-s5 grid gap-s5 lg:grid-cols-[minmax(0,22rem)_1fr]">
+    <div className="mt-s5 grid gap-s5 [&>*]:min-w-0 lg:grid-cols-[minmax(0,22rem)_1fr]">
       <div className="grid gap-s4 self-start rounded-card border border-line bg-subtle p-s4">
-        <div className="grid gap-s3">
+        <div className="grid gap-s3 [&>*]:min-w-0">
           <p className="text-[14px] font-medium text-ink">Ornaments in the packet</p>
           {items.map((it, i) => (
             <div key={i} className="grid grid-cols-[5.5rem_1fr_2rem] items-end gap-2">
@@ -70,7 +70,7 @@ export function GoldLtvCalculator() {
                 <select
                   value={it.karat}
                   onChange={(e) => set(i, { karat: Number(e.target.value) })}
-                  className="mt-1 w-full rounded-input border border-line-strong bg-card px-2 py-2.5 text-[15px] text-ink outline-none focus:border-cta"
+                  className="mt-1 w-full rounded-input border border-line-strong bg-card px-2 py-2.5 text-[16px] text-ink outline-none focus:border-cta"
                 >
                   {KARATS.map((k) => <option key={k} value={k}>{k}K</option>)}
                 </select>

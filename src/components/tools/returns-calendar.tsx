@@ -83,14 +83,14 @@ export function ReturnsCalendar() {
   }, [apply]);
 
   return (
-    <div className="mt-s5 grid gap-s5 lg:grid-cols-[minmax(0,21rem)_1fr]">
+    <div className="mt-s5 grid gap-s5 [&>*]:min-w-0 lg:grid-cols-[minmax(0,21rem)_1fr]">
       <div className="grid gap-s4 self-start rounded-card border border-line bg-subtle p-s4">
         <label className="block">
           <span className="block text-[14px] font-medium text-ink">Layer</span>
           <select
             value={layer}
             onChange={(e) => setLayer(e.target.value as Layer)}
-            className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[15px] text-ink outline-none focus:border-cta"
+            className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[16px] text-ink outline-none focus:border-cta"
           >
             {(Object.keys(LAYER_LABEL) as Layer[]).map((l) => (
               <option key={l} value={l}>{LAYER_LABEL[l]}</option>
@@ -109,7 +109,7 @@ export function ReturnsCalendar() {
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value as Category)}
-            className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[15px] text-ink outline-none focus:border-cta"
+            className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[16px] text-ink outline-none focus:border-cta"
           >
             {(Object.keys(CATEGORY_LABEL) as Category[]).map((c) => (
               <option key={c} value={c}>{CATEGORY_LABEL[c]}</option>
@@ -137,7 +137,7 @@ export function ReturnsCalendar() {
         )}
       </div>
 
-      <div className="grid gap-s5">
+      <div className="grid gap-s5 [&>*]:min-w-0">
         <div>
           <div className="flex flex-wrap items-baseline justify-between gap-s2">
             <h2 className="font-display text-[20px] font-bold tracking-display text-ink">
@@ -159,7 +159,7 @@ export function ReturnsCalendar() {
             * out with "only where there is an overseas holding" tells a reader there is a box for
             * that, which a hidden row never does.
             */}
-          <div className="mt-s3 overflow-x-auto rounded-card border border-line bg-card">
+          <div className="mt-s3 min-w-0 overflow-x-auto rounded-card border border-line bg-card">
             <table className="w-full min-w-[46rem] text-[15px]">
               <thead>
                 <tr className="border-b border-line bg-subtle text-[13px] uppercase tracking-wide text-muted">

@@ -37,7 +37,7 @@ export function Field({
           max={max}
           step={step}
           onChange={(e) => onChange(e.target.value === "" ? NaN : Number(e.target.value))}
-          className={`w-full bg-transparent py-2.5 text-[15px] tabular-nums text-ink outline-none ${unit === "₹" ? "pr-3" : "px-3"}`}
+          className={`w-full bg-transparent py-2.5 text-[16px] tabular-nums text-ink outline-none ${unit === "₹" ? "pr-3" : "px-3"}`}
         />
         {unit && unit !== "₹" && (
           <span className="whitespace-nowrap pr-3 text-[15px] text-muted">{unit}</span>
@@ -60,7 +60,7 @@ export function DateField({
         type="date"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[15px] tabular-nums text-ink outline-none focus:border-cta focus:ring-2 focus:ring-cta-ring"
+        className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[16px] tabular-nums text-ink outline-none focus:border-cta focus:ring-2 focus:ring-cta-ring"
       />
       {hint && <span className="mt-1 block text-[13px] leading-snug text-muted">{hint}</span>}
     </label>

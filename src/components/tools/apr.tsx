@@ -27,7 +27,7 @@ export function AprCalculator() {
   const gap = ok ? Math.round((apr - rate) * 100) / 100 : 0;
 
   return (
-    <div className="mt-s5 grid gap-s5 lg:grid-cols-[minmax(0,20rem)_1fr]">
+    <div className="mt-s5 grid gap-s5 [&>*]:min-w-0 lg:grid-cols-[minmax(0,20rem)_1fr]">
       <div className="grid gap-s4 self-start rounded-card border border-line bg-subtle p-s4">
         <Field id="apr-p" label="Sanctioned amount" value={principal} onChange={setPrincipal} unit="₹" step={10000} />
         <Field id="apr-r" label="Interest rate" value={rate} onChange={setRate} unit="% p.a." step={0.25} />

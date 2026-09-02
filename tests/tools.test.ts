@@ -1,4 +1,8 @@
 import { describe, it, expect } from "vitest";
+import { readFileSync, readdirSync } from "node:fs";
+import { join } from "node:path";
+
+const SITE = join(__dirname, "..");
 import fixtures from "../src/lib/tools/finance-fixtures.generated.json";
 import {
   computeEmi, computeApr, goldEligibleValuePaise, ltvPct, maxLendablePaise,
@@ -659,6 +663,53 @@ describe("a tool claims only the provenance it has", () => {
     for (const family of ["emi", "apr", "gold", "dpd"]) {
       const cases = (fixtures as Record<string, unknown>)[family];
       expect(Array.isArray(cases) && cases.length > 0, `no fixtures for ${family}`).toBe(true);
+    }
+  });
+});
+
+describe("the calculators fit a phone", () => {
+  const files = readdirSync(join(SITE, "src/components/tools")).filter((f) => f.endsWith(".tsx"));
+  const sources = files.map((f) => [f, readFileSync(join(SITE, "src/components/tools", f), "utf8")] as const);
+
+  it("every two-column layout lets its children shrink", () => {
+    /**
+     * A grid item carries `min-width: auto`, which refuses to go below its content's min-content
+     * width. The results column holds a schedule table with `min-w-[34rem]`, so the whole column
+     * was sized to 546px inside a 390px phone and the entire page scrolled sideways. Measured, not
+     * reasoned: scrollWidth 562 against a 390 viewport.
+     *
+     * `overflow-x-auto` on the table's own wrapper does not fix it on its own. Every grid item
+     * between the column and that wrapper carries the same `min-width: auto`, so the constraint has
+     * to be released at each level.
+     */
+    for (const [name, src] of sources) {
+      for (const line of src.split("\n")) {
+        if (!line.includes("lg:grid-cols-[minmax(")) continue;
+        expect(line, `${name}: the two-column grid must carry [&>*]:min-w-0`).toMatch(/\[&>\*\]:min-w-0/);
+      }
+    }
+  });
+
+  it("no text-entry control is smaller than 16px", () => {
+    /**
+     * iOS Safari zooms the whole page when a text-entry control below 16px takes focus, and the
+     * reader loses their place in the form. Checkboxes and radios do not trigger it and are not
+     * covered here — this is about selects and typed fields.
+     */
+    for (const [name, src] of sources) {
+      expect(src, `${name}: a select or typed field is under 16px`).not.toMatch(
+        /rounded-input border border-line-strong bg-card px-[23] py-2\.5 text-\[1[0-5]px\]/,
+      );
+    }
+  });
+
+  it("a horizontal scroller can actually shrink", () => {
+    // `overflow-x-auto` is inert on an element that cannot be narrower than its contents.
+    for (const [name, src] of sources) {
+      const wrappers = src.match(/className="[^"]*\boverflow-x-auto\b[^"]*"/g) ?? [];
+      for (const w of wrappers) {
+        expect(w, `${name}: ${w} needs min-w-0`).toMatch(/min-w-0/);
+      }
     }
   });
 });

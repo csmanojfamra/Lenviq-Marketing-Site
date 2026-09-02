@@ -31,14 +31,14 @@ export function SbrLayerFinder() {
   }).toString();
 
   return (
-    <div className="mt-s5 grid gap-s5 lg:grid-cols-[minmax(0,21rem)_1fr]">
+    <div className="mt-s5 grid gap-s5 [&>*]:min-w-0 lg:grid-cols-[minmax(0,21rem)_1fr]">
       <div className="grid gap-s4 self-start rounded-card border border-line bg-subtle p-s4">
         <label className="block">
           <span className="block text-[14px] font-medium text-ink">What kind of NBFC is it?</span>
           <select
             value={a.category}
             onChange={(e) => set({ category: e.target.value as SbrCategory })}
-            className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[15px] text-ink outline-none focus:border-cta"
+            className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[16px] text-ink outline-none focus:border-cta"
           >
             {(Object.keys(SBR_CATEGORY_LABEL) as SbrCategory[]).map((c) => (
               <option key={c} value={c}>{SBR_CATEGORY_LABEL[c]}</option>
@@ -78,7 +78,7 @@ export function SbrLayerFinder() {
         </div>
       </div>
 
-      <div className="grid gap-s3">
+      <div className="grid gap-s3 [&>*]:min-w-0">
         <div className="rounded-card border border-line border-l-[3px] border-l-cta bg-card p-s5">
           <p className="text-[13px] uppercase tracking-wide text-muted">This NBFC is in the</p>
           <p className="mt-1 font-display text-[32px] font-extrabold tracking-display-tight text-ink">

@@ -42,7 +42,7 @@ export function NpaDateCalculator() {
   const label = status === "NPA" ? "Non-performing" : status === "OVERDUE" ? sma.replace("_", "-") : "Standard";
 
   return (
-    <div className="mt-s5 grid gap-s5 lg:grid-cols-[minmax(0,20rem)_1fr]">
+    <div className="mt-s5 grid gap-s5 [&>*]:min-w-0 lg:grid-cols-[minmax(0,20rem)_1fr]">
       <div className="grid gap-s4 self-start rounded-card border border-line bg-subtle p-s4">
         <DateField
           id="npa-due" label="Date the instalment fell due" value={due} onChange={setDue}
@@ -50,7 +50,7 @@ export function NpaDateCalculator() {
         />
       </div>
 
-      <div className="grid gap-s3">
+      <div className="grid gap-s3 [&>*]:min-w-0">
         <div className="grid gap-s3 sm:grid-cols-2">
           <Result label="Days past due today" value={valid ? String(dpdToday) : "—"} tone={tone}
             sub={valid ? `As at ${fmt(today)}` : undefined} />
@@ -58,7 +58,7 @@ export function NpaDateCalculator() {
             sub="Assuming the instalment is still unpaid. A part payment moves the count only if it settles the oldest unpaid instalment in full." />
         </div>
 
-        <div className="overflow-x-auto rounded-card border border-line bg-card">
+        <div className="min-w-0 overflow-x-auto rounded-card border border-line bg-card">
           <table className="w-full text-[15px]">
             <thead>
               <tr className="border-b border-line bg-subtle text-[13px] uppercase tracking-wide text-muted">

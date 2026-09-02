@@ -34,7 +34,7 @@ export function EmiCalculator() {
   const halfway = rows[Math.floor(rows.length / 2) - 1];
 
   return (
-    <div className="mt-s5 grid gap-s5 lg:grid-cols-[minmax(0,20rem)_1fr]">
+    <div className="mt-s5 grid gap-s5 [&>*]:min-w-0 lg:grid-cols-[minmax(0,20rem)_1fr]">
       <div className="grid gap-s4 self-start rounded-card border border-line bg-subtle p-s4">
         <Field id="e-p" label="Loan amount" value={principal} onChange={setPrincipal} unit="₹" step={10000} />
         <fieldset>
@@ -62,7 +62,7 @@ export function EmiCalculator() {
         <Field id="e-m" label="Tenure" value={months} onChange={setMonths} unit="months" step={1} min={1} />
       </div>
 
-      <div className="grid gap-s3">
+      <div className="grid gap-s3 [&>*]:min-w-0">
         <div className="grid gap-s3 sm:grid-cols-3">
           <Result label="Monthly instalment" value={ok ? rupees(emi) : "—"} sub={ok ? `× ${months} months` : undefined} />
           <Result label="Total interest" value={ok ? rupees(totalInterest) : "—"}
@@ -104,7 +104,7 @@ export function EmiCalculator() {
               The last instalment carries the rounding, so the principal columns add up to{" "}
               {rupees(principal * 100)} exactly and the balance closes at zero — not near it.
             </p>
-            <div className="mt-s3 overflow-x-auto rounded-card border border-line bg-card">
+            <div className="mt-s3 min-w-0 overflow-x-auto rounded-card border border-line bg-card">
               <table className="w-full min-w-[34rem] text-[15px] tabular-nums">
                 <thead>
                   <tr className="border-b border-line bg-subtle text-[13px] uppercase tracking-wide text-muted">

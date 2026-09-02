@@ -31,14 +31,14 @@ export function ProvisioningCalculator() {
   const kindMatters = classification === "STANDARD" && layer === "UPPER";
 
   return (
-    <div className="mt-s5 grid gap-s5 lg:grid-cols-[minmax(0,21rem)_1fr]">
+    <div className="mt-s5 grid gap-s5 [&>*]:min-w-0 lg:grid-cols-[minmax(0,21rem)_1fr]">
       <div className="grid gap-s4 self-start rounded-card border border-line bg-subtle p-s4">
         <label className="block">
           <span className="block text-[14px] font-medium text-ink">Which layer is the NBFC in?</span>
           <select
             value={layer}
             onChange={(e) => setLayer(e.target.value as Layer)}
-            className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[15px] text-ink outline-none focus:border-cta"
+            className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[16px] text-ink outline-none focus:border-cta"
           >
             {(["BASE", "MIDDLE", "UPPER"] as Layer[]).map((l) => (
               <option key={l} value={l}>{LAYER_LABEL[l]}</option>
@@ -58,7 +58,7 @@ export function ProvisioningCalculator() {
           <select
             value={classification}
             onChange={(e) => setClassification(e.target.value as Classification)}
-            className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[15px] text-ink outline-none focus:border-cta"
+            className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[16px] text-ink outline-none focus:border-cta"
           >
             {CLASSIFICATIONS.map((c) => (
               <option key={c} value={c}>{CLASSIFICATION_LABEL[c]}</option>
@@ -72,7 +72,7 @@ export function ProvisioningCalculator() {
             <select
               value={standardKind}
               onChange={(e) => setStandardKind(e.target.value as StandardKind)}
-              className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[15px] text-ink outline-none focus:border-cta"
+              className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[16px] text-ink outline-none focus:border-cta"
             >
               {(Object.keys(STANDARD_KIND_LABEL) as StandardKind[]).map((k) => (
                 <option key={k} value={k}>{STANDARD_KIND_LABEL[k]}</option>
@@ -90,7 +90,7 @@ export function ProvisioningCalculator() {
             <select
               value={doubtfulAge}
               onChange={(e) => setDoubtfulAge(e.target.value as DoubtfulAge)}
-              className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[15px] text-ink outline-none focus:border-cta"
+              className="mt-1 w-full rounded-input border border-line-strong bg-card px-3 py-2.5 text-[16px] text-ink outline-none focus:border-cta"
             >
               {AGES.map((a) => (
                 <option key={a} value={a}>{DOUBTFUL_AGE_LABEL[a]}</option>
@@ -112,7 +112,7 @@ export function ProvisioningCalculator() {
             : "Recorded for your own working. At this classification it does not change the provision."} />
       </div>
 
-      <div className="grid gap-s3">
+      <div className="grid gap-s3 [&>*]:min-w-0">
         <div className="grid gap-s3 sm:grid-cols-2">
           <Result
             label="Provision required"
@@ -129,7 +129,7 @@ export function ProvisioningCalculator() {
 
         <div className="rounded-card border border-line bg-card p-s5">
           <h2 className="font-display text-[19px] font-bold tracking-display text-ink">How it is built up</h2>
-          <div className="mt-s3 overflow-x-auto">
+          <div className="mt-s3 min-w-0 overflow-x-auto">
             <table className="w-full min-w-[34rem] border-collapse text-[15px]">
               <thead>
                 <tr className="border-b border-line text-left text-[13px] uppercase tracking-wide text-muted">
@@ -176,7 +176,7 @@ export function ProvisioningCalculator() {
             where the amounts are largest. Take the wrong one and a book more than three years into
             the doubtful category is provided at twice the required rate.
           </p>
-          <div className="mt-s4 overflow-x-auto">
+          <div className="mt-s4 min-w-0 overflow-x-auto">
             <table className="w-full min-w-[26rem] border-collapse text-[15px]">
               <thead>
                 <tr className="border-b border-line text-left text-[13px] uppercase tracking-wide text-muted">
