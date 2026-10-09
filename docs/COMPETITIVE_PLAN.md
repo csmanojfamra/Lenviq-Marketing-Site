@@ -168,9 +168,14 @@ loader already supports and which almost nothing here uses.
    broken. Two tools carry none, because no post here speaks to them.
    **Also:** `/microfinance-software/` is now in the site navigation under its own *By lender type*
    group, which is the strongest site-wide link there is.
-2. **Directory listings.** The head term is held by GoodFirms, Capterra, SoftwareSuggest and
-   listicles. The realistic move is to be *in* them rather than to outrank them. **This is a
-   commercial decision and is Manoj's**, not mine — recorded, not acted on.
+2. **Directory listings — and I argued this wrongly the first time.** The head term is held by
+   GoodFirms, Capterra, SoftwareSuggest and listicles, and I put the case on SEO grounds: be *in*
+   them rather than outrank them. Checking the terms, **a free Capterra profile carries no working
+   link to your website** — so the free tier yields no link equity, which was the whole SEO
+   argument. What it does buy is presence where a buyer is already comparing, which is real and is
+   a distribution benefit rather than a ranking one. The full pack, the requirements and what each
+   platform costs are in `docs/DIRECTORY_LISTINGS.md`. **Still Manoj's**: every one needs an account,
+   email verification and terms accepted on the company's behalf.
 3. **The CS practice as a publishing identity.** The compliance cluster is written by a practising
    CS. That is citable in a way vendor content is not.
 
