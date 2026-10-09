@@ -102,13 +102,54 @@ ceiling that no rate card changes.
 **(b) stops interest overtaking principal** at any point on the computation date, which is a tighter
 constraint than (a) on a loan that is being serviced slowly.
 
-**On the rates in (c) — and this is where I stop.** Two independent reproductions of the Act give
-**12.5% per annum for unsecured loans and 10% for secured loans**. I am recording those as *reported*
-rather than stating them, for three reasons: the West Bengal government's own published copy of the
-Act is a scanned image with no text layer, so I could not read the primary; one of the two
-reproductions shows this very sub-clause as garbling old and current text together; and West Bengal
-Act IV of 1981 amended section 30 and created 30A, so a figure that predates it is exactly the kind
-that survives in circulation. **Check the gazette before you price anything on 12.5% and 10%.**
+**The rates in (c).** Simple interest, capped at **12.5% per annum on an unsecured loan and 10% on a
+secured one**. Two independent reproductions of the Act agree on both figures, and one carries the
+provenance: sub-clause (c) was **substituted by section 6 of the Bengal Money-lenders (Amendment)
+Act, 1965 (West Bengal Act XXI of 1965)**. That settles an ambiguity worth naming — one
+reproduction renders this sub-clause with old and current text run together, and the 1965
+substitution is the current limb.
+
+**Section 30A, for commercial loans, is a different pair of numbers: 20% unsecured and 17%
+secured.** Which section applies therefore turns on whether the borrowing is commercial, and that
+is the first question to settle rather than the last.
+
+I have still not read these from the primary — see the sourcing note — so treat 12.5 / 10 / 20 / 17
+as corroborated rather than verified.
+
+## What actually happens to an unlicensed lender, and it is not the fine
+
+This is the part that most repays reading, because the criminal penalty is almost nothing and the
+commercial consequence is total.
+
+**Section 42 — general penalties**, which apply where the Act provides no specific penalty: a
+money-lender, or a servant, agent or manager of the business, who **knowingly and wilfully**
+commits, authorises or permits a default or contravention. **First offence: fine up to ₹200. Second:
+up to ₹500. Subsequent: rigorous imprisonment up to three months, with a fine.** Liability reaches
+members of an undivided Hindu family, directors and officers of a body corporate, and members of an
+unincorporated body who knowingly and wilfully take part.
+
+Those figures are from 1940 and have not kept pace with anything. On their own they would make the
+Act look toothless.
+
+**Section 13 is where the teeth are, and it is civil.** A court **may not pass a decree or order in
+a money-lender's favour** in a suit to recover a loan — or to enforce an agreement or security
+connected with it — unless satisfied that the lender held an **effective licence when the loan, or
+any part of it, was advanced**.
+
+And if the court finds at trial that no licence was held, it must, before going further, **order the
+lender to pay a penalty "as the Court thinks fit", up to three times the licence fee** under section
+10. **Unpaid within the time allowed, and the suit is dismissed.** Paid, and it proceeds.
+
+Section 13 also reaches **set-off claims**, and **assignees** where the assignment was made to avoid
+the licence fee and the penalty — so the obvious workaround is written out of it.
+
+**Read together: lending without a licence in West Bengal is a ₹200 offence and an unrecoverable
+book.** A lender can run unlicensed for years at trivial criminal risk and discover, the first time
+a borrower defaults and the matter reaches a court, that nothing is enforceable. The Calcutta High
+Court set aside a decree in favour of an unlicensed lender on exactly this ground in 2024.
+
+It is the same design as section 30, one step further: West Bengal regulates money lending through
+**what a court will do**, not through what an inspector will fine.
 
 ## Three states, three different regimes
 
@@ -120,7 +161,8 @@ that survives in circulation. **Check the gazette before you price anything on 1
 | Books | account per **debtor**, incl. nature of security | account per **debt** | **cash book, ledger, receipt book**, prescribed form |
 | Language | prescribed per area | — | **Bengali or English**, borrower's choice for the loan statement |
 | Statement to borrower | on written requisition | on written requisition | **annually, unasked** (s.25) |
-| Unlicensed lending | fine up to ₹1,000 | **imprisonment, min. three months**, to three years, fine up to ₹50,000 | — *(not verified; see below)* |
+| Unlicensed lending — criminal | fine up to ₹1,000 | **imprisonment, min. three months**, to three years, fine up to ₹50,000 | fine up to **₹200**, then ₹500, then rigorous imprisonment up to 3 months (s.42) |
+| Unlicensed lending — commercial | — | — | **no decree at all** (s.13): penalty up to 3× the licence fee, and the suit is **dismissed** if unpaid |
 
 The row that most often costs money is the third. A lender who has planned for a charging cap walks
 into West Bengal and finds the constraint sitting on recovery instead — it does not bite until the
@@ -137,11 +179,11 @@ the same as reading the Act.
 Three things to settle against the gazette before acting:
 
 1. **The section 30(1)(c) rates**, for the reason given above.
-2. **The penalty for unlicensed lending.** I did not verify it and have left the cell blank rather
-   than fill it from memory. Given that the Kerala and Tamil Nadu penalties differ by a factor of
-   fifty and a custodial sentence, guessing this one would be the worst place to guess.
-3. **Amendments after West Bengal Act IV of 1981**, and the current section 30A treatment of
-   commercial loans.
+2. **Amendments after West Bengal Act IV of 1981.** The most recent amendment any source lists.
+3. **That the 1940 Act is still the operative statute.** One secondary source refers to a "West
+   Bengal Money-Lenders Act, 1993". I looked for it and found nothing, and the Kolkata
+   Collectorate publishes the **1940** Act as the law it licenses under — so the 1993 reference
+   appears to be an error. Recorded because a reader may meet the same claim.
 
 Written **9 October 2026**. Where a figure is reported rather than read, this page says so.
 
@@ -171,11 +213,19 @@ The Collector of Kolkata (Stamp & Revenue), empowered by the proviso to section 
 of the 78 police stations under the Commissioner of Police, Kolkata. Elsewhere in the State it is the
 Sub-Registrar, who also maintains the section 7 register of licence holders.
 
+### What happens if a West Bengal money lender has no licence?
+
+Very little criminally — section 42 gives a fine up to ₹200 for a first offence, ₹500 for a second,
+and rigorous imprisonment up to three months thereafter. The real consequence is section 13: a court
+may not pass a decree in the lender's favour unless an effective licence was held when the loan was
+advanced, must order a penalty of up to three times the licence fee on finding there was none, and
+must dismiss the suit if that penalty goes unpaid. An unlicensed book is an unrecoverable one.
+
 ### Does section 30 apply to business borrowing?
 
-Not in the same way. West Bengal Act IV of 1981 carved commercial loans out of section 30 and into
-section 30A. Check the current text of both before applying the twice-the-principal limit to a
-business loan.
+Not in the same way. Commercial loans sit under section 30A, which allows **20% per annum unsecured
+and 17% secured** against section 30's 12.5% and 10%. So whether the borrowing is commercial is the
+first question, not the last.
 
 ---
 

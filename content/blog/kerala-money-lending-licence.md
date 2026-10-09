@@ -149,6 +149,10 @@ The last row is the one to act on. A lender treating "state money lending compli
 across the two states is carrying a Tamil Nadu risk assessment into a jurisdiction with a mandatory
 custodial minimum.
 
+And [West Bengal](/blog/west-bengal-money-lending-licence/) is a third shape: a ₹200 criminal fine,
+and an unlicensed lender who **cannot obtain a decree at all** — the exposure is the whole book
+rather than the penalty.
+
 ## And neither is RBI regulation
 
 A money-lender licensed under a state Act is not an NBFC and files no DNBS returns. Nothing about

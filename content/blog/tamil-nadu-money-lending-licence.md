@@ -148,8 +148,13 @@ charged by commercial banks), charges a **five thousand rupee** licence fee, per
 licence application is pending, contemplates **deposits** subject to the RBI Act, 1934, and requires
 an account per **debt** rather than per **debtor**.
 
-The full comparison is in [the Kerala page](/blog/kerala-money-lending-licence/). The point for a
-lender operating in both: this is two regimes, not one subject with local variations.
+The full comparison is in [the Kerala page](/blog/kerala-money-lending-licence/). And
+[West Bengal](/blog/west-bengal-money-lending-licence/) is a third shape again: the criminal penalty
+there is a ₹200 fine, but an unlicensed lender **cannot obtain a decree at all** (s.13), which makes
+the book unrecoverable rather than the lender fineable.
+
+The point for anyone operating across them: these are three regimes, not one subject with local
+variations.
 
 ## Why this is not the same question as RBI registration
 
