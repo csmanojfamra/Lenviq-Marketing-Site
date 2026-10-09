@@ -76,8 +76,19 @@ export interface ProductSpec {
   compliance: ProductSection;
   documents: ProductSection;
   reports: ProductSection;
-  /** Placed through the page, not clustered at the end. */
-  shots: {
+  /**
+   * Placed through the page, not clustered at the end.
+   *
+   * OPTIONAL, and the reason is a refusal rather than a convenience. A page is published without
+   * them when no *honest* shot exists for it: the microfinance page needs a group-loan screen and
+   * the capture set has none, and the nearest candidates were a Loan Against Property approvals
+   * queue (wrong asset class on a microfinance page — the doorway pattern this file's header warns
+   * about) and a field collection screen carrying a borrower name and phone number. Reusing either
+   * would have cost more credibility than the missing image does.
+   *
+   * A page without shots is a page waiting for a capture, and `docs/SHOTS_WANTED.md` says which.
+   */
+  shots?: {
     afterIntro: ProductShot;
     afterSpecific: ProductShot;
   };

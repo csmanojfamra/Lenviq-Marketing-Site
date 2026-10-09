@@ -666,7 +666,12 @@ describe("no two pages compete for the same query", () => {
     expect(top).toEqual([
       "/", "/business-loan-software/", "/cash-credit-software/", "/compliance/",
       "/gold-loan-software/", "/loan-against-property-software/", "/loan-management-system/",
-      "/loan-origination-software/", "/personal-loan-software/", "/platform/",
+      "/loan-origination-software/",
+      // A LENDER TYPE rather than an asset class, and the first of its kind here. It earns
+      // priority 1 on the same ground as the rest: it is a door the site exists to be found
+      // through. See the note on PRODUCTS in src/lib/products/index.ts.
+      "/microfinance-software/",
+      "/personal-loan-software/", "/platform/",
       "/vehicle-loan-software/",
     ]);
   });

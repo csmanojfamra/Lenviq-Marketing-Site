@@ -8,18 +8,23 @@ Two tests keep this honest: every URL in the sitemap must appear here, and **no 
 the same primary keyword**. A page added without a stated intent fails the suite; a page that would
 compete with an existing one fails it by name.
 
-97 URLs.
+111 URLs.
 
 ## Priority 1 — the pages the site exists to be found through
 
 | URL | Type | Intent | Primary keyword | Secondary |
 |---|---|---|---|---|
 | `/` | Homepage | Commercial | **NBFC loan management software** | lending software for NBFCs · loan management system India · NBFC software |
+| `/business-loan-software/` | Loan product | Commercial | **business loan software** | business lending for NBFCs · NBFC lending software |
+| `/cash-credit-software/` | Loan product | Commercial | **cash credit software** | working capital for NBFCs · NBFC lending software |
 | `/compliance/` | Compliance | Commercial | **NBFC compliance software** | RBI lending compliance · IRAC classification software · NBFC regulatory reporting |
 | `/gold-loan-software/` | Loan product | Commercial | **gold loan software** | gold loans for NBFCs · NBFC lending software |
 | `/loan-against-property-software/` | Loan product | Commercial | **loan against property software** | loans against property for NBFCs · NBFC lending software |
+| `/loan-management-system/` | Platform | Commercial | **loan management system** | LMS for NBFC · loan servicing software · loan management system India |
+| `/loan-origination-software/` | Platform | Commercial | **loan origination software** | LOS for NBFC · loan origination system · digital loan origination |
+| `/microfinance-software/` | Loan product | Commercial | **microfinance software** | microfinance and jlg for NBFCs · NBFC lending software |
 | `/personal-loan-software/` | Loan product | Commercial | **personal loan software** | unsecured lending for NBFCs · NBFC lending software |
-| `/platform/` | Platform | Commercial | **loan origination and management system** | LOS and LMS · loan lifecycle management · lending workflow software |
+| `/platform/` | Platform | Commercial | **NBFC software** | NBFC lending software · lending software for NBFCs · loan lifecycle management |
 | `/vehicle-loan-software/` | Loan product | Commercial | **vehicle loan software** | vehicle finance for NBFCs · NBFC lending software |
 
 ## Priority 2 — supporting commercial and conversion pages
@@ -35,9 +40,11 @@ compete with an existing one fails it by name.
 | `/tools/gold-loan-ltv-calculator/` | Help | Informational | **gold loan ltv calculator** | value a packet of ornaments across purities and see how much can be ad · NBFC lending |
 | `/tools/kfs-checklist/` | Help | Informational | **key facts statement checklist** | check a key facts statement against everything the prescribed format r · NBFC lending |
 | `/tools/nbfc-layer-finder/` | Help | Informational | **nbfc layer finder** | work out which layer of the scale-based framework your nbfc is in, and · NBFC lending |
+| `/tools/nbfc-provisioning-calculator/` | Help | Informational | **provisioning calculator** | work out the provision on a loan once it is classified — standard, sub · NBFC lending |
 | `/tools/nbfc-returns-calendar/` | Help | Informational | **nbfc returns calendar** | find out which supervisory returns your nbfc has to file, and when eac · NBFC lending |
 | `/tools/npa-date-calculator/` | Help | Informational | **npa & sma date calculator** | find the exact dates a missed instalment turns an account sma-1, sma-2 · NBFC lending |
 | `/tools/penal-charge-calculator/` | Help | Informational | **penal charge calculator** | work out the penal charge on an overdue amount, and check it against t · NBFC lending |
+| `/tools/prepayment-charge-checker/` | Help | Informational | **prepayment charge checker** | check whether a pre-payment or foreclosure charge may be levied on a p · NBFC lending |
 
 ## Priority 3 — topical depth
 
@@ -47,9 +54,12 @@ compete with an existing one fails it by name.
 | `/blog/audit-trail-what-counts/` | Blog | Informational | **audit trail what counts** | compliance · NBFC lending |
 | `/blog/best-loan-management-software-india/` | Blog | Informational | **best loan management software india** | guide · NBFC lending |
 | `/blog/books-of-account-what-must-be-kept/` | Blog | Informational | **books of account what must be kept** | compliance · NBFC lending |
+| `/blog/bucket-movement-and-flow-rates/` | Blog | Informational | **bucket movement and flow rates** | operations · NBFC lending |
 | `/blog/co-lending-what-each-side-owns/` | Blog | Informational | **co lending what each side owns** | operations · NBFC lending |
+| `/blog/collection-efficiency-how-to-compute/` | Blog | Informational | **collection efficiency how to compute** | operations · NBFC lending |
 | `/blog/credit-information-reporting-2025/` | Blog | Informational | **credit information reporting 2025** | reporting · NBFC lending |
 | `/blog/day-end-not-real-time/` | Blog | Informational | **day end not real time** | engineering · NBFC lending |
+| `/blog/dcb-reconciliation-why-it-stops-tying/` | Blog | Informational | **dcb reconciliation why it stops tying** | accounting · NBFC lending |
 | `/blog/due-diligence-what-lenders-ask/` | Blog | Informational | **due diligence what lenders ask** | operations · NBFC lending |
 | `/blog/frozen-terms-at-sanction/` | Blog | Informational | **frozen terms at sanction** | engineering · NBFC lending |
 | `/blog/gold-loan-directions-2025/` | Blog | Informational | **gold loan directions 2025** | regulatory · NBFC lending |
@@ -68,8 +78,10 @@ compete with an existing one fails it by name.
 | `/blog/kfs-what-goes-in-the-apr/` | Blog | Informational | **kfs what goes in the apr** | regulatory · NBFC lending |
 | `/blog/loan-management-software-for-nbfc/` | Blog | Informational | **loan management software for nbfc** | guide · NBFC lending |
 | `/blog/nbfc-books-retention/` | Blog | Informational | **nbfc books retention** | regulatory · NBFC lending |
+| `/blog/nbfc-category-and-layer/` | Blog | Informational | **nbfc category and layer** | regulatory · NBFC lending |
 | `/blog/nbfc-digital-lending-guide/` | Blog | Informational | **nbfc digital lending guide** | guide · NBFC lending |
 | `/blog/nbfc-income-recognition-rbi-rules/` | Blog | Informational | **nbfc income recognition rbi rules** | how-to · NBFC lending |
+| `/blog/nbfc-provisioning-worked-examples/` | Blog | Informational | **nbfc provisioning worked examples** | accounting · NBFC lending |
 | `/blog/nbfc-software-complete-guide/` | Blog | Informational | **nbfc software complete guide** | guide · NBFC lending |
 | `/blog/npa-income-reversal/` | Blog | Informational | **npa income reversal** | accounting · NBFC lending |
 | `/blog/outsourcing-what-cannot-be-outsourced/` | Blog | Informational | **outsourcing what cannot be outsourced** | compliance · NBFC lending |
@@ -81,6 +93,8 @@ compete with an existing one fails it by name.
 | `/blog/scale-based-regulation-layers/` | Blog | Informational | **scale based regulation layers** | regulatory · NBFC lending |
 | `/blog/sma-classification-what-it-signals/` | Blog | Informational | **sma classification what it signals** | regulatory · NBFC lending |
 | `/blog/spreadsheets-vs-loan-management-software-nbfc/` | Blog | Informational | **spreadsheets vs loan management software nbfc** | how-to · NBFC lending |
+| `/blog/static-pool-analysis-how-to-build/` | Blog | Informational | **static pool analysis how to build** | operations · NBFC lending |
+| `/blog/what-is-a-loan-origination-system/` | Blog | Informational | **what is a loan origination system** | guide · NBFC lending |
 | `/blog/what-the-2024-gold-review-found/` | Blog | Informational | **what the 2024 gold review found** | supervision · NBFC lending |
 | `/glossary/` | Glossary | Informational | **NBFC lending glossary** | lending terms India · RBI lending terminology |
 | `/glossary/apr/` | Glossary | Informational | **apr (annual percentage rate)** | what is apr (annual percentage rate) · NBFC lending |

@@ -114,7 +114,7 @@ export function ProductPage({ spec }: { spec: ProductSpec }) {
             </p>
           ))}
         </Reveal>
-        <Shot {...spec.shots.afterIntro} />
+        {spec.shots && <Shot {...spec.shots.afterIntro} />}
       </Section>
 
       <Section tone="sand">
@@ -124,7 +124,7 @@ export function ProductPage({ spec }: { spec: ProductSpec }) {
       {/* The section that carries the page: what is true of this asset class and no other. */}
       <Section>
         <SpecList section={spec.specific} />
-        <Shot {...spec.shots.afterSpecific} />
+        {spec.shots && <Shot {...spec.shots.afterSpecific} />}
       </Section>
 
       <Section tone="sand">
