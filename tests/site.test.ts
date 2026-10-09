@@ -767,7 +767,16 @@ describe("article paragraphs are spaced", () => {
 
   it.runIf(existsSync(OUT))("keeps prose as a direct child of the element that styles it", () => {
     const posts = execSync(`find ${OUT}/blog -name index.html`, { encoding: "utf8" })
-      .trim().split("\n").filter((f) => !f.endsWith("blog/index.html"));
+      .trim().split("\n").filter((f) => !f.endsWith("blog/index.html"))
+      /*
+       * A REDIRECT SHIM UNDER /blog/ IS NOT A POST.
+       *
+       * One path here exists only to carry a renamed slug to its new home — no article, no prose
+       * wrapper, and `noindex` precisely because it is not a page anybody should land on. This
+       * check is about how an ARTICLE is marked up, so it skips those rather than being loosened
+       * for them: every real post is still held to the rule.
+       */
+      .filter((f) => !/content="noindex/.test(readFileSync(f, "utf8")));
     expect(posts.length).toBeGreaterThan(5);
 
     const broken = posts.filter((f) => {
