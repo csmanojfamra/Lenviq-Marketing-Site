@@ -5,6 +5,7 @@ metaDescription: "NBFC compliance calendar: month-by-month DNBS filing dates, de
 date: "2026-10-09"
 category: "Compliance"
 author: "CS Manoj Famra"
+tool: "nbfc-returns-calendar"
 draft: false
 ---
 

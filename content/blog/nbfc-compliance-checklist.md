@@ -5,6 +5,7 @@ metaDescription: "NBFC compliance checklist by frequency — weekly, monthly, qu
 date: "2026-10-09"
 category: "Compliance"
 author: "CS Manoj Famra"
+tool: "nbfc-returns-calendar"
 draft: false
 ---
 

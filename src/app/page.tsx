@@ -42,20 +42,22 @@ const MODULES = [
 ];
 
 /**
- * The product chips are LINKS now, except one.
+ * The chips are LINKS — the strongest internal-linking signal a home page has, and it used to be
+ * spent on decoration.
  *
- * They were five spans. Four of them are the highest-value pages on the site and had no inbound
- * link from the home page at all — which is the strongest internal-linking signal a site has to
- * give, and it was being spent on decoration. Business lending stays a plain chip because it is
- * supported by the product and has no page yet; linking it to nothing, or to a page written to
- * fill the gap, would be worse than leaving it as a statement of fact.
+ * Two corrections since this was written. **Business lending now has a page** and the note here
+ * still said it did not, so the chip stayed plain long after the reason expired — a stale comment
+ * quietly costing the link it was written to justify. And **microfinance is now a door of its
+ * own**: not an asset class like the five above it but a LENDER TYPE, which is why it sits last
+ * and why the lead above names those lenders rather than leaving them to infer it from "NBFC".
  */
 const PRODUCT_LINES: { label: string; href?: string }[] = [
   { label: "Personal loans", href: "/personal-loan-software/" },
-  { label: "Business loans" },
+  { label: "Business loans", href: "/business-loan-software/" },
   { label: "Vehicle loans", href: "/vehicle-loan-software/" },
   { label: "Loans against property", href: "/loan-against-property-software/" },
   { label: "Gold loans", href: "/gold-loan-software/" },
+  { label: "Microfinance and JLG", href: "/microfinance-software/" },
 ];
 
 const FAQ = [
@@ -148,8 +150,8 @@ export default function HomePage() {
         */}
         <SectionHead
           eyebrow="Who it is for"
-          title="Built for India’s NBFCs, and the people who keep them compliant"
-          lead="Lenviq is built around the rules an NBFC is examined against — the Master Directions, IRAC classification from the day-end position, the penal-charges regime, the returns. In general-purpose lending software those are things you configure and then defend; here they are the product itself, which is why the compliance work is specific rather than something you assemble."
+          title="Built for India’s NBFCs, microfinance lenders, and the people who keep them compliant"
+          lead="Lenviq is built around the rules a lender is examined against — the Master Directions, IRAC classification from the day-end position, the penal-charges regime, the returns, and for a microfinance lender the 2022 Directions on top. In general-purpose lending software those are things you configure and then defend; here they are the product itself, which is why the compliance work is specific rather than something you assemble."
         />
         <Reveal className="mt-s5 flex flex-wrap gap-s2">
           {PRODUCT_LINES.map((p) => {

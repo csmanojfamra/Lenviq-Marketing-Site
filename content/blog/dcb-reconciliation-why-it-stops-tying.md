@@ -5,6 +5,7 @@ metaDescription: "DCB reconciliation for a loan book: why opening + demand - col
 date: "2026-10-09"
 category: "Accounting"
 author: "CA Anil Agarwal"
+tool: "penal-charge-calculator"
 draft: false
 ---
 

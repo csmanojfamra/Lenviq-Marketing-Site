@@ -5,6 +5,7 @@ metaDescription: "Bucket movement matrix and flow rates: how to build one from m
 date: "2026-10-09"
 category: "Operations"
 author: "CS Sushil Choudhary"
+tool: "npa-date-calculator"
 draft: false
 ---
 
