@@ -1,7 +1,7 @@
 [
   {
     "name": "login",
-    "v": "62353629",
+    "v": "96df6558",
     "width": 1800,
     "height": 1125,
     "path": "/login",
@@ -12,7 +12,7 @@
   },
   {
     "name": "dashboard",
-    "v": "41bbf25a",
+    "v": "cfa0e2a3",
     "width": 1800,
     "height": 1125,
     "path": "/dashboard",
@@ -23,7 +23,7 @@
   },
   {
     "name": "loan-accounts",
-    "v": "575e896a",
+    "v": "99b24908",
     "width": 1800,
     "height": 1125,
     "path": "/lms/loans",
@@ -34,7 +34,7 @@
   },
   {
     "name": "loan-account",
-    "v": "fb42c9e7",
+    "v": "98cc4ffd",
     "width": 1800,
     "height": 1125,
     "path": "/lms/loans/193ce0d0-8804-4ce8-a783-e44da7319e27",
@@ -45,7 +45,7 @@
   },
   {
     "name": "application-stages",
-    "v": "bfabb338",
+    "v": "2580969a",
     "width": 1800,
     "height": 1125,
     "path": "/applications/398c0bb0-b42d-4709-a547-3c7f81f6eab7",
@@ -56,7 +56,7 @@
   },
   {
     "name": "application-record",
-    "v": "eeb1004b",
+    "v": "f34c9ea0",
     "width": 1800,
     "height": 1125,
     "path": "/applications/398c0bb0-b42d-4709-a547-3c7f81f6eab7/record",
@@ -67,7 +67,7 @@
   },
   {
     "name": "applications",
-    "v": "5830bed1",
+    "v": "1c157cfd",
     "width": 1800,
     "height": 1125,
     "path": "/applications",
@@ -78,7 +78,7 @@
   },
   {
     "name": "parties",
-    "v": "a443b0bb",
+    "v": "166b27fa",
     "width": 1800,
     "height": 1125,
     "path": "/parties",
@@ -89,7 +89,7 @@
   },
   {
     "name": "party-kyc",
-    "v": "3f3c2c42",
+    "v": "c9d2968d",
     "width": 1800,
     "height": 1125,
     "path": "/parties/e73534aa-cc93-41f5-af8e-571c3c24cf92",
@@ -100,7 +100,7 @@
   },
   {
     "name": "reports",
-    "v": "cf72c45d",
+    "v": "c84619e2",
     "width": 1800,
     "height": 1125,
     "path": "/lms/reports",
@@ -111,7 +111,7 @@
   },
   {
     "name": "rbi-returns",
-    "v": "d3971dfd",
+    "v": "6301ef42",
     "width": 1800,
     "height": 1125,
     "path": "/rbi-returns",
@@ -122,7 +122,7 @@
   },
   {
     "name": "accounting",
-    "v": "b07085d2",
+    "v": "9ddf5bbb",
     "width": 1800,
     "height": 1125,
     "path": "/accounting",
@@ -133,7 +133,7 @@
   },
   {
     "name": "disbursement-register",
-    "v": "ed5ce0c1",
+    "v": "9cd92d54",
     "width": 1800,
     "height": 1125,
     "path": "/disbursement-register",
@@ -144,7 +144,7 @@
   },
   {
     "name": "schemes",
-    "v": "5ef14638",
+    "v": "3620daf8",
     "width": 1800,
     "height": 1125,
     "path": "/schemes",
@@ -155,7 +155,7 @@
   },
   {
     "name": "scheme-detail",
-    "v": "7421e555",
+    "v": "f847993f",
     "width": 1800,
     "height": 1125,
     "path": "/schemes/6da807ed-e458-4dcb-8310-f850eabe9726",
@@ -166,7 +166,7 @@
   },
   {
     "name": "approvals-inbox",
-    "v": "1e9fafc3",
+    "v": "5ef6df6d",
     "width": 1800,
     "height": 1125,
     "path": "/approvals-inbox",
@@ -177,7 +177,7 @@
   },
   {
     "name": "leads",
-    "v": "b96f921b",
+    "v": "7a8f0f2e",
     "width": 1800,
     "height": 1125,
     "path": "/leads",
@@ -188,7 +188,7 @@
   },
   {
     "name": "field-home",
-    "v": "2869fd21",
+    "v": "641b7261",
     "width": 824,
     "height": 1830,
     "path": "/mobile",
@@ -199,7 +199,7 @@
   },
   {
     "name": "field-accounts",
-    "v": "2caef656",
+    "v": "07b217eb",
     "width": 824,
     "height": 1830,
     "path": "/mobile/accounts",
@@ -210,7 +210,7 @@
   },
   {
     "name": "field-account-summary",
-    "v": "358a7ca2",
+    "v": "cba75bc8",
     "width": 824,
     "height": 1830,
     "path": "/mobile/accounts/193ce0d0-8804-4ce8-a783-e44da7319e27",
@@ -221,7 +221,7 @@
   },
   {
     "name": "field-collect",
-    "v": "a8132321",
+    "v": "60b838f4",
     "width": 824,
     "height": 1830,
     "path": "/mobile/collections/193ce0d0-8804-4ce8-a783-e44da7319e27",
@@ -232,7 +232,7 @@
   },
   {
     "name": "field-day-end",
-    "v": "560708db",
+    "v": "edd06057",
     "width": 824,
     "height": 1830,
     "path": "/mobile/collections/eod",
@@ -243,10 +243,10 @@
   },
   {
     "name": "gold-loan-ltv",
-    "v": "c23c7b57",
+    "v": "b9a2b674",
     "width": 1800,
     "height": 1125,
-    "path": "/lms/loans/3238209b-f052-4b0f-9655-62d5fbe10b6b",
+    "path": "/lms/loans/faa7f2f2-f257-4a2a-ba97-54ed9f44c503",
     "small": {
       "width": 900,
       "height": 563
