@@ -84,12 +84,55 @@ function parse(file: string): Post {
   };
 }
 
+/**
+ * WHICH POST LEADS WHEN SEVERAL SHARE A DATE.
+ *
+ * Fifteen posts published on one day all carry that day's date, so the sort had nothing left to go
+ * on and fell back on the filename — reversed, which put `write-off-what-it-does` in the top slot
+ * and left `collection-efficiency-how-to-compute` fourteenth. The most-seen position in the blog
+ * was being allocated by the alphabet.
+ *
+ * Giving them different dates would have been the easy fix and a false one: they were published on
+ * the same day and the date says so. So the tie-break is declared instead, and these three lead
+ * because the evidence says they are the best bets rather than because of how they are spelt:
+ *
+ *   · flat-rate-vs-reducing-balance    — "flat rate" and "reducing balance" appeared NOWHERE on
+ *                                        this site before it, which for an Indian lending site is
+ *                                        the largest single gap found
+ *   · collection-efficiency-how-to-compute — the term already ranks at 10.8 off a mention inside
+ *                                        another post; this is the page that should hold it
+ *   · static-pool-analysis-how-to-build — same shape, already at 2.7 off a mention
+ *
+ * Anything not listed keeps its filename order, which is arbitrary and harmless once the top of
+ * the page is deliberate.
+ */
+const LEADS = [
+  "flat-rate-vs-reducing-balance",
+  "collection-efficiency-how-to-compute",
+  "static-pool-analysis-how-to-build",
+];
+const leadRank = (slug: string) => {
+  const i = LEADS.indexOf(slug);
+  return i === -1 ? LEADS.length : i;
+};
+
 function all(): Post[] {
   if (!existsSync(DIR)) return [];
   return readdirSync(DIR)
     .filter((f) => f.endsWith(".md"))
     .map(parse)
-    .sort((a, b) => (a.date < b.date ? 1 : -1));
+    /*
+     * Newest first, then the declared order above, then stable.
+     *
+     * The old comparator returned 1 or -1 and never 0, so two posts sharing a date were reported
+     * as strictly ordered in both directions — an inconsistent comparator, whose result is whatever
+     * the engine's sort happens to do with it. Returning 0 for a genuine tie is what makes this
+     * stable across builds.
+     */
+    .sort((a, b) => {
+      if (a.date !== b.date) return a.date < b.date ? 1 : -1;
+      return leadRank(a.slug) - leadRank(b.slug);
+    });
 }
 
 /** Published posts only. Every caller uses this; nothing anywhere loads a draft. */
