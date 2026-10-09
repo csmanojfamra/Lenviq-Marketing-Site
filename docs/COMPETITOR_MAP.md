@@ -171,3 +171,35 @@ advantage** and the specialist posts in §7 should link into it rather than stan
    outside the brief's section list and is a positioning decision rather than a content one.
 4. **§7's posts should link into `/tools`.** Ten calculators against a field of four is an advantage
    nobody is contesting.
+
+---
+
+## 7. State money lending (§6.2) — what was written and what was skipped
+
+**Written: Tamil Nadu only, and read from the Act itself.** `content/blog/tamil-nadu-money-lending-licence.md`,
+draft. The primary text was obtained (the Act's published PDF, decompressed and read directly) and
+every quotation on the page is from it: s.3(1) and 3(2) on the licence per place of business, s.3(3)
+on who holds it by entity form, s.5 on change of premises, s.7(1) as substituted by TN Act 41 of
+1979, s.7(2) and 7(3) on charges, s.9(1)(a)–(d) and 9(2) on records and returns, s.14 to s.17 on
+suspension, publication and penalty.
+
+**The finding that justifies the page:** the Tamil Nadu interest ceiling **is not in the Act**.
+s.7(1) says the Government fixes it by notification, correlated to RBI's bank rates. Every secondary
+guide that quotes a percentage "under the Act" is quoting a notification without its date, or the
+pre-1979 position. That is a correction nobody in the competitor set is making — pawnsoftware.in,
+the only content-led site in the segment, covers the **Pawn Brokers** Acts and never mentions the
+**Money-Lenders** Acts, and the word "registers" does not appear on it at all.
+
+**Skipped: Kerala (1958) and West Bengal (1940), and the reason is not time.** I could obtain and
+verify the Tamil Nadu primary text; I could not do the same for those two within this session. A
+state licensing page is published under a practising Company Secretary's name, and a page built
+from secondary summaries of a state Act is precisely the thing the brief says one wrong regulatory
+claim costs more than five correct pages earn. **One state verified beats three states inferred.**
+
+They remain worth writing, in this order, and the test is the same: obtain the Act, read it, quote
+it. Kerala first — the southern concentration that makes Tamil Nadu worth doing applies to it too.
+
+**What the Tamil Nadu page does NOT do, deliberately:** it carries no software pitch. The brief is
+right that this reader wants an adviser, and a licensing guide with a product bolted onto it reads
+as what it is. The only internal links are to the NBFC registration page and the compliance
+checklist, both of which are the adjacent question rather than a sale.
