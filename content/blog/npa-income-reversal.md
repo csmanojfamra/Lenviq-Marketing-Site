@@ -133,6 +133,23 @@ bucket it came from, because from their side there is only one.
 
 ## Frequently asked questions
 
+### What does "unrealised interest reversed" mean on a loan statement?
+
+It is the line that records this reversal. **Unrealised interest** is interest the lender had accrued
+as income but never actually received; **reversed** means it has been taken back out of income
+because the account turned non-performing and the Reserve Bank's rules no longer permit recognising
+it. The amount moves to an interest suspense account.
+
+Two things it does **not** mean, and both are read into it regularly. It is not a waiver — see the
+next question. And it is not a correction of an earlier mistake: the interest was correctly
+recognised while the account was standard, and is correctly unrecognised now that it is not.
+
+### Is unrealised interest the same as interest in suspense?
+
+They are two views of the same amount at two moments. *Unrealised interest* describes it while it sat
+in income without having been collected. *Interest in suspense* is where it sits after the reversal.
+The entry that connects them is the one this page is about.
+
 ### Does reversing interest to suspense reduce what the borrower owes?
 
 No. Suspense is a position in the lender's books; it is not a waiver. The borrower remains liable for
@@ -168,6 +185,7 @@ principal with money that was interest.
 **Related reading:** [NBFC income recognition rules](/blog/nbfc-income-recognition-rbi-rules/) ·
 [How to automate NPA classification](/blog/how-to-automate-npa-classification-nbfc/) ·
 [Classification is a day-end event](/blog/irac-day-end-classification/) ·
+[Upgrading an NPA: the entire arrears rule](/blog/npa-upgrade-entire-arrears/) ·
 [RBI compliance for NBFCs](/blog/rbi-compliance-for-nbfcs-guide/)
 
 [Ask for a walk-through](/contact/) — post a receipt on an NPA account and follow it through the

@@ -5,6 +5,7 @@ metaDescription: "Collection efficiency, DCB, static pool and vintage analysis â
 date: "2026-08-10"
 category: "Operations"
 author: "CS Sushil Choudhary"
+tool: "npa-date-calculator"
 draft: false
 ---
 

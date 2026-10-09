@@ -85,6 +85,13 @@ export const NAV: NavItem[] = [
       { href: "/gold-loan-software/", label: "Gold loans", note: "LTV, renewal, auction" },
       { href: "/business-loan-software/", label: "Business loans", note: "Eleven constitutions, promoter guarantees" },
       { href: "/cash-credit-software/", label: "Cash credit and overdraft", note: "Drawing power, stock statements, renewal" },
+      /*
+       * A LENDER TYPE, not a loan product, which is why it carries its own group label rather than
+       * sitting silently at the end of the six above it. A Section 8 or NBFC-MFI reader comes in
+       * through their own vocabulary — JLG, group loan, centre — and the nav is the strongest
+       * site-wide link there is to hand them. See docs/VOCABULARY_MAP.md.
+       */
+      { href: "/microfinance-software/", label: "Microfinance and JLG", note: "Centres, group loans, per-member accounts", groupBefore: "By lender type" },
     ],
   },
   /**

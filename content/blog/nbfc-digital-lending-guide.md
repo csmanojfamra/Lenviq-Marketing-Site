@@ -5,6 +5,7 @@ metaDescription: "Who may hold the money, what a lending service provider may no
 date: "2026-08-12"
 category: "Guide"
 author: "CS Sushil Choudhary"
+tool: "kfs-checklist"
 draft: false
 ---
 

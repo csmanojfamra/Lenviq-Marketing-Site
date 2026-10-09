@@ -27,6 +27,19 @@ export interface Tool {
    */
   helps: string;
   /**
+   * The writing that explains the rule this tool applies — rendered under the calculator.
+   *
+   * A tool page was a DEAD END: it answered one question and offered only other tools. That costs
+   * twice. The reader who wants to know *why* the answer is what it is leaves to find out, and the
+   * page passes none of its relevance to the posts that already rank on the same subject — which is
+   * the opposite of what an asset nobody else in this segment has should be doing
+   * (`docs/COMPETITIVE_PLAN.md` §3, Phase 3).
+   *
+   * Only where a post genuinely answers a question the tool raises. A near-miss link here reads as
+   * a house ad, which is the same test the `tool:` card on a post is held to.
+   */
+  reading?: readonly { href: string; label: string; note: string }[];
+  /**
    * Where this tool's answer actually comes from. Three honest categories, because the page used to
    * tell all ten of them the same story — "this runs the same arithmetic as the platform, and a
    * test fails the build if it differs" — which is true of four.
@@ -75,6 +88,11 @@ export const TOOLS: Tool[] = [
     description:
       "Work out the provision required on a loan at each asset classification, with the secured and unsecured portions split — using the NBFC rates, which are not the bank rates.",
     helps: "Provide the right amount on each account, and see exactly which rate produced it.",
+    reading: [
+      { href: "/blog/nbfc-provisioning-worked-examples/", label: "Provisioning, with worked examples", note: "The same arithmetic on real cases, and where a rate is applied to the wrong base." },
+      { href: "/blog/npa-income-reversal/", label: "What happens to income when an account turns", note: "Accrued interest is reversed to suspense, and the provision is only half the entry." },
+      { href: "/blog/write-off-what-it-does/", label: "What a write-off does, and does not do", note: "Where the provision ends up, and why the borrower still owes every rupee." },
+    ],
     source:
       "Master Direction — Reserve Bank of India (Non-Banking Financial Companies — Income Recognition, Asset Classification and Provisioning) Directions, 2025, effective 28 November 2025. The ninety-day non-performing basis applies to every NBFC including the Base Layer, whose glide path ended on 31 March 2026.",
     sourceUrl: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx",
@@ -90,6 +108,9 @@ export const TOOLS: Tool[] = [
     description:
       "Check whether the 2025 Directions bar a pre-payment or foreclosure charge on a loan — the answer turns on the rate, the borrower, the purpose and which tier of lender is asking.",
     helps: "Know before you levy, and see which limb of the Directions produced the answer.",
+    reading: [
+      { href: "/blog/prepayment-charges-2025/", label: "Prepayment charges after the 2025 Directions", note: "When a charge may be levied at all, and on whom it may not." },
+    ],
     source:
       "Reserve Bank of India (Pre-payment Charges on Loans) Directions, 2025 — issued 2 July 2025, applying to loans and advances sanctioned or renewed on or after 1 January 2026. They reach all commercial banks other than payments banks, co-operative banks, NBFCs including HFCs, and All India Financial Institutions.",
     sourceUrl: "https://www.rbi.org.in/scripts/NotificationUser.aspx?Id=12878&Mode=0",
@@ -105,6 +126,10 @@ export const TOOLS: Tool[] = [
     description:
       "Calculate the penal charge on an overdue instalment and check it against the rules in force since April 2024, including the cap that applies to consumer loans.",
     helps: "Charge the right amount, and see at a glance whether it meets the rules that came in during 2024.",
+    reading: [
+      { href: "/blog/penal-charges-not-interest/", label: "A penal amount is a charge, not interest", note: "Why it cannot be capitalised, and what that changes in the ledger." },
+      { href: "/blog/dcb-reconciliation-why-it-stops-tying/", label: "Why demand, collection and balance stop tying", note: "Penal is one of the seven breaks, and the one whose treatment two designs disagree on." },
+    ],
     source:
       "RBI/2023-24/53, DoR.MCS.REC.28/01.01.001/2023-24, 18 August 2023 — Fair Lending Practice, Penal Charges in Loan Accounts. In force for new loans from 1 April 2024. Penal charges collected by banks and NBFCs are not taxable under GST, per the 55th GST Council. The circular does not reach credit cards, external commercial borrowings, trade credits or structured obligations.",
     sourceUrl: "https://www.rbi.org.in/Scripts/BS_CircularIndexDisplay.aspx",
@@ -120,6 +145,10 @@ export const TOOLS: Tool[] = [
     description:
       "Go through a Key Facts Statement item by item against the format the RBI prescribed, and see what a template written before October 2024 is missing.",
     helps: "Find out what your KFS template is missing before a borrower or an auditor does.",
+    reading: [
+      { href: "/blog/kfs-key-facts-statement-nbfc-requirement/", label: "What the Key Facts Statement must contain", note: "The requirement itself, and who it applies to." },
+      { href: "/blog/kfs-what-goes-in-the-apr/", label: "What goes into the APR", note: "Which charges belong in the computation and which do not." },
+    ],
     source:
       "RBI/2024-25/18, DOR.STR.REC.13/13.03.00/2024-25, 15 April 2024 — Key Facts Statement for Loans and Advances, and its Annex A. Applies to every retail and MSME term loan sanctioned on or after 1 October 2024, including to existing customers; credit card receivables are outside it.",
     sourceUrl: "https://www.rbi.org.in/Scripts/BS_CircularIndexDisplay.aspx",
@@ -135,6 +164,10 @@ export const TOOLS: Tool[] = [
     description:
       "Find which layer of the RBI scale-based framework your NBFC is in, why, and what changes there — from its category, size and whether it takes deposits.",
     helps: "Settle which layer you are in, and stop applying rules meant for a different one.",
+    reading: [
+      { href: "/blog/scale-based-regulation-layers/", label: "The scale-based regulation layers", note: "What places an NBFC in each layer, and what the layer then obliges." },
+      { href: "/blog/nbfc-registration-and-cor/", label: "Registration and the Certificate of Registration", note: "You acquire a layer the day the CoR arrives — and the returns that follow from it." },
+    ],
     source:
       "Master Direction — Reserve Bank of India (Non-Banking Financial Company — Scale Based Regulation) Directions, 2023. The Upper Layer is identified by the Reserve Bank and published as a named list; it cannot be worked out from a company's own figures. A flat ₹1 lakh crore test for that layer was proposed in April 2026 and is not applied here, because it is a proposal.",
     sourceUrl: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx",
@@ -152,6 +185,11 @@ export const TOOLS: Tool[] = [
     description:
       "Find out which RBI supervisory returns your NBFC must file and when each is due, based on your layer, category, asset size and whether you take deposits.",
     helps: "Know exactly what your NBFC has to file this quarter, without reading a list meant for everybody else.",
+    reading: [
+      { href: "/blog/rbi-returns-for-nbfcs/", label: "Which return, who files it, and what it is built from", note: "One row per DNBS return, with the layer and asset-size thresholds that decide applicability." },
+      { href: "/blog/nbfc-compliance-calendar/", label: "The filing calendar, with its derivation shown", note: "Every date re-derivable from the 21-day rule in the 2024 Supervisory Returns Directions." },
+      { href: "/blog/nbfc-category-and-layer/", label: "Category and layer, and why you have both", note: "The layer decides which of these returns you file at all." },
+    ],
     source:
       "Master Direction — Reserve Bank of India (Filing of Supervisory Returns) Directions, 2024, dated 27 February 2024, which consolidated twenty earlier instructions and replaced the 2016 NBFC Returns Directions; read with the Scale Based Regulation Directions, 2023 for what each layer means. Several published compliance calendars still list the older NBS-1, NBS-2 and NBS-3 returns, which that repeal removed.",
     sourceUrl: "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx",
@@ -183,6 +221,11 @@ export const TOOLS: Tool[] = [
     description:
       "Enter the date an instalment fell due and get the exact dates the account is flagged overdue, moves through each SMA bucket, and becomes non-performing.",
     helps: "Get the classification dates right, so the provision and the reporting land in the correct quarter.",
+    reading: [
+      { href: "/blog/irac-day-end-classification/", label: "Classification is a day-end event", note: "Why the same account is non-performing at 11am and standard at 2pm, and which answer counts." },
+      { href: "/blog/npa-upgrade-entire-arrears/", label: "Upgrading an NPA: the entire arrears rule", note: "The dates above take an account down. Only full payment of arrears brings it back." },
+      { href: "/blog/sma-classification-what-it-signals/", label: "What SMA classification signals", note: "What each bucket obliges a lender to do, and why the first boundary is day one." },
+    ],
   },
   {
     slug: "gold-loan-ltv-calculator",
@@ -197,6 +240,10 @@ export const TOOLS: Tool[] = [
     description:
       "Value gold ornaments across purities, convert them to 22-carat equivalent weight, and see the eligible value, the maximum advance and the loan-to-value.",
     helps: "Value a packet correctly in seconds, and see what happens to the cover if the gold price falls.",
+    reading: [
+      { href: "/blog/gold-loan-directions-2025/", label: "The 2025 gold Directions", note: "Ongoing LTV, renewal, and the seven working day return clock." },
+      { href: "/blog/what-the-2024-gold-review-found/", label: "What the 2024 gold review found", note: "The practices the Reserve Bank named, and what they imply for a gold book." },
+    ],
   },
 ];
 

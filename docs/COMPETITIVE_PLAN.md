@@ -124,16 +124,31 @@ Nothing here is a new page. All of it is making seventeen existing pages work ha
       Four deliberately do not — no calculator here answers a question the three state licensing
       pages or the collection-efficiency post raise, and a card pointing at a near-miss reads as a
       house ad.
-- [ ] **Audit the other 41 posts for the same gap.** Only 8 of 52 posts link to `/tools/` in body
-      text; 27 now carry the card. The rest should be checked one by one, not bulk-edited.
+- [x] **Audited the other 41 posts, one by one.** The honest result is that the gap was smaller than
+      the count suggested: of 25 posts without a card, **only three had a tool that genuinely
+      answers a question they raise** — digital lending → KFS checklist, portfolio management and
+      the diligence omnibus → NPA date calculator. The rest are evaluation pages, records-retention
+      pages and the state licensing pages, and no calculator here speaks to them. 30 of 54 carry a
+      card; the other 24 should not.
 
 ### Phase 2 — the two things that compound (weeks)
 
-**Repeat the proven shape.** More operational long-tail posts, chosen the way the four were: a term
-already surfacing from a *mention*, with thin competition, written as the practitioner's question.
-Candidates from the same Search Console evidence: `unrealised intt reversed meaning` (position 11.0
-— a post exists at 7.8, so this is a deepening, not a new page), provisioning by asset class,
-restructuring treatment, SMA-to-NPA transition arithmetic.
+**Repeat the proven shape.** — **started.** Two more posts and one deepening, each chosen the way
+the first four were: a term already surfacing from a *mention* inside another post.
+
+- **[Upgrading an NPA: the entire arrears rule](/blog/npa-upgrade-entire-arrears/)** — the upgrade
+  rule was a *section* inside `how-to-automate-npa-classification-nbfc`, which is exactly the shape
+  `static pool` was in when it reached position 2.7.
+- **[What a write-off does and does not do](/blog/write-off-what-it-does/)** — "write off" appears
+  across several posts and had no page. The operational question is the gap between the balance
+  sheet and the obligation.
+- **`npa-income-reversal` deepened** for `unrealised intt reversed meaning` (position 11.0). The
+  phrase appeared once in passing; it now has two FAQ entries answering the statement line a reader
+  is actually looking at. A deepening, as the plan said, not a new page.
+
+**Not written, and why:** *vintage analysis* would cannibalise the static pool page — the two are the
+same analysis and the diligence post already treats them together. *Restructuring* needs primary
+sources I have not verified, and this cluster's whole advantage is that its citations hold.
 
 **Keep the regulatory pages current, and date them.** The entire advantage in §2.2 decays if these
 pages age the way the ones they beat did. Every page already carries its sources with dates; the
@@ -146,7 +161,13 @@ loader already supports and which almost nothing here uses.
 
 1. **The tools are the linkable asset.** A free, correct, India-specific calculator is the one thing
    on this site another site would cite without being asked. Nobody in the competitor set has ten.
-   Making them more findable — and more citable — is the highest-return authority work available.
+   **Started:** the tool pages were a DEAD END — they answered one question and offered only other
+   tools, so a reader who wanted to know *why* left to find out, and the page passed none of its
+   relevance to the posts that already rank on the same subject. Eight tools now carry a
+   *"Why the answer is what it is"* block linking the writing behind the rule — 18 links, none
+   broken. Two tools carry none, because no post here speaks to them.
+   **Also:** `/microfinance-software/` is now in the site navigation under its own *By lender type*
+   group, which is the strongest site-wide link there is.
 2. **Directory listings.** The head term is held by GoodFirms, Capterra, SoftwareSuggest and
    listicles. The realistic move is to be *in* them rather than to outrank them. **This is a
    commercial decision and is Manoj's**, not mine — recorded, not acted on.

@@ -5,6 +5,7 @@ metaDescription: "What is out, what is due, what is deteriorating, what is conce
 date: "2026-08-12"
 category: "How-to"
 author: "CA Tanmay Saini"
+tool: "npa-date-calculator"
 draft: false
 ---
 

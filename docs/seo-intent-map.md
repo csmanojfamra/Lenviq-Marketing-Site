@@ -8,7 +8,7 @@ Two tests keep this honest: every URL in the sitemap must appear here, and **no 
 the same primary keyword**. A page added without a stated intent fails the suite; a page that would
 compete with an existing one fails it by name.
 
-111 URLs.
+120 URLs.
 
 ## Priority 1 — the pages the site exists to be found through
 
@@ -74,28 +74,37 @@ compete with an existing one fails it by name.
 | `/blog/how-to-scale-nbfc-lending-operations/` | Blog | Informational | **how to scale nbfc lending operations** | how-to · NBFC lending |
 | `/blog/how-to-track-loan-collections-nbfc/` | Blog | Informational | **how to track loan collections nbfc** | how-to · NBFC lending |
 | `/blog/irac-day-end-classification/` | Blog | Informational | **irac day end classification** | regulatory · NBFC lending |
+| `/blog/kerala-money-lending-licence/` | Blog | Informational | **kerala money lending licence** | compliance · NBFC lending |
 | `/blog/kfs-key-facts-statement-nbfc-requirement/` | Blog | Informational | **kfs key facts statement nbfc requirement** | how-to · NBFC lending |
 | `/blog/kfs-what-goes-in-the-apr/` | Blog | Informational | **kfs what goes in the apr** | regulatory · NBFC lending |
 | `/blog/loan-management-software-for-nbfc/` | Blog | Informational | **loan management software for nbfc** | guide · NBFC lending |
 | `/blog/nbfc-books-retention/` | Blog | Informational | **nbfc books retention** | regulatory · NBFC lending |
 | `/blog/nbfc-category-and-layer/` | Blog | Informational | **nbfc category and layer** | regulatory · NBFC lending |
+| `/blog/nbfc-compliance-calendar/` | Blog | Informational | **nbfc compliance calendar** | compliance · NBFC lending |
+| `/blog/nbfc-compliance-checklist/` | Blog | Informational | **nbfc compliance checklist** | compliance · NBFC lending |
 | `/blog/nbfc-digital-lending-guide/` | Blog | Informational | **nbfc digital lending guide** | guide · NBFC lending |
 | `/blog/nbfc-income-recognition-rbi-rules/` | Blog | Informational | **nbfc income recognition rbi rules** | how-to · NBFC lending |
 | `/blog/nbfc-provisioning-worked-examples/` | Blog | Informational | **nbfc provisioning worked examples** | accounting · NBFC lending |
+| `/blog/nbfc-registration-and-cor/` | Blog | Informational | **nbfc registration and cor** | compliance · NBFC lending |
 | `/blog/nbfc-software-complete-guide/` | Blog | Informational | **nbfc software complete guide** | guide · NBFC lending |
 | `/blog/npa-income-reversal/` | Blog | Informational | **npa income reversal** | accounting · NBFC lending |
+| `/blog/npa-upgrade-entire-arrears/` | Blog | Informational | **npa upgrade entire arrears** | regulatory · NBFC lending |
 | `/blog/outsourcing-what-cannot-be-outsourced/` | Blog | Informational | **outsourcing what cannot be outsourced** | compliance · NBFC lending |
 | `/blog/penal-charges-not-interest/` | Blog | Informational | **penal charges not interest** | regulatory · NBFC lending |
 | `/blog/prepayment-charges-2025/` | Blog | Informational | **prepayment charges 2025** | regulatory · NBFC lending |
 | `/blog/rbi-compliance-for-nbfcs-guide/` | Blog | Informational | **rbi compliance for nbfcs guide** | guide · NBFC lending |
 | `/blog/rbi-key-facts-statement/` | Blog | Informational | **rbi key facts statement** | regulatory · NBFC lending |
+| `/blog/rbi-returns-for-nbfcs/` | Blog | Informational | **rbi returns for nbfcs** | reporting · NBFC lending |
 | `/blog/reconciliation-off-by-rupees/` | Blog | Informational | **reconciliation off by rupees** | accounting · NBFC lending |
 | `/blog/scale-based-regulation-layers/` | Blog | Informational | **scale based regulation layers** | regulatory · NBFC lending |
 | `/blog/sma-classification-what-it-signals/` | Blog | Informational | **sma classification what it signals** | regulatory · NBFC lending |
 | `/blog/spreadsheets-vs-loan-management-software-nbfc/` | Blog | Informational | **spreadsheets vs loan management software nbfc** | how-to · NBFC lending |
 | `/blog/static-pool-analysis-how-to-build/` | Blog | Informational | **static pool analysis how to build** | operations · NBFC lending |
+| `/blog/tamil-nadu-money-lending-licence/` | Blog | Informational | **tamil nadu money lending licence** | compliance · NBFC lending |
+| `/blog/west-bengal-money-lending-licence/` | Blog | Informational | **west bengal money lending licence** | compliance · NBFC lending |
 | `/blog/what-is-a-loan-origination-system/` | Blog | Informational | **what is a loan origination system** | guide · NBFC lending |
 | `/blog/what-the-2024-gold-review-found/` | Blog | Informational | **what the 2024 gold review found** | supervision · NBFC lending |
+| `/blog/write-off-what-it-does/` | Blog | Informational | **write off what it does** | accounting · NBFC lending |
 | `/glossary/` | Glossary | Informational | **NBFC lending glossary** | lending terms India · RBI lending terminology |
 | `/glossary/apr/` | Glossary | Informational | **apr (annual percentage rate)** | what is apr (annual percentage rate) · NBFC lending |
 | `/glossary/cic/` | Glossary | Informational | **cic (credit information company)** | what is a cic (credit information company) · NBFC lending |

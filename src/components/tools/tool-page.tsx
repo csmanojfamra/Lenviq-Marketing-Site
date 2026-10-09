@@ -127,6 +127,29 @@ export function ToolPage({ tool, children }: { tool: Tool; children: React.React
         </div>
       </Section>
 
+      {tool.reading && tool.reading.length > 0 && (
+        <Section>
+          <h2 className="font-display text-[22px] font-bold tracking-display text-ink">
+            Why the answer is what it is
+          </h2>
+          <ul className="mt-s4 grid gap-s3 sm:grid-cols-2">
+            {tool.reading.map((r) => (
+              <li key={r.href}>
+                <Link
+                  href={r.href}
+                  className="block h-full rounded-card border border-line bg-card p-s4 transition-colors hover:border-cta"
+                >
+                  <span className="block font-display text-[17px] font-bold tracking-display text-ink">
+                    {r.label}
+                  </span>
+                  <span className="mt-s2 block text-[15px] leading-relaxed text-slate-mid">{r.note}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )}
+
       <Section>
         <h2 className="font-display text-[22px] font-bold tracking-display text-ink">Other tools</h2>
         <ul className="mt-s4 grid gap-s3 sm:grid-cols-2">
