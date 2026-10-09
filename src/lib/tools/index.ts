@@ -76,6 +76,10 @@ export const TOOLS: Tool[] = [
     description:
       "Calculate your monthly instalment and see the full repayment schedule — plus what a flat rate works out to on a reducing balance, which is usually far higher.",
     helps: "See the instalment, the schedule and the true cost — including what a flat rate actually works out to.",
+    reading: [
+      { href: "/blog/flat-rate-vs-reducing-balance/", label: "Flat rate and reducing balance", note: "Why 10% flat is really about 18%, and the multiple that converts one to the other." },
+      { href: "/blog/which-rate-goes-on-which-document/", label: "One loan, four rates", note: "Which number belongs on the sanction letter, the agreement and the KFS." },
+    ],
   },
   {
     slug: "nbfc-provisioning-calculator",
@@ -207,6 +211,11 @@ export const TOOLS: Tool[] = [
     description:
       "Calculate the annual percentage rate for a Key Facts Statement from the loan amount, interest rate, tenure and any charges deducted before disbursement.",
     helps: "See the real cost of a loan once fees are counted, and disclose it correctly the first time.",
+    reading: [
+      { href: "/blog/kfs-what-goes-in-the-apr/", label: "What goes into the APR", note: "Which charges belong in the computation, and the three that get left out." },
+      { href: "/blog/which-rate-goes-on-which-document/", label: "One loan, four rates", note: "Why the APR is higher than the contracted rate, and which document takes which." },
+      { href: "/blog/flat-rate-vs-reducing-balance/", label: "Flat rate and reducing balance", note: "The quoting convention that makes the same loan look cheaper than it is." },
+    ],
   },
   {
     slug: "npa-date-calculator",

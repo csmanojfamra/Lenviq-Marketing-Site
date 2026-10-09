@@ -146,6 +146,21 @@ the first four were: a term already surfacing from a *mention* inside another po
   phrase appeared once in passing; it now has two FAQ entries answering the statement line a reader
   is actually looking at. A deepening, as the plan said, not a new page.
 
+**And the two the tools were missing.** `emi-calculator` and `apr-calculator` were the only two with
+no writing behind them, so the reading block had nothing to point at:
+
+- **[Flat rate and reducing balance](/blog/flat-rate-vs-reducing-balance/)** — *"flat rate"* and
+  *"reducing balance"* appeared **nowhere on this site**, which for an Indian lending site is a
+  conspicuous hole: it is the most basic rate distinction there is and the EMI calculator's own hook.
+  10% flat is 17.92% reducing, and the multiple holds near 1.8 across amounts and tenures.
+- **[One loan, four rates](/blog/which-rate-goes-on-which-document/)** — chosen *because* the
+  obvious APR post already exists. `kfs-what-goes-in-the-apr` covers what belongs in the
+  computation, so a second one would be its twin. The uncovered question is which of the four
+  numbers a loan carries belongs on which document, and what it means when two of them appear in
+  the same role.
+
+All ten tools now carry a reading block; 20 links, none broken.
+
 **Not written, and why:** *vintage analysis* would cannibalise the static pool page — the two are the
 same analysis and the diligence post already treats them together. *Restructuring* needs primary
 sources I have not verified, and this cluster's whole advantage is that its citations hold.

@@ -8,7 +8,7 @@ Two tests keep this honest: every URL in the sitemap must appear here, and **no 
 the same primary keyword**. A page added without a stated intent fails the suite; a page that would
 compete with an existing one fails it by name.
 
-121 URLs.
+123 URLs.
 
 ## Priority 1 — the pages the site exists to be found through
 
@@ -61,6 +61,7 @@ compete with an existing one fails it by name.
 | `/blog/day-end-not-real-time/` | Blog | Informational | **day end not real time** | engineering · NBFC lending |
 | `/blog/dcb-reconciliation-why-it-stops-tying/` | Blog | Informational | **dcb reconciliation why it stops tying** | accounting · NBFC lending |
 | `/blog/due-diligence-what-lenders-ask/` | Blog | Informational | **due diligence what lenders ask** | operations · NBFC lending |
+| `/blog/flat-rate-vs-reducing-balance/` | Blog | Informational | **flat rate vs reducing balance** | accounting · NBFC lending |
 | `/blog/frozen-terms-at-sanction/` | Blog | Informational | **frozen terms at sanction** | engineering · NBFC lending |
 | `/blog/gold-loan-directions-2025/` | Blog | Informational | **gold loan directions 2025** | regulatory · NBFC lending |
 | `/blog/gold-loan-management-software-nbfc/` | Blog | Informational | **gold loan management software nbfc** | how-to · NBFC lending |
@@ -104,6 +105,7 @@ compete with an existing one fails it by name.
 | `/blog/west-bengal-money-lending-licence/` | Blog | Informational | **west bengal money lending licence** | compliance · NBFC lending |
 | `/blog/what-is-a-loan-origination-system/` | Blog | Informational | **what is a loan origination system** | guide · NBFC lending |
 | `/blog/what-the-2024-gold-review-found/` | Blog | Informational | **what the 2024 gold review found** | supervision · NBFC lending |
+| `/blog/which-rate-goes-on-which-document/` | Blog | Informational | **which rate goes on which document** | compliance · NBFC lending |
 | `/blog/write-off-what-it-does/` | Blog | Informational | **write off what it does** | accounting · NBFC lending |
 | `/glossary/` | Glossary | Informational | **NBFC lending glossary** | lending terms India · RBI lending terminology |
 | `/glossary/apr/` | Glossary | Informational | **apr (annual percentage rate)** | what is apr (annual percentage rate) · NBFC lending |
