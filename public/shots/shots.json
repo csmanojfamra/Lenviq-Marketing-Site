@@ -251,5 +251,27 @@
       "width": 900,
       "height": 563
     }
+  },
+  {
+    "name": "mfi-group-proposal",
+    "v": "806d2eec",
+    "width": 1800,
+    "height": 1125,
+    "path": "/microfinance/group-loans/f18a478c-da18-48c0-8cd3-1f11c0f1d7f0",
+    "small": {
+      "width": 900,
+      "height": 563
+    }
+  },
+  {
+    "name": "mfi-group-executed",
+    "v": "14b08dba",
+    "width": 1800,
+    "height": 1125,
+    "path": "/microfinance/group-loans/16a656ed-a0ea-4473-9ded-97fbd37ada41",
+    "small": {
+      "width": 900,
+      "height": 563
+    }
   }
 ]

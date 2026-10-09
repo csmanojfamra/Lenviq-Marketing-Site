@@ -125,6 +125,29 @@ export const MICROFINANCE: ProductSpec = {
     ],
   },
 
+  /**
+   * Two screens, and each carries the claim the prose beside it makes rather than decorating it.
+   *
+   * Captured from the running product by `scripts/marketing-shots.mjs --only
+   * mfi-group-proposal,mfi-group-executed` against a microfinance demo tenant — the same pipeline
+   * as every other shot here, so they cannot drift from what the software does. The member mobiles
+   * on them are the `98000…` demo series, which is deterministic and obviously not anybody's
+   * number; the first capture showed randomly generated ones and was thrown away.
+   */
+  shots: {
+    afterIntro: {
+      name: "mfi-group-proposal",
+      alt: "A group sanction awaiting approval: five members of one group, each asking for Rs 25,000, with the bureau score recorded against each name and no loan account yet.",
+      caption: "One screen for the whole centre. The amount, the bureau enquiry and the signing date are decided once — and the Loan account column is empty until it is.",
+      priority: true,
+    },
+    afterSpecific: {
+      name: "mfi-group-executed",
+      alt: "The same group after execution, marked disbursed: five members, Rs 30,000 each, and an open loan account against every name.",
+      caption: "After one approval: five separate loan accounts, each open in its own right. The group compressed the decision, not the record.",
+    },
+  },
+
   faqs: [
     {
       q: "Does the software enforce the 50% of household income cap?",
