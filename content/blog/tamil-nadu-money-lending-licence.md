@@ -5,15 +5,15 @@ metaDescription: "Tamil Nadu Money-Lenders Act 1957: who needs a licence, the re
 date: "2026-10-09"
 category: "Compliance"
 author: "CS Manoj Famra"
-draft: true
+draft: false
 ---
 
 A money lender in Tamil Nadu has real compliance. It is simply **state** compliance rather than the
 Reserve Bank's — a licence, prescribed records, receipts, a statement of account on demand, and
 returns to an Inspector. None of it comes from an RBI direction and all of it is enforceable.
 
-This page is read from the Tamil Nadu Money-Lenders Act, 1957 (Tamil Nadu Act XXVI of 1957) itself,
-and quotes it. **Read the caution on currency at the end before you rely on a figure** — it matters
+This page is read from [the Tamil Nadu Money-Lenders Act, 1957](https://www.cra.tn.gov.in/tnscs/Files/act/006a_The%20Tamil%20Nadu%20Money%20Lenders%20Act.pdf)
+(Tamil Nadu Act XXVI of 1957) itself, and quotes it. **Read the caution on currency at the end before you rely on a figure** — it matters
 more here than it does for an RBI direction.
 
 ## Who needs a licence, and how many
@@ -173,8 +173,9 @@ The text above was read from a published copy of the Act carrying amendments up 
    is less visible online than an RBI circular.
 2. **The current notification fixing the maximum rate** under section 7(1). It is not in the Act and
    it changes.
-3. **The Tamil Nadu Money-Lenders Rules, 1959** for the prescribed forms, the pass-book, the return
-   format and its timing, and the prescribed language for an area.
+3. **The [Tamil Nadu Money-Lenders Rules, 1959](https://www.cra.tn.gov.in/tnscs/Files/act/006b_Tamil%20Nadu%20Money-Lenders%20Rules%201959.pdf)**
+   for the prescribed forms, the pass-book, the return format and its timing, and the prescribed
+   language for an area.
 
 Written **9 October 2026**. Where this page quotes, it quotes the Act. Where the Act says
 "prescribed", this page says so rather than filling in a figure — because the figure is in a rule or

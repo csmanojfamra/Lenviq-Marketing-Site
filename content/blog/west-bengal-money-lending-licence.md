@@ -5,12 +5,12 @@ metaDescription: "Bengal Money-Lenders Act 1940: the section 8 licence, the thre
 date: "2026-10-09"
 category: "Compliance"
 author: "CS Manoj Famra"
-draft: true
+draft: false
 ---
 
 Tamil Nadu and Kerala both cap **what a money-lender may charge**. West Bengal, in the main, does
-something else: it caps **what a court will let the lender recover**. The Bengal Money-Lenders Act,
-1940 is older than both, it is built around the suit rather than the licence counter, and a lender
+something else: it caps **what a court will let the lender recover**. The [Bengal Money-Lenders Act, 1940](https://cdn.s3waas.gov.in/s35487315b1286f907165907aa8fc96619/uploads/2025/09/17573135855085.pdf)
+is older than both, it is built around the suit rather than the licence counter, and a lender
 who reads it expecting the southern pattern will mis-plan in three separate places.
 
 **Read the sourcing note at the end before relying on a rate.** It is weaker here than on the

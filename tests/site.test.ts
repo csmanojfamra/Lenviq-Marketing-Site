@@ -99,8 +99,17 @@ describe("a draft does not ship", () => {
       if (/^draft: true$/m.test(text)) continue;
       const regulatory = /Companies Act|PMLA|RBI\/|DOR\.|DoR\./.test(text);
       if (!regulatory) continue;
+      /*
+       * STATE ACTS COUNT TOO, and the guard said otherwise until three of them were written.
+       *
+       * It was shaped when every regulatory post here was an RBI one, so it accepted only an
+       * rbi.org.in link. The money-lending pages cite the Tamil Nadu, Kerala and Bengal Acts, whose
+       * published copies live on state and legislature sites — a primary source, openable, and
+       * exactly what this test is for. The rule is "a citation nobody can click is a citation
+       * nobody checks", not "the source must be the Reserve Bank's".
+       */
       expect(text, `${f} makes a regulatory claim with no linked source`)
-        .toMatch(/\]\(https:\/\/(www\.)?rbi(docs)?\.org\.in\/|Companies Act, 2013|Prevention of Money-laundering Act, 2002/);
+        .toMatch(/\]\(https:\/\/(www\.)?(rbi(docs)?\.org\.in|cra\.tn\.gov\.in|prsindia\.org|indiacode\.nic\.in|cdn\.s3waas\.gov\.in)\/|Companies Act, 2013|Prevention of Money-laundering Act, 2002/);
     }
   });
 

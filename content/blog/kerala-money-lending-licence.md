@@ -5,7 +5,7 @@ metaDescription: "Kerala Money-Lenders Act 1958: the licence, the two-per-cent-a
 date: "2026-10-09"
 category: "Compliance"
 author: "CS Manoj Famra"
-draft: true
+draft: false
 ---
 
 Two neighbouring states, two money lending Acts of almost the same vintage, and two completely
@@ -16,7 +16,8 @@ That is not a detail. It is the whole reason "state money lending compliance" ca
 once and applied across the south, and it is why this page exists separately from
 [the Tamil Nadu one](/blog/tamil-nadu-money-lending-licence/).
 
-Everything below is quoted from the Kerala Money-Lenders Act, 1958 (Act 35 of 1958). **Read the
+Everything below is quoted from the [Kerala Money-Lenders Act, 1958](https://prsindia.org/files/bills_acts/acts_states/kerala/1958/1958KERALA35.pdf)
+(Act 35 of 1958). **Read the
 caution on currency at the end before relying on a figure.**
 
 ## Who needs a licence, and how many

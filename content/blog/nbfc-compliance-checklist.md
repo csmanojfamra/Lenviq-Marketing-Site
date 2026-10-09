@@ -5,7 +5,7 @@ metaDescription: "NBFC compliance checklist by frequency — weekly, monthly, qu
 date: "2026-10-09"
 category: "Compliance"
 author: "CS Manoj Famra"
-draft: true
+draft: false
 ---
 
 Most compliance checklists are arranged by subject — returns here, KYC there, governance somewhere

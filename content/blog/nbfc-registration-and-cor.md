@@ -5,7 +5,7 @@ metaDescription: "NBFC registration under section 45-IA: the 50-50 test, the Rs 
 date: "2026-10-09"
 category: "Compliance"
 author: "CS Manoj Famra"
-draft: true
+draft: false
 ---
 
 Registration is treated as the finish line and it is the starting gun. The Certificate of
