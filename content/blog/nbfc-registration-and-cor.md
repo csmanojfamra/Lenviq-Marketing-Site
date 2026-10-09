@@ -160,6 +160,38 @@ stated here.
 
 Written **9 October 2026**.
 
+
+## Frequently asked questions
+
+### What is the 50-50 test?
+
+Both limbs must be satisfied: financial assets more than 50% of total assets net of intangibles, and
+income from financial assets more than 50% of gross income. It is a test of the balance sheet and the
+profit and loss account, not of intention.
+
+### What Net Owned Fund does a new NBFC need?
+
+Rs 10 crore, with effect from 1 October 2022, for an NBFC-ICC, MFI or Factor. The glide path to 2027
+is for NBFCs already holding a Certificate of Registration, not for new applications. Specialised
+categories differ — an NBFC-IFC is Rs 300 crore.
+
+### How is the application made?
+
+On the Reserve Bank's PRAVAAH portal, with the documents prescribed in the Reserve Bank's 2016 press
+release. A guide that tells you to file physically, or through the old application route, predates
+PRAVAAH.
+
+### Do Nidhi companies need RBI registration?
+
+No. Nidhi companies are among the entities exempt from registration to avoid dual regulation, along
+with SEBI-regulated entities, insurers holding an IRDA certificate and chit companies under the Chit
+Funds Act, 1982. A Nidhi is regulated under the Nidhi Rules, 2014.
+
+### How long does a Certificate of Registration take?
+
+The Reserve Bank does not publish a service-level timeline, and figures circulating in advisory
+content are practice observations rather than commitments. Plan the capital and the documents.
+
 ---
 
 **Related:** [NBFC compliance checklist](/blog/nbfc-compliance-checklist/) ·

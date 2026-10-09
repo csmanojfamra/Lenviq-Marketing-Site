@@ -189,6 +189,32 @@ prescribes where a figure must come from inside your systems.
 
 Written **9 October 2026**.
 
+
+## Frequently asked questions
+
+### Is DNBS02 an annual or a quarterly return?
+
+Quarterly, within 21 days of the quarter end. It moved from annual-within-60-days under the 2024
+Supervisory Returns Directions, and it is the largest single change for a Base Layer NBFC. Two
+widely-cited filing guides still describe it the old way and contradict each other.
+
+### What asset-size thresholds decide which returns apply?
+
+Two. Rs 100 crore brings DNBS04A and DNBS04B into play for a Base Layer NBFC; Rs 500 crore brings the
+CRILC returns, the fraud returns and the Statutory Auditor Certificate.
+
+### Is CRILC reported per account or per borrower?
+
+Per borrower, aggregated across accounts, for exposures of Rs 5 crore and above. A borrower with four
+facilities each below the threshold can cross it in aggregate, which is why account-level books have
+to be able to roll up by borrower identity.
+
+### Why can a provisioning figure not be recomputed later?
+
+Because classification is computed in the day-end process for the relevant date. A figure re-derived
+from today's balances will not reproduce the one filed, so the quarter-end position has to be
+retained rather than recalculated.
+
 ---
 
 **Related:** [NBFC compliance checklist](/blog/nbfc-compliance-checklist/) ·

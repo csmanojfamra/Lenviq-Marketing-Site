@@ -197,6 +197,32 @@ applicability threshold for a filing decision, open
 Regulation moves. Every direction cited here carries its date so you can tell how old this page is
 relative to what you are reading it against.
 
+
+## Frequently asked questions
+
+### Are quarterly NBFC returns due in 15 days or 21 days?
+
+Twenty-one days from the reference date, under paragraph 4.4 of the RBI (Filing of Supervisory
+Returns) Directions, 2024. It was fifteen for most of these returns before 27 February 2024, which
+is why older checklists disagree — and why a calendar quoting fifteen days can be dated at a glance.
+
+### Which returns does a Base Layer NBFC actually file?
+
+DNBS02 quarterly, DNBS13 quarterly including a NIL return where there are no overseas investments,
+and Form A annually on auditor appointment. DNBS04A and DNBS04B begin at an asset size of Rs 100
+crore; the CRILC returns, the fraud returns and the Statutory Auditor Certificate begin at Rs 500
+crore. Below those thresholds the rows do not apply.
+
+### Does an NBFC with no overseas investment still file DNBS13?
+
+Yes. A NIL return is required. It is the obligation most often missed, for the obvious reason that
+there is nothing to report.
+
+### Do these obligations apply to a Housing Finance Company?
+
+No. HFCs are excluded from the NBFC category in the 2024 Directions, and their returns are a
+separate regime.
+
 ---
 
 **Related:** [RBI compliance for NBFCs](/blog/rbi-compliance-for-nbfcs-guide/) ·

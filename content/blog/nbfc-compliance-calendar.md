@@ -178,6 +178,31 @@ the row.
 And the obvious caution: this page was written on **9 October 2026**. Every direction cited carries
 its own date, so you can tell what has had time to change.
 
+
+## Frequently asked questions
+
+### Does the Reserve Bank publish an NBFC compliance calendar?
+
+No. It publishes a periodicity rule — paragraph 4.4 of the 2024 Supervisory Returns Directions — and
+every date on a calendar is derived from it. That is why calendars carrying pre-2024 dates are still
+in circulation: nobody re-derived them.
+
+### Which month is heaviest for an NBFC's RBI filings?
+
+April. The quarterly, half-yearly and annual cycles all share a 31 March reference date and the same
+21-day window, so they fall due together on 21 April.
+
+### When is the Statutory Auditor Certificate actually due?
+
+Within five working days of the date of signing of the auditor's report under section 134 of the
+Companies Act, 2013, and in any case not later than 31 December. So an NBFC whose accounts are signed
+in September has a September deadline; 31 December is only the backstop.
+
+### Why are the AGM and AOC-4 not on this calendar?
+
+Because they are not RBI's. They are Companies Act obligations and they are real, but a calendar that
+merges the two leaves the impression that the Reserve Bank sets the AGM date.
+
 ---
 
 **Related:** [NBFC compliance checklist](/blog/nbfc-compliance-checklist/) ·
