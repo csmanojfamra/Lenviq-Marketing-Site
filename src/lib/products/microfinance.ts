@@ -24,6 +24,8 @@ export const MICROFINANCE: ProductSpec = {
   description:
     "JLG and group loan software built to the 2022 Microfinance Directions: one sanction becomes N loan accounts, with the household income assessment and the bureau consent enforced per member.",
   h1: "One approval for the centre. An ordinary loan account for each member.",
+  subhead:
+    "Microfinance and JLG software for NBFC-MFI and Section 8 lenders — centres, group loans and per-member accounts.",
   intro: [
     "This is the loan origination and management software an NBFC-MFI or a Section 8 microfinance company runs a group book on: centres and groups, a joint liability group proposal that carries every member's amount, one four-eyes decision for the whole centre, and then N separate loan accounts — each with its own schedule, its own scheme snapshot and its own classification.",
     "It is built for lenders regulated under the Master Direction – Reserve Bank of India (Regulatory Framework for Microfinance Loans) Directions, 2022, and for Section 8 companies doing the same lending outside RBI registration. It is not a microfinance loan, and we are not a lender; this is the system the lender runs.",

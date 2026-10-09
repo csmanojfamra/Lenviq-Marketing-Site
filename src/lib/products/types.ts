@@ -68,6 +68,21 @@ export interface ProductSpec {
   /** ~155 characters, written to be clicked. */
   description: string;
   h1: string;
+  /**
+   * A plain confirming line under the H1, for pages whose H1 is literary.
+   *
+   * THE JUDGEMENT (brief §4.1). Four of these H1s name no product — "The security drives away, and
+   * keeps its own calendar" — and two already do: "Business loan software, for borrowers that are
+   * not people" says it in three words. So this is set on the literary ones and LEFT UNSET on the
+   * two that confirm already, because a confirming line under a confirming H1 is duplication a
+   * reader notices.
+   *
+   * The literary line is kept in full. Nothing good is lost; what is added is the two-second
+   * answer to "am I in the right place" for somebody arriving from a search for the plain term.
+   * This affects BOUNCE and not CTR — the titles are untouched — so it is deliberately the
+   * smallest change that addresses the question rather than a rewrite.
+   */
+  subhead?: string;
   /** Two paragraphs: what this is, who it is for. */
   intro: readonly string[];
   lifecycle: ProductSection;

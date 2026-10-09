@@ -17,6 +17,8 @@ export const VEHICLE: ProductSpec = {
   description:
     "Vehicle finance software for NBFCs: the new-versus-used detail form, hypothecation and RC endorsement, insurance expiry tracking, and the repossession trail.",
   h1: "The security drives away, and keeps its own calendar.",
+  subhead:
+    "Vehicle loan software for NBFCs — origination, hypothecation and the RC endorsement, through to repossession.",
   intro: [
     "This is the origination and loan management software for an NBFC running a vehicle finance book: the Part II vehicle detail form with its new-and-used branches, the dealer and invoice flow, hypothecation and the RC endorsement obligation, insurance tracked to its expiry date, and a repossession trail that survives being asked about.",
     "It is for NBFCs financing two-wheelers, cars, light commercial vehicles and tractors, new or used. Lenviq is licensed to lenders; it does not lend.",

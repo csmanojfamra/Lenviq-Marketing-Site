@@ -16,6 +16,8 @@ export const LAP: ProductSpec = {
   description:
     "LAP software for NBFCs: legal opinion and valuation as stage gates, mortgage and charge documentation, long-tenor servicing, and the collateral register.",
   h1: "Most of a property loan happens before the money moves.",
+  subhead:
+    "Loan against property software for NBFCs — title, valuation and mortgage documentation, through to servicing.",
   intro: [
     "This is the origination and loan management software for an NBFC running a loan-against-property book: the legal opinion, the technical valuation and the title position recorded against each property, mortgage documentation generated from what is on file, and the long-tenor servicing and prepayment behaviour that follows.",
     "It is for NBFCs lending against residential, commercial, industrial or plot security. Lenviq is software licensed to lenders — it is not a lender and does not originate loans.",

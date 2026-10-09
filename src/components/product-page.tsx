@@ -108,6 +108,12 @@ export function ProductPage({ spec }: { spec: ProductSpec }) {
           <h1 className="mt-s2 max-w-4xl text-[34px] font-extrabold leading-[1.1] tracking-display-tight text-ink sm:text-[46px]">
             {spec.h1}
           </h1>
+          {/* §4.1 — the plain confirming line, on pages whose H1 is literary. See ProductSpec.subhead. */}
+          {spec.subhead && (
+            <p className="mt-s3 max-w-3xl text-[20px] font-medium leading-snug text-ink/80 sm:text-[22px]">
+              {spec.subhead}
+            </p>
+          )}
           {spec.intro.map((p) => (
             <p key={p.slice(0, 24)} className="mt-s4 max-w-prose text-[18px] leading-prose text-slate-mid">
               {p}

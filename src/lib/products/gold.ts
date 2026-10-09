@@ -17,6 +17,8 @@ export const GOLD: ProductSpec = {
   description:
     "Gold loan software built to the RBI’s 2025 Directions: appraisal, ongoing LTV, renewal eligibility, the auction clock and the return-of-collateral deadline.",
   h1: "A gold book is priced by the day and released by the clock.",
+  subhead:
+    "Gold loan software for NBFCs — appraisal, ongoing LTV, renewal, part-release and auction.",
   intro: [
     "This is the loan management software an NBFC runs a gold book on: appraisal and packet custody at pledge, a loan-to-value figure that is recomputed against the day’s rate rather than frozen at sanction, and the renewal, part-release and auction paths that the Reserve Bank of India (Lending Against Gold and Silver Collateral) Directions, 2025 now govern in detail.",
     "It is built for NBFCs lending against ornaments — a single-branch lender or a multi-state book. It is not a gold loan, and we are not a lender; this is the system the lender runs.",

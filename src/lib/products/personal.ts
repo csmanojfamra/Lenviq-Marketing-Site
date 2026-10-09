@@ -16,6 +16,8 @@ export const PERSONAL: ProductSpec = {
   description:
     "Personal loan software for NBFCs: bureau pulls on the file, FOIR with its workings stored, deviations that route by level, and NACH collection.",
   h1: "With no security, the file is the underwriting.",
+  subhead:
+    "Personal loan software for NBFCs — bureau, FOIR and the unsecured underwriting file, through to collections.",
   intro: [
     "This is the loan origination and management software for an NBFC running an unsecured personal loan book: bureau reports pulled against the application and kept with it, income and obligations assessed into a fixed-obligation-to-income ratio whose workings are stored rather than trusted, deviations that route to the approval level they require, and collection through NACH with the arrears position visible from the day it starts.",
     "It is for NBFCs lending to individuals without security. Lenviq is licensed to lenders; it is not itself a lender and does not make credit decisions.",

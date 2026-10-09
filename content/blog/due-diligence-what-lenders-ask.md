@@ -147,3 +147,13 @@ without saying so is not.
 
 That is the whole reason the definition has to travel with the number — and the reason a lender asks
 for the DCB alongside it rather than taking the percentage on its own.
+
+## Each of the four, in full
+
+This page is the overview — what each request is for and what it defeats. Each one has its own
+computation, its own choices and its own ways of going wrong, and those are set out separately:
+
+- **[How to build a static pool, and the three choices that change the answer](/blog/static-pool-analysis-how-to-build/)** — the cohort definition, the numerator, and the measurement point, any of which makes two runs incomparable.
+- **[Collection efficiency: how one book gives four different numbers](/blog/collection-efficiency-how-to-compute/)** — the four definitions behind the worked example above, and which to report to whom.
+- **[Bucket movement and flow rates](/blog/bucket-movement-and-flow-rates/)** — building the matrix, computing roll and cure rates, and the forward estimate a bucket chart cannot produce.
+- **[DCB reconciliation: the seven reasons it stops tying](/blog/dcb-reconciliation-why-it-stops-tying/)** — why six of the seven are correct postings rather than errors.
