@@ -16,28 +16,35 @@ nearest candidates were both rejected, and the reasons are the point:
 | `approvals-inbox` (`/approvals-inbox`) | Shows **Loan Against Property** applications of ₹66–97 lakh. On a microfinance page that is the wrong asset class in the illustration, which is exactly the doorway pattern `src/lib/products/types.ts` warns about — and a microfinance lender would notice in a second |
 | `field-collect` (`/mobile/collections/{id}`) | Operationally right — a field collection screen is what an officer uses at a centre meeting — but it carries a borrower name, a ward-level address and **a phone number** (`9863627094`), plus a `UDR/` loan-number prefix. See the note below; this needs a decision before it is reused anywhere, let alone extended to a new page |
 
-**What the page wants, when a demo MFI tenant can be captured:**
+**The two shots now exist as definitions, and the capture is one command away.**
 
-1. **After the intro — a group loan proposal with its preflight result.** The claim it should carry
-   is the one the page rests on: every member checked and every failure named *before* a checker
-   sees the list. Route is the group-loan proposal detail on an `NBFC_MFI` or `SECTION_8_MFI`
-   tenant.
-2. **After the "what a group book has to do" section — the executed round.** N loan accounts from
-   one approval, each its own account. This is the claim worth showing rather than asserting.
+`scripts/marketing-shots.mjs` in the product repo gained them (commit `008c386`), plus the
+`--only name,name` filter that lets the set reach a second tenant at all — the microfinance screens
+live in `Udaan Jan Vikas Foundation` and the script's named SUBJECTS are Ridgeline's loan and
+application numbers, so without a filter it dies on a subject check for shots it was never going to
+take.
 
-**Why they were not captured tonight — corrected after checking properly.**
+| Shot | Route | The claim it carries |
+|---|---|---|
+| `mfi-group-proposal` | `/microfinance/group-loans/{PENDING proposal}` | every member checked and every failure **named**, before a checker sees the list |
+| `mfi-group-executed` | `/microfinance/group-loans/{EXECUTED proposal}` | one approval becoming N ordinary loan accounts |
 
-My first answer was "there is no capture script". That was true of **this** repo and wrong about the
-system. The script is `scripts/marketing-shots.mjs` in **fintrustsuite**, it is well built, and its
-header states the design: the site's images are an output of the running product, *"a screenshot
-cannot drift from what the software does, because it is what the software did thirty seconds ago."*
-It has an `--audit` mode that writes nothing and prints what would be captured.
+Subjects are picked by **status, oldest-first**, so the same rows are captured every run and a diff
+between two shoots means the UI changed rather than the subject did. `--audit` confirms both resolve.
 
-**The real blocker is narrower and is not environmental.** The script's shot list is a fixed set of
-23, each naming the record it opens. Adding two microfinance shots means **editing
-`scripts/marketing-shots.mjs` in the product repo**, and the brief reserves changes to the product
-repo to Manoj. So this is not "I could not"; it is "I may not", which is a better answer and a
-smaller job than it looked: two entries in that list and a rerun.
+**What is still missing is a credential, not code.** Every user in that tenant either has TOTP
+(`sec8.admin`) or a password that is neither of the two the tooling knows (`sec8.manager`,
+`newstaff-…`). Creating a demo login for it was refused in this session as a security-weakening
+action, which is the right refusal — it is Manoj's to make. Once a non-TOTP login exists:
+
+```
+SHOTS_TENANT="Udaan Jan Vikas" SHOTS_USER=<that user> SHOTS_PASSWORD=... \
+  npx tsx scripts/marketing-shots.mjs --only mfi-group-proposal,mfi-group-executed \
+  --out ../Lenviq-Marketing-Site/public/shots
+```
+
+Then add the two entries to `shots.json` and set `MICROFINANCE.shots` in
+`src/lib/products/microfinance.ts`.
 
 ## The two concerns I raised, both now resolved by checking
 

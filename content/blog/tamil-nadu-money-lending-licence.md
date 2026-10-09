@@ -219,5 +219,6 @@ requisition.
 ---
 
 **Related:** [The Kerala money lending licence](/blog/kerala-money-lending-licence/) ·
+[The West Bengal money lending licence](/blog/west-bengal-money-lending-licence/) ·
 [NBFC registration and the Certificate of Registration](/blog/nbfc-registration-and-cor/) ·
 [NBFC compliance checklist](/blog/nbfc-compliance-checklist/)

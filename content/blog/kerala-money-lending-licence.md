@@ -209,4 +209,5 @@ equivalent.
 ---
 
 **Related:** [The Tamil Nadu money lending licence](/blog/tamil-nadu-money-lending-licence/) ·
+[The West Bengal money lending licence](/blog/west-bengal-money-lending-licence/) ·
 [NBFC registration and the Certificate of Registration](/blog/nbfc-registration-and-cor/)

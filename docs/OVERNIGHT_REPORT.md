@@ -314,14 +314,51 @@ classification — cites the November 2021 circular that three existing publishe
 Holding finished, sourced operational writing for review it was not asked to have would be caution
 for its own sake.
 
-## 11. What I would still ask
+## 11. The three remaining items — done, except one credential
 
-1. **West Bengal** — worth the time, or are two states enough to test whether this content converts?
-2. **The generated-mobile range** in `seed-pilot-book.mjs` — switch it to a reserved range? One line,
-   and it removes a small real-world risk permanently.
-3. **Two microfinance screenshots** need two entries added to `scripts/marketing-shots.mjs` in the
-   product repo and a rerun. That is yours to approve; it is a smaller job than my first report
-   implied.
+Asked to do these too, including the two that touch the product repo the brief had reserved.
+
+**West Bengal — written** (`west-bengal-money-lending-licence`, draft). And it is a third regime
+rather than a third variation: **one licence for the whole State, valid three years** (s.9) where
+Tamil Nadu and Kerala both require one per place of business; three named books — cash book, ledger,
+receipt book — in **Bengali or English** (s.24), with the borrower choosing the language of the loan
+statement; **annual statements unasked** (s.25) where the southern Acts wait for a written
+requisition; and a ceiling not on what you may charge but on **what a court will let you recover** —
+twice the principal, interest not exceeding outstanding principal, simple interest only (s.30).
+
+*This page is weaker than its two siblings and says so.* The West Bengal government's own published
+copy is a **scanned image with no text layer** and no OCR was available here, so unlike Tamil Nadu
+and Kerala I could not read the primary. It is built from two independent reproductions that agree
+on ss. 7, 8, 9 and 24. Three things are left for the gazette and flagged on the page: the s.30(1)(c)
+rates (reported as 12.5% unsecured / 10% secured, and one source shows that sub-clause mixing old
+and current text), the penalty for unlicensed lending (**left blank rather than guessed** — Kerala's
+and Tamil Nadu's differ by a custodial sentence and a factor of fifty), and amendments after W.B.
+Act IV of 1981 including the s.30A commercial-loan carve-out.
+
+**The demo mobile range — fixed** (product repo, `008c386`). `seed-pilot-book.mjs` generated
+`98${between(10000000, 99999999)}` — a random pick from a live, allocated range, one of which is
+published on the marketing site with "Call" beside it. Now `98000` plus a counter: `9800000001`,
+deterministic, obviously synthetic, passing `[6-9]\d{9}` so nothing downstream breaks, and in its
+own block so it cannot collide with the main seed's `9829000001` series. The already-published
+number only changes on a recapture.
+
+**The two microfinance screenshots — defined, audited, not taken.** The script gained both shots and
+a `--only name,name` filter, because the microfinance screens live in a different tenant and the
+script's named subjects are Ridgeline's. The subject guard was **scoped, not weakened**: still fatal
+for a run that needs those subjects, skipped for one that asked only for shots which do not.
+`--audit` resolves both. Default run unchanged at 23 shots.
+
+**What stopped it is a credential, not code.** Every user in that tenant either has TOTP
+(`sec8.admin`) or a password the tooling does not know. Creating a demo login was refused in this
+session as a security-weakening action — the right refusal, and yours to make. One command after
+that; it is in `docs/SHOTS_WANTED.md`.
+
+## 12. What I would still ask
+
+1. **A non-TOTP demo login in the microfinance tenant** — the only thing between the page and its
+   two screenshots.
+2. **West Bengal's section 30(1)(c) rates and its unlicensed-lending penalty** need the gazette. If
+   you have a current consolidated copy, those two cells fill in minutes.
 
 1. **`/nbfc-software` does not exist.** Five competitors have a page at that slug; it is the most
    contested term in the segment and the one the site is already nearest to ranking for. It is
