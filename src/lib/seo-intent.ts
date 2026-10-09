@@ -77,6 +77,13 @@ const FIXED: IntentEntry[] = [
   { url: "/about/", type: "Company", intent: "Navigational", priority: 4,
     primary: "FastLegal Technologies",
     secondary: ["who builds Lenviq", "Lenviq company"] },
+  /*
+   * The bylines. Its job is not search traffic — it is that the `Person` in every post's Article
+   * schema resolves to something, which is what "who says so" means on regulatory writing.
+   */
+  { url: "/authors/", type: "Company", intent: "Navigational", priority: 4,
+    primary: "who writes Lenviq's regulatory guides",
+    secondary: ["Lenviq authors", "NBFC compliance writers"] },
   { url: "/contact/", type: "Conversion", intent: "Transactional", priority: 2,
     primary: "Lenviq demo request",
     secondary: ["NBFC software demo", "lending software demonstration"] },

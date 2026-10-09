@@ -95,7 +95,15 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
      * recognition and classification — and the byline matches the subject rather than rotating at
      * random, because a byline that does not match what it is signing is worse than none.
      */
-    author: { "@type": "Person", name: p.author },
+    /*
+     * ...and the Person now RESOLVES. It named an individual and pointed nowhere, which asserts an
+     * identity the site could not support. `/authors/` says who each byline is and what they cover.
+     */
+    author: {
+      "@type": "Person",
+      name: p.author,
+      url: absolute(`/authors/#${p.author.toLowerCase().replace(/[^a-z]+/g, "-")}`),
+    },
     publisher: { "@type": "Organization", name: COMPANY.legalName },
     mainEntityOfPage: absolute(`/blog/${p.slug}/`),
   };
@@ -142,7 +150,12 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         {p.title}
       </h1>
       <p className="mt-s3 text-[13px] text-muted">
-        <span className="font-medium text-ink">{p.author}</span>
+        <Link
+          href={`/authors/#${p.author.toLowerCase().replace(/[^a-z]+/g, "-")}`}
+          className="font-medium text-ink underline decoration-line-strong underline-offset-4 hover:text-cta"
+        >
+          {p.author}
+        </Link>
         {" · "}{p.category} · {p.date}
         {p.updated ? ` · updated ${p.updated}` : ""} · {p.readingMinutes} min read (estimated)
       </p>

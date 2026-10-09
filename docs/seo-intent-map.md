@@ -8,7 +8,7 @@ Two tests keep this honest: every URL in the sitemap must appear here, and **no 
 the same primary keyword**. A page added without a stated intent fails the suite; a page that would
 compete with an existing one fails it by name.
 
-120 URLs.
+121 URLs.
 
 ## Priority 1 — the pages the site exists to be found through
 
@@ -135,6 +135,7 @@ compete with an existing one fails it by name.
 | URL | Type | Intent | Primary keyword | Secondary |
 |---|---|---|---|---|
 | `/about/` | Company | Navigational | **FastLegal Technologies** | who builds Lenviq · Lenviq company |
+| `/authors/` | Company | Navigational | **who writes Lenviq's regulatory guides** | Lenviq authors · NBFC compliance writers |
 | `/help/` | Help | Informational | **Lenviq help guides** | how to use Lenviq · NBFC software documentation |
 | `/help/collect-a-payment-in-the-field/` | Help | Informational | **collect a payment in the field** | Lenviq how-to · NBFC lending operations |
 | `/help/complete-kyc-on-a-customer/` | Help | Informational | **complete kyc on a customer** | Lenviq how-to · NBFC lending operations |

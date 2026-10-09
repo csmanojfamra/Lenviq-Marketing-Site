@@ -176,8 +176,18 @@ loader already supports and which almost nothing here uses.
    a distribution benefit rather than a ranking one. The full pack, the requirements and what each
    platform costs are in `docs/DIRECTORY_LISTINGS.md`. **Still Manoj's**: every one needs an account,
    email verification and terms accepted on the company's behalf.
-3. **The CS practice as a publishing identity.** The compliance cluster is written by a practising
-   CS. That is citable in a way vendor content is not.
+3. **The CS practice as a publishing identity — started.** Every post already emitted
+   `author: { "@type": "Person", name }` rather than the company, which was the right call for
+   regulatory writing. But **the Person resolved to nothing**: no page on the site said who any of
+   the five bylines were, so the schema asserted an identity the site could not support, and a
+   reader wanting to know whether the name on an IRAC post belongs to somebody who would know had
+   nowhere to look. `/authors/` now answers it, the Article schema carries a `url` into it, and the
+   visible byline links there.
+
+   **What that page deliberately does not carry:** firms, membership numbers, years of practice,
+   biographies. Those are claims about real people in regulated professions and are each author's
+   to supply — the page says so rather than filling the space. **Manoj's to complete**, and the one
+   place where doing so would most change how this content is read.
 
 ---
 

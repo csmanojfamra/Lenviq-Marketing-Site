@@ -24,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
    */
   const pages = ["/", "/platform/", "/loan-origination-software/", "/loan-management-system/",
                  "/compliance/", "/reports/", "/security/",
-                 "/about/", "/contact/", "/signup/", "/blog/", "/glossary/", "/help/", "/privacy/", "/terms/",
+                 "/about/", "/authors/", "/contact/", "/signup/", "/blog/", "/glossary/", "/help/", "/privacy/", "/terms/",
                  ...PRODUCTS.map((p) => `/${p.slug}/`),
                  "/tools/", ...TOOLS.map((t) => `/tools/${t.slug}/`)];
   return [
