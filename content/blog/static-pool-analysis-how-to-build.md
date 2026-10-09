@@ -195,4 +195,5 @@ month 12 — is the credit signal.
 [Collection efficiency: four numbers from one book](/blog/collection-efficiency-how-to-compute/) ·
 [Bucket movement and flow rates](/blog/bucket-movement-and-flow-rates/) ·
 [Classification is a day-end event](/blog/irac-day-end-classification/) ·
-[NPA date calculator](/tools/npa-date-calculator/)
+[NPA date calculator](/tools/npa-date-calculator/) ·
+[The loan management system the retained positions come from](/loan-management-system/)

@@ -174,4 +174,5 @@ by exactly the restructured population.
 [How to build a static pool](/blog/static-pool-analysis-how-to-build/) ·
 [Collection efficiency](/blog/collection-efficiency-how-to-compute/) ·
 [DCB reconciliation](/blog/dcb-reconciliation-why-it-stops-tying/) ·
-[NPA date calculator](/tools/npa-date-calculator/)
+[NPA date calculator](/tools/npa-date-calculator/) ·
+[Microfinance and JLG, where bucket flow is read per centre](/microfinance-software/)

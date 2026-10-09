@@ -25,25 +25,40 @@ nearest candidates were both rejected, and the reasons are the point:
 2. **After the "what a group book has to do" section — the executed round.** N loan accounts from
    one approval, each its own account. This is the claim worth showing rather than asserting.
 
-**Why they were not captured tonight.** Not a product limitation and not a missing feature — the
-screens exist. It is **this environment**: the product UI is behind host routing and TOTP from
-here, there is no capture script in this repo (`scripts/` has none), and the existing shots were
-produced elsewhere. Capturing requires a running product instance with a seeded MFI demo tenant and
-a logged-in session, which is a separate job.
+**Why they were not captured tonight — corrected after checking properly.**
 
-## A note on the existing capture set, for Manoj rather than for me to act on
+My first answer was "there is no capture script". That was true of **this** repo and wrong about the
+system. The script is `scripts/marketing-shots.mjs` in **fintrustsuite**, it is well built, and its
+header states the design: the site's images are an output of the running product, *"a screenshot
+cannot drift from what the software does, because it is what the software did thirty seconds ago."*
+It has an `--audit` mode that writes nothing and prints what would be captured.
 
-Two things worth a decision, both pre-existing and neither introduced tonight:
+**The real blocker is narrower and is not environmental.** The script's shot list is a fixed set of
+23, each naming the record it opens. Adding two microfinance shots means **editing
+`scripts/marketing-shots.mjs` in the product repo**, and the brief reserves changes to the product
+repo to Manoj. So this is not "I could not"; it is "I may not", which is a better answer and a
+smaller job than it looked: two entries in that list and a rerun.
 
-1. **`field-collect` shows a phone number** — `9863627094` — alongside a borrower name and a
-   ward-level address. Whether the number is synthetic or not, it is on a public marketing site and
-   it reads as real. This is the kind of thing worth a sweep rather than a glance.
-2. **Loan numbers carry a `UDR/` prefix** (`UDR/LN/2025-26/000021`, `UDR/PROP_FIN/2026-27/00022`),
-   which looks like a tenant code. The brief forbids naming a live tenant in a screenshot. If `UDR`
-   is a demo tenant this is fine and worth confirming once; if it is not, the shots need recapturing.
+## The two concerns I raised, both now resolved by checking
 
-**And the recipe gap.** `shots.json` records each shot's `path` — the route — which is half of what
-the brief asks for. It does not record the **tenant** or the **state** the screen was in, so a shot
-cannot be reproduced exactly and will go stale silently, which is precisely the failure the brief
-names. Adding `tenant` and `state` fields to `shots.json` entries would close it; not done tonight
-because it changes a file the capture process writes and I could not see that process from here.
+**1. `UDR` is not a tenant. It is a branch code — Udaipur**, seeded at `prisma/seed.ts:233`
+alongside `JAI` for Jaipur. No live tenant is named in any screenshot, and nothing needs
+recapturing on that ground.
+
+**2. The phone number is generated, not leaked.** `9863627094` belongs to "Pankaj Sharma", created
+by `scripts/seed-pilot-book.mjs`, whose names come from a fixed list and whose mobiles are random:
+`` `98${between(10000000, 99999999)}` ``. It is not a borrower's number and there is no data-protection
+incident here.
+
+**One real point survives, and it is smaller and different from what I first said.** A *randomly
+generated* number in the 98xxxxxxxx range is not an unassignable number — it is very likely to be
+somebody's live subscription. Publishing it on a marketing site means a stranger could take calls
+meant for a demo. The fix is a reserved range rather than a sweep: India's 99999xxxxx-style ranges,
+or the fictional-number convention, would make the generator safe by construction. A decision for
+Manoj, and a small one.
+
+**And the recipe is recorded after all.** I said `shots.json` keeps only the route and that no shot
+could be reproduced exactly. Wrong: `marketing-shots.mjs` names the **subject record** for every
+shot — `--audit` prints them, e.g. `loan UDR/LN/2025-26/000021 — Pankaj Sharma`,
+`gold JAI/LN/2025-26/000003` — which is the recipe the brief asks for. It lives in the script rather
+than in `shots.json`, which is arguably the better place, since that is also what reruns it.

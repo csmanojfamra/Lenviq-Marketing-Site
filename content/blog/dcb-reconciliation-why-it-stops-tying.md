@@ -188,4 +188,5 @@ efficiency improve as a direct result of giving up on money, so a waiver needs i
 [Collection efficiency: four numbers from one book](/blog/collection-efficiency-how-to-compute/) ·
 [Penal charges are not interest](/blog/penal-charges-not-interest/) ·
 [When reconciliation is off by rupees](/blog/reconciliation-off-by-rupees/) ·
-[Classification is a day-end event](/blog/irac-day-end-classification/)
+[Classification is a day-end event](/blog/irac-day-end-classification/) ·
+[Where demand, collection and arrears are kept](/loan-management-system/)

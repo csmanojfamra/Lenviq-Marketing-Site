@@ -170,4 +170,5 @@ into one denominator. It is also silent on where in the ageing the misses sit 鈥
 [How to build a static pool](/blog/static-pool-analysis-how-to-build/) 路
 [Bucket movement and flow rates](/blog/bucket-movement-and-flow-rates/) 路
 [DCB reconciliation](/blog/dcb-reconciliation-why-it-stops-tying/) 路
-[How to track loan collections](/blog/how-to-track-loan-collections-nbfc/)
+[How to track loan collections](/blog/how-to-track-loan-collections-nbfc/) 路
+[NBFC software, lead to closure letter](/platform/)

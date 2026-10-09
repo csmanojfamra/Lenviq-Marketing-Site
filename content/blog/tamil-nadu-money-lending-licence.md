@@ -135,6 +135,22 @@ a refund of the licence fee.
 The reputational mechanism there is worth noticing. The penalty in section 17 is small; publication
 in the District Gazette is not.
 
+## Kerala is next door and the exposure is not the same
+
+Worth knowing before you carry a Tamil Nadu assessment across the border. Under the Kerala
+Money-Lenders Act, 1958, lending without a licence — or in violation of a licence condition —
+carries **imprisonment of not less than three months**, extending to three years, with a fine up to
+fifty thousand rupees (s.17). The Tamil Nadu equivalent, quoted above, is a fine of up to one
+thousand rupees.
+
+Kerala also writes its rate ceiling as a **formula in the Act** (two per cent above the maximum rate
+charged by commercial banks), charges a **five thousand rupee** licence fee, permits trading while a
+licence application is pending, contemplates **deposits** subject to the RBI Act, 1934, and requires
+an account per **debt** rather than per **debtor**.
+
+The full comparison is in [the Kerala page](/blog/kerala-money-lending-licence/). The point for a
+lender operating in both: this is two regimes, not one subject with local variations.
+
 ## Why this is not the same question as RBI registration
 
 A money lender licensed under a state Act is **not** an NBFC and is not supervised by the Reserve
@@ -202,5 +218,6 @@ requisition.
 
 ---
 
-**Related:** [NBFC registration and the Certificate of Registration](/blog/nbfc-registration-and-cor/) ·
+**Related:** [The Kerala money lending licence](/blog/kerala-money-lending-licence/) ·
+[NBFC registration and the Certificate of Registration](/blog/nbfc-registration-and-cor/) ·
 [NBFC compliance checklist](/blog/nbfc-compliance-checklist/)
