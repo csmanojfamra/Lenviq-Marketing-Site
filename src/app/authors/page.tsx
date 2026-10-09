@@ -28,22 +28,56 @@ export const metadata: Metadata = pageMetadata({
  * real people in regulated professions, and inventing one to fill a page would be worse than the
  * empty space it filled. They are for each author to supply.
  */
-const SUBJECTS: Record<string, string> = {
-  "CS Manoj Famra":
-    "Company law and the supervisory side — registration and the certificate of registration, the compliance calendar, the returns an NBFC files, and state money lending licensing.",
-  "CS Sushil Choudhary":
-    "Operations and portfolio reading — collection efficiency, static pool and cohort analysis, bucket movement, and what diligence asks a lending book for.",
-  "CA Tanmay Saini":
-    "Reporting and the systems under it — how a figure gets from the ledger to a return without being re-keyed.",
-  "CA Anil Agarwal":
-    "Accounting — reconciliation, the books an NBFC must keep, write-offs, and where a ledger and a borrower statement legitimately disagree.",
-  "CA Himanshu Sharma":
-    "Income recognition and classification — the day-end position, interest reversal on an account that turns, and provisioning.",
+interface Author {
+  /** What they write on here. Derived from their own posts, so it cannot drift from the bylines. */
+  subjects: string;
+  /**
+   * A paragraph, where the person has supplied one.
+   *
+   * Optional on purpose. Four of the five have supplied nothing, and the cards say so rather than
+   * carrying a sentence written for them — a biography invented to fill a card is worse than the
+   * space it filled, and worse still in a regulated profession.
+   */
+  bio?: string;
+  /**
+   * The membership number that makes the qualification checkable — ACS/FCS for a Company Secretary,
+   * the ICAI number for a Chartered Accountant.
+   *
+   * This is the field that turns a credential from a claim into something a reader can verify
+   * against the institute's own register, which is the entire reason this page exists. It stays
+   * empty until supplied; it is a fact and cannot be drafted.
+   */
+  membership?: string;
+}
+
+const AUTHORS: Record<string, Author> = {
+  "CS Manoj Famra": {
+    subjects:
+      "Company law and the supervisory side — registration and the certificate of registration, the compliance calendar, the returns an NBFC files, and state money lending licensing.",
+    bio:
+      "A practising Company Secretary with an NBFC compliance practice, and the person behind Lenviq. The compliance writing here comes out of that practice rather than out of a product team: the returns, the registration path and the state licensing pages are the questions clients actually arrive with. Every regulatory statement on them carries the direction, circular or Act it comes from, with its date — and where something could not be verified from primary text, the page says so.",
+  },
+  "CS Sushil Choudhary": {
+    subjects:
+      "Operations and portfolio reading — collection efficiency, static pool and cohort analysis, bucket movement, and what diligence asks a lending book for.",
+  },
+  "CA Tanmay Saini": {
+    subjects:
+      "Reporting and the systems under it — how a figure gets from the ledger to a return without being re-keyed.",
+  },
+  "CA Anil Agarwal": {
+    subjects:
+      "Accounting — reconciliation, the books an NBFC must keep, write-offs, and where a ledger and a borrower statement legitimately disagree.",
+  },
+  "CA Himanshu Sharma": {
+    subjects:
+      "Income recognition and classification — the day-end position, interest reversal on an account that turns, and provisioning.",
+  },
 };
 
 export default function Page() {
   const posts = publishedPosts();
-  const authors = Object.keys(SUBJECTS)
+  const authors = Object.keys(AUTHORS)
     .map((name) => ({ name, posts: posts.filter((p) => p.author === name) }))
     .filter((a) => a.posts.length > 0)
     .sort((a, b) => b.posts.length - a.posts.length);
@@ -86,7 +120,16 @@ export default function Page() {
                 <p className="mt-s1 text-[14px] text-muted">
                   {a.posts.length} post{a.posts.length === 1 ? "" : "s"}
                 </p>
-                <p className="mt-s3 text-[16px] leading-prose text-slate-mid">{SUBJECTS[a.name]}</p>
+                {AUTHORS[a.name].membership && (
+                  <p className="mt-s1 text-[14px] text-muted">{AUTHORS[a.name].membership}</p>
+                )}
+                {AUTHORS[a.name].bio && (
+                  <p className="mt-s3 text-[16px] leading-prose text-slate-mid">{AUTHORS[a.name].bio}</p>
+                )}
+                <p className="mt-s3 text-[15px] leading-prose text-muted">
+                  <span className="font-medium text-ink">Writes here on:</span>{" "}
+                  {AUTHORS[a.name].subjects}
+                </p>
                 <ul className="mt-s4 space-y-s2">
                   {a.posts.slice(0, 3).map((p) => (
                     <li key={p.slug}>
@@ -107,10 +150,10 @@ export default function Page() {
 
       <Section>
         <p className="max-w-prose text-[16px] leading-prose text-slate-mid">
-          Every regulatory statement on this site carries the circular, direction or Act it comes
-          from, with its date, so a reader can check the source rather than the byline. Where
-          something could not be verified from primary text, the page says so instead of writing
-          around it. The{" "}
+          A byline is the weaker of the two guarantees here. Every regulatory statement carries the
+          circular, direction or Act it comes from and the date it carries, so a reader can check
+          the source rather than the signature — and where something could not be verified from
+          primary text, it is marked as unverified rather than written around. The{" "}
           <Link href="/blog/" className="underline decoration-line-strong underline-offset-4 hover:text-cta">
             writing is here
           </Link>
