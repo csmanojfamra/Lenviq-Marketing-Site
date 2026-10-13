@@ -45,7 +45,9 @@ because the numbers look calmer.
 
 Two settings, two names, two purposes, and
 [what a system has to compute to keep them apart](/solutions/sma-classification-software-nbfc/)
-is a separate question from what the buckets mean. The classification one is always zero.
+is a separate question from what the buckets mean — both rest on
+[one days-past-due figure](/solutions/dpd-calculation-software-nbfc/). The classification one is
+always zero.
 
 ## What does SMA-2 oblige a lender to do?
 

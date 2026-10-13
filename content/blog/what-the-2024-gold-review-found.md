@@ -108,6 +108,13 @@ A system that enforces one of those three enforces none of them.
 - **An auction with no accounting entries.** It happened in operations and not in the books.
 - **The same user as both custodians.** Dual custody recorded rather than implemented.
 
+## The step that was rarely the auction itself
+
+What the review kept finding was not an improper sale. It was the steps before it that nobody could
+evidence — the notice, its delivery, the custody of the packet — which is why
+[an auction is the end of a recorded sequence](/solutions/gold-auction-software-nbfc/) rather than an
+event on its own.
+
 ## Frequently asked questions
 
 ### Why were gold loans not being classified as NPA?

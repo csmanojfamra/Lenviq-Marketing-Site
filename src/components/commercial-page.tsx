@@ -3,7 +3,7 @@ import { Section as Band } from "@/components/ui";
 import { ProductCta, ProductCtaCompact } from "@/components/product-cta";
 import { renderMarkdown, outline, splitAtMidHeading } from "@/lib/markdown";
 import { autolinkGlossary } from "@/lib/autolink";
-import { suppressHeldBackLinks } from "@/lib/held-back";
+import { heldBackPaths, suppressHeldBackLinks } from "@/lib/held-back";
 import { postBySlug } from "@/lib/content";
 import type { CommercialPage } from "@/lib/commercial";
 
@@ -26,11 +26,25 @@ import type { CommercialPage } from "@/lib/commercial";
  * If a third section ever needs this shape, merge then.
  */
 
-/** A reading-list entry: a blog slug, or any site path with a label after a pipe. */
-function readingHref(entry: string): { href: string; label: string } | null {
+/**
+ * A reading-list entry: a blog slug, or any site path with a label after a pipe.
+ *
+ * **Both branches drop a held-back target**, and the second branch is the one that needed saying.
+ * A bare blog slug resolves through `postBySlug`, which is the published loader, so a draft post
+ * falls out for free. A `/path|label` entry resolves to whatever was typed — so a persona page
+ * naming `/enterprise/many-branches-one-book/` in its list would have rendered a live anchor into
+ * a `noindex` page the moment the persona page was flipped and the enterprise one was not.
+ *
+ * A reading list is a listing, and consequence 3 of `publication.ts` is that no listing links to a
+ * held-back page. Dropping the entry is right rather than unwrapping it: unlike a sentence, a list
+ * item with its link removed is a line of text pointing nowhere.
+ */
+function readingHref(entry: string, held: Set<string>): { href: string; label: string } | null {
   if (entry.startsWith("/")) {
     const [href, label] = entry.split("|");
-    return label ? { href: href.trim(), label: label.trim() } : null;
+    if (!label) return null;
+    const path = href.trim();
+    return held.has(path) ? null : { href: path, label: label.trim() };
   }
   const p = postBySlug(entry);
   return p ? { href: `/blog/${p.slug}/`, label: p.title } : null;
@@ -52,7 +66,15 @@ export function CommercialArticle({ page, crumb }: { page: CommercialPage; crumb
   const opening = firstHeading > 0 ? head.slice(0, firstHeading) : head;
   const rest = firstHeading > 0 ? head.slice(firstHeading) : "";
 
-  const reading = page.related.map(readingHref).filter((x): x is { href: string; label: string } => x !== null);
+  /*
+   * A DRAFT PAGE KEEPS ITS LIST WHOLE, a live one does not — the same rule as the body prose above.
+   * This page is noindex and in no listing, so it creates no crawl path, and a reviewer reading one
+   * page of a new layer should be able to reach the rest of it.
+   */
+  const heldForList = page.draft ? new Set<string>() : heldBackPaths();
+  const reading = page.related
+    .map((e) => readingHref(e, heldForList))
+    .filter((x): x is { href: string; label: string } => x !== null);
 
   return (
     <Band className="pt-s7">

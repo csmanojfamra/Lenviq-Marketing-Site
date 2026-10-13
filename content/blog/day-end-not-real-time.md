@@ -19,7 +19,8 @@ board and the regulator.
 
 The Reserve Bank's clarification of 12 November 2021 settled that an account is flagged as overdue in
 the **day-end process** of the due date — which is also where
-[the special mention buckets are cut](/solutions/sma-classification-software-nbfc/). Most lending
+[the special mention buckets are cut](/solutions/sma-classification-software-nbfc/) and where
+[the days-past-due figure itself is fixed](/solutions/dpd-calculation-software-nbfc/). Most lending
 systems agree with that in principle. Rather
 fewer agree with it in the time zone they actually run in.
 

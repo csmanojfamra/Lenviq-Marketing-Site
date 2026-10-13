@@ -149,7 +149,8 @@ An instalment falls due on 5 April and is not paid. Counting from that date, the
 past due on 4 July and **more than** 90 days past due on 5 July — so it becomes non-performing in
 the day-end process of 5 July, not 4 July.
 
-That one day is not academic. It decides which quarter the provision lands in, which quarter the
+That one day is not academic. It decides which quarter
+[the provision](/solutions/provisioning-software-nbfc/) lands in, which quarter the
 income reversal lands in, and what the credit bureau is told. A system that classifies on day 90
 reports every one of those a day early, all year — and the reversal it then posts is
 [an entry with its own hazards](/blog/npa-income-reversal-software-nbfc/), as

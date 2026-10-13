@@ -130,7 +130,8 @@ record.
 A loan against property with a monthly instalment of ₹1,33,273. The scheme's penal charge is 24% per
 annum on the overdue instalment, no grace, GST as applicable — and
 [whose registration decides that tax](/solutions/penal-charges-software-nbfc/) is a question about
-the lender today rather than about the sanction.
+the lender today rather than about the sanction. Where the instalment was being collected by mandate,
+[a return undoes the receipt rather than correcting it](/solutions/nach-mandate-software-nbfc/).
 
 - **Instalment 1 falls due 12 July, unpaid.** On 12 August, the day-end job computes 31 days of
   default: ₹2,716.

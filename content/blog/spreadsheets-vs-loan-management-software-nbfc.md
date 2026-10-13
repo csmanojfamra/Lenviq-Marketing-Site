@@ -143,6 +143,13 @@ have no answer.
 The [product page](/platform/) sets out what is included; migration scope is a conversation about
 your data rather than a line on a page.
 
+## Moving the book across
+
+The position is the half everybody checks and
+[the payment history is the half that decides whether it worked](/enterprise/migrating-a-live-book/) —
+because days past due, classification and the bureau history are all rebuilt from dated receipts
+rather than from a balance.
+
 ## Frequently asked questions
 
 ### Is it legal for an NBFC to run its loan book on spreadsheets?

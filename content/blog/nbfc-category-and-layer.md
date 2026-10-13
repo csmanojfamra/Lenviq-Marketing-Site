@@ -144,6 +144,13 @@ If somebody asks what kind of NBFC you are, the complete answer has two halves a
 something the other two do not, and dropping one is how people end up applying the wrong provisioning
 rate or filing the wrong return.
 
+## Why the layer decides the filing calendar
+
+The annex to the Filing of Supervisory Returns Directions, 2024 names the filer for each return, so
+[which returns you owe follows from the layer](/solutions/rbi-returns-software-nbfc/) rather than from
+asset size directly. A lender recorded in the wrong layer is given an obligation it does not have and
+prompted for none of the ones it does.
+
 ## Frequently asked questions
 
 ### Is NBFC-ICC a layer or a category?

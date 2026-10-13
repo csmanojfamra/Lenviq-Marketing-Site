@@ -82,6 +82,13 @@ borrower holds a no-dues certificate, and the packet sits on a shelf while a com
 that nobody is watching. A system that closes the loan and says nothing further has left that
 entirely to somebody's memory.
 
+## When the loan is not repaid
+
+The directions set a thirty-day minimum between the notice and the auction, and that figure is a
+floor rather than a target —
+[the sequence a lender has to be able to evidence](/solutions/gold-auction-software-nbfc/) begins well
+before the sale.
+
 ## What is not in there
 
 The draft Directions of April 2025 had proposed additional standard-asset provisioning on an LTV

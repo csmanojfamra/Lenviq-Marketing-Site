@@ -85,6 +85,13 @@ determines *upgrade*.
 
 ## One engine, not one per product
 
+The engine computes one figure —
+[days past due, from the oldest unpaid demand](/solutions/dpd-calculation-software-nbfc/) — and everything
+else is derived from it, including
+[the provision](/solutions/provisioning-software-nbfc/) and
+[what the credit bureaus are told](/solutions/cic-reporting-software-nbfc/).
+
+
 The most damaging design error is a per-product classification path — a gold engine and a term-loan
 engine, each with its own idea of what is overdue.
 

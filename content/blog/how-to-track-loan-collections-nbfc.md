@@ -15,6 +15,12 @@ three failing, and the third is the one that turns an operational problem into a
 
 ## Where does demand come from?
 
+From a dated demand register, which is also
+[what collection efficiency is computed against](/solutions/collection-efficiency-software-nbfc/) — and
+where collection runs through a mandate,
+[the presentation limits decide what you may even attempt](/solutions/nach-mandate-software-nbfc/).
+
+
 From the due events, computed at day-end — not from a list somebody maintains.
 
 The day's demand is: instalments falling due today, plus everything that fell due earlier and is

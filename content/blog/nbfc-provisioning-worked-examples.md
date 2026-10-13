@@ -121,6 +121,10 @@ the wrong classification date on every account it touches.
 
 ## When does the security matter?
 
+Always, and it is the second of the two decisions — the classification fixes the rate,
+[the realisable value of the security fixes what that rate applies to](/solutions/provisioning-software-nbfc/).
+
+
 This surprises people, so it gets its own answer: **security only changes the provision at the
 doubtful stage.** Nowhere else.
 

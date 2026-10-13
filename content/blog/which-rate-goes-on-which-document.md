@@ -94,6 +94,13 @@ it falls back on something that was never the loan's rate.
 
 ---
 
+## The figure on a payoff quote
+
+None of the four rates is what a borrower closing early is quoted. That is a cash figure computed as
+at a date, and
+[it rounds down rather than to nearest](/solutions/foreclosure-quote-software-nbfc/) because there is
+no later instalment to absorb the residue.
+
 ## Where the APR itself comes from
 
 Of the four rates, the annual percentage rate is the only one that is a computation over a cash-flow

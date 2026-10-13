@@ -47,7 +47,8 @@ itself:
 - **Closures and settlements reflected in the period they happened**, not the period they were
   noticed.
 
-None of that is the same obligation as
+What that asks of a system is set out in
+[the reporting page](/solutions/cic-reporting-software-nbfc/), and none of it is the same obligation as
 [the identity record uploaded to the central KYC registry](/solutions/ckyc-software-nbfc/), which
 recurs on change rather than monthly and carries no conduct at all — the two get run together in
 conversation and share almost nothing.

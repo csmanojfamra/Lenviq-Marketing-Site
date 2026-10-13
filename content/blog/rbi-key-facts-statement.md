@@ -79,6 +79,11 @@ look right" to "**is there any charge this system can levy that is not on it?**"
 
 ## What makes a KFS reproducible?
 
+The same property that makes
+[a payoff quote defensible](/solutions/foreclosure-quote-software-nbfc/): it was computed from the
+loan's own frozen terms, as at a stated date, and kept.
+
+
 A dispute about a charge arrives two or three years later. Three things have to be true for it to be
 answerable:
 

@@ -87,7 +87,8 @@ that drifts reintroduces the problem at the very first calculation.
 Rounding then happens **once, deliberately, in one place**: interest is computed and rounded when it
 is booked, and
 [a charge settled from a receipt rather than added to the balance](/solutions/penal-charges-software-nbfc/)
-never enters the interest arithmetic at all. The last instalment of a schedule carries whatever remainder is left so the schedule
+never enters the interest arithmetic at all. The residue has to land somewhere named, which is what
+keeps [the loan book tying to the ledger](/enterprise/one-chart-of-accounts/) loan by loan. The last instalment of a schedule carries whatever remainder is left so the schedule
 closes on the sanctioned amount exactly. That is a written rule rather than something the arithmetic
 does on its own.
 

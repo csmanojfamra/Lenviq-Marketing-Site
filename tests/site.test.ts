@@ -1776,3 +1776,127 @@ describe("the FAQ structured data is text, not markdown", () => {
     for (const { name, text } of all) expect(text.length, `${name}: empty answer`).toBeGreaterThan(20);
   });
 });
+
+/**
+ * THE COMMERCIAL LAYER — `/solutions/` AND `/enterprise/` (Sprint SEO-5).
+ *
+ * Twenty pages and two hubs, all built unpublished and flipped on a schedule, which makes the
+ * publication machinery load-bearing in a way it has not been before: a mistake here does not show a
+ * wrong page, it shows a page that was not supposed to exist yet.
+ *
+ * The guard that matters most is the third one. A link to a page that is not live yet is written NOW,
+ * into the body prose of live pages, because nobody comes back on the flip date to add it — and it
+ * has to be invisible until the target is live. That is two opposite requirements on one line of
+ * markdown, resolved by suppressing the anchor at render. The §7.1 negative control found that this
+ * was silently not covering `/solutions/` at all, so it is asserted here rather than trusted.
+ */
+describe("the commercial layer is held back correctly", async () => {
+  const OUT_DIR = join(SITE, "out");
+  const built = existsSync(OUT_DIR);
+  const commercial = await import("../src/lib/commercial");
+  const held = await import("../src/lib/held-back");
+  const ALL = commercial.everyCommercialPage();
+
+  it("every page declares its publication state explicitly", () => {
+    /*
+     * The loader defaults `draft` to TRUE for this layer — the opposite of the blog's default, and
+     * deliberate, because the whole layer is built unpublished. That default is a safety net and not
+     * a licence: a page with no `draft:` line is far more likely to be unfinished than deliberate.
+     */
+    expect(ALL.length).toBeGreaterThanOrEqual(20);
+    for (const p of ALL) {
+      const raw = src(`content/${p.section}/${p.slug}.md`);
+      expect(raw, `${p.section}/${p.slug} does not declare draft:`).toMatch(/^draft: (true|false)$/m);
+      expect(p.question, `${p.section}/${p.slug}: a question a person would type ends in one`).toMatch(/\?$/);
+      expect(p.related.length, `${p.section}/${p.slug}: six to eight reading-list entries`).toBeGreaterThanOrEqual(6);
+    }
+  });
+
+  it("every page names what the software must not pretend to do", () => {
+    /*
+     * The house claims rule applied to marketing copy. These pages assert product behaviour, so each
+     * carries the column that bounds the assertion — and on the gated subjects it is the only honest
+     * thing the page can say about the feature.
+     */
+    /*
+     * The DEVICE is what is asserted, not one wording of it. An artefact page carries a three-column
+     * table whose last column is "what it must not pretend to do"; a persona page carries a section
+     * instead, because a role's limits are about what the software will not do for the reader rather
+     * than about a capability. Both are the house claims rule applied to marketing copy, and the
+     * alternation below is the set of headings the layer actually uses — a page that invents a
+     * seventh phrasing fails here, which is the right outcome: the device should be recognisable.
+     */
+    for (const p of ALL) {
+      expect(p.body, `${p.section}/${p.slug}: no limits column and no limits section`)
+        .toMatch(/must not pretend to do|must not be allowed to pretend|does \*\*not\*\* do|not yet offered|not offered|does not do for you|cannot answer, and should not claim to/);
+    }
+  });
+
+  it("heldBackPaths knows every section a page can live in", () => {
+    /*
+     * THE BUG THE §7.1 CONTROL FOUND, asserted so it cannot return.
+     *
+     * `held-back.ts` was written when every held-back page was a blog or help draft. Four pages then
+     * moved into `/solutions/`, the module knew nothing about that section, and every inbound link
+     * written for them rendered as a live anchor into a `noindex` page on three live posts. It
+     * typechecked, and the only way to see it was to build and grep the output.
+     *
+     * So this asserts the INVARIANT rather than the fix: every draft page in the commercial layer is
+     * in the held-back set. A new section added without teaching this module about it fails here.
+     */
+    const paths = held.heldBackPaths();
+    const missing = ALL.filter((p) => p.draft).map(commercial.pathOf).filter((x) => !paths.has(x));
+    expect(missing, "a draft page the suppression does not know about is a live link to a noindex page").toEqual([]);
+  });
+
+  it.runIf(built)("no live page renders a link to a held-back page", () => {
+    /*
+     * The whole mechanism, asserted over the BUILT OUTPUT and over every page rather than over the
+     * ones that happen to have such links today. A draft page is excluded as a source because it
+     * keeps its links on purpose: it is noindex and in no listing, so it creates no crawl path, and a
+     * reviewer should be able to follow one page of a new layer to the next.
+     */
+    const paths = [...held.heldBackPaths()];
+    const draftFiles = new Set(ALL.filter((p) => p.draft).map((p) => join(OUT_DIR, p.section, p.slug, "index.html")));
+    const walk = (dir: string): string[] =>
+      readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
+        e.isDirectory() ? walk(join(dir, e.name)) : e.name === "index.html" ? [join(dir, e.name)] : []);
+    const offenders: string[] = [];
+    for (const file of walk(OUT_DIR)) {
+      if (draftFiles.has(file)) continue;
+      const html = readFileSync(file, "utf8");
+      // A blog or help draft's own page is also exempt, for the same reason.
+      if (/<meta name="robots" content="noindex/.test(html)) continue;
+      for (const p of paths) if (html.includes(`href="${p}"`)) offenders.push(`${relative(OUT_DIR, file)} -> ${p}`);
+    }
+    expect(offenders, "a live page is linking into a page that has not been published").toEqual([]);
+  });
+
+  it.runIf(built)("a hub lists only its published children", () => {
+    /*
+     * A hub's content IS links to its children, which is why both hubs are held back until at least
+     * three of theirs are live — publish one on day one and a crawler gets a heading above an empty
+     * list. This asserts the other half: that the list is built from the published loader, so a hub
+     * flipped early cannot become the crawl path into the rest of the layer.
+     */
+    for (const section of ["solutions", "enterprise"] as const) {
+      const html = readFileSync(join(OUT_DIR, section, "index.html"), "utf8");
+      const leaked = commercial.allCommercial(section)
+        .filter((p) => p.draft)
+        .filter((p) => html.includes(`href="/${section}/${p.slug}/"`));
+      expect(leaked.map((p) => p.slug), `${section} hub links to an unpublished child`).toEqual([]);
+    }
+  });
+
+  it.runIf(built)("every page carries the blocks, read from the rendered output", () => {
+    for (const p of ALL) {
+      const html = readFileSync(join(OUT_DIR, p.section, p.slug, "index.html"), "utf8");
+      expect(html, `${p.slug}: no quick answer`).toMatch(/Quick answer/);
+      expect(html, `${p.slug}: the question is not rendered`).toContain(p.question.replace(/&/g, "&amp;"));
+      expect(html, `${p.slug}: no table`).toMatch(/<table/);
+      expect(html, `${p.slug}: no FAQ`).toMatch(/Frequently asked questions/);
+      expect(html, `${p.slug}: no reading list`).toMatch(/Related reading/);
+      if (p.draft) expect(html, `${p.slug}: a draft with no banner`).toMatch(/Draft — pending review/);
+    }
+  });
+});

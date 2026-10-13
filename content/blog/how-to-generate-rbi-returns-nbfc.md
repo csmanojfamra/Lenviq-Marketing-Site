@@ -19,6 +19,10 @@ reporting is traceable.
 
 ## Which returns does an NBFC file?
 
+It depends on the layer, and
+[a calendar that lists every return for every NBFC is wrong twice over](/solutions/rbi-returns-software-nbfc/).
+
+
 What applies depends on your layer under scale-based regulation and on what you do. The common set:
 
 | Return | Broadly | Cadence |

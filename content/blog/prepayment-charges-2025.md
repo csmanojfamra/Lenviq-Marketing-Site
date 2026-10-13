@@ -110,6 +110,11 @@ that systems encode it wrongly.
 - **Not recording which limb applied.** The reason a charge was or was not levied is part of the
   file.
 
+## What the borrower is actually quoted
+
+Eligibility for the charge is one question; the figure on the quote is another, and
+[it has to be computed as at a date without double-counting the interest](/solutions/foreclosure-quote-software-nbfc/).
+
 ## Frequently asked questions
 
 ### Can an NBFC charge foreclosure charges on a personal loan?

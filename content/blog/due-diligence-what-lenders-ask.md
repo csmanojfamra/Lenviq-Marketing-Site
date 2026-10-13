@@ -20,6 +20,10 @@ portfolio number can flatter.
 
 ## Collection efficiency
 
+Four defensible definitions that diverge on the same book, which is why
+[the figure is unusable without its definition](/solutions/collection-efficiency-software-nbfc/).
+
+
 Collections in a period over the demand raised for that period. Simple, and almost never comparable
 between two lenders, because the definition varies: whether arrears collected are counted in the
 numerator, whether prepayments and foreclosures are, whether the denominator is only current-month

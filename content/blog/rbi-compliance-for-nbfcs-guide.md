@@ -117,7 +117,8 @@ generated from the loan's own sanctioned terms rather than assembled by hand.
 ## What changed for gold loans under the 2025 directions?
 
 The Reserve Bank of India (Lending Against Gold and Silver Collateral) Directions, 2025 harmonised
-what had been a patchwork. The changes with operational teeth:
+what had been a patchwork, including [the thirty days' notice before an auction and the surplus owed back](/solutions/gold-auction-software-nbfc/).
+The changes with operational teeth:
 
 | Area | The requirement |
 |---|---|
@@ -137,6 +138,13 @@ nothing: the loan is closed, the borrower has a no-dues certificate, and the pac
 shelf.
 
 ## What returns follow from all of this?
+
+Two obligations with different cadences and different subjects:
+[the supervisory returns about the lender](/solutions/rbi-returns-software-nbfc/), quarterly, and
+[the monthly report of each borrower's conduct](/solutions/cic-reporting-software-nbfc/). The
+figures behind both come from the same classification, and
+[the provision computed on it](/solutions/provisioning-software-nbfc/).
+
 
 The classification, the income treatment and the charge treatment above are the inputs to the
 reporting. If they are wrong, everything downstream is wrong in the same direction.

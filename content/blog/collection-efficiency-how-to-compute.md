@@ -104,6 +104,11 @@ dilution a static pool exists to defeat —
 
 ## The reporting convention worth adopting
 
+State the definition beside the number, every time — and
+[store what the computation needs](/solutions/collection-efficiency-software-nbfc/) before relying on
+any of it, because a system holding only a running balance can compute none of the four honestly.
+
+
 One line, every time:
 
 > *Collection efficiency 93.0% (current-month demand basis; excludes advance, penal and waivers;
