@@ -3,10 +3,11 @@ title: "CKYC for an NBFC: the upload obligation, the identifier, and the record 
 description: "The Central KYC Records Registry is an obligation with two halves — push your customers' records up, and pull an existing record down when a customer gives you an identifier. What the KYC Direction actually requires of a non-bank lender, and which half most lending systems skip."
 metaDescription: "CKYC has two halves: uploading your customers' records and retrieving an existing one against a KYC Identifier. What the KYC Direction requires of an NBFC."
 question: "What does an NBFC have to do about CKYC, and when?"
-date: "2026-10-13"
-category: "Compliance"
+kind: artefact
 author: "CA Tanmay Saini"
+updated: "2026-10-13"
 related: "credit-information-reporting-2025, nbfc-digital-lending-guide, due-diligence-what-lenders-ask, audit-trail-what-counts, nbfc-compliance-checklist, outsourcing-what-cannot-be-outsourced, nbfc-books-retention, rbi-compliance-for-nbfcs-guide"
+priority: 0.8
 draft: true
 ---
 

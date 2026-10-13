@@ -36,7 +36,7 @@ follows from how long it stays that way.
 
 Three points decide whether an implementation is right.
 
-**It is a day-end event.** The RBI's clarification of 15 November 2021 on prudential norms
+**It is a day-end event.** The RBI's clarification of 12 November 2021 on prudential norms
 ([RBI/2021-2022/125](https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12194&Mode=0)) put this beyond argument: an account is flagged overdue as part of the day-end
 process for the due date itself. Not the next morning, not on the reporting date, not when somebody
 runs a report. A system that classifies when asked, rather than every night, will produce different
@@ -184,7 +184,7 @@ is stated there too: software implements a position, it does not make a lender c
 ### When does an account become NPA under RBI norms?
 
 When it has been overdue for more than ninety days, determined in the day-end process rather than at
-a reporting date. The RBI's 15 November 2021 clarification requires the overdue flag to be applied as
+a reporting date. The RBI's 12 November 2021 clarification requires the overdue flag to be applied as
 part of the day-end process for the due date itself, which is what makes the ninety-day count start
 on day one rather than whenever a report is run.
 

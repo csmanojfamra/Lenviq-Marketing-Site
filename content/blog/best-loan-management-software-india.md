@@ -13,37 +13,39 @@ claims otherwise is usually written by one of the vendors on it. What exists is 
 credible platforms with genuinely different centres of gravity — origination-led, servicing-led,
 co-lending-led, accounting-led — and a set of questions that decide which one fits your book.
 
-The survey is immediately below, then the reason none of it is ranked, then the questions that
-decide it. We build one of these platforms, so read the section that says so accordingly, and read
-the disclosure about how the rest were described.
+The demands to put to any platform are immediately below, then the reason a ranking is the wrong
+shape, then the questions that decide it. We build one of these platforms, so read the section that
+says so accordingly.
 
-## The platforms an Indian NBFC commonly evaluates
+## What to demand of any lending system
 
-Described from each vendor's own public positioning. We have not run these systems, and nothing here
-is a comparative claim about capability — see the disclosure at the foot.
+This page used to carry a description of each platform an NBFC commonly shortlists, written from
+each vendor's own public positioning. It has been removed, and the reason is worth stating rather
+than quietly correcting: we cannot verify a claim about somebody else's product, and an unverified
+claim about a named competitor published under a practising Company Secretary's name is a liability
+rather than a service to the reader. What follows is more useful anyway — the demands to put to every
+platform on your shortlist, ours included, with what each one must not be allowed to pretend.
 
-**Finflux (part of M2P).** Positioned as an integrated origination and loan management platform with
-RBI-aligned workflows, and commonly shortlisted by smaller NBFCs looking for quick deployment. Its
-place within M2P's wider fintech infrastructure means pre-built connections to payment and banking
-services are part of the pitch.
+| What you need | What a system has to do | What it must not be allowed to pretend |
+|---|---|---|
+| **One delinquency figure** | Compute days past due once, in a day-end run, and feed classification, provisioning and the bureau file from that one figure | That a per-product delinquency path is a feature. Two paths to one number is how a gold book and a vehicle book end up on different standards under one registration |
+| **Classification you can re-read** | Hold the classification an account carried on a past date, as a record | That recomputing from today's balances answers "what was this in March". A rule since amended returns a different answer |
+| **Terms frozen at sanction** | Service the loan against a snapshot taken when it was written | That editing a scheme is safe because "it only affects new loans" — unless the loan reads a snapshot, it does not |
+| **Postings that cannot be edited** | Take a dated counter-entry; refuse a posting into a locked period | That an edit button on a closed period is a convenience. It makes every figure already filed from that period unreliable |
+| **Whole-rupee demands** | Accrue in paise and demand in rupees, with the residue landing somewhere named | That rounding each day's accrual is equivalent. It collects above the contracted rate |
+| **The documents from the loan's own terms** | Generate the Key Facts Statement and the sanction letter from the file's pricing, with the APR computed over the actual cash-flow | That an APR annualised from the contracted rate is an APR. It is the rate with a different label |
+| **A reconciliation that names the loan** | Compare the loan book to the general ledger per loan | That one aggregated control line is a reconciliation. A difference that names nothing is not findable |
+| **A migration tested against a past date** | Replay dated receipts with their own interest and principal split, and reconcile a past month | That a matching balance today proves anything. It is the easy half and it ties up even when the history is wrong |
+| **Scoping in the query** | Refuse the row, not hide it | That a screen which hides a branch's borrowers is access control |
+| **An honest catalogue** | Say which reports are offered and which are specified and gated off | That a capability a customer cannot switch on is a feature. This is the one worth asking about directly, including of us |
 
-**CloudBankin.** A cloud-native loan management system aimed at NBFCs and fintechs, covering
-application through underwriting, disbursement and repayment, with API-led integration and built-in
-KYC and compliance tooling in its positioning.
+The last row is the question to ask every vendor in the room, in those words: *what is in the product
+catalogue that we cannot actually turn on?* The answer tells you more about a platform than any
+feature list. [Where Lenviq sits on it](/compliance/) is further down this page, and the gated
+reports are named rather than omitted.
 
-**Finezza.** Positions itself around native co-lending architecture and Account Aggregator
-connectivity across the lending lifecycle — a distinctive emphasis if partnership lending is central
-to your model.
-
-**Jocata, Lentra and similar enterprise platforms.** Generally positioned at the bank and large-NBFC
-end, with origination and decisioning depth, and correspondingly larger implementations.
-
-**Core banking vendors with a lending module.** Several established Indian core banking providers
-offer lending alongside deposits. Worth evaluating where an NBFC is part of a group that already runs
-one, and worth checking specifically how the lending module handles the regulatory positions below.
-
-**Lenviq.** Ours. Origination, loan management, double-entry accounting and RBI reporting in one
-system, built around the regulatory positions an Indian lender is examined on. More below.
+That is the shortlist test. The platforms you end up with after applying it are the ones worth a
+demonstration.
 
 ## Why none of them is ranked above the others
 
@@ -153,16 +155,19 @@ with a parallel run before cutover.
 ### Can I trust a comparison written by a vendor?
 
 Treat it as one input and check the specifics yourself. The test we would apply to this page, and
-suggest you apply: does it state anything negative about a named competitor that it has not
-evidenced? This one does not, deliberately — the descriptions are each vendor's own public
-positioning, and the comparison is in the questions rather than in a scoring table we invented.
+suggest you apply: does it make any claim about a named competitor that it has not evidenced? This
+one names no competitor at all, which is the only version of that test a vendor can pass — the
+comparison here is a list of demands you put to everyone, ours included, rather than a scoring table
+we invented.
 
 ---
 
-**How the other platforms were described.** From their own public positioning as at August 2026. We
-have not run them, we have not benchmarked them, and we have not asserted any weakness in any of
-them. If you are one of these vendors and a description here is out of date or wrong, write to us and
-it will be corrected.
+**Why no competitor is named on this page.** This page carried a description of each platform an
+NBFC commonly shortlists, written from each vendor's own public material. It was removed in October
+2026. We cannot verify a claim about a product we have not run, and a page published under a
+practising Company Secretary's name should not carry one — not even a favourable one, because the
+reader cannot tell which kind they are reading. The demands in the first section apply to every
+platform including ours, and they are checkable.
 
 **Related reading:** [How to choose loan management software](/blog/how-to-choose-loan-management-software-nbfc/) ·
 [Loan management software for an NBFC](/blog/loan-management-software-for-nbfc/) ·

@@ -94,6 +94,13 @@ it falls back on something that was never the loan's rate.
 
 ---
 
+## Where the APR itself comes from
+
+Of the four rates, the annual percentage rate is the only one that is a computation over a cash-flow
+rather than a term of the contract — which is why
+[it moves when a fee or an advance instalment moves](/solutions/kfs-software-nbfc/) and the
+contracted rate does not.
+
 ## Frequently asked questions
 
 ### Why is the APR on my Key Facts Statement higher than the interest rate?

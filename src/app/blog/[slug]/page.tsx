@@ -8,6 +8,7 @@ import { toolBySlug } from "@/lib/tools";
 import { absolute, COMPANY } from "@/lib/site";
 import { renderMarkdown, outline, splitAtMidHeading } from "@/lib/markdown";
 import { autolinkGlossary } from "@/lib/autolink";
+import { suppressHeldBackLinks } from "@/lib/held-back";
 import { ProductCta, ProductCtaCompact } from "@/components/product-cta";
 
 /**
@@ -55,7 +56,22 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
    */
   const picked = readingList(p);
   const contents = outline(p.body);
-  const body = autolinkGlossary(renderMarkdown(p.body));
+  /**
+   * A LINK TO A PAGE THAT IS NOT LIVE YET IS REMOVED HERE, AND ONLY ON A LIVE PAGE.
+   *
+   * The inbound links a held-back page needs before it may be flipped are written now, into the
+   * body prose of pages like this one, because nobody comes back on the flip date to add them.
+   * `held-back.ts` records the whole argument. On a live page the anchor is dropped and the words
+   * stay, so the sentence reads the same either way.
+   *
+   * **A draft page keeps them.** The rule is about what a LIVE page renders: this page is itself
+   * `noindex, nofollow` and absent from every listing, so it creates no crawl path, and a reviewer
+   * reading one draft should be able to follow it to the next. Suppressing here would make the
+   * review harder for no gain.
+   */
+  const body = p.draft
+    ? autolinkGlossary(renderMarkdown(p.body))
+    : suppressHeldBackLinks(autolinkGlossary(renderMarkdown(p.body)));
   const mid = splitAtMidHeading(body);
 
   /**

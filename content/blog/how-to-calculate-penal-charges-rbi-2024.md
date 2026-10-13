@@ -128,7 +128,9 @@ record.
 ## A worked example
 
 A loan against property with a monthly instalment of ₹1,33,273. The scheme's penal charge is 24% per
-annum on the overdue instalment, no grace, GST as applicable.
+annum on the overdue instalment, no grace, GST as applicable — and
+[whose registration decides that tax](/solutions/penal-charges-software-nbfc/) is a question about
+the lender today rather than about the sanction.
 
 - **Instalment 1 falls due 12 July, unpaid.** On 12 August, the day-end job computes 31 days of
   default: ₹2,716.

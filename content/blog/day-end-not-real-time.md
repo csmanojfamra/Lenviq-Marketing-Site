@@ -17,8 +17,10 @@ board and the regulator.
 
 ## Where does the error come from?
 
-The Reserve Bank's clarification of 15 November 2021 settled that an account is flagged as overdue in
-the **day-end process** of the due date. Most lending systems agree with that in principle. Rather
+The Reserve Bank's clarification of 12 November 2021 settled that an account is flagged as overdue in
+the **day-end process** of the due date — which is also where
+[the special mention buckets are cut](/solutions/sma-classification-software-nbfc/). Most lending
+systems agree with that in principle. Rather
 fewer agree with it in the time zone they actually run in.
 
 India is UTC+05:30. A nightly job that runs at 01:00 IST and compares against `new Date()` in UTC is

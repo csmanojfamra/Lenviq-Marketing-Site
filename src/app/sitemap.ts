@@ -6,6 +6,7 @@ import { TERMS } from "@/lib/glossary";
 import { PRODUCTS } from "@/lib/products";
 import { TOOLS } from "@/lib/tools";
 import { publishedRoutes } from "@/lib/publication";
+import { publishedCommercial, pathOf } from "@/lib/commercial";
 
 /**
  * Every URL comes from the same constant the canonical tags do, so the sitemap and the canonical
@@ -38,6 +39,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const, priority: 0.9,
     })),
     { url: absolute("/tools/"), lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 },
+    /**
+     * THE MACHINE-READABLE FILES, listed on purpose (Sprint SEO-5 §5(b)).
+     *
+     * A sitemap usually lists pages, and these are not pages — they are plain text and JSON written
+     * for an answer engine to fetch. Listing them is what makes them discoverable at all: nothing
+     * on the site links to them, by design, because a link to `llms-full.txt` in a footer is a link
+     * no reader wants. A crawler that reads the sitemap finds them; one that only follows anchors
+     * never would.
+     *
+     * Low priority deliberately. They are reference material rather than destinations, and a
+     * sitemap priority is a statement about this site's own pages relative to each other.
+     *
+     * `/ai` is NOT here, and that is a finding rather than an omission: the product has no
+     * artificial-intelligence features, so §5(d) of the sprint said to build nothing. The report
+     * carries the evidence.
+     */
+    { url: absolute("/llms.txt"), lastModified: now, changeFrequency: "weekly" as const, priority: 0.4 },
+    { url: absolute("/llms-full.txt"), lastModified: now, changeFrequency: "weekly" as const, priority: 0.4 },
+    { url: absolute("/ai-products.json"), lastModified: now, changeFrequency: "weekly" as const, priority: 0.4 },
     ...TOOLS.map((t) => ({
       url: absolute(`/tools/${t.slug}/`), lastModified: now,
       changeFrequency: "monthly" as const, priority: 0.7,
@@ -49,5 +69,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
      * site; it is what they read once they are here, and once they are a customer.
      */
     ...publishedHelp().map((p) => ({ url: absolute(`/help/${p.slug}/`), lastModified: now, priority: 0.5 })),
+    /**
+     * The commercial layer — `/solutions/` and `/enterprise/`, each page's priority from its own
+     * front matter. Published pages only, which is the same `draft` field that decides the robots
+     * tag and whether the hub links to it. Sprint SEO-5 builds the whole layer unpublished, so this
+     * contributes nothing until somebody starts flipping pages.
+     */
+    ...publishedCommercial("solutions").map((p) => ({
+      url: absolute(pathOf(p)), lastModified: now,
+      changeFrequency: "monthly" as const, priority: p.priority,
+    })),
+    ...publishedCommercial("enterprise").map((p) => ({
+      url: absolute(pathOf(p)), lastModified: now,
+      changeFrequency: "monthly" as const, priority: p.priority,
+    })),
   ];
 }

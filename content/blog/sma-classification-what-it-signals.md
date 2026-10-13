@@ -31,7 +31,7 @@ overdue count.
 ## Why is the first boundary day one, not day two?
 
 Because an amount is overdue on the date it was not paid, and the Reserve Bank's clarification of
-15 November 2021 on prudential norms has accounts flagged as overdue **in the day-end process of the
+12 November 2021 on prudential norms has accounts flagged as overdue **in the day-end process of the
 due date itself**.
 
 So an instalment due on the 12th and unpaid is one day overdue at the end of the 12th, and the
@@ -43,7 +43,9 @@ and a common one. If the same setting also reduces the days-past-due figure, it 
 and NPA dates for the entire book, and moved them **later**, which is the direction nobody catches
 because the numbers look calmer.
 
-Two settings, two names, two purposes. The classification one is always zero.
+Two settings, two names, two purposes, and
+[what a system has to compute to keep them apart](/solutions/sma-classification-software-nbfc/)
+is a separate question from what the buckets mean. The classification one is always zero.
 
 ## What does SMA-2 oblige a lender to do?
 

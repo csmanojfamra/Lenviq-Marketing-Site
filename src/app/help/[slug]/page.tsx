@@ -7,6 +7,7 @@ import { Shot, PhoneShot, type ShotMark } from "@/components/shot";
 import { allHelpIncludingDrafts, anyHelpBySlug, helpNeighbours, helpSections } from "@/lib/help";
 import { absolute, COMPANY } from "@/lib/site";
 import { renderMarkdown } from "@/lib/markdown";
+import { suppressHeldBackLinks } from "@/lib/held-back";
 import { ProductCta } from "@/components/product-cta";
 
 /** Every guide gets a route, a draft included — see `publication.ts` and the blog route's note. */
@@ -95,6 +96,17 @@ export default async function HelpPage({ params }: { params: Promise<{ slug: str
   const { step, total, prev, next } = helpNeighbours(slug);
 
   /**
+   * The body renderer for this page, with links to not-yet-live pages dropped on a LIVE page only.
+   *
+   * `held-back.ts` carries the argument: the inbound links a held-back page needs before it may be
+   * flipped are written now, and lit when its `draft` field flips. A draft page keeps them, because
+   * it is itself `noindex` and a reviewer should be able to follow one draft to the next.
+   */
+  const body = p.draft
+    ? (text: string) => renderMarkdown(text)
+    : (text: string) => suppressHeldBackLinks(renderMarkdown(text));
+
+  /**
    * `Article`, not `HowTo`.
    *
    * Google retired HowTo rich results in 2023, so marking these up as HowTo buys nothing and
@@ -155,7 +167,7 @@ export default async function HelpPage({ params }: { params: Promise<{ slug: str
         <div className="max-w-prose">
         {blocks(p.body).map((b, i) =>
           b.kind === "md" ? (
-            <div key={i} className="prose-lenviq" dangerouslySetInnerHTML={{ __html: renderMarkdown(b.text) }} />
+            <div key={i} className="prose-lenviq" dangerouslySetInnerHTML={{ __html: body(b.text) }} />
           ) : b.kind === "phone" ? (
             <PhoneShot key={i} name={b.name} alt={b.alt} caption={b.caption} />
           ) : (

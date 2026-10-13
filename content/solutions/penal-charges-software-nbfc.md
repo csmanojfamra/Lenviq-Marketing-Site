@@ -3,11 +3,11 @@ title: "Penal charges in a lending system: grace, GST, settlement order and the 
 description: "The 2023 direction settled what a penal amount is. What it left to implementers is harder: where a grace period may act, whose GST registration decides the tax, which head a short receipt clears first, and what happens to a collected penal amount when the instrument bounces."
 metaDescription: "Where a penal grace may act, whose GST registration decides the tax, which head a short receipt clears first, and what a bounce does to penal already collected."
 question: "How should penal charges be computed, taxed and settled on a loan?"
-date: "2026-10-13"
-category: "Operations"
+kind: artefact
 author: "CA Anil Agarwal"
-tool: "penal-charge-calculator"
+updated: "2026-10-13"
 related: "penal-charges-not-interest, how-to-calculate-penal-charges-rbi-2024, kfs-what-goes-in-the-apr, npa-income-reversal, reconciliation-off-by-rupees, audit-trail-what-counts, dcb-reconciliation-why-it-stops-tying, which-rate-goes-on-which-document"
+priority: 0.8
 draft: true
 ---
 

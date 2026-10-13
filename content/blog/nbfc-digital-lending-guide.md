@@ -87,7 +87,9 @@ of information technology services into scope. Three things follow for the syste
 
 **Some functions cannot be outsourced at all** — the core decision-making, the internal audit
 function, and compliance itself. A partner may support underwriting; the credit decision remains the
-lender's.
+lender's, as does
+[the obligation to upload the customer's KYC record](/solutions/ckyc-software-nbfc/) whoever
+collected the documents.
 
 **The regulator's access must survive the arrangement.** The contract has to give the RBI, and the
 lender's own auditors, the right to inspect the service provider's books and records relating to the

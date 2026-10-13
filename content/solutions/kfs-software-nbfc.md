@@ -3,11 +3,11 @@ title: "The APR on a Key Facts Statement is a cash-flow, and three things system
 description: "An APR is not the interest rate with a label on it. It is the rate that discounts what the borrower actually received against what they actually pay — which makes upfront fees, the GST on those fees, and any instalment taken at disbursement part of the computation, not footnotes to it."
 metaDescription: "An APR is the rate that reconciles what the borrower received with what they pay. Why upfront fees, GST on fees and advance instalments all change it."
 question: "What has to go into the APR on a Key Facts Statement?"
-date: "2026-10-13"
-category: "Regulatory"
+kind: artefact
 author: "CA Anil Agarwal"
-tool: "apr-calculator"
+updated: "2026-10-13"
 related: "kfs-key-facts-statement-nbfc-requirement, kfs-what-goes-in-the-apr, rbi-key-facts-statement, which-rate-goes-on-which-document, flat-rate-vs-reducing-balance, frozen-terms-at-sanction, penal-charges-not-interest, nbfc-digital-lending-guide"
+priority: 0.8
 draft: true
 ---
 

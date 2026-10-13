@@ -89,7 +89,8 @@ the difference the disclosure exists to surface.
 
 - **A typed APR.** It will contradict the schedule on the same page.
 - **Computing on the sanctioned amount rather than the net disbursal.** Understates the rate whenever
-  a fee is deducted upfront.
+  a fee is deducted upfront, which is one of
+  [the three omissions that understate the rate](/solutions/kfs-software-nbfc/).
 - **Omitting GST on the lender's own charges.** The borrower paid it, as a condition of the credit.
 - **Including penal charges.** Contingent; they belong in their own block.
 - **Regenerating the KFS from today's charge master.** Produces a document the borrower has never

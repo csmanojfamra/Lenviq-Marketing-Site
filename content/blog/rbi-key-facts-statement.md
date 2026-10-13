@@ -83,7 +83,9 @@ A dispute about a charge arrives two or three years later. Three things have to 
 answerable:
 
 **The KFS was generated from the loan's own terms.** Not from a template that was edited, and not
-from the product master as it stood.
+from the product master as it stood — and the figure most often wrong on it is
+[the annual percentage rate](/solutions/kfs-software-nbfc/), because three things that belong in it
+get left out.
 
 **Those terms were frozen onto the loan.** Otherwise regenerating the document produces today's
 terms, which the borrower has never seen.

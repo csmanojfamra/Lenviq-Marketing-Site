@@ -20,7 +20,7 @@ usually break.
 
 ## What has to be computed, and when?
 
-The RBI's clarification of 15 November 2021 on prudential norms on income recognition and asset
+The RBI's clarification of 12 November 2021 on prudential norms on income recognition and asset
 classification put the timing beyond argument: an account is flagged overdue as part of the **day-end
 process for the due date itself**. Not the next morning, not on the reporting date, not when somebody
 opens a report.

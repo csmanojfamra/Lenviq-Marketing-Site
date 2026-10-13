@@ -47,6 +47,11 @@ itself:
 - **Closures and settlements reflected in the period they happened**, not the period they were
   noticed.
 
+None of that is the same obligation as
+[the identity record uploaded to the central KYC registry](/solutions/ckyc-software-nbfc/), which
+recurs on change rather than monthly and carries no conduct at all — the two get run together in
+conversation and share almost nothing.
+
 The practical test is whether a file for a past reference date can be regenerated today and come out
 identical. If it cannot, the file was a snapshot of a moving system rather than of a stated
 position — and the difference surfaces as disputes, one borrower at a time.

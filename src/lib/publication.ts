@@ -88,6 +88,20 @@ export const ROUTE_PAGES: RoutePage[] = [
    * no special case in `sitemap.ts`, no second decision to keep in step.
    */
   { path: "/authors/", state: "excluded", priority: 0.7, changeFrequency: "monthly" },
+  /**
+   * THE TWO COMMERCIAL HUBS — held back until they have children to point at (Sprint SEO-5 §7).
+   *
+   * A hub's entire content is links to its children, and a live page may not render a link to a
+   * held-back one. Publish either of these on day one and a crawler gets a heading above an empty
+   * list: thin, linking nowhere, and the shape that gets declined. So each goes live only once at
+   * least three of its own pages are live, which makes the release order children first, hub third.
+   *
+   * Flipping one is changing `state` here, and nothing else — the sitemap entry and the robots tag
+   * both follow. The hub routes deliberately do NOT pass `excluded` themselves: that would be the
+   * same decision in two files, which is the defect class this repo keeps finding.
+   */
+  { path: "/solutions/", state: "excluded", priority: 0.9, changeFrequency: "weekly" },
+  { path: "/enterprise/", state: "excluded", priority: 0.8, changeFrequency: "monthly" },
 ];
 
 export const publishedRoutes = (): RoutePage[] => ROUTE_PAGES.filter((p) => p.state === "published");

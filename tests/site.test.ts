@@ -704,7 +704,22 @@ describe("no two pages compete for the same query", () => {
 
   it("covers every URL the sitemap offers", () => {
     const mapped = new Set(map.map((e) => e.url));
-    const listed = sitemap().map((e) => new URL(e.url).pathname);
+    /*
+     * PAGES ONLY. The sitemap also carries `llms.txt`, `llms-full.txt` and `ai-products.json` —
+     * machine-readable files an answer engine fetches on purpose, listed because nothing links to
+     * them and a crawler following anchors would never find them (Sprint SEO-5 §5(b)).
+     *
+     * They are deliberately NOT given intent entries. An entry in `seo-intent.ts` is a commitment
+     * that a page should rank for a stated query, which is what makes this guard worth having; a
+     * plain-text file written for machines has no such query and declaring one would be a claim
+     * about where it belongs in a result page it should never appear on.
+     *
+     * Matched by extension rather than by a list of the three, so a fourth such file does not
+     * silently acquire an obligation to rank.
+     */
+    const listed = sitemap()
+      .map((e) => new URL(e.url).pathname)
+      .filter((p) => !/\.(txt|json|xml)$/.test(p));
     for (const url of listed) {
       expect(mapped.has(url), `${url} is in the sitemap with no stated search intent — add it to seo-intent.ts`).toBe(true);
     }
@@ -1547,9 +1562,28 @@ describe("the artefact-plus-software pages carry the blocks that define them", a
   const OUT_DIR = join(SITE, "out");
   const built = existsSync(OUT_DIR);
   const content = await import("../src/lib/content");
+  const commercial = await import("../src/lib/commercial");
 
-  /** The page type, by the convention its slugs hold to. */
-  const TYPE = content.allPostsIncludingDrafts().filter((p) => p.slug.endsWith("-software-nbfc"));
+  /**
+   * The page type, by the convention its slugs hold to — IN BOTH PLACES IT LIVES.
+   *
+   * Sprint SEO-5 moved most of this type out of `/blog/` and into `/solutions/`, and deliberately
+   * left the two pages SEO-4 had already published where they were: Google has spent a crawl on
+   * them and a redirect throws that away for a consistent tree. So the type is split across two
+   * directories on purpose, and a guard that looked in one of them reported five where there are
+   * twelve — which is exactly what it did on the first run after the move.
+   *
+   * `href` is carried alongside so the built-output assertions below can find each page without
+   * re-deriving which directory it came from.
+   */
+  const TYPE = [
+    ...content.allPostsIncludingDrafts()
+      .filter((p) => p.slug.endsWith("-software-nbfc"))
+      .map((p) => ({ slug: p.slug, question: p.question, related: p.related, draft: p.draft, body: p.body, dir: "blog" })),
+    ...commercial.allCommercial("solutions")
+      .filter((p) => p.slug.endsWith("-software-nbfc"))
+      .map((p) => ({ slug: p.slug, question: p.question, related: p.related, draft: p.draft, body: p.body, dir: "solutions" })),
+  ];
 
   it("there are some, and each declares a question", () => {
     /*
@@ -1624,7 +1658,7 @@ describe("the artefact-plus-software pages carry the blocks that define them", a
      */
     for (const p of TYPE) {
       if (!p.question) continue;
-      const html = readFileSync(join(OUT_DIR, "blog", p.slug, "index.html"), "utf8");
+      const html = readFileSync(join(OUT_DIR, p.dir, p.slug, "index.html"), "utf8");
       expect(html, `${p.slug}: no quick answer block`).toMatch(/Quick answer/);
       expect(html, `${p.slug}: the question is not rendered`).toContain(p.question.replace(/&/g, "&amp;"));
       const answer = html.indexOf("Quick answer");
@@ -1642,9 +1676,10 @@ describe("the artefact-plus-software pages carry the blocks that define them", a
      */
     for (const p of TYPE) {
       if (p.related.length === 0) continue;
-      const html = readFileSync(join(OUT_DIR, "blog", p.slug, "index.html"), "utf8");
+      const html = readFileSync(join(OUT_DIR, p.dir, p.slug, "index.html"), "utf8");
       expect(html, `${p.slug}: no related reading block`).toMatch(/Related reading/);
-      expect(html, `${p.slug}: both reading lists rendered`).not.toMatch(/Read next/);
+      // Only the blog route has an automatic list to compete with; the commercial renderer has none.
+      if (p.dir === "blog") expect(html, `${p.slug}: both reading lists rendered`).not.toMatch(/Read next/);
     }
   });
 
@@ -1660,7 +1695,7 @@ describe("the artefact-plus-software pages carry the blocks that define them", a
     const { buildGraph } = await import("../scripts/link-graph.mjs");
     const graph = buildGraph();
     const thin = TYPE.filter((p) => !p.draft && p.question)
-      .map((p) => [`/blog/${p.slug}/`, graph.get(`/blog/${p.slug}/`)?.from.size ?? 0] as const)
+      .map((p) => [`/${p.dir}/${p.slug}/`, graph.get(`/${p.dir}/${p.slug}/`)?.from.size ?? 0] as const)
       .filter(([, n]) => n < 3);
     expect(thin, "each needs a sentence on three other pages that links to it").toEqual([]);
   });

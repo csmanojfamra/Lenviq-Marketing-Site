@@ -3,11 +3,11 @@ title: "SMA classification: the boundary is day one, and the number is reported"
 description: "SMA-0, SMA-1 and SMA-2 are not internal warning colours — they are a classification the regulator defines, cut by a day-end process on a date the circular fixes, and for reportable exposures they travel into a return. What the ranges actually are, and what a system has to compute to get them right."
 metaDescription: "SMA-0, 1 and 2 are a defined classification cut by the day-end process, not an internal warning colour. The ranges, the dates, and what a system must compute."
 question: "What do SMA-0, SMA-1 and SMA-2 mean, and when does an account enter each?"
-date: "2026-10-13"
-category: "Regulatory"
+kind: artefact
 author: "CA Himanshu Sharma"
-tool: "npa-date-calculator"
+updated: "2026-10-13"
 related: "sma-classification-what-it-signals, irac-day-end-classification, npa-upgrade-entire-arrears, npa-income-reversal, bucket-movement-and-flow-rates, credit-information-reporting-2025, how-to-automate-npa-classification-nbfc, nbfc-provisioning-worked-examples"
+priority: 0.8
 draft: true
 ---
 

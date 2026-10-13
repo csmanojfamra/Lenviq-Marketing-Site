@@ -42,7 +42,8 @@ is levied overstates income for every account where it is never collected — wh
 book, is a lot of them. The conservative treatment is to show the levy on the borrower's statement
 so they can see what has been applied, and to post to income on receipt.
 
-Settlement order matters too. Where a receipt is less than the total due, which head it clears first
+[Settlement order](/solutions/penal-charges-software-nbfc/) matters too. Where a receipt is less
+than the total due, which head it clears first
 changes both the borrower's outstanding and the lender's income. That order should be a stated
 policy applied consistently rather than an emergent property of the code.
 
