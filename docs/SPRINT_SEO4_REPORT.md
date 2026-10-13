@@ -443,6 +443,13 @@ behaviour the code does not have, which is the defect this project has found thr
 me last sprint. The comment now states the current mechanism and records what it used to say and why
 it changed.
 
+**And a second instance of the same thing, found while reading the rendered output.** The blog
+index's empty-state copy told the reader that drafts "are not built into this site". Same reversal,
+same staleness. It is unreachable today — the branch renders only when nothing is published — but
+unreachable wrong prose is still wrong prose, and it would have been read the first time somebody
+emptied the index. It now says what is actually true: absent from the index, the sitemap and every
+listing, and asking search engines not to list them.
+
 ---
 
 ## 8. Files changed
