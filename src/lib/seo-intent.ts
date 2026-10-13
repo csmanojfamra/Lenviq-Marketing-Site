@@ -78,12 +78,15 @@ const FIXED: IntentEntry[] = [
     primary: "FastLegal Technologies",
     secondary: ["who builds Lenviq", "Lenviq company"] },
   /*
-   * The bylines. Its job is not search traffic — it is that the `Person` in every post's Article
-   * schema resolves to something, which is what "who says so" means on regulatory writing.
+   * `/authors/` HAS NO ENTRY HERE ANY MORE, and the comment that used to sit on it said why before
+   * anybody acted on it: "its job is not search traffic — it is that the `Person` in every post's
+   * Article schema resolves to something".
+   *
+   * Google crawled it on 10 Oct 2026 and declined it, which is the right call on the page's merits.
+   * It is now held out of the index by `ROUTE_PAGES` (Sprint SEO-3 §5), and a page that does not
+   * compete for a query must not claim one — an intent entry is a commitment to rank something, and
+   * `tests/site.test.ts` checks every entry is in the sitemap for exactly that reason.
    */
-  { url: "/authors/", type: "Company", intent: "Navigational", priority: 4,
-    primary: "who writes Lenviq's regulatory guides",
-    secondary: ["Lenviq authors", "NBFC compliance writers"] },
   { url: "/contact/", type: "Conversion", intent: "Transactional", priority: 2,
     primary: "Lenviq demo request",
     secondary: ["NBFC software demo", "lending software demonstration"] },

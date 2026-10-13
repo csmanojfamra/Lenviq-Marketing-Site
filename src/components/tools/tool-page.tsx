@@ -3,6 +3,7 @@ import { Section } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { absolute, COMPANY, SITE } from "@/lib/site";
 import { TOOLS, type Tool } from "@/lib/tools";
+import { postBySlug } from "@/lib/content";
 import { ProductCta, ProductCtaCompact } from "@/components/product-cta";
 
 /**
@@ -43,6 +44,25 @@ const PROVENANCE: Record<string, { head: string; body: string }> = {
  */
 export function ToolPage({ tool, children }: { tool: Tool; children: React.ReactNode }) {
   const url = absolute(`/tools/${tool.slug}/`);
+
+  /**
+   * THE FURTHER-READING BLOCK HONOURS PUBLICATION STATE, BECAUSE IT IS A LISTING.
+   *
+   * `TOOLS[].reading` is a curated list of literal `/blog/<slug>/` hrefs — the labels and notes are
+   * editorial and worth keeping by hand, but the hrefs knew nothing about the posts they point at.
+   * Found by the §1(c) negative control: a post flipped to `draft` vanished from the blog index, the
+   * authors page and five related-posts blocks, and went on being linked from here. That is a crawl
+   * path into unreviewed content, and the second instance of the one-truth-in-two-places class this
+   * sprint set out not to add to.
+   *
+   * `postBySlug` is the published-only loader, so a draft — or a post that has been renamed or
+   * removed — drops out of the block instead of becoming a link to a page nobody signed off. A
+   * non-blog href is left alone: this list is allowed to point at a tool or a help page.
+   */
+  const reading = (tool.reading ?? []).filter((r) => {
+    const m = /^\/blog\/([a-z0-9-]+)\/$/.exec(r.href);
+    return m ? postBySlug(m[1]) !== undefined : true;
+  });
 
   /**
    * `SoftwareApplication` with a free `offer`, because that is what this is: a free web utility.
@@ -127,13 +147,13 @@ export function ToolPage({ tool, children }: { tool: Tool; children: React.React
         </div>
       </Section>
 
-      {tool.reading && tool.reading.length > 0 && (
+      {reading.length > 0 && (
         <Section>
           <h2 className="font-display text-[22px] font-bold tracking-display text-ink">
             Why the answer is what it is
           </h2>
           <ul className="mt-s4 grid gap-s3 sm:grid-cols-2">
-            {tool.reading.map((r) => (
+            {reading.map((r) => (
               <li key={r.href}>
                 <Link
                   href={r.href}

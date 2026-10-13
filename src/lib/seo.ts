@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SITE, absolute } from "@/lib/site";
+import { isExcludedRoute, HELD_BACK_ROBOTS } from "@/lib/publication";
 
 /**
  * One place a page's identity is written down: the title, the description, and the URL it claims
@@ -45,6 +46,14 @@ export interface PageMeta {
   type?: "website" | "article";
   publishedTime?: string;
   modifiedTime?: string;
+  /**
+   * Held out of the index — for a CONTENT FILE, whose state lives in its own front matter.
+   *
+   * A route page does not pass this: its state is in `ROUTE_PAGES` and is looked up from `path`
+   * below, so there is never a second place to set it and never a page whose sitemap entry and
+   * robots tag disagree. Omitted means published.
+   */
+  excluded?: boolean;
 }
 
 /** The site-wide share card, used wherever a page has not earned its own. */
@@ -55,10 +64,20 @@ export function pageMetadata(m: PageMeta): Metadata {
     ? { url: m.ogImage, width: 1200, height: 630 }
     : DEFAULT_OG;
 
+  /**
+   * THE ONE PLACE A `noindex` IS EMITTED (`publication.ts`).
+   *
+   * Either the caller is a content file that says so from its front matter, or the path is a route
+   * page the registry holds out of the index. Both land here, so the tag and the sitemap are reading
+   * the same field and a page cannot be in one and not the other.
+   */
+  const heldBack = m.excluded === true || isExcludedRoute(m.path);
+
   return {
     title: m.title,
     description: m.description,
     alternates: { canonical: m.path },
+    ...(heldBack ? { robots: HELD_BACK_ROBOTS } : {}),
     openGraph: {
       type: m.type ?? "website",
       locale: "en_IN",

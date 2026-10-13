@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
-import { SITE, absolute } from "@/lib/site";
+import { absolute } from "@/lib/site";
 import { publishedPosts } from "@/lib/content";
 import { publishedHelp } from "@/lib/help";
 import { TERMS } from "@/lib/glossary";
 import { PRODUCTS } from "@/lib/products";
 import { TOOLS } from "@/lib/tools";
+import { publishedRoutes } from "@/lib/publication";
 
 /**
  * Every URL comes from the same constant the canonical tags do, so the sitemap and the canonical
@@ -18,32 +19,28 @@ export const dynamic = "force-static";
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   /**
-   * The two lifecycle-half pages sit beside /platform: "loan origination software" and "loan
-   * management system" are the terms this market is searched by, and a page absent from the
-   * sitemap is a page nobody submitted.
+   * The hand-written pages come from `ROUTE_PAGES` (`publication.ts`), which is also what decides
+   * whether each one emits `noindex`. This used to be a literal array of paths here with the
+   * priorities worked out by a chain of ternaries beside it — two decisions about one page, in two
+   * files, with nothing keeping them in step. `/authors/` is the page that proves it: it is held out
+   * of the index now, and it leaves this list as a consequence rather than by a second edit.
    */
-  const pages = ["/", "/platform/", "/loan-origination-software/", "/loan-management-system/",
-                 "/compliance/", "/reports/", "/security/",
-                 "/about/", "/authors/", "/contact/", "/signup/", "/blog/", "/glossary/", "/help/", "/privacy/", "/terms/",
-                 ...PRODUCTS.map((p) => `/${p.slug}/`),
-                 "/tools/", ...TOOLS.map((t) => `/tools/${t.slug}/`)];
+  const pages = publishedRoutes();
   return [
     ...pages.map((p) => ({
-      url: absolute(p),
+      url: absolute(p.path),
       lastModified: now,
-      changeFrequency: (p === "/blog/" ? "weekly" : "monthly") as "weekly" | "monthly",
-      // Signup ranks with compliance rather than with the ordinary pages: it and the home page
-      // are the two the site exists to get somebody to.
-      /**
-       * The product pages rank with compliance and signup rather than with the ordinary pages:
-       * they are the four the site exists to be found through, after the home page.
-       */
-      priority:
-        p === "/" ? 1
-        : p === "/compliance/" || p === "/signup/" || p === "/platform/"
-          || p === "/loan-origination-software/" || p === "/loan-management-system/"
-          || PRODUCTS.some((x) => `/${x.slug}/` === p) ? 0.9
-        : 0.7,
+      changeFrequency: p.changeFrequency,
+      priority: p.priority,
+    })),
+    ...PRODUCTS.map((p) => ({
+      url: absolute(`/${p.slug}/`), lastModified: now,
+      changeFrequency: "monthly" as const, priority: 0.9,
+    })),
+    { url: absolute("/tools/"), lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 },
+    ...TOOLS.map((t) => ({
+      url: absolute(`/tools/${t.slug}/`), lastModified: now,
+      changeFrequency: "monthly" as const, priority: 0.7,
     })),
     ...TERMS.map((t) => ({ url: absolute(`/glossary/${t.slug}/`), lastModified: now, priority: 0.5 })),
     ...publishedPosts().map((p) => ({ url: absolute(`/blog/${p.slug}/`), lastModified: new Date(p.date), priority: 0.6 })),
@@ -52,5 +49,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
      * site; it is what they read once they are here, and once they are a customer.
      */
     ...publishedHelp().map((p) => ({ url: absolute(`/help/${p.slug}/`), lastModified: now, priority: 0.5 })),
-  ].map((e) => ({ ...e, url: e.url.replace(SITE.url, SITE.url) }));
+  ];
 }

@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { createHash } from "node:crypto";
-import { join, sep, resolve } from "node:path";
+import { join, sep, resolve, relative } from "node:path";
 import { execSync } from "node:child_process";
 import { stripComments } from "./helpers/every-match";
 import { intentMap } from "../src/lib/seo-intent";
@@ -122,21 +122,73 @@ describe("a draft does not ship", () => {
     }
   });
 
-  it("only published posts are loaded, by the only loader there is", () => {
+  /**
+   * THESE TWO USED TO ASSERT THAT A DRAFT GETS NO PAGE AT ALL.
+   *
+   * That was the mechanism until Sprint SEO-3 §1(c), and it was stronger against accidental
+   * indexing — there was no HTML to index. It was also unreviewable: the only way to read a draft
+   * was `next dev` on somebody's laptop, so the person whose name goes on a regulatory claim could
+   * not read it before it shipped, and seven pages went live unreviewed through that gap.
+   *
+   * A draft is now BUILT at its own URL carrying `noindex, nofollow`, and the other three
+   * consequences are what hold it out of the index. So these assert the new mechanism with the same
+   * rigour, rather than being deleted — `publication.ts` carries the reasoning in full.
+   */
+  it("the published filter is still the only loader a LISTING uses", () => {
     const content = stripComments(src("src/lib/content.ts"));
     expect(content).toMatch(/publishedPosts = \(\): Post\[\] => all\(\)\.filter\(\(p\) => !p\.draft\)/);
-    // The sitemap and the post route both go through it — nothing loads `all()` directly.
+    // The sitemap is a listing: a draft must not be offered to a search engine.
     expect(stripComments(src("src/app/sitemap.ts"))).toMatch(/publishedPosts\(\)/);
-    expect(stripComments(src("src/app/blog/[slug]/page.tsx"))).toMatch(/publishedPosts\(\)/);
+    // The index, the related-posts block and the authors page all read the same filter.
+    expect(stripComments(src("src/app/blog/page.tsx"))).toMatch(/publishedPosts\(\)/);
+    expect(content).toMatch(/relatedPosts[\s\S]{0,400}publishedPosts\(\)/);
   });
 
-  it("a draft would still not be built, whatever else is", () => {
-    // The route generates params from `publishedPosts()` alone, so marking a post `draft: true`
-    // removes its page entirely — no URL to guess, nothing to link, nothing for a crawler that
-    // ignores `noindex` to find. That is the mechanism; the current contents are not the test.
+  it("a draft is built at its own URL, and says so in its robots tag", () => {
+    /*
+     * The route generates a param for every post including drafts — that is consequence 4,
+     * reachable for review. Consequence 2 is that the SAME front-matter field produces the tag,
+     * passed to `pageMetadata` as `excluded` rather than hand-written beside it, so a page cannot
+     * be a draft in the sitemap and indexable in its own head.
+     */
     const route = stripComments(src("src/app/blog/[slug]/page.tsx"));
-    expect(route).toMatch(/generateStaticParams\(\)[\s\S]{0,120}publishedPosts\(\)/);
-    expect(route).not.toMatch(/\ball\(\)/);
+    expect(route).toMatch(/generateStaticParams\(\)[\s\S]{0,160}allPostsIncludingDrafts\(\)/);
+    expect(route).toMatch(/excluded: p\.draft/);
+    // And a reviewer can tell by looking at the page, not by reading its source.
+    expect(route).toMatch(/Draft — pending review/);
+  });
+
+  it("there is exactly one place a noindex is emitted", () => {
+    /*
+     * The gate is worth nothing if a page can opt itself out by hand. `pageMetadata` reads the one
+     * field — front matter for a content file, `ROUTE_PAGES` for a hand-written page — so the
+     * sitemap and the tag cannot disagree.
+     */
+    const seo = stripComments(src("src/lib/seo.ts"));
+    expect(seo).toMatch(/isExcludedRoute\(m\.path\)/);
+    expect(seo).toMatch(/robots: HELD_BACK_ROBOTS/);
+
+    // Nothing else may write a robots object. `layout.tsx` sets the site-wide default, and the
+    // renamed-slug redirect shim is a deliberate exception that carries its reason in place.
+    const ALLOWED = ["src/app/layout.tsx", "src/lib/publication.ts", "src/lib/seo.ts",
+                     "src/app/blog/interest-in-paise-not-float/page.tsx", "src/app/preview/[slug]/page.tsx"];
+    const offenders = walkExt(join(SITE, "src"), /\.tsx?$/)
+      .filter((f) => /robots:\s*\{/.test(stripComments(readFileSync(f, "utf8"))))
+      .map((f) => relative(SITE, f).split(sep).join("/"))
+      .filter((rel) => !ALLOWED.includes(rel));
+    expect(offenders, "emit noindex through pageMetadata, not by hand").toEqual([]);
+  });
+
+  it("a listing that points at posts by hand still honours the field", () => {
+    /*
+     * Found by the §1(c) negative control, not by reading the code: a post flipped to `draft`
+     * vanished from the blog index, the authors page and five related-posts blocks, and went on
+     * being linked from a tool's further-reading block, whose hrefs are literal strings in
+     * `TOOLS[].reading`. That is a crawl path into unreviewed content.
+     */
+    const toolPage = stripComments(src("src/components/tools/tool-page.tsx"));
+    expect(toolPage).toMatch(/postBySlug/);
+    expect(toolPage, "the block must render the filtered list, not tool.reading").not.toMatch(/\{tool\.reading\.map/);
   });
 
   it("the legal pages carry the reviewed documents, not a transcription of them", () => {
@@ -169,8 +221,16 @@ describe("a draft does not ship", () => {
     const robots = src("src/app/robots.ts");
     expect(robots, "the blanket disallow should be gone").not.toMatch(/disallow: \["\/"/);
     expect(robots, "the two drafts became real documents").not.toMatch(/disallow: \["\/privacy\/", "\/terms\/"\]/);
-    // And they are now offered to search, which is the other half of the same change.
-    expect(src("src/app/sitemap.ts")).toMatch(/"\/privacy\/", "\/terms\/"/);
+    /*
+     * And they are now offered to search, which is the other half of the same change.
+     *
+     * Asserted against the GENERATED sitemap rather than a literal in `sitemap.ts`. The paths moved
+     * into `ROUTE_PAGES` when route pages gained a publication state, and a test that greps the
+     * generator's source for a string breaks on a refactor while saying nothing about the output.
+     */
+    const listed = new Set(sitemap().map((e) => new URL(e.url).pathname));
+    expect(listed.has("/privacy/")).toBe(true);
+    expect(listed.has("/terms/")).toBe(true);
   });
 });
 
@@ -304,7 +364,8 @@ describe("signup asks for a code, and never swallows what was typed", () => {
   });
 
   it("it is reachable and indexed", () => {
-    expect(src("src/app/sitemap.ts")).toContain('"/signup/"');
+    // The generated sitemap, not a literal in its source — see the note on /privacy/ above.
+    expect(new Set(sitemap().map((e) => new URL(e.url).pathname)).has("/signup/")).toBe(true);
     expect(src("src/components/site-header.tsx")).toMatch(/href="\/signup\/"/);
     expect(src("src/components/site-nav.tsx")).toMatch(/href="\/signup\/"/);
   });

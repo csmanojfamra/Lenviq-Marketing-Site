@@ -103,13 +103,20 @@ function all(): HelpPage[] {
 }
 
 /**
- * Published pages only — the same rule the blog runs on. A draft has no route and no sitemap entry,
- * so it cannot be reached by guessing the URL.
+ * Published pages only — the same rule the blog runs on. Every LISTING, the step counter and the
+ * previous/next links load this, so a draft appears in none of them (`publication.ts`).
  */
 export const publishedHelp = (): HelpPage[] => all().filter((p) => !p.draft);
 
+/** Every guide, draft included — for the GUIDE ROUTE only, never for a listing. */
+export const allHelpIncludingDrafts = (): HelpPage[] => all();
+
 export const helpBySlug = (slug: string): HelpPage | undefined =>
   publishedHelp().find((p) => p.slug === slug);
+
+/** The guide at this slug whether or not it is published — for the route's own lookup. */
+export const anyHelpBySlug = (slug: string): HelpPage | undefined =>
+  all().find((p) => p.slug === slug);
 
 const stageRank = (s: string) => {
   const i = (STAGES as readonly string[]).indexOf(s);

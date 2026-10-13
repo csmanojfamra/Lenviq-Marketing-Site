@@ -135,14 +135,33 @@ function all(): Post[] {
     });
 }
 
-/** Published posts only. Every caller uses this; nothing anywhere loads a draft. */
+/**
+ * Published posts only — every LISTING loads this, so a draft is in no index, no feed and no
+ * related-posts block (`publication.ts`, consequence 3).
+ */
 export const publishedPosts = (): Post[] => all().filter((p) => !p.draft);
+
+/**
+ * Every post, draft included — for the POST ROUTE and nothing else.
+ *
+ * A draft is built at its own URL carrying `noindex, nofollow` so the person whose name is on a
+ * regulatory claim can read it before it ships. It used to get no route at all, which left `next dev`
+ * on somebody's laptop as the only way to review one; `publication.ts` records why that reversed.
+ *
+ * Never call this from a listing. `publishedPosts` is what a listing wants, and the two names are
+ * deliberately not interchangeable.
+ */
+export const allPostsIncludingDrafts = (): Post[] => all();
 
 /** Count of drafts, for the notice on the index. The COUNT is public; the content is not. */
 export const draftCount = (): number => all().filter((p) => p.draft).length;
 
 export const postBySlug = (slug: string): Post | undefined =>
   publishedPosts().find((p) => p.slug === slug);
+
+/** The post at this slug whether or not it is published — for the post route's own lookup. */
+export const anyPostBySlug = (slug: string): Post | undefined =>
+  all().find((p) => p.slug === slug);
 
 /**
  * The FAQ pairs out of a post body, for FAQPage structured data.

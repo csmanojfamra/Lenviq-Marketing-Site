@@ -3,7 +3,7 @@ import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Section } from "@/components/ui";
-import { publishedPosts, postBySlug, postFaqs, relatedPosts } from "@/lib/content";
+import { allPostsIncludingDrafts, anyPostBySlug, postFaqs, relatedPosts } from "@/lib/content";
 import { toolBySlug } from "@/lib/tools";
 import { absolute, COMPANY } from "@/lib/site";
 import { renderMarkdown, outline, splitAtMidHeading } from "@/lib/markdown";
@@ -11,19 +11,24 @@ import { autolinkGlossary } from "@/lib/autolink";
 import { ProductCta, ProductCtaCompact } from "@/components/product-cta";
 
 /**
- * Only PUBLISHED posts get a route.
+ * EVERY post gets a route — a draft included, at its own URL, carrying `noindex, nofollow`.
  *
- * A draft has no static param, so it has no page, no URL and no way in by guessing — which is a
- * stronger guarantee than `noindex` on a page that still exists and can still be linked, shared or
- * indexed by a crawler that ignores the hint.
+ * This is the reversal `publication.ts` records. A draft used to get no static param, so it had no
+ * HTML and no URL, which is stronger against accidental indexing and useless for review: reading one
+ * meant running `next dev`, so the person whose name goes on a regulatory claim could not read it
+ * before it shipped. Seven pages went live unreviewed through exactly that gap.
+ *
+ * The three other consequences are what keep a draft out of the index, and they are structural rather
+ * than advisory: no sitemap entry (`publishedPosts` feeds it), and no link from any listing or
+ * related-posts block (same filter), so a crawler has no path to discover it at all.
  */
 export function generateStaticParams() {
-  return publishedPosts().map((p) => ({ slug: p.slug }));
+  return allPostsIncludingDrafts().map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const p = postBySlug(slug);
+  const p = anyPostBySlug(slug);
   if (!p) return {};
   return pageMetadata({
     title: p.title,
@@ -31,12 +36,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     path: `/blog/${p.slug}/`,
     type: "article",
     publishedTime: p.date,
+    // The front matter is the one field; this is the tag it produces (`publication.ts`).
+    excluded: p.draft,
   });
 }
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const p = postBySlug(slug);
+  const p = anyPostBySlug(slug);
   if (!p) notFound();
 
   const related = relatedPosts(p.slug);
@@ -143,6 +150,21 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(article) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }} />
       {faqLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />}
+      {/*
+        * A reviewer has to be able to tell. The page is otherwise identical to a published one, and
+        * somebody sent this URL should not have to read the page source to find out whether what they
+        * are reading has been signed off.
+        */}
+      {p.draft && (
+        <div className="mb-s5 rounded-card border border-line border-l-[3px] border-l-[color:var(--color-warning)] bg-subtle p-s4">
+          <p className="text-[13px] font-semibold uppercase tracking-wide text-muted">Draft — pending review</p>
+          <p className="mt-s2 max-w-prose text-[15px] leading-relaxed text-slate-mid">
+            This page is not published. It is absent from the sitemap and from every index on this
+            site, and it asks search engines not to list it. It is here so it can be read and checked
+            before it goes live.
+          </p>
+        </div>
+      )}
       <nav className="text-[13px] text-muted">
         <Link href="/blog/" className="hover:text-ink">Blog</Link>
       </nav>

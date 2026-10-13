@@ -4,24 +4,26 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Section } from "@/components/ui";
 import { Shot, PhoneShot, type ShotMark } from "@/components/shot";
-import { publishedHelp, helpBySlug, helpNeighbours, helpSections } from "@/lib/help";
+import { allHelpIncludingDrafts, anyHelpBySlug, helpNeighbours, helpSections } from "@/lib/help";
 import { absolute, COMPANY } from "@/lib/site";
 import { renderMarkdown } from "@/lib/markdown";
 import { ProductCta } from "@/components/product-cta";
 
+/** Every guide gets a route, a draft included — see `publication.ts` and the blog route's note. */
 export function generateStaticParams() {
-  return publishedHelp().map((p) => ({ slug: p.slug }));
+  return allHelpIncludingDrafts().map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const p = helpBySlug(slug);
+  const p = anyHelpBySlug(slug);
   if (!p) return {};
   return pageMetadata({
     title: p.title,
     description: p.description,
     path: `/help/${p.slug}/`,
     type: "article",
+    excluded: p.draft,
   });
 }
 
@@ -87,7 +89,7 @@ function blocks(body: string) {
 
 export default async function HelpPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const p = helpBySlug(slug);
+  const p = anyHelpBySlug(slug);
   if (!p) notFound();
 
   const { step, total, prev, next } = helpNeighbours(slug);
