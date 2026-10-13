@@ -406,7 +406,7 @@ Everything below was executed. Nothing in this report asserts behaviour I did no
 ```
 typecheck                 clean
 build                     0 errors, 133 HTML pages (was 127)
-tests                     183 passed (was 176; +7 new guards)
+tests                     186 passed (was 176; +10 new guards)
 sitemap                   124 locs (was 122; +2 published, 0 drafts)
 draft leak                0 — no HTML file outside its own route mentions any of the four drafts
 CI export check           no "not reviewed, not published", no lenviq.com
@@ -421,6 +421,7 @@ A guard nobody has watched fail is not a guard. Three of the seven were delibera
 
 | Control | What I broke | What the guard did |
 |---|---|---|
+| FAQ structured data is text, not markdown | Reverted `postFaqs` to joining the raw markdown and rebuilt | **Both** guards failed, naming **69** offending answers and **57** carrying a URL |
 | Reading list resolves whole | Misspelt one slug in `kfs-software-nbfc`'s `related:` — `rbi-key-facts-statment` | **Failed**, naming it: "rbi-key-facts-statment did not resolve: expected 8, got 7" |
 | No reading list names a draft | Put `ckyc-software-nbfc` (a draft) into a published page's `related:` | **Failed**: "name the page after it is published, not before" |
 | Three contextual inbound sources | Removed three of the four inbound links to `static-pool-analysis-software-nbfc` and rebuilt | **Failed**, naming `/blog/static-pool-analysis-software-nbfc/` exactly |
@@ -443,7 +444,40 @@ behaviour the code does not have, which is the defect this project has found thr
 me last sprint. The comment now states the current mechanism and records what it used to say and why
 it changed.
 
-**And a second instance of the same thing, found while reading the rendered output.** The blog
+**A site-wide defect found while reading the rendered output, which is the reason §6 tells me to
+read it.** The six new pages were emitting malformed FAQPage structured data — and so were
+fifty-four others. `postFaqs` feeds `acceptedAnswer.text` and handed over the **raw markdown**, so an
+answer containing a link shipped this to Google:
+
+```
+"text": "No. The NPA ratio is the regulatory and provisioning figure for the book as it
+         stands, and it is what [provisioning is computed on](/blog/nbfc-provisioning-worked-
+         examples/). A static pool is a management and diligence view …"
+```
+
+Brackets, parentheses and the URL, mid-sentence, in the string an answer engine may read aloud or
+lift into a result. `**not**` shipped its asterisks the same way. **Measured across the build: 60 of
+63 posts**, 54 of them written long before this sprint.
+
+It survived because **the visible page was never wrong** — that renders through `renderMarkdown` — so
+no amount of reading the page would show it. The only way to see it is to parse the JSON out of the
+built HTML.
+
+Fixed by a `plainText()` stripper in `postFaqs`: a link becomes its label and the href is dropped,
+because structured data has no business carrying navigation. Deliberately a stripper rather than a
+renderer — the destination is a JSON string field that must not contain markup of any kind. **No
+content file changed; 60 pages' structured data did.** Now 0 of 63.
+
+This is a correction to malformed output of schema the site already emits, not schema added — §5
+forbids adding schema markup and changing titles or metas, and this does neither. It was also
+necessary for my own §1.2 block 10 to be correct, since all six new pages were affected.
+
+Three guards now hold it, over **every** post rather than the six that exposed it, because a guard
+scoped to the new pages would let the other fifty-four regress. The third guard exists to stop the
+first two passing vacuously on an empty string — a stripper that strips everything would otherwise
+look like a fix.
+
+**And a second stale comment of my own, same class as the one above.** The blog
 index's empty-state copy told the reader that drafts "are not built into this site". Same reversal,
 same staleness. It is unreachable today — the branch renders only when nothing is published — but
 unreachable wrong prose is still wrong prose, and it would have been read the first time somebody
@@ -465,7 +499,9 @@ listing, and asking search engines not to list them.
 | `src/lib/content.ts` | `question` and `related` fields, `readingList()`, stale header comment corrected |
 | `src/app/blog/[slug]/page.tsx` | category eyebrow, Quick answer block, Related reading list |
 | `scripts/near-duplicate.mjs` | new — 8-gram Jaccard over post bodies |
-| `tests/site.test.ts` | seven new guards for the page type |
+| `tests/site.test.ts` | ten new guards — seven for the page type, three for the FAQ structured data |
+| `src/app/blog/page.tsx` | the empty-state copy no longer says drafts are not built |
+| `README.md` | the front-matter table, and the new guards in the guards section |
 | `content/blog/bucket-movement-and-flow-rates.md` | one contextual link, inside an existing sentence |
 | `content/blog/collection-efficiency-how-to-compute.md` | same |
 | `content/blog/due-diligence-what-lenders-ask.md` | same |

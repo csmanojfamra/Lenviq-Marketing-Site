@@ -1665,3 +1665,79 @@ describe("the artefact-plus-software pages carry the blocks that define them", a
     expect(thin, "each needs a sentence on three other pages that links to it").toEqual([]);
   });
 });
+
+/**
+ * STRUCTURED DATA CARRIES TEXT, NOT MARKDOWN.
+ *
+ * `postFaqs` feeds `acceptedAnswer.text` in the FAQPage block, and for most of this site's life it
+ * handed over the raw markdown. An answer containing a link shipped its brackets, its parentheses
+ * and its URL to Google mid-sentence; `**not**` shipped its asterisks. Measured when it was found:
+ * **sixty of sixty-three posts**, fifty-four of them written long before the sprint that caught it.
+ *
+ * It survived because the visible page was never wrong — that renders through `renderMarkdown` —
+ * so no amount of reading the page would show it. The only way to see it is to parse the JSON out of
+ * the built HTML, which is what this does.
+ *
+ * Asserted over EVERY post rather than over the new ones, because the defect was site-wide and a
+ * guard scoped to the pages that happened to expose it would let the other fifty-four regress.
+ */
+describe("the FAQ structured data is text, not markdown", () => {
+  const OUT_DIR = join(SITE, "out");
+  const built = existsSync(OUT_DIR);
+  const pages = built
+    ? readdirSync(join(OUT_DIR, "blog"), { withFileTypes: true })
+        .filter((e) => e.isDirectory() && existsSync(join(OUT_DIR, "blog", e.name, "index.html")))
+        .map((e) => e.name)
+    : [];
+
+  /** Every FAQPage block on a page, parsed. A page with no FAQ contributes nothing. */
+  const faqsOf = (slug: string) => {
+    const html = readFileSync(join(OUT_DIR, "blog", slug, "index.html"), "utf8");
+    const out: { name: string; text: string }[] = [];
+    for (const m of html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)) {
+      let parsed: unknown;
+      try { parsed = JSON.parse(m[1]); } catch { continue; }
+      const d = parsed as { "@type"?: string; mainEntity?: { name: string; acceptedAnswer: { text: string } }[] };
+      if (d["@type"] !== "FAQPage") continue;
+      for (const q of d.mainEntity ?? []) out.push({ name: q.name, text: q.acceptedAnswer.text });
+    }
+    return out;
+  };
+
+  it.runIf(built)("no answer carries a markdown link, a code span or an emphasis marker", () => {
+    const offenders: string[] = [];
+    for (const slug of pages)
+      for (const { name, text } of faqsOf(slug)) {
+        /*
+         * A markdown link is the expensive one — it puts a URL inside a sentence an answer engine
+         * may read aloud. The asterisk pattern deliberately excludes a bare `*` followed by a
+         * space, which is a multiplication sign or a footnote marker in prose and not emphasis.
+         */
+        if (/\[[^\]]+\]\([^)]*\)|`|\*\*|(?<!\w)\*(?!\s)/.test(text))
+          offenders.push(`${slug}: ${name}`);
+      }
+    expect(offenders, "postFaqs must strip markdown before it reaches structured data").toEqual([]);
+  });
+
+  it.runIf(built)("no answer carries a URL at all", () => {
+    /*
+     * Separate from the above because a bare URL typed into an answer would pass the markdown test
+     * and is the same defect: structured data has no business carrying navigation.
+     */
+    const offenders: string[] = [];
+    for (const slug of pages)
+      for (const { name, text } of faqsOf(slug))
+        if (/https?:\/\/|\(\/[a-z]/.test(text)) offenders.push(`${slug}: ${name}`);
+    expect(offenders, "an answer is prose; put the link in the visible page").toEqual([]);
+  });
+
+  it.runIf(built)("the answers are not empty, so the guard above is measuring something", () => {
+    /*
+     * The failure this exists for: a stripper that strips everything. Both tests above pass
+     * vacuously on an empty string, and they would pass on all sixty-three pages at once.
+     */
+    const all = pages.flatMap((s) => faqsOf(s));
+    expect(all.length, "no FAQ structured data was found at all").toBeGreaterThan(100);
+    for (const { name, text } of all) expect(text.length, `${name}: empty answer`).toBeGreaterThan(20);
+  });
+});

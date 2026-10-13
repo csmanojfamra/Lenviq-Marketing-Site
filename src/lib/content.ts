@@ -240,10 +240,39 @@ export function postFaqs(body: string): { q: string; a: string }[] {
   const parts = section.split(/^###\s+/m).slice(1);
   for (const part of parts) {
     const [head, ...rest] = part.split("\n");
-    const answer = rest.join(" ").replace(/\s+/g, " ").trim();
-    if (head?.trim() && answer) out.push({ q: head.trim(), a: answer });
+    const answer = plainText(rest.join(" "));
+    if (head?.trim() && answer) out.push({ q: plainText(head), a: answer });
   }
   return out;
+}
+
+/**
+ * MARKDOWN OFF, for text that goes somewhere markdown is not read.
+ *
+ * `postFaqs` feeds `acceptedAnswer.text` in the FAQPage structured data, and it used to hand over
+ * the raw markdown — so an answer containing a link shipped
+ * `… it is what [provisioning is computed on](/blog/nbfc-provisioning-worked-examples/).` to Google,
+ * brackets, parentheses, URL and all, and `**not**` shipped its asterisks. Measured across the
+ * build: **sixty of sixty-three posts** were doing it, fifty-four of them written long before the
+ * sprint that found it.
+ *
+ * It is not a cosmetic bug. That string is the answer an answer engine may read aloud or lift into
+ * a result, and a URL embedded mid-sentence in it is both noise and a reason to discount the block.
+ * The visible page was never affected — it renders through `renderMarkdown` — which is exactly why
+ * this survived: nobody reading the page could see it.
+ *
+ * Deliberately a stripper rather than a renderer. The destination is a JSON string field that must
+ * not contain markup of any kind, so the link's LABEL is the right output and the href is dropped:
+ * structured data has no business carrying navigation.
+ */
+function plainText(md: string): string {
+  return md
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1") // a link becomes its label; the href is dropped
+    .replace(/`([^`]+)`/g, "$1") // code spans
+    .replace(/\*\*([^*]+)\*\*/g, "$1") // bold
+    .replace(/(^|[\s(])\*([^*\n]+)\*(?=[\s).,;:!?]|$)/g, "$1$2") // emphasis, not a bare asterisk
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 /**
