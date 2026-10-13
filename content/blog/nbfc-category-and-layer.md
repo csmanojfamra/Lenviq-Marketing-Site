@@ -72,7 +72,7 @@ October 2021 and everything downstream of it is worth re-checking.
 | Category | What it does |
 | --- | --- |
 | **NBFC-ICC** | Investment and Credit Company. Lending and investment generally — the category most NBFCs are in. |
-| **NBFC-MFI** | Microfinance. Collateral-free lending to low-income households, with its own conduct rules. |
+| **NBFC-MFI** | [Microfinance](/microfinance-software/). Collateral-free lending to low-income households, with its own conduct rules. |
 | **NBFC-Factor** | Factoring — buying receivables. |
 | **NBFC-IFC** | Infrastructure Finance Company. |
 | **IDF-NBFC** | Infrastructure Debt Fund, refinancing completed infrastructure projects. |

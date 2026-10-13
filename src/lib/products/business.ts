@@ -20,7 +20,7 @@ export const BUSINESS: ProductSpec = {
   ],
   lifecycle: {
     head: "The file, from enquiry to sanction",
-    lead: "The same origination workflow the other products use, with the parts that only apply when the borrower is an entity.",
+    lead: "The same [origination workflow](/loan-origination-software/) the other products use, with the parts that only apply when the borrower is an entity — and then the same [loan management](/loan-management-system/) once it is disbursed.",
     points: [
       ["The entity as a party", "Legal name, constitution, incorporation or registration date, CIN and GSTIN where they exist — held as a party record, so a second facility to the same borrower starts from what is already on file rather than a fresh form."],
       ["The people behind it", "Directors, designated partners, partners, karta, trustees, office bearers and proprietors are related parties in their own right, each with their own KYC — not names typed into a field on the entity."],
@@ -49,7 +49,7 @@ export const BUSINESS: ProductSpec = {
       ["KYC by constitution", "The document set follows the constitution rather than one list applied to everyone, which is what the Master Direction on KYC actually requires of a legal person."],
       ["Bureau against the right PAN", "A commercial bureau pull is made against the entity; a proprietorship's is made against the proprietor. Recorded against the application with the report attached."],
       ["Key Facts Statement", "An MSME term loan gets the prescribed one-page statement with an APR computed from the actual cash flows, on the same footing as a retail loan."],
-      ["Exposure across the group", "A borrower's facilities are visible together, and asset classification is borrower-wise: if one facility is non-performing, all of them are."],
+      ["Exposure across the group", "A borrower's facilities are visible together — a term loan and the [working-capital limit](/cash-credit-software/) beside it — and asset classification is borrower-wise: if one facility is non-performing, all of them are."],
     ],
     evidence: ["src/lib/repos/party-exposure.ts", "src/lib/repos/npa.ts", "src/lib/repos/kfs.ts"],
   },

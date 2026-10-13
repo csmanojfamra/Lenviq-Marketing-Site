@@ -80,7 +80,7 @@ most retail lending.
 
 A Base Layer NBFC has two borrowers wanting to foreclose.
 
-**Borrower one** is an individual with a ₹5,00,000 personal loan for a wedding. Paragraph 5(i)
+**Borrower one** is an individual with a ₹5,00,000 [personal loan](/personal-loan-software/) for a wedding. Paragraph 5(i)
 applies regardless of rate type. **No charge.** The system must not levy one even though the scheme
 is configured with a 4% foreclosure charge, and the quote must say why it is nil — ₹0 with no
 explanation is indistinguishable from a calculation that failed.

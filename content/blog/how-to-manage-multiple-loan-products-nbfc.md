@@ -9,7 +9,7 @@ draft: false
 ---
 
 Run every product on **one engine with different parameters**, never on a code path per product. A
-gold loan, a loan against property, a vehicle loan and an unsecured business loan differ in how
+gold loan, a loan against property, [a vehicle loan](/vehicle-loan-software/) and [an unsecured business loan](/business-loan-software/) differ in how
 interest accrues, what falls due and when, and what security has to be tracked — but they must not
 differ in how days-past-due is counted, how a receipt is appropriated, or how an asset is classified.
 The moment those diverge, they diverge silently, and what diverges is NPA classification.
@@ -89,7 +89,7 @@ to disagree.
 
 ## A worked example
 
-An NBFC adds gold lending to an existing LAP and unsecured book.
+An NBFC adds [gold lending](/gold-loan-software/) to an existing [LAP](/loan-against-property-software/) and [unsecured](/personal-loan-software/) book.
 
 **The wrong shape:** a gold module. It has its own accrual (daily, slab-priced), its own idea of what
 is due (nothing — gold has "no schedule"), and its own screens. Six months later an audit asks why no

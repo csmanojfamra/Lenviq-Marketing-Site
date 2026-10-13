@@ -20,14 +20,14 @@ export const GOLD: ProductSpec = {
   subhead:
     "Gold loan software for NBFCs — appraisal, ongoing LTV, renewal, part-release and auction.",
   intro: [
-    "This is the loan management software an NBFC runs a gold book on: appraisal and packet custody at pledge, a loan-to-value figure that is recomputed against the day’s rate rather than frozen at sanction, and the renewal, part-release and auction paths that the Reserve Bank of India (Lending Against Gold and Silver Collateral) Directions, 2025 now govern in detail.",
+    "This is the [loan management software](/loan-management-system/) an NBFC runs a gold book on: appraisal and packet custody at pledge, a loan-to-value figure that is recomputed against the day’s rate rather than frozen at sanction, and the renewal, part-release and auction paths that the Reserve Bank of India (Lending Against Gold and Silver Collateral) Directions, 2025 now govern in detail.",
     "It is built for NBFCs lending against ornaments — a single-branch lender or a multi-state book. It is not a gold loan, and we are not a lender; this is the system the lender runs.",
   ],
 
   lifecycle: {
     head: "How a gold loan runs, from counter to release",
     lead:
-      "A gold loan is the shortest lifecycle of the four and the most operationally dense, because almost all of it happens at a branch counter with the borrower present and the security in the room.",
+      "A gold loan is the shortest lifecycle of the seven books here and the most operationally dense: the [origination path](/loan-origination-software/) every product shares is compressed into a branch counter, with the borrower present and the security in the room.",
     points: [
       ["Appraisal", "Each ornament is recorded separately — description, count, gross weight, net weight after stone and wastage deduction, and purity in karat. The appraiser is named on the record and the certificate carries that name."],
       ["Eligible value", "Net weights are converted to a 22-karat equivalent and priced against the tenant’s current rate, so an 18-karat bangle and a 24-karat coin in the same packet are valued on one basis rather than three."],

@@ -4,6 +4,7 @@ import { Section, SectionHead, Card, Spec, ButtonLink } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { Shot, PhoneShot } from "@/components/shot";
 import { PRODUCTS } from "@/lib/products";
+import { proseLinks } from "@/lib/prose-links";
 
 export const metadata: Metadata = pageMetadata({
   /*
@@ -106,9 +107,12 @@ export default function PlatformPage() {
             NBFC software, from the lead to the closure letter.
           </h1>
           <p className="mt-s4 max-w-prose text-[18px] leading-prose text-slate-mid">
-            Most lenders run an origination system, a servicing system and an accounting package,
-            and spend the last week of every month reconciling them. Here the loan event posts to
-            the books as it happens, so there is one set of facts.
+            {proseLinks(
+              "Most lenders run an [origination system](/loan-origination-software/), a " +
+              "[servicing system](/loan-management-system/) and an accounting package, and spend " +
+              "the last week of every month reconciling them. Here the loan event posts to the " +
+              "books as it happens, so there is one set of facts.",
+            )}
           </p>
         </Reveal>
         {/*
@@ -192,7 +196,7 @@ export default function PlatformPage() {
       <Section id="origination">
         <SectionHead eyebrow="Origination" title="Lead to disbursement" />
         <dl className="mt-s4 border-b border-line">
-          {LOS.map(([t, b]) => <Reveal key={t}><Spec term={t}>{b}</Spec></Reveal>)}
+          {LOS.map(([t, b]) => <Reveal key={t}><Spec term={t}>{proseLinks(b)}</Spec></Reveal>)}
         </dl>
         <Shot
           name="party-kyc"
@@ -204,7 +208,7 @@ export default function PlatformPage() {
       <Section id="servicing">
         <SectionHead eyebrow="Loan management" title="Disbursement to closure" />
         <dl className="mt-s4 border-b border-line">
-          {LMS.map(([t, b]) => <Reveal key={t}><Spec term={t}>{b}</Spec></Reveal>)}
+          {LMS.map(([t, b]) => <Reveal key={t}><Spec term={t}>{proseLinks(b)}</Spec></Reveal>)}
         </dl>
         <Shot
           name="loan-account"
@@ -270,8 +274,8 @@ export default function PlatformPage() {
       <Section id="books">
         <SectionHead
           eyebrow="By loan product"
-          title="Four books, one system"
-          lead="Asset-class behaviour is configuration, not four code paths — but what each book actually demands of the software is different enough to be worth setting out on its own."
+          title="Seven books, one system"
+          lead={proseLinks("Asset-class behaviour is configuration, not seven code paths — but what each book actually demands of the software is different enough to be worth setting out on its own: a [gold](/gold-loan-software/) counter and a [twenty-year mortgage](/loan-against-property-software/) share an engine and share almost nothing else.")}
         />
         <div className="mt-s5 grid gap-s3 md:grid-cols-2">
           {PRODUCTS.map((p, i) => (

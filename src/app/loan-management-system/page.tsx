@@ -4,6 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 import { Section, SectionHead, Spec, ButtonLink } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { Shot } from "@/components/shot";
+import { proseLinks } from "@/lib/prose-links";
 
 /**
  * Loan management, as its own page — the other half of the pair, and under the same doorway risk.
@@ -22,8 +23,8 @@ export const metadata: Metadata = pageMetadata({
 
 /** After the money has left. Each of these is a line on the Platform page, opened up. */
 const SERVICING: [string, string][] = [
-  ["Schedules and repayment shapes", "Seven of them, because a gold loan repaid in one bullet and a twenty-year mortgage on a reducing balance do not amortise alike. The schedule is generated from the sanctioned terms and the EMI is rounded to the rupee, with the difference carried to the last instalment."],
-  ["Interest, nightly", "Accrued on the balance actually outstanding that day. A gold loan is priced by the age slab it has reached, with the day-0 rate held for a borrower who is servicing; a cash credit accrues on what was drawn, actual over 365. Both are written to the books monthly rather than as a voucher a day."],
+  ["Schedules and repayment shapes", "Seven of them, because [a gold loan](/gold-loan-software/) repaid in one bullet and [a twenty-year mortgage](/loan-against-property-software/) on a reducing balance do not amortise alike. The schedule is generated from the sanctioned terms and the EMI is rounded to the rupee, with the difference carried to the last instalment."],
+  ["Interest, nightly", "Accrued on the balance actually outstanding that day. A gold loan is priced by the age slab it has reached, with the day-0 rate held for a borrower who is servicing; [a cash credit](/cash-credit-software/) accrues on what was drawn, actual over 365. Both are written to the books monthly rather than as a voucher a day."],
   ["Charges, and penal charges as charges", "A default charge is a charge, not interest — never compounded, never added to principal, and posted to the ledger when it is received rather than when it is levied, which is what the April 2024 rules require."],
   ["Receipts and appropriation", "Applied in the order the scheme sets, with part payment and foreclosure handled as their own events. A receipt that the network retries does not post twice."],
   ["Collections", "Allocation and follow-up, and a field app that works without a signal — a collection taken at the gate queues on the phone and posts once when it reconnects, because money that changed hands cannot be un-taken."],
@@ -99,7 +100,7 @@ export default function Page() {
       <Section id="servicing">
         <SectionHead eyebrow="The book" title="Disbursement to closure" />
         <div className="mt-s5 grid gap-s4 sm:grid-cols-2">
-          {SERVICING.map(([t, b]) => <Reveal key={t}><Spec term={t}>{b}</Spec></Reveal>)}
+          {SERVICING.map(([t, b]) => <Reveal key={t}><Spec term={t}>{proseLinks(b)}</Spec></Reveal>)}
         </div>
         <Shot
           name="loan-account"

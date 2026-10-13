@@ -23,7 +23,7 @@ who treats them as a dashboard colour is reporting a number they have not checke
 | SMA-2 | 61–90 days | The last stage before the account becomes non-performing |
 | NPA | Over 90 days | Sub-standard, with the income and provisioning consequences that follow |
 
-The buckets apply to term loans. For cash credit and overdraft facilities the trigger is different —
+The buckets apply to term loans. For [cash credit and overdraft facilities](/cash-credit-software/) the trigger is different —
 an account is SMA-1 or SMA-2 by reference to how long it has remained continuously **out of order**,
 which is its own definition involving the drawing power and the credits in the account, not a simple
 overdue count.

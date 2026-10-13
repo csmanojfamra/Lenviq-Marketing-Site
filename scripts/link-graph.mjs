@@ -34,6 +34,7 @@
  */
 import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 
 const OUT = join(process.cwd(), "out");
 const ARGS = process.argv.slice(2);
@@ -140,6 +141,18 @@ export const NOT_INDEXED = new Set([
   "/glossary/foreclosure/",
 ]);
 
+/**
+ * THE CLI RUNS ONLY WHEN THIS FILE IS THE ENTRY POINT.
+ *
+ * Everything above is exported so a test can assert the graph, and the guard in
+ * `tests/site.test.ts` does. Without this check, importing `buildGraph` printed the whole
+ * 122-row table and called `process.exit` — which is exactly what happened the first time
+ * another script imported it.
+ */
+const IS_CLI = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (!IS_CLI) {
+  // Imported: nothing runs, nothing prints.
+} else {
 if (!existsSync(OUT)) {
   console.error("no out/ — run `npm run build` first");
   process.exit(1);
@@ -182,3 +195,4 @@ console.log(`fewer than three contextual sources: ${thin.length}`);
 const nd = rows.filter((r) => !r.indexed);
 console.log(`\nof the ${nd.length} URLs Search Console declined, contextual sources: ` +
   nd.map((r) => `${r.url}=${r.sources}`).join(", "));
+}

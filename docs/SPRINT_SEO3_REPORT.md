@@ -2,8 +2,12 @@
 
 Measured in `~/Developer/Lenviq-Marketing-Site` on 13 October 2026. Nothing in the product
 repository was opened. Baseline before any change: 171 tests passing, build 128 pages, sitemap 123
-URLs. After: **173 tests passing**, build 128 pages, sitemap **122** URLs — the one removal is
+URLs. After: **176 tests passing**, build 128 pages, sitemap **122** URLs — the one removal is
 `/authors/`, which is §5's decision.
+
+Section 3 was first reported as *nothing changed*, because §2.3 says not to fix a cause just
+disproved. The author then asked for it anyway as ordinary link hygiene; §4 below is that work, and
+it does not change the verdict in §3.
 
 **Two of this sprint's three premises did not survive measurement.** The draft gate did not fail,
 and contextual inbound links do not explain the thirteen declined pages. Both are set out below with
@@ -375,21 +379,133 @@ I am recording the observation rather than treating it as a cause.
 
 ---
 
-## 4. Section 3 — nothing changed, by instruction
+## 4. Section 3 — done as hygiene, on instruction, after the hypothesis was falsified
 
-§2.3: *"If the unindexed pages turn out to have ordinary contextual link counts, say so plainly and
-stop — do not fix a cause you have just disproved."* They do, so I stopped.
+**This section was first reported as "0 files changed", and that was right at the time.** §2.3 says
+not to fix a cause just disproved, so I stopped and said so. The author then asked for it anyway, as
+ordinary link hygiene rather than as an indexing fix. It is done on that basis, and nothing below
+should be read as a claim that it will change what Google indexes — §3 above still stands.
 
-**Files changed in §3: 0, against a cap of 40.** No sentence was edited, no link added, no pillar
-wired up. Doing the sweep would have been forty files of edits aimed at a cause the measurement had
-just eliminated, and it would have made the next measurement harder to read.
+**23 files changed, against a cap of 40.**
 
-What §3 would have done is still defensible as ordinary hygiene — `/platform/` has 7 listing and
-**0 contextual** outbound links, and 19 pages have no contextual inbound link at all. That is a real
-observation and `scripts/link-graph.mjs --target` will find them again on demand. It is just not the
-answer to why thirteen pages are unindexed, and it is not mine to start on a disproved premise.
+### What the measurement said before
 
----
+| | |
+|---|---|
+| sitemap URLs with fewer than three contextual inbound sources | **55 of 122** |
+| contextual outbound links from each of the seven product pages | `/compliance/` and `/reports/`, **and nothing else** |
+| contextual outbound links from `/platform/` | **none at all** |
+| contextual outbound links from each pillar | the other pillar, and nothing else |
+
+The cause was structural rather than editorial: a product page is **data** (`ProductSpec` is the
+prose, `components/product-page.tsx` is a skeleton — `lib/products/types.ts` argues why at length),
+and every prose field rendered as `{p}`, which is plain text. **There was no way to put a link inside
+a product page's own sentence**, so the only links on one came from the template. That is why all
+seven were identical.
+
+### How the links were made possible
+
+`src/lib/prose-links.tsx` — `[label](/path/)` inside a spec string becomes a `<Link>`. Deliberately
+tiny: internal paths only, React nodes rather than `dangerouslySetInnerHTML`, no emphasis or code
+spans. §3.3 forbids a paragraph whose only purpose is holding links, which rules out adding a
+`relatedLine` field — **a field like that is the forbidden paragraph in data form**. So the sentences
+stayed where they were and a phrase inside one of them became the link.
+
+### Files changed, and what each carries
+
+| File | What |
+|---|---|
+| `src/lib/prose-links.tsx` | **new** — the inline-link resolver |
+| `src/components/ui.tsx` | `SectionHead`'s `lead` takes a node, so a lead can carry a link |
+| `src/components/product-page.tsx` | intro, section leads and point bodies render through the resolver |
+| `src/lib/products/gold.ts` | "This is the **[loan management software]**…"; lifecycle lead now reaches the **[origination path]** — and "of the four" became "of the seven", which was stale |
+| `src/lib/products/lap.ts` | intro "**[origination]** and **[loan management]** software"; "Where **[a gold loan]** is decided at a counter in an hour" |
+| `src/lib/products/microfinance.ts` | intro "**[loan origination]** and **[loan management]** software" |
+| `src/lib/products/personal.ts` | the same intro pattern; "**[A gold loan]** is underwritten on a weight anyone can re-measure" |
+| `src/lib/products/vehicle.ts` | the same intro pattern; "no analogue in a **[gold]** or **[property]** book" |
+| `src/lib/products/business.ts` | lifecycle lead reaches both pillars; "a term loan and the **[working-capital limit]** beside it" |
+| `src/lib/products/cashcredit.ts` | lifecycle lead reaches the **[origination workflow]** and **[a term loan]**; intro reaches **[loan management]** |
+| `src/app/loan-origination-software/page.tsx` | the Collateral point already named both: "**[Gold]** by purity and net weight… **[property]** by a technical valuation" |
+| `src/app/loan-management-system/page.tsx` | "**[a gold loan]** repaid in one bullet and **[a twenty-year mortgage]**…"; "**[a cash credit]** accrues on what was drawn" |
+| `src/app/platform/page.tsx` | the intro already named both halves — "an **[origination system]**, a **[servicing system]** and an accounting package"; the books lead reaches **[gold]** and a **[twenty-year mortgage]**, and "Four books" became "Seven books" (PRODUCTS has held seven since the business and cash-credit pages shipped) |
+| `content/blog/how-to-manage-multiple-loan-products-nbfc.md` | "adds **[gold lending]** to an existing **[LAP]** and **[unsecured]** book"; "**[a vehicle loan]** and **[an unsecured business loan]**" |
+| `content/blog/loan-management-software-for-nbfc.md` | "A **[loan origination system (LOS)]**…"; "gold, property and **[vehicles]**" |
+| `content/blog/nbfc-software-complete-guide.md` | "**[A loan origination system]** is not a loan management system" |
+| `content/blog/how-to-automate-loan-origination-nbfc.md` | "the gathering, checking and routing in **[loan origination]**" |
+| `content/blog/sma-classification-what-it-signals.md` | "For **[cash credit and overdraft facilities]** the trigger is different" |
+| `content/blog/nbfc-category-and-layer.md` | the NBFC-MFI row: "**[Microfinance]**. Collateral-free lending to low-income households" |
+| `content/blog/prepayment-charges-2025.md` | "an individual with a ₹5,00,000 **[personal loan]** for a wedding" |
+| `tests/site.test.ts` | three new guards, below |
+| `scripts/link-graph.mjs` | the CLI now runs only as an entry point, so the graph can be imported and asserted |
+| `scripts/link-graph.d.mts` | **new** — types for that import, so the guard is not written against `any` |
+
+**Every link sits inside a sentence that already said the thing.** No paragraph was added to hold
+links, no "You may also like" strip exists, and no sentence asserts a capability — the two places a
+claim could have crept in are `business.ts`'s "and then the same loan management once it is
+disbursed" and `cashcredit.ts`'s "reaches the book through the same origination workflow as a term
+loan", and both restate what `/platform/` and `business.ts` already published, which follows from
+products binding by behaviour code rather than having their own code paths.
+
+### The result
+
+| | before | after |
+|---|---|---|
+| sitemap URLs with fewer than three contextual sources | 55 | **46** |
+| the two pillars | 2 and 5 sources | **10 and 13** |
+| the seven product pages | 0–2 sources | **3–8, every one at or above three** |
+| `/platform/` | 5 | 5, and now with **4 contextual outbound** where it had none |
+| the 13 Search Console declined | 4 below three | **2 below three** |
+
+Every product page now links contextually to **both** pillars, which was §3.2's firm requirement and
+was met nowhere before this.
+
+### Three new guards, and the negative control on them
+
+`tests/site.test.ts`, asserted against the built output and skipped when `out/` is absent, the way
+the conversion-surface guards already are:
+
+1. every pillar, product page and `/platform/` has **three distinct contextual inbound sources** —
+   distinct pages, not three anchors, because §3.1's rule is about related pages;
+2. **each product page reaches both pillars**;
+3. the links are in prose — no "You may also like" strip, and no bare anchors in a card grid.
+
+**Negative control:** removed the `[loan management software](/loan-management-system/)` link from
+`gold.ts`, rebuilt, and guard 2 failed with exactly one missing pair. Restored, 176/176. Worth noting
+what the counter did *not* do: `out/gold-loan-software/index.html` still carried one
+`href="/loan-management-system/"` from the related-links **card**, and the guard still failed —
+because a card is a listing and the rule is about sentences.
+
+**The control also caught a defect in the guard itself before that.** The first run reported 176
+passing with the link removed, which was wrong: the test imported a `.mjs` module with no
+declarations, `npm run build` failed on three TS errors, and the suite was therefore reading a
+**stale `out/`**. `scripts/link-graph.d.mts` fixes it. A guard that reads build output can pass on
+yesterday's build, and that is the failure mode to watch for in the two other tests that read `out/`.
+
+### §3.2's remaining gaps, reported rather than manufactured
+
+§3.3: *"If a page genuinely has nothing to say about any other page, report that rather than
+manufacturing a link."* Three places where that applied:
+
+| Gap | Why it was not filled |
+|---|---|
+| **Sibling links: 2 of 7 product pages have two, 4 have one, 1 has none.** vehicle has gold and property; lap, personal, business and cashcredit have one each; **gold and microfinance have none** | §3.2 asks for two "where the prose genuinely supports it". Measured: the only cross-product references in the specs are the ones linked. gold's and microfinance's prose names no other asset class, and business's one reference to property sits in a **FAQ answer**, which feeds the page's `FAQPage` JSON-LD — markup there would put `[label](/path/)` into structured data |
+| **`/platform/` reaches 2 of 7 product pages contextually**, the other five by card only | Its prose names gold and property. The sentence that names all seven is a FAQ answer, same JSON-LD problem |
+| **`/blog/tamil-nadu-money-lending-licence/` and `/blog/west-bengal-money-lending-licence/` stay at two sources** | The only pages whose subject genuinely concerns state money-lending are the three state pages themselves, and they already link to each other. The natural third source would be `nbfc-registration-and-cor` — and **I will not add a regulatory sentence to one of the seven pages pending Manoj's claim review** (§1(d)). That is inserting an unreviewed claim into a page queued for review |
+
+### What remains under three, and it is mostly not the commercial tree
+
+46 URLs, and §3.2's fourth bullet — *every* blog post and glossary entry linking to the one page its
+subject most nearly concerns — is 80-odd files on its own, past the cap. §3.4 says to do the thirteen
+and the pillars first and then stop, so this is the list rather than the work:
+
+| Group | Count | Note |
+|---|---|---|
+| blog posts | 20 | the bulk of §3.2's fourth bullet; three at zero (`best-loan-management-software-india`, `how-to-automate-loan-origination-nbfc`, `how-to-scale-nbfc-lending-operations`) |
+| help guides | 12 | eleven at zero. These are a numbered sequence read in order, linked from `/help/` and from each other by previous/next — which the counter classifies as chrome, correctly. Nothing on the marketing side has a sentence about "how to disburse a loan", and inventing one would be manufacturing |
+| tools | 7 | each already carries listing links from `/tools/` and from the posts' in-article cards |
+| utility and legal pages | 5 | `/signup/`, `/about/`, `/privacy/`, `/terms/`, `/security/`. Three contextual inbound links to a privacy policy would be three sentences written to hold links. Left alone deliberately |
+| `/` | 1 | the home page is reached by every header on the site; a contextual link to it from body prose would be odd |
+| `/glossary/foir/` | 1 | at two sources, one short |
 
 ## 5. Section 4 verdict — clean today, changed nothing
 
@@ -500,25 +616,21 @@ exactly before this sprint's one removal.
 
 ## Files changed
 
-| File | What |
-|---|---|
-| `src/lib/publication.ts` | **new** — the one publication state, `ROUTE_PAGES`, and the `noindex` value |
-| `src/lib/seo.ts` | `pageMetadata` became the single `noindex` emitter; `excluded?` on `PageMeta` |
-| `src/app/sitemap.ts` | route pages now come from `publishedRoutes()`, priorities with them |
-| `src/lib/content.ts` | `allPostsIncludingDrafts()`, `anyPostBySlug()` — route-only loaders |
-| `src/lib/help.ts` | the same two for guides |
-| `src/app/blog/[slug]/page.tsx` | a draft is built at its URL, carries the tag, shows a reviewer banner |
-| `src/app/help/[slug]/page.tsx` | the same |
-| `src/components/tools/tool-page.tsx` | the further-reading block honours publication state — the leak the negative control found |
-| `src/lib/seo-intent.ts` | `/authors/` entry removed |
-| `tests/site.test.ts` | two tests rewritten for the new mechanism; three new guards; two source-grep assertions replaced with assertions on the generated sitemap |
-| `scripts/link-graph.mjs` | **new** — the classified link graph |
-| `REVIEW_PENDING_MANOJ.md` | **new** — §1(d) |
-| `docs/SPRINT_SEO3_REPORT.md` | **new** — this |
+**23 files, against §3.4's cap of 40.** §1's work and §3's are listed in their own sections above —
+§1(c) in *What I built*, §3 in its file-by-file table. Summarised:
 
-`content/` is unchanged: the seven pages stay published per §1(b), and both negative controls were
-restored to byte-identical files. `src/app/robots.ts` is unchanged.
+| Group | Files |
+|---|---|
+| the publication gate (§1(c)) | `src/lib/publication.ts` (new), `src/lib/seo.ts`, `src/app/sitemap.ts`, `src/lib/content.ts`, `src/lib/help.ts`, `src/app/blog/[slug]/page.tsx`, `src/app/help/[slug]/page.tsx`, `src/components/tools/tool-page.tsx`, `src/lib/seo-intent.ts` |
+| the link graph (§2, §3) | `src/lib/prose-links.tsx` (new), `scripts/link-graph.mjs` (new), `scripts/link-graph.d.mts` (new), `src/components/ui.tsx`, `src/components/product-page.tsx`, 7 × `src/lib/products/*.ts`, `src/app/platform/page.tsx`, both pillar pages, 7 × `content/blog/*.md` |
+| guards | `tests/site.test.ts` — two rewritten for the new gate, three new on it, three new on the link graph |
+| deliverables | `REVIEW_PENDING_MANOJ.md` (new), `docs/SPRINT_SEO3_REPORT.md` (new) |
+
+`src/app/robots.ts` is unchanged, so nothing here can have affected `app.lenviq.in`. The seven pages
+pending review stay published per §1(b), and no regulatory prose was added to any of them. Both
+negative controls — the draft flip and the removed contextual link — were restored to byte-identical
+files, and a third was run on the new link-graph guard.
 
 Nothing in this report asserts behaviour I did not run. Every count came from a build or a live
-fetch on 13 October 2026, and both negative controls are recorded above with what they looked like
-when they failed.
+fetch on 13 October 2026, and all three negative controls are recorded with what they looked like
+when they failed — including the one that exposed a defect in my own guard.

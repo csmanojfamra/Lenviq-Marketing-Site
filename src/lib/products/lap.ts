@@ -19,14 +19,14 @@ export const LAP: ProductSpec = {
   subhead:
     "Loan against property software for NBFCs — title, valuation and mortgage documentation, through to servicing.",
   intro: [
-    "This is the origination and loan management software for an NBFC running a loan-against-property book: the legal opinion, the technical valuation and the title position recorded against each property, mortgage documentation generated from what is on file, and the long-tenor servicing and prepayment behaviour that follows.",
+    "This is the [origination](/loan-origination-software/) and [loan management](/loan-management-system/) software for an NBFC running a loan-against-property book: the legal opinion, the technical valuation and the title position recorded against each property, mortgage documentation generated from what is on file, and the long-tenor servicing and prepayment behaviour that follows.",
     "It is for NBFCs lending against residential, commercial, industrial or plot security. Lenviq is software licensed to lenders — it is not a lender and does not originate loans.",
   ],
 
   lifecycle: {
     head: "How a property loan runs, from file to satisfaction of charge",
     lead:
-      "Where a gold loan is decided at a counter in an hour, a LAP file is decided over weeks by people who are not in the same building. The workflow is the product.",
+      "Where [a gold loan](/gold-loan-software/) is decided at a counter in an hour, a LAP file is decided over weeks by people who are not in the same building. The workflow is the product.",
     points: [
       ["Property on the file", "Each property is a record in its own right — type and sub-type across residential, commercial, industrial and plot, with address, area and boundaries. A file may carry more than one."],
       ["Legal opinion", "Recorded against the property, by the empanelled advocate, as a document on the file rather than an email in someone’s inbox."],

@@ -25,7 +25,7 @@ falls overdue, and the returns that go to the Reserve Bank. It is bought either 
 as several specialists stitched together.
 
 The phrase is used loosely, and that is worth being precise about, because two lenders comparing
-"NBFC software" are frequently comparing different things. A loan origination system is not a loan
+"NBFC software" are frequently comparing different things. [A loan origination system](/blog/what-is-a-loan-origination-system/) is not a loan
 management system. A core lending platform that does both may still not do the accounting. A
 collections tool is not a lending system at all. What a lender is actually deciding is **which of
 five layers they buy as one thing**, and where they will accept a seam.

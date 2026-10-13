@@ -8,7 +8,7 @@ author: "CS Sushil Choudhary"
 draft: false
 ---
 
-Automate the **gathering, checking and routing** in loan origination; keep the **credit decision** a
+Automate the **gathering, checking and routing** in [loan origination](/blog/what-is-a-loan-origination-system/); keep the **credit decision** a
 judgement made by a person with authority to make it. Everything between a lead and a disbursement is
 either evidence collection, a rule that can be stated, or a decision — and the productivity comes
 from making the first two automatic so the third gets the attention.

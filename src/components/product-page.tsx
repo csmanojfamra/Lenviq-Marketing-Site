@@ -4,6 +4,7 @@ import { Reveal } from "@/components/reveal";
 import { Shot } from "@/components/shot";
 import { absolute, COMPANY, SITE } from "@/lib/site";
 import type { ProductSection, ProductSpec } from "@/lib/products/types";
+import { proseLinks } from "@/lib/prose-links";
 
 /**
  * The skeleton every product page renders through — heading order and CTA, nothing else.
@@ -15,11 +16,17 @@ import type { ProductSection, ProductSpec } from "@/lib/products/types";
 function SpecList({ section }: { section: ProductSection }) {
   return (
     <>
-      <SectionHead title={section.head} lead={section.lead} />
+      {/*
+        * The prose goes through `proseLinks`, so a `[label](/path/)` inside a sentence a spec
+        * already contains becomes a real link. Before this, the only links on a product page came
+        * from the template, which is why all seven linked to `/compliance/` and `/reports/` and to
+        * nothing else at all.
+        */}
+      <SectionHead title={section.head} lead={section.lead ? proseLinks(section.lead) : undefined} />
       <dl className="mt-s4 border-b border-line">
         {section.points.map(([term, body]) => (
           <Reveal key={term}>
-            <Spec term={term}>{body}</Spec>
+            <Spec term={term}>{proseLinks(body)}</Spec>
           </Reveal>
         ))}
       </dl>
@@ -116,7 +123,7 @@ export function ProductPage({ spec }: { spec: ProductSpec }) {
           )}
           {spec.intro.map((p) => (
             <p key={p.slice(0, 24)} className="mt-s4 max-w-prose text-[18px] leading-prose text-slate-mid">
-              {p}
+              {proseLinks(p)}
             </p>
           ))}
         </Reveal>

@@ -55,7 +55,11 @@ export function SectionHead({
 }: {
   eyebrow?: string;
   title: string;
-  lead?: string;
+  /**
+   * A node rather than a string, so a lead can carry an inline link (`lib/prose-links.tsx`).
+   * A plain string is still a node, so every existing caller is unchanged.
+   */
+  lead?: React.ReactNode;
   center?: boolean;
 }) {
   return (

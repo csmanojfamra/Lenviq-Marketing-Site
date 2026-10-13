@@ -19,7 +19,7 @@ export const PERSONAL: ProductSpec = {
   subhead:
     "Personal loan software for NBFCs — bureau, FOIR and the unsecured underwriting file, through to collections.",
   intro: [
-    "This is the loan origination and management software for an NBFC running an unsecured personal loan book: bureau reports pulled against the application and kept with it, income and obligations assessed into a fixed-obligation-to-income ratio whose workings are stored rather than trusted, deviations that route to the approval level they require, and collection through NACH with the arrears position visible from the day it starts.",
+    "This is the [loan origination](/loan-origination-software/) and [loan management](/loan-management-system/) software for an NBFC running an unsecured personal loan book: bureau reports pulled against the application and kept with it, income and obligations assessed into a fixed-obligation-to-income ratio whose workings are stored rather than trusted, deviations that route to the approval level they require, and collection through NACH with the arrears position visible from the day it starts.",
     "It is for NBFCs lending to individuals without security. Lenviq is licensed to lenders; it is not itself a lender and does not make credit decisions.",
   ],
 
@@ -48,7 +48,7 @@ export const PERSONAL: ProductSpec = {
   specific: {
     head: "What an unsecured book has to get right",
     lead:
-      "A gold loan is underwritten on a weight anyone can re-measure. A personal loan is underwritten on an arithmetic that has to be reproducible months later, in front of somebody who did not do it.",
+      "[A gold loan](/gold-loan-software/) is underwritten on a weight anyone can re-measure. A personal loan is underwritten on an arithmetic that has to be reproducible months later, in front of somebody who did not do it.",
     points: [
       ["The FOIR is stored with its workings, not just its answer", "The ratio is computed from the income of the parties whose income is considered and the obligations actually counted, plus the proposed instalment — and what it was made of is kept alongside it. A number a credit committee cannot take apart is a number they have to trust, and trust is not a control."],
       ["Other income is haircut, and the haircut is a product decision", "Net monthly income counts in full because documents stand behind it. Other income carries no income type and no document trail, so it counts at a percentage set on the scheme — a credit-policy choice per product, not a constant in the code. The ratio is computed exactly, so two people running it on the same file get the same number."],

@@ -24,7 +24,7 @@ year three.
 They are two halves of one lifecycle, and confusing them is the most common reason an evaluation
 goes wrong.
 
-A **loan origination system (LOS)** covers everything up to the money leaving: lead capture, the
+A **[loan origination system (LOS)](/blog/what-is-a-loan-origination-system/)** covers everything up to the money leaving: lead capture, the
 party and KYC record, credit appraisal, the approval matrix, sanction, documentation and
 disbursement. Its output is a sanctioned, documented, disbursed loan.
 
@@ -49,8 +49,8 @@ sanctioned.
 
 Six things, in the order they bite.
 
-**1. Product and scheme configuration that is data, not code.** An NBFC that lends against gold,
-property and vehicles is running three different behaviours: daily accrual against a pledged packet,
+**1. Product and scheme configuration that is data, not code.** An NBFC that lends against gold, property and [vehicles](/vehicle-loan-software/) is running three different
+behaviours: daily accrual against a pledged packet,
 a monthly amortising instalment against a mortgage, and a hypothecated asset with its own insurance
 and endorsement obligations. If those behaviours are hard-coded, every new product is a development
 project. If they are configuration, a new scheme is an afternoon.

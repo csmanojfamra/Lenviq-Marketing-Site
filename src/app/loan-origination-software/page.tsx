@@ -4,6 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 import { Section, SectionHead, Spec, ButtonLink } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { Shot } from "@/components/shot";
+import { proseLinks } from "@/lib/prose-links";
 
 /**
  * Loan origination, as its own page — and the risk this page carries is the doorway pattern.
@@ -27,7 +28,7 @@ export const metadata: Metadata = pageMetadata({
 const STAGES: [string, string][] = [
   ["Lead and enquiry", "Captured with a source, assigned to someone, and carried forward — so the application that follows starts from what was already said rather than from a blank form. Turnaround is visible per stage, which is the only way to know where files actually sit."],
   ["The borrower as a party", "A party record, not fields on an application. Individuals and entities, co-applicants and guarantors, each with the KYC their constitution actually requires — a company needs its directors and beneficial owners, a HUF its karta, a proprietorship the proprietor whose PAN the bureau is pulled against."],
-  ["Collateral", "Valued under its own rules before it can support a sanction. Gold by purity and net weight against an approved daily rate with a thirty-day look-back; property by a technical valuation on a realisable basis with the legal check recorded against it. The eligible value, not the market value, is what the loan is sized against."],
+  ["Collateral", "Valued under its own rules before it can support a sanction. [Gold](/gold-loan-software/) by purity and net weight against an approved daily rate with a thirty-day look-back; [property](/loan-against-property-software/) by a technical valuation on a realisable basis with the legal check recorded against it. The eligible value, not the market value, is what the loan is sized against."],
   ["Credit and bureau", "The pull is recorded against the application with the report attached, so the decision can be re-read later against what was actually seen. Income and obligations are assessed into a ratio whose workings are stored rather than a number someone typed."],
   ["Deviations and approval", "A deviation carries the level of approval it needs, and an approval matrix routes by sanctioned amount through its slabs. What was waived, by whom, and against which policy is part of the file."],
   ["Sanction", "The scheme's terms are snapshotted onto the loan at sanction. A later change to the scheme master cannot reach back and alter a loan already sanctioned — which is the difference between a system that can be audited and one that cannot."],
@@ -96,7 +97,7 @@ export default function Page() {
       <Section id="stages">
         <SectionHead eyebrow="The file" title="Lead to disbursement, stage by stage" />
         <div className="mt-s5 grid gap-s4 sm:grid-cols-2">
-          {STAGES.map(([t, b]) => <Reveal key={t}><Spec term={t}>{b}</Spec></Reveal>)}
+          {STAGES.map(([t, b]) => <Reveal key={t}><Spec term={t}>{proseLinks(b)}</Spec></Reveal>)}
         </div>
         <Shot
           name="application-stages"

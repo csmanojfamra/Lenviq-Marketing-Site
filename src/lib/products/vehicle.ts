@@ -20,7 +20,7 @@ export const VEHICLE: ProductSpec = {
   subhead:
     "Vehicle loan software for NBFCs — origination, hypothecation and the RC endorsement, through to repossession.",
   intro: [
-    "This is the origination and loan management software for an NBFC running a vehicle finance book: the Part II vehicle detail form with its new-and-used branches, the dealer and invoice flow, hypothecation and the RC endorsement obligation, insurance tracked to its expiry date, and a repossession trail that survives being asked about.",
+    "This is the [origination](/loan-origination-software/) and [loan management](/loan-management-system/) software for an NBFC running a vehicle finance book: the Part II vehicle detail form with its new-and-used branches, the dealer and invoice flow, hypothecation and the RC endorsement obligation, insurance tracked to its expiry date, and a repossession trail that survives being asked about.",
     "It is for NBFCs financing two-wheelers, cars, light commercial vehicles and tractors, new or used. Lenviq is licensed to lenders; it does not lend.",
   ],
 
@@ -50,7 +50,7 @@ export const VEHICLE: ProductSpec = {
       "The security in a vehicle loan is the only one of the four that depreciates, moves, and carries dates of its own that have nothing to do with the repayment schedule.",
     points: [
       ["New and used are one form with two branches, not two forms", "The condition is a field, and the fields that follow are conditional on it. A used case is asked for its RTO and its owner serial number; a new case is asked for its dealer and its proforma invoice. Splitting this into two forms is how a lender ends up with two half-populated tables and a report that cannot join them."],
-      ["Insurance expires while the loan is still running", "This is the one obligation that has no analogue in a gold or property book. A vehicle with a lapsed policy is an unsecured loan that nobody has noticed yet, and the tracker treats a vehicle with no policy on record as the same exposure as a lapsed one — it sorts to the top rather than below every current policy, because an absent policy is the most exposed asset on the report and not the least."],
+      ["Insurance expires while the loan is still running", "This is the one obligation that has no analogue in a [gold](/gold-loan-software/) or [property](/loan-against-property-software/) book. A vehicle with a lapsed policy is an unsecured loan that nobody has noticed yet, and the tracker treats a vehicle with no policy on record as the same exposure as a lapsed one — it sorts to the top rather than below every current policy, because an absent policy is the most exposed asset on the report and not the least."],
       ["Prior hypothecation is a fact on the record", "A used vehicle that carried a charge has a NOC reference against it. It is a field, so it is answerable across the book rather than a note in a file."],
       ["Repossession is a sequence, and the trail is the point", "Notice, delivery of that notice, seizure, sale, surplus — and withdrawal, which is what happens when the borrower pays. Each is a recorded step with its own route, because the question a lender is asked afterwards is never *did you repossess* but *what did you do, and when, and can you show it*."],
       ["Electric is derived, never asked twice", "Whether a vehicle is electric comes from its fuel type rather than a separate flag. Two fields free to disagree about the same fact is not a question worth asking twice."],

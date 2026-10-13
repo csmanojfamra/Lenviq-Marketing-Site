@@ -16,7 +16,7 @@ export const CASH_CREDIT: ProductSpec = {
     "Cash credit software for NBFCs: drawing power from stock statements, ad-hoc limits, renewal, and the three ways a limit turns non-performing.",
   h1: "Cash credit and overdraft, where there is no instalment to miss.",
   intro: [
-    "A working-capital limit has no repayment schedule. The borrower draws and repays as the business needs, interest accrues on whatever was outstanding that day, and the lender's question is never “did the instalment arrive” — it is whether the account is being operated, whether the security still supports what has been drawn, and whether the interest is being serviced. A system built around an EMI schedule answers none of those.",
+    "A working-capital limit has no repayment schedule. The borrower draws and repays as the business needs, interest accrues on whatever was outstanding that day, and the lender's question is never “did the instalment arrive” — it is whether the account is being operated, whether the security still supports what has been drawn, and whether the interest is being serviced. A system built around an EMI schedule answers none of those, which is why the [loan management](/loan-management-system/) side of this book is built on the account rather than on a schedule.",
     "For NBFCs running cash credit and overdraft limits against stock and book debts, or clean, where the limit is renewed annually and the drawing power moves every month.",
   ],
   lifecycle: {
@@ -31,7 +31,7 @@ export const CASH_CREDIT: ProductSpec = {
   },
   specific: {
     head: "Drawing power, and the things that only exist on a limit",
-    lead: "The sanctioned limit is a ceiling. What the borrower may actually draw is the drawing power, and it moves.",
+    lead: "A limit reaches the book through the same [origination workflow](/loan-origination-software/) as [a term loan](/business-loan-software/), and then behaves nothing like one. The sanctioned limit is a ceiling; what the borrower may actually draw is the drawing power, and it moves.",
     points: [
       ["Stock statements", "Submitted periodically and accepted by the lender, with the drawing power computed from the stock and debtors declared, each at its own margin, net of creditors."],
       ["An overdue statement", "A statement that does not arrive is swept for, because a drawing power computed from a statement nobody checked is a number the lender made up."],

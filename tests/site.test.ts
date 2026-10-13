@@ -1449,3 +1449,74 @@ describe("nothing on a phone scrolls sideways", () => {
     }
   });
 });
+
+/**
+ * THE COMMERCIAL TREE IS LINKED BY PROSE, NOT ONLY BY FURNITURE (Sprint SEO-3 §3).
+ *
+ * Search Console reported the ten most-linked pages on this site with exactly 99 inbound internal
+ * links each — the signature of the header and the footer, which every page emits and which
+ * therefore says nothing about whether any page links to anything else. Measured with
+ * `scripts/link-graph.mjs`, all seven product pages linked contextually to `/compliance/` and
+ * `/reports/` and to NOTHING else, because the only links on a product page came from the template;
+ * `/platform/` had no contextual outbound link at all.
+ *
+ * What that costs is not a ranking theory — the hypothesis that contextual links explain this
+ * site's unindexed pages was measured and FALSIFIED (`docs/SPRINT_SEO3_REPORT.md` §3). It is that a
+ * reader on a gold page had no sentence to follow to the servicing half, and that the two pages the
+ * site exists to be found through were reachable only through navigation.
+ *
+ * Asserted against the BUILT output, because a link a template would emit is not a link. Skipped
+ * when `out/` is absent, the same way the conversion-surface guards above are — CI builds first.
+ */
+describe("the commercial tree links to itself in prose", async () => {
+  const OUT_DIR = join(SITE, "out");
+  const built = existsSync(OUT_DIR);
+  const { buildGraph, linksOn } = built
+    ? await import("../scripts/link-graph.mjs")
+    : ({} as { buildGraph?: never; linksOn?: never });
+
+  const PILLARS = ["/loan-origination-software/", "/loan-management-system/"];
+  const PRODUCTS_PATHS = [
+    "/gold-loan-software/", "/vehicle-loan-software/", "/loan-against-property-software/",
+    "/microfinance-software/", "/business-loan-software/", "/cash-credit-software/",
+    "/personal-loan-software/",
+  ];
+
+  it.runIf(built)("every commercial page has three contextual inbound sources", () => {
+    /*
+     * THREE DISTINCT PAGES, not three links. A page that links to the same target twice has said
+     * one thing twice, and §3.1's rule is written about related pages rather than about anchors.
+     */
+    const graph = buildGraph!();
+    const thin = [...PILLARS, ...PRODUCTS_PATHS, "/platform/"]
+      .map((p) => [p, graph.get(p)?.from.size ?? 0] as const)
+      .filter(([, n]) => n < 3);
+    expect(thin, "each needs a sentence on three other pages that links to it").toEqual([]);
+  });
+
+  it.runIf(built)("each product page points at both halves of the lifecycle", () => {
+    /*
+     * Both pillars from every product page, because a product page is where somebody lands and the
+     * two pillars are what the site is trying to be found for. These links sit inside sentences the
+     * specs already contained — `lib/prose-links.tsx` records why a new field was not the answer.
+     */
+    const missing: string[] = [];
+    for (const p of PRODUCTS_PATHS) {
+      const html = readFileSync(join(OUT_DIR, p.slice(1), "index.html"), "utf8");
+      const out = new Set(linksOn!(html).filter((l) => l.kind === "contextual").map((l) => l.href));
+      for (const pillar of PILLARS) if (!out.has(pillar)) missing.push(`${p} -> ${pillar}`);
+    }
+    expect(missing).toEqual([]);
+  });
+
+  it.runIf(built)("the links are inside prose, not a block of them at the end", () => {
+    /*
+     * §3.3 forbids a paragraph whose only purpose is holding links, and the cheapest way to breach
+     * it is a "You may also like" strip. The related-posts and further-reading blocks on this site
+     * are CARDS, which the counter classifies as listings — so a contextual link appearing in one
+     * would mean somebody had put bare anchors in a grid.
+     */
+    const html = readFileSync(join(OUT_DIR, "gold-loan-software", "index.html"), "utf8");
+    expect(html).not.toMatch(/You may also like|Related links<|Further reading<\/h2>\s*<ul[^>]*>\s*<li><a/);
+  });
+});
