@@ -55,7 +55,9 @@ forgives nothing, and a claim in a recovery proceeding still includes it.
 account daily but only reaches the general ledger monthly, an account that turns NPA mid-month has
 accrued interest that was never recognised. There is nothing to reverse — but the pre-NPA portion of
 that month still had to be recognised, and then reversed. Both halves get missed together, and the
-books balance, which is why nobody notices.
+books balance, which is why nobody notices — the mirror of that failure is
+[a system that posts the reversal twice](/blog/npa-income-reversal-software-nbfc/), where the books
+do not balance and the suspense credit exceeds anything the loan ever accrued.
 
 **Impairment is treated as a status rather than a history.** An account that is written off, settled
 or partly recovered from a security auction got there *through* impairment. Interest attributable to

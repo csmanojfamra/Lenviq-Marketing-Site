@@ -99,7 +99,8 @@ collection at all. Most lenders exclude penal from the demand base. Few say so.
 **Growth flatters three of the four.** A book disbursing heavily has accounts that are in the
 portfolio and not yet in the demand base, so the denominator lags the exposure. This is the same
 dilution a static pool exists to defeat —
-[how to build one](/blog/static-pool-analysis-how-to-build/).
+[how to build one](/blog/static-pool-analysis-how-to-build/), assuming the system kept
+[the month-end positions it needs](/blog/static-pool-analysis-software-nbfc/).
 
 ## The reporting convention worth adopting
 

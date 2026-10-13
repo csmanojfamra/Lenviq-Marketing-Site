@@ -53,7 +53,8 @@ improving or deteriorating?
 
 ## What this means for a lending system
 
-All four are historical. They need the position as at past dates, not merely today's outstanding —
+All four are historical. They need
+[the position as at past dates](/blog/static-pool-analysis-software-nbfc/), not merely today's outstanding —
 which means the system has to retain month-end positions rather than reconstruct them. A book that
 can only report its current state cannot answer any of these questions, and the request usually
 arrives with a deadline.

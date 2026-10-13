@@ -4,15 +4,23 @@ import { join } from "node:path";
 /**
  * Posts are files. No CMS, no database, no build ceremony — adding one is one file.
  *
- * ## Drafts do not exist to the build
+ * ## Drafts are built, at their own URL, and reach no listing
  *
- * `draft: true` is not a badge on a page that ships anyway. A draft is filtered out here, which is
- * the only loader either the index or the post route uses, so a draft has no route, no entry in
- * the sitemap and no way to be reached by guessing the URL.
+ * `draft: true` is the one field and `publication.ts` holds what it means. A draft is filtered out
+ * of `publishedPosts`, which every LISTING loads, so it appears in no index, no feed, no
+ * related-posts block and no sitemap entry — and therefore offers a crawler no path by which to
+ * discover it. It does get a route, carrying `noindex, nofollow`, so the person whose name goes on
+ * a regulatory claim can read it before it ships.
  *
- * That is the whole point of the rule: one wrong regulatory claim on a page a lender might act on
- * costs more credibility than five correct posts earn. `noindex` would have left the page reachable
- * and indexable-by-mistake; not building it cannot fail that way.
+ * The rule it serves is unchanged: one wrong regulatory claim on a page a lender might act on costs
+ * more credibility than five correct posts earn.
+ *
+ * **This paragraph used to say the opposite** — that a draft had no route at all. That was true of
+ * the original mechanism and is the stronger guarantee against accidental indexing; Sprint SEO-3
+ * reversed it deliberately, because an unbuilt draft could only be read by running `next dev` on
+ * somebody's laptop, and a review gate nobody can review through is how seven pages went live
+ * unreviewed. `publication.ts` records the trade. Left stale, this comment was itself an instance of
+ * the defect this project keeps finding: prose asserting behaviour the code does not have.
  */
 export interface Post {
   slug: string;
@@ -50,6 +58,36 @@ export interface Post {
    * with: mid-article points at the free tool, not at the product.
    */
   tool?: string;
+  /**
+   * THE QUESTION THE PAGE ANSWERS, in the words a person would type (Sprint SEO-4 §1.2 block 5).
+   *
+   * Present, the route labels the opening as a quick answer and puts this above it. The opening
+   * paragraphs are already the answer — the route has always split the body at the first `##` and
+   * rendered what precedes it first — so this adds the half that was missing, which is the question
+   * itself. An answer engine lifts a question joined to its answer; it does not lift a first
+   * paragraph that happens to be responsive to a query nobody wrote down.
+   *
+   * Absent on the fifty-six posts that predate it, and they render exactly as before.
+   *
+   * The discipline that goes with the field, which no code can enforce: the answer has to be true
+   * with any sentence naming Lenviq deleted, and it has to answer the question before it mentions
+   * the product. A quick answer that opens by selling is one a reader stops reading.
+   */
+  question?: string;
+  /**
+   * SIX TO EIGHT SLUGS, hand-picked, for the reading list at the foot (Sprint SEO-4 §1.2 block 11).
+   *
+   * Distinct from `relatedPosts`, which is automatic, three long and category-driven — fine for a
+   * post whose neighbours are obvious, and too few for a page written as the hub of a cluster. This
+   * is a choice: the slugs a reader of THIS page should go to next, in the order they should go.
+   *
+   * Resolved through `postBySlug`, which is the PUBLISHED loader. That is deliberate and it is
+   * consequence 3 of `publication.ts`: a hand-written list naming a draft would be a listing link
+   * into unreviewed content, which is the exact leak Sprint SEO-3 found in the tools' further-reading
+   * block. A slug that is a draft, or misspelt, silently drops out; `tests/site.test.ts` asserts a
+   * published post's list resolves whole, so a typo fails the build rather than shortening a list.
+   */
+  related: string[];
   draft: boolean;
   body: string;
   readingMinutes: number;
@@ -75,6 +113,9 @@ function parse(file: string): Post {
     updated: meta.updated || undefined,
     date: meta.date ?? "",
     tool: meta.tool || undefined,
+    question: meta.question || undefined,
+    // Comma-separated slugs. Empty entries dropped so a trailing comma is not a lookup for "".
+    related: (meta.related ?? "").split(",").map((s) => s.trim()).filter(Boolean),
     category: meta.category ?? "Regulatory",
     author: meta.author ?? "Lenviq",
     draft: meta.draft === "true",
@@ -162,6 +203,21 @@ export const postBySlug = (slug: string): Post | undefined =>
 /** The post at this slug whether or not it is published — for the post route's own lookup. */
 export const anyPostBySlug = (slug: string): Post | undefined =>
   all().find((p) => p.slug === slug);
+
+/**
+ * The hand-picked reading list, resolved to posts — PUBLISHED ones only.
+ *
+ * `postBySlug` rather than `anyPostBySlug`, and that is the whole point: this list renders as links
+ * on a live page, so it is a listing under `publication.ts` consequence 3. A draft named here drops
+ * out silently rather than becoming a crawl path into something nobody has signed off.
+ *
+ * A misspelt slug drops out the same way, which is why `tests/site.test.ts` checks that every
+ * published post's list resolves to the same number of entries it names. Silence is right at
+ * runtime and wrong at build time.
+ */
+export function readingList(p: Post): Post[] {
+  return p.related.map((s) => postBySlug(s)).filter((x): x is Post => Boolean(x));
+}
 
 /**
  * The FAQ pairs out of a post body, for FAQPage structured data.

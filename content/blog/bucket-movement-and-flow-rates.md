@@ -131,7 +131,8 @@ is being computed against a denominator that moves. [Why that happens](/blog/ira
 - **Collection efficiency** is a period cash measure — [four definitions, four
   answers](/blog/collection-efficiency-how-to-compute/).
 - **Static pool** is a cohort credit measure — [how to build
-  one](/blog/static-pool-analysis-how-to-build/).
+  one](/blog/static-pool-analysis-how-to-build/), and
+  [the fields a system must freeze first](/blog/static-pool-analysis-software-nbfc/).
 - **DCB** ties the borrower's arrears to the ledger — [why it stops
   tying](/blog/dcb-reconciliation-why-it-stops-tying/).
 - **Bucket movement** is the only one of the four that is **predictive**, and the only one that

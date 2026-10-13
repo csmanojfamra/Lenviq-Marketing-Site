@@ -89,7 +89,8 @@ derived from the same place — the demands raised and what has been paid agains
 **It does not undo the income reversal.** Interest accrued and reversed to suspense at classification
 stays reversed; what changes is that income recognition returns to accrual basis from the upgrade.
 The reversal is a completed event, not a suspended one —
-[what happens to income on classification](/blog/npa-income-reversal/).
+[what happens to income on classification](/blog/npa-income-reversal/), and
+[the entries in both directions](/blog/npa-income-reversal-software-nbfc/).
 
 **It does not erase the provision retrospectively.** The provision held while the account was
 non-performing was correct when it was held.

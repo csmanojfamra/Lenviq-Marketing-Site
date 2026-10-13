@@ -1520,3 +1520,148 @@ describe("the commercial tree links to itself in prose", async () => {
     expect(html).not.toMatch(/You may also like|Related links<|Further reading<\/h2>\s*<ul[^>]*>\s*<li><a/);
   });
 });
+
+/**
+ * THE ARTEFACT-PLUS-SOFTWARE PAGE TYPE (Sprint SEO-4).
+ *
+ * Six pages joining one named artefact — a static pool, an SMA bucket, a CKYC upload — to the
+ * question of what a lending system has to do about it. The shape was taken from two pages that
+ * rank, and three of its blocks did not exist on this site before: a labelled QUICK ANSWER with
+ * the question in the words a person would type, a hand-picked reading list of six to eight, and
+ * a limits column that names what the software must not pretend to do.
+ *
+ * Two of those three are mechanisms rather than prose, so they get guards:
+ *
+ *   · a `question:` in front matter must RENDER as a quick answer block, and must not quietly
+ *     become a field nothing reads;
+ *   · a `related:` list must resolve WHOLE. It is resolved through the published loader, which is
+ *     correct at runtime — a draft named there has to drop out — and dangerous at authoring time,
+ *     because a misspelt slug drops out the same silent way. A typo should fail the build, not
+ *     shorten a list nobody counted.
+ *
+ * And one property is the reason the sprint was allowed to publish into this site at all: the
+ * limits column. A page of this type that asserts a capability and names no limit is the defect
+ * this project has found three times, in marketing clothes.
+ */
+describe("the artefact-plus-software pages carry the blocks that define them", async () => {
+  const OUT_DIR = join(SITE, "out");
+  const built = existsSync(OUT_DIR);
+  const content = await import("../src/lib/content");
+
+  /** The page type, by the convention its slugs hold to. */
+  const TYPE = content.allPostsIncludingDrafts().filter((p) => p.slug.endsWith("-software-nbfc"));
+
+  it("there are some, and each declares a question", () => {
+    /*
+     * The convention is the slug: `<artefact>-software-nbfc`, held across all of them, which is what
+     * lets this guard find the type without a list to keep in step. Two pages predate the sprint and
+     * carry the suffix without the blocks, so the question is asserted on the ones that declare one
+     * rather than on every match — and the count below is what stops that becoming a loophole.
+     */
+    expect(TYPE.length).toBeGreaterThanOrEqual(6);
+    const withQuestion = TYPE.filter((p) => p.question);
+    expect(withQuestion.length, "the sprint wrote six of these").toBeGreaterThanOrEqual(6);
+    for (const p of withQuestion) {
+      expect(p.question, `${p.slug}: a question a person would type ends in one`).toMatch(/\?$/);
+    }
+  });
+
+  it("every hand-picked reading list resolves whole", () => {
+    /*
+     * The failure this exists for: `realted:` instead of `related:`, or a slug off by a hyphen.
+     * `readingList` filters through `postBySlug` and returns what it found, so the page renders a
+     * list of five where eight were written and nothing anywhere says so.
+     *
+     * Drafts are the one legitimate shortfall and are excluded by name rather than by arithmetic —
+     * a list that names a draft SHOULD come back short, because consequence 3 of `publication.ts`
+     * is that no listing links to one.
+     */
+    const drafts = new Set(content.allPostsIncludingDrafts().filter((p) => p.draft).map((p) => p.slug));
+    for (const p of content.allPostsIncludingDrafts()) {
+      if (p.related.length === 0) continue;
+      const expected = p.related.filter((s) => !drafts.has(s));
+      const got = content.readingList(p).map((r) => r.slug);
+      expect(got, `${p.slug}: ${expected.filter((s) => !got.includes(s)).join(", ")} did not resolve`)
+        .toHaveLength(expected.length);
+      expect(p.related, `${p.slug}: a related list is six to eight entries`).not.toHaveLength(1);
+    }
+  });
+
+  it("no reading list names a draft", () => {
+    /*
+     * Belt and braces over the runtime filter. A front-matter list naming a draft is a crawl path
+     * into unreviewed content the moment somebody changes the resolver — which is exactly how the
+     * tools' further-reading block leaked in Sprint SEO-3, a literal href list that knew nothing
+     * about publication state.
+     */
+    const drafts = new Set(content.allPostsIncludingDrafts().filter((p) => p.draft).map((p) => p.slug));
+    const offenders: string[] = [];
+    for (const p of content.allPostsIncludingDrafts())
+      for (const s of p.related) if (drafts.has(s)) offenders.push(`${p.slug} -> ${s}`);
+    expect(offenders, "name the page after it is published, not before").toEqual([]);
+  });
+
+  it("each page names what the software must not pretend to do", () => {
+    /*
+     * The honesty device, and the house claims rule applied to marketing copy: a page of this type
+     * asserts product behaviour, so it carries the column that bounds the assertion. Checked in the
+     * SOURCE rather than the build, because what matters is that the author wrote it.
+     */
+    for (const p of TYPE) {
+      if (!p.question) continue; // predates the sprint
+      expect(p.body, `${p.slug}: no limits column and no limits section`)
+        .toMatch(/must not pretend to do|does \*\*not\*\* do|not yet offered/);
+    }
+  });
+
+  it.runIf(built)("the question renders as a quick answer, above the contents list", () => {
+    /*
+     * The field has to reach the page. A front-matter key nothing reads is the cheapest kind of
+     * wrong — it looks authored and renders nothing — and the ORDER is the half worth asserting:
+     * the answer comes before the contents list, which is this site's deliberate departure from the
+     * two pages the structure was taken from. On a phone, a nine-item list above the answer is
+     * three hundred pixels of navigation before a single word.
+     */
+    for (const p of TYPE) {
+      if (!p.question) continue;
+      const html = readFileSync(join(OUT_DIR, "blog", p.slug, "index.html"), "utf8");
+      expect(html, `${p.slug}: no quick answer block`).toMatch(/Quick answer/);
+      expect(html, `${p.slug}: the question is not rendered`).toContain(p.question.replace(/&/g, "&amp;"));
+      const answer = html.indexOf("Quick answer");
+      const toc = html.indexOf("On this page");
+      expect(answer, `${p.slug}: the question is missing from the built page`).toBeGreaterThan(-1);
+      if (toc > -1) expect(answer, `${p.slug}: the contents list precedes the answer`).toBeLessThan(toc);
+    }
+  });
+
+  it.runIf(built)("the reading list renders, and the automatic three do not render beside it", () => {
+    /*
+     * One list, not two. The automatic "Read next" is three category neighbours and is right for a
+     * post with obvious ones; a page written as the hub of a cluster names its own eight. Both at
+     * once is two lists a reader scrolls past.
+     */
+    for (const p of TYPE) {
+      if (p.related.length === 0) continue;
+      const html = readFileSync(join(OUT_DIR, "blog", p.slug, "index.html"), "utf8");
+      expect(html, `${p.slug}: no related reading block`).toMatch(/Related reading/);
+      expect(html, `${p.slug}: both reading lists rendered`).not.toMatch(/Read next/);
+    }
+  });
+
+  it.runIf(built)("a published page of this type has three contextual inbound sources", async () => {
+    /*
+     * Sprint SEO-4 §4's own precondition, and the evidence for it is in SEO-4 §0: thirteen pages
+     * published into a domain with one external backlink were crawled and declined. A new page with
+     * no sentence anywhere pointing at it is a new page to be declined.
+     *
+     * Drafts are exempt by construction — nothing may link to one — which is why this runs on the
+     * published ones only, and why publishing one later means adding its inbound links first.
+     */
+    const { buildGraph } = await import("../scripts/link-graph.mjs");
+    const graph = buildGraph();
+    const thin = TYPE.filter((p) => !p.draft && p.question)
+      .map((p) => [`/blog/${p.slug}/`, graph.get(`/blog/${p.slug}/`)?.from.size ?? 0] as const)
+      .filter(([, n]) => n < 3);
+    expect(thin, "each needs a sentence on three other pages that links to it").toEqual([]);
+  });
+});

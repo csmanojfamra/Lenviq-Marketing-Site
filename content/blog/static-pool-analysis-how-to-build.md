@@ -60,7 +60,9 @@ disbursement month will show a one-off shift that reads exactly like a credit ev
 during the window — each has a defensible treatment and an indefensible silence. The common
 convention is that **a cohort is fixed at formation and nothing leaves it**: a loan foreclosed in
 month 7 stays in the denominator at its original value, because removing it would let good outcomes
-shrink the base and flatter the curve. That is a choice, not a rule, and it needs recording.
+shrink the base and flatter the curve. That is a choice, not a rule, and it needs recording — as do
+[the three fields that have to be frozen](/blog/static-pool-analysis-software-nbfc/) before any of
+these choices can be made at all.
 
 ## Choice two: the numerator, and whether it is value or count
 

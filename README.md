@@ -55,9 +55,34 @@ font subsets. Day to day neither is needed: the generated outputs in `brand/publ
 - **Nothing is claimed that cannot be checked** — no counters, no adoption figures, no uptime
   numbers, no testimonials.
 - **The domain is written down once**, and there is no `.com` anywhere.
+- **A hand-picked reading list resolves whole.** `related:` is resolved through the *published*
+  loader, which is right at runtime — a draft named there must drop out — and silent at authoring
+  time, so a misspelt slug would shorten a list nobody counted. The guard counts.
+- **No reading list names a draft**, and **a published artefact+software page has three contextual
+  inbound sources**. A new page with no sentence anywhere pointing at it is a new page Google
+  declines; thirteen of them were, on 10 October 2026.
 
 One wrong regulatory claim published under a practising CA and CS's company name costs more
 credibility than five correct posts earn. That is what these are for.
+
+## Writing a post
+
+Front matter. `title`, `description`, `metaDescription`, `date`, `category`, `author` and `draft`
+are required on every post; the rest are optional and absent on the posts that predate them.
+
+| Field | What it does |
+|---|---|
+| `draft:` | `true` builds the page at its own URL with `noindex, nofollow`, out of the sitemap and out of every listing. `src/lib/publication.ts` holds all four consequences and why a draft is built at all |
+| `updated:` | The date of a genuine revision. Absent means `dateModified` is the publication date, which is the truthful answer |
+| `tool:` | The slug of a free tool this subject has one of. Drives the in-article card |
+| `question:` | The question the page answers, in the words a person would type. Renders the opening paragraphs as a labelled **Quick answer** with this above them. The answer must be true with any sentence naming Lenviq deleted |
+| `related:` | Six to eight slugs, comma-separated, hand-picked and in reading order. Renders as **Related reading** and replaces the automatic three-item "Read next" |
+
+The **artefact+software** pages (`<artefact>-software-nbfc`) are the type Sprint SEO-4 added: one
+named artefact joined to what a lending system has to do about it. Each carries a question, a
+reading list, and a column saying what the software **must not pretend to do** — the claims rule
+applied to marketing copy, and a guard checks it is there. `docs/SPRINT_SEO4_REPORT.md` has the
+reasoning and the measurements.
 
 ## Indexable — except the two legal drafts
 

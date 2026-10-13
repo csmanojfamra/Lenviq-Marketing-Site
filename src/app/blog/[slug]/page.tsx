@@ -3,7 +3,7 @@ import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Section } from "@/components/ui";
-import { allPostsIncludingDrafts, anyPostBySlug, postFaqs, relatedPosts } from "@/lib/content";
+import { allPostsIncludingDrafts, anyPostBySlug, postFaqs, readingList, relatedPosts } from "@/lib/content";
 import { toolBySlug } from "@/lib/tools";
 import { absolute, COMPANY } from "@/lib/site";
 import { renderMarkdown, outline, splitAtMidHeading } from "@/lib/markdown";
@@ -47,6 +47,13 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   if (!p) notFound();
 
   const related = relatedPosts(p.slug);
+  /**
+   * The hand-picked list wins where a post has one, and the automatic three serve the rest.
+   *
+   * Not both: two reading lists on one page is two lists a reader scrolls past. `readingList`
+   * resolves through the published loader, so a draft named in front matter is absent here.
+   */
+  const picked = readingList(p);
   const contents = outline(p.body);
   const body = autolinkGlossary(renderMarkdown(p.body));
   const mid = splitAtMidHeading(body);
@@ -168,6 +175,17 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       <nav className="text-[13px] text-muted">
         <Link href="/blog/" className="hover:text-ink">Blog</Link>
       </nav>
+      {/*
+        * The category, as a label above the title.
+        *
+        * It was already on the page, in the byline run beneath the H1 between the author and the
+        * date, where it reads as one more piece of metadata. A reader scanning a search result they
+        * have just clicked wants to know what KIND of page this is before they commit to the
+        * headline, which is why both of the pages Sprint SEO-4 takes its structure from carry it
+        * there. Same string, one place earlier; nothing is duplicated, because the byline below
+        * drops it.
+        */}
+      <p className="mt-s4 text-[12px] font-semibold uppercase tracking-[0.08em] text-cta">{p.category}</p>
       <h1 className="mt-s2 max-w-3xl text-[32px] font-extrabold leading-[1.12] tracking-display-tight text-ink sm:text-[42px]">
         {p.title}
       </h1>
@@ -178,7 +196,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         >
           {p.author}
         </Link>
-        {" · "}{p.category} · {p.date}
+        {" · "}{p.date}
         {p.updated ? ` · updated ${p.updated}` : ""} · {p.readingMinutes} min read (estimated)
       </p>
       {/*
@@ -226,7 +244,34 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             * Two columns from `sm` up, because nine items in one column is a list you scroll past
             * rather than read.
             */}
-          <div className="prose-lenviq max-w-prose" dangerouslySetInnerHTML={{ __html: opening }} />
+          {/*
+            * QUICK ANSWER — the question, then the opening, where the post declares a question.
+            *
+            * The answer is not a second copy of anything: it is the same opening paragraphs this
+            * route has always rendered first, wrapped and labelled. What the front matter adds is
+            * the question, which is the half that was missing — an answer engine lifts a question
+            * joined to its answer, and will not infer the question from a paragraph that happens to
+            * be responsive to it.
+            *
+            * `<h2>` so it is a real heading in the document outline rather than styled text, and
+            * `aria-labelledby` so the region announces as what it is. It is deliberately NOT in the
+            * contents list: `outline` reads the markdown body and this heading is not in it, which
+            * is right — a contents list should not offer a link to the thing directly above it.
+            */}
+          {p.question ? (
+            <section
+              aria-labelledby="quick-answer"
+              className="max-w-prose rounded-card border border-line border-l-[3px] border-l-[color:var(--color-cta)] bg-subtle p-s4"
+            >
+              <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-muted">Quick answer</p>
+              <h2 id="quick-answer" className="mt-s2 font-display text-[20px] font-bold leading-snug tracking-display text-ink">
+                {p.question}
+              </h2>
+              <div className="prose-lenviq mt-s3" dangerouslySetInnerHTML={{ __html: opening }} />
+            </section>
+          ) : (
+            <div className="prose-lenviq max-w-prose" dangerouslySetInnerHTML={{ __html: opening }} />
+          )}
           {contents.length >= 4 && (
           <nav className="mt-s5 max-w-prose rounded-card border border-line bg-subtle p-s4" aria-label="On this page">
             <p className="text-[13px] font-semibold uppercase tracking-wide text-muted">On this page</p>
@@ -266,7 +311,32 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         * Three related posts also give every article outbound links to its own topic cluster,
         * which the blog had none of: each post was a leaf.
         */}
-      {related.length > 0 && (
+      {/*
+        * RELATED READING — the hand-picked list, six to eight entries, where the post declares one.
+        *
+        * Titles only and two columns, because eight standfirsts is a page of its own; the automatic
+        * three below keep theirs, which is what makes a short list worth reading. The resolver is
+        * the published loader, so a draft named in front matter is simply not here.
+        */}
+      {picked.length > 0 && (
+        <section className="mt-s6 border-t border-line pt-s4">
+          <h2 className="font-display text-[19px] font-bold tracking-display text-ink">Related reading</h2>
+          <ul className="mt-s3 grid gap-s3 sm:grid-cols-2 sm:gap-x-s5">
+            {picked.map((r) => (
+              <li key={r.slug}>
+                <Link
+                  href={`/blog/${r.slug}/`}
+                  className="text-[15px] leading-snug text-cta underline decoration-line-strong underline-offset-4 hover:text-ink"
+                >
+                  {r.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {picked.length === 0 && related.length > 0 && (
         <section className="mt-s6 border-t border-line pt-s4">
           <h2 className="font-display text-[19px] font-bold tracking-display text-ink">Read next</h2>
           <ul className="mt-s3 space-y-s3">

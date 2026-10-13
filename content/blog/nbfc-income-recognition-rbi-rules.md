@@ -16,7 +16,8 @@ income is recognised only as money actually arrives.
 
 Both halves are the rule. The first is almost always implemented, because it shows up in the profit
 and loss statement and somebody notices. The second frequently is not — and its absence understates
-income permanently while a suspense balance grows that nobody can clear.
+income permanently while a suspense balance grows that nobody can clear, which is one of
+[the two postings a lending system reliably gets wrong](/blog/npa-income-reversal-software-nbfc/).
 
 ## Why is accrued interest reversed at classification?
 
