@@ -220,8 +220,8 @@ const commercialEntries = (): IntentEntry[] =>
  */
 const HUBS: IntentEntry[] = [
   { url: "/solutions/", type: "Solution", intent: "Commercial", priority: 2,
-    primary: "NBFC lending software by artefact",
-    secondary: ["what a lending system has to handle", "NBFC lending software"] },
+    primary: "NBFC lending software solutions",
+    secondary: ["what a lending system has to handle", "lending software by obligation"] },
   { url: "/enterprise/", type: "Enterprise", intent: "Commercial", priority: 2,
     primary: "enterprise lending platform for NBFCs",
     secondary: ["multi-branch multi-product lending platform", "NBFC lending software"] },
