@@ -3,6 +3,7 @@ title: "Days past due: one number, two questions, and the one a status field can
 description: "Every delinquency figure a lender reports comes from days past due — classification, provisioning, the bureau file. It is measured from the oldest unpaid demand, cut by a day-end process, and it has two readings that must agree for today and are computed completely differently."
 metaDescription: "Days past due is measured from the oldest unpaid demand and cut at day end. Why it has two readings, and why only one can answer about the past."
 question: "How are days past due calculated on a loan, and from which date?"
+keyword: "DPD calculation software"
 kind: artefact
 author: "CA Himanshu Sharma"
 updated: "2026-10-13"

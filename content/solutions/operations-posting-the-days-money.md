@@ -3,6 +3,7 @@ title: "Operations: posting the day's money, and the entries you are not allowed
 description: "Receipts, disbursements, mandates, bounces, corrections. Yours is the role that touches money, which is why almost everything it does is an event record rather than an edit — and why the one thing you cannot do is make a mistake disappear."
 metaDescription: "Receipts, disbursements, bounces, corrections. Why an operations role posts events rather than edits, and what that costs on a bad day."
 question: "What does an operations team actually do in a loan management system?"
+keyword: "loan operations software"
 kind: persona
 author: "CA Anil Agarwal"
 updated: "2026-10-13"

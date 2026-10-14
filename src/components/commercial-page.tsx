@@ -164,7 +164,9 @@ export function CommercialArticle({ page, crumb }: { page: CommercialPage; crumb
       {reading.length > 0 && (
         <section className="mt-s6 border-t border-line pt-s4">
           <h2 className="font-display text-[19px] font-bold tracking-display text-ink">Related reading</h2>
-          <ul className="mt-s3 grid gap-s3 sm:grid-cols-2 sm:gap-x-s5">
+          {/* `data-listing`: this list exists because it was generated, not because a sentence
+              needed it, so `scripts/link-graph.mjs` must not count it as a contextual link. */}
+          <ul data-listing className="mt-s3 grid gap-s3 sm:grid-cols-2 sm:gap-x-s5">
             {reading.map((r) => (
               <li key={r.href}>
                 <Link

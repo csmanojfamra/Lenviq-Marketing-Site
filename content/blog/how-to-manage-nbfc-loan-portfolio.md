@@ -41,8 +41,9 @@ answers. A report that does not say which it is invites the meeting where two pe
 **A stored day-end position.** Reporting reads what the book *was*, not what it is now recomputed to
 have been. Without it, a figure filed last quarter cannot be reproduced this quarter.
 
-**Scope enforced, not toggled.** A branch manager's portfolio view shows their branch because the
-system filters it, not because they remembered to set a filter.
+**Scope enforced, not toggled.** [A branch manager's portfolio view shows their branch because the
+system filters it](/solutions/branch-manager-closing-the-day/), not because they remembered to set a
+filter.
 
 ## What should be reviewed, and how often?
 

@@ -3,6 +3,7 @@ title: "SMA classification: the boundary is day one, and the number is reported"
 description: "SMA-0, SMA-1 and SMA-2 are not internal warning colours — they are a classification the regulator defines, cut by a day-end process on a date the circular fixes, and for reportable exposures they travel into a return. What the ranges actually are, and what a system has to compute to get them right."
 metaDescription: "SMA-0, 1 and 2 are a defined classification cut by the day-end process, not an internal warning colour. The ranges, the dates, and what a system must compute."
 question: "What do SMA-0, SMA-1 and SMA-2 mean, and when does an account enter each?"
+keyword: "SMA classification software"
 kind: artefact
 author: "CA Himanshu Sharma"
 updated: "2026-10-13"

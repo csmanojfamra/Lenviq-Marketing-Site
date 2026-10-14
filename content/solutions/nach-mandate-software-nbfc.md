@@ -3,6 +3,7 @@ title: "NACH mandates: the presentation you are allowed to make, and the bounce 
 description: "A mandate is not permission to debit whenever you like. There are limits on how often and how soon, and a presentation made outside them is refused by the system that should have stopped it. Then there is the harder half: what a returned instrument does to a receipt already posted."
 metaDescription: "A mandate has limits on how often and how soon you may present. And a returned instrument undoes a receipt that was already posted."
 question: "How often can an NBFC present a NACH mandate, and what happens when it bounces?"
+keyword: "NACH mandate management software"
 kind: artefact
 author: "CA Anil Agarwal"
 updated: "2026-10-13"

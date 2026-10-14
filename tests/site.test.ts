@@ -1809,6 +1809,30 @@ describe("the commercial layer is held back correctly", async () => {
       expect(raw, `${p.section}/${p.slug} does not declare draft:`).toMatch(/^draft: (true|false)$/m);
       expect(p.question, `${p.section}/${p.slug}: a question a person would type ends in one`).toMatch(/\?$/);
       expect(p.related.length, `${p.section}/${p.slug}: six to eight reading-list entries`).toBeGreaterThanOrEqual(6);
+      /*
+       * AND THE QUERY IT EXISTS TO ANSWER, declared before the flip rather than on the day.
+       *
+       * `seo-intent.ts` derives an entry from this when the page is published, and its own guard
+       * refuses a sitemap URL that has no stated intent. Without the field the whole layer was
+       * un-flippable: every one of the twenty dates would have turned the suite red, and the only
+       * way to find that was to flip a page locally and run it.
+       */
+      expect(p.keyword, `${p.section}/${p.slug}: no keyword: in front matter`).not.toBe("");
+    }
+  });
+
+  it("every page's intent entry appears exactly when the page does", () => {
+    /*
+     * The two halves of the intent guard pull in opposite directions — a sitemap URL with no entry
+     * fails one, an entry with no sitemap URL fails the other — so this asserts the derivation
+     * tracks `draft` rather than that the map is right today. A draft must have no entry; a
+     * published page must have one, carrying the keyword the page itself declares.
+     */
+    const byUrl = new Map(intentMap().map((e) => [e.url, e]));
+    for (const p of ALL) {
+      const url = commercial.pathOf(p);
+      if (p.draft) expect(byUrl.has(url), `${url} is a draft with an intent entry`).toBe(false);
+      else expect(byUrl.get(url)?.primary, `${url} is published with no intent entry`).toBe(p.keyword);
     }
   });
 
@@ -1886,6 +1910,26 @@ describe("the commercial layer is held back correctly", async () => {
         .filter((p) => html.includes(`href="/${section}/${p.slug}/"`));
       expect(leaked.map((p) => p.slug), `${section} hub links to an unpublished child`).toEqual([]);
     }
+  });
+
+  it.runIf(built)("every published page of the layer has three contextual inbound sources", async () => {
+    /*
+     * THE PRECONDITION FOR A FLIP, OVER BOTH SECTIONS.
+     *
+     * The SEO-4 guard above covers `/blog/` and `/solutions/` — it reads the page type, so it never
+     * saw `/enterprise/`, and four of the twenty pages could have been flipped with nothing pointing
+     * at them. This one is keyed on the layer instead, so a new section is covered the day it exists.
+     *
+     * `buildGraph` now skips a `noindex` page as a SOURCE, so these are live sources only: a link
+     * from a page that is itself held back passes no weight, and counting it was the weakness
+     * SEO-5 reported and measured around by hand.
+     */
+    const { buildGraph } = await import("../scripts/link-graph.mjs");
+    const graph = buildGraph();
+    const thin = ALL.filter((p) => !p.draft)
+      .map((p) => [commercial.pathOf(p), graph.get(commercial.pathOf(p))?.from.size ?? 0] as const)
+      .filter(([, n]) => n < 3);
+    expect(thin, "each needs a sentence on three other LIVE pages that links to it").toEqual([]);
   });
 
   it.runIf(built)("every page carries the blocks, read from the rendered output", () => {

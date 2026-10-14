@@ -25,7 +25,7 @@ what is not:
   instalments, tripartite arrangements.)
 - Which security types, and do any need physical custody?
 - Do you co-lend or securitise?
-- How many branches, and what should a branch user see?
+- How many branches, and [what should a branch user see](/enterprise/many-branches-one-book/)?
 - What does your finance function use, and will it move?
 - What has to be migrated, and how clean is it?
 
@@ -107,11 +107,12 @@ need to be walked through why they are being asked for, and that itself is infor
 
 - **Scoring on feature count.** Every list is long.
 - **Demonstrating only the happy path.** Every vendor's happy path works.
-- **Skipping migration scope.** It is where the cost and the risk are.
+- **Skipping migration scope.** [It is where the cost and the risk are](/enterprise/migrating-a-live-book/).
 - **No reference call without the vendor.** The only unfiltered information you will get.
 - **Leaving exit to contracting.** By then you have no leverage.
 - **Choosing the LOS and the LMS separately.** You will own the seam between them.
-- **Assuming accounting is included.** Ask whether vouchers are posted per event or per month.
+- **Assuming accounting is included.** Ask whether
+  [vouchers are posted per event or per month](/enterprise/one-chart-of-accounts/).
 
 ## A worked example
 

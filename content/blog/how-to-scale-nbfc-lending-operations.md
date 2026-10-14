@@ -57,8 +57,8 @@ bureau file.
 **2. Accounting posted per event,** so month-end is a close rather than a reconciliation. This is the
 single largest determinant of whether the finance function scales with the book or with the headcount.
 
-**3. Data scope enforced.** Every list, report and export filtered by the acting user's scope, with no
-toggle that ignores it. Retrofitting this means auditing every query in the system.
+**3. Data scope enforced.** [Every list, report and export filtered by the acting user's
+scope](/enterprise/many-branches-one-book/), with no toggle that ignores it. Retrofitting this means auditing every query in the system.
 
 **4. Maker-checker where money moves,** and on master activation. It is a control that costs nothing
 when there are three users and is impossible to introduce cleanly when there are sixty.
@@ -85,7 +85,7 @@ Three things beyond the obvious:
 - **Hiring ahead of the reconciliation problem.** Adds people to a process that should not exist.
 - **Scoping access later.** Every query has to be audited.
 - **Maker-checker introduced after growth.** Politically much harder at sixty users than at six.
-- **A second system for the new product.** Two books, one lender.
+- **A second system for the new product.** [Two books, one lender](/enterprise/many-products-one-engine/).
 - **Assuming the constraint is technical.** It is usually the month-end close or the approver queue.
 - **Growing the deviation rate quietly.** The earliest indicator of a book about to turn, and the one
   nobody has a report for.

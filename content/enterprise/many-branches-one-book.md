@@ -3,6 +3,7 @@ title: "Forty branches, one book: who sees which borrower, and whose approval a 
 description: "At one branch the questions do not come up. At forty, every figure is a roll-up somebody has to be able to trace back, every approval has a chain, and the hardest part is not reporting — it is making sure a branch manager cannot read another branch's borrower."
 metaDescription: "At forty branches every figure is a roll-up and every approval has a chain. What branch and region scoping actually enforces, and where it stops."
 question: "How does a lender with many branches control who sees what, and who approves what?"
+keyword: "multi-branch loan management software"
 kind: situation
 updated: "2026-10-13"
 related: "/security/|Security, tenant isolation and audit, audit-trail-what-counts, how-to-scale-nbfc-lending-operations, how-to-manage-nbfc-loan-portfolio, due-diligence-what-lenders-ask, /reports/|Reports and MIS, collection-efficiency-how-to-compute"

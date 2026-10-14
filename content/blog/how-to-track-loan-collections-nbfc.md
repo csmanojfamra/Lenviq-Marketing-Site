@@ -34,7 +34,8 @@ where a borrower gets chased for money they have already paid.
 
 ## How should accounts be allocated?
 
-Allocation is a risk decision, not an alphabetical one. The variables that matter:
+[Allocation is a risk decision, not an alphabetical
+one](/solutions/branch-manager-closing-the-day/). The variables that matter:
 
 | Variable | Why |
 |---|---|
@@ -54,7 +55,9 @@ had it when a borrower complains is not.
 
 ## What has to be true of a field receipt?
 
-That it is indistinguishable from a branch receipt in every respect except where it was taken.
+That it is
+[indistinguishable from a branch receipt in every respect except where it was
+taken](/solutions/operations-posting-the-days-money/).
 
 - **Same appropriation order.** Charges, interest, principal — in whatever order the loan's own
   snapshotted terms specify. Two borrowers who paid the same amount must end up with the same

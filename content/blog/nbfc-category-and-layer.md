@@ -148,8 +148,8 @@ rate or filing the wrong return.
 
 The annex to the Filing of Supervisory Returns Directions, 2024 names the filer for each return, so
 [which returns you owe follows from the layer](/solutions/rbi-returns-software-nbfc/) rather than from
-asset size directly. A lender recorded in the wrong layer is given an obligation it does not have and
-prompted for none of the ones it does.
+asset size directly. [A lender recorded in the wrong layer is given an obligation it does not have and
+prompted for none of the ones it does](/solutions/compliance-officer-the-quarter/).
 
 ## Frequently asked questions
 

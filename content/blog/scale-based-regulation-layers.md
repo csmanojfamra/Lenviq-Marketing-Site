@@ -90,8 +90,8 @@ foreclosure quote. The rest are organisational.
 ## How this lands in a lending system
 
 The layer should be **configuration on the tenant**, not an assumption in code, because the rules
-that read it will multiply. Today it decides the prepayment charge treatment. It already shapes what
-returns apply. It will decide more.
+that read it will multiply. Today it decides the prepayment charge treatment. [It already shapes what
+returns apply](/solutions/compliance-officer-the-quarter/). It will decide more.
 
 The second requirement is that a change of layer is a **dated event**, not an edit. A loan foreclosed
 last year under Base Layer treatment was correctly treated then, and a system that recomputes history

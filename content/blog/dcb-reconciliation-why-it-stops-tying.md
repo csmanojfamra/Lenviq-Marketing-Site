@@ -83,7 +83,8 @@ month's DCB does not match the one you circulated.
 
 ### 5. A backdated receipt landing under entries already posted
 
-The borrower paid on the 3rd; it was keyed on the 8th. Every accrual between those dates was computed
+[The borrower paid on the 3rd; it was keyed on the
+8th](/solutions/operations-posting-the-days-money/). Every accrual between those dates was computed
 on a principal the receipt has since changed. The receipt is right and the accruals are stale.
 
 The DCB will tie for the *period* and the arrears ageing inside it will be wrong, because the DPD on
@@ -123,7 +124,8 @@ with two figures carried alongside rather than inside it:
 - **accrued but not demanded** — the bridge to the general ledger
 - **advance held, unapplied** — cash received against no demand
 
-A DCB with those eight lines reconciles against both the borrower's statement and the ledger. A DCB
+A DCB with those eight lines
+[reconciles against both the borrower's statement and the ledger](/enterprise/one-chart-of-accounts/). A DCB
 with three columns reconciles against neither, and the daily hunt for the difference is a search for
 a term rather than an error.
 

@@ -3,6 +3,7 @@ title: "The quarter, from a compliance officer's desk: twenty-one days and four 
 description: "The quarter ends and a clock starts. The returns you owe depend on your layer, the figures have to be as at the quarter end rather than as at today, the quarter has to stop moving once you have filed on it, and nothing counts as filed without an acknowledgement."
 metaDescription: "The quarter ends and a clock starts. Which returns you owe, as at which date, and why a filing without an acknowledgement is not evidence."
 question: "What does a compliance officer at an NBFC have to produce each quarter?"
+keyword: "NBFC compliance officer software"
 kind: persona
 author: "CS Manoj Famra"
 updated: "2026-10-13"

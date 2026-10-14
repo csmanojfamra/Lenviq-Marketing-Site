@@ -3,6 +3,7 @@ title: "A branch manager's day: the files on your desk, the ones that are not, a
 description: "You approve what the matrix routes to you, chase what is overdue, decide what to defer, and at some point the day has to close. What the software puts in front of you, what it keeps away from you, and what it will not let you do alone."
 metaDescription: "What the approval matrix routes to a branch manager, what the scope keeps away, and what day end actually does."
 question: "What does a loan management system actually do for a branch manager?"
+keyword: "loan management software for a branch manager"
 kind: persona
 author: "CS Sushil Choudhary"
 updated: "2026-10-13"

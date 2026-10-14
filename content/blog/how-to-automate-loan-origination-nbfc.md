@@ -54,8 +54,8 @@ that no system ever ran.
 
 ## What has to be true of the approval matrix?
 
-- **It routes by the facts of the file**, not by who is available: amount, product, deviation
-  severity, borrower category.
+- **It routes by the facts of the file**, [not by who is available](/solutions/branch-manager-closing-the-day/): amount, product,
+  deviation severity, borrower category.
 - **It escalates on deviation**, and the deviation is recorded with the reason and the approver.
 - **Maker and checker are different people**, enforced rather than expected.
 - **The matrix in force at sanction is recorded**, so a later change to it does not make a past

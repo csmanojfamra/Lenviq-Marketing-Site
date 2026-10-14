@@ -150,9 +150,9 @@ variables that actually move the number are the size of the book, the number of 
 whether accounting is included or integrated, and how much historical data has to be migrated and
 reconciled.
 
-The cost that is routinely underestimated is not licence — it is **migration**. Moving a live book
-means reproducing every account's outstanding, schedule, classification and charge history exactly,
-and proving it reconciles. Budget for a parallel run.
+The cost that is routinely underestimated is not licence — it is **migration**.
+[Moving a live book means reproducing every account's outstanding, schedule, classification and
+charge history exactly, and proving it reconciles](/enterprise/migrating-a-live-book/). Budget for a parallel run.
 
 ## How Lenviq handles this
 

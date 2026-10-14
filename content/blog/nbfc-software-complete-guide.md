@@ -100,8 +100,7 @@ Whatever the pattern, these must exist somewhere and must agree with each other.
 - **Double-entry accounting from loan events**, not from a monthly journal.
 - **Maker-checker** on master activation and on disbursement.
 - **An append-only audit trail** recording who changed what, when, and what it was before.
-- **Data scope enforcement** — a branch manager's report shows their branch, without a toggle that
-  ignores it.
+- **Data scope enforcement** — [a branch manager's report shows their branch](/enterprise/many-branches-one-book/), without a toggle that ignores it.
 - **Masked exports** — personal identifiers masked by default, exceptions named and permissioned.
 
 ## How do you decide what to buy as one system?

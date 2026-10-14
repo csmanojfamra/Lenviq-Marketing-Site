@@ -3,6 +3,7 @@ title: "An auditor's access: read everything, change nothing, and get the positi
 description: "The questions an audit asks are about the past, and most systems can only answer about the present. What read-only access should actually include, why an as-at date has to be an input rather than a convenience, and why a change log is not a position."
 metaDescription: "Audit questions are about the past; most systems answer about the present. What read-only access should include, and why as-at has to be an input."
 question: "What should an auditor be able to see in a lender's loan management system?"
+keyword: "auditor access for lending software"
 kind: persona
 author: "CA Tanmay Saini"
 updated: "2026-10-13"

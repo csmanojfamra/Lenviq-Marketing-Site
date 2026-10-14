@@ -12,7 +12,8 @@ draft: false
 Generate RBI returns from the loan book itself, not from an extract of it. Every figure in a DNBS
 return, a CRILC submission or a bureau file already exists somewhere in the ledger; the moment it is
 re-typed into a workbook it becomes a second claim about the same quarter, and the two will
-eventually differ. The work of return preparation should be **checking**, not assembling.
+eventually differ. [The work of return preparation should be **checking**, not
+assembling](/solutions/compliance-officer-the-quarter/).
 
 This guide covers which returns apply, what each is built from, and how to tell whether your
 reporting is traceable.

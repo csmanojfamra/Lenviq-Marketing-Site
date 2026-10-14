@@ -3,6 +3,7 @@ title: "RBI supervisory returns: which ones you owe depends on your layer, and m
 description: "A returns calendar that lists every DNBS return for every NBFC is wrong twice over — it schedules a return you do not file and hides the ones you do. Which return follows from which layer, where the twenty-one days run from, and why a filing without an acknowledgement reference is not evidence."
 metaDescription: "Which DNBS return you owe follows from your layer. Where the 21 days run from, and why a filing without an acknowledgement is not evidence."
 question: "Which RBI returns does an NBFC have to file, and by when?"
+keyword: "RBI returns software"
 kind: artefact
 author: "CS Manoj Famra"
 updated: "2026-10-13"

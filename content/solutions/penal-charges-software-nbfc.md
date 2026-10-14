@@ -3,6 +3,7 @@ title: "Penal charges in a lending system: grace, GST, settlement order and the 
 description: "The 2023 direction settled what a penal amount is. What it left to implementers is harder: where a grace period may act, whose GST registration decides the tax, which head a short receipt clears first, and what happens to a collected penal amount when the instrument bounces."
 metaDescription: "Where a penal grace may act, whose GST registration decides the tax, which head a short receipt clears first, and what a bounce does to penal already collected."
 question: "How should penal charges be computed, taxed and settled on a loan?"
+keyword: "penal charges software"
 kind: artefact
 author: "CA Anil Agarwal"
 updated: "2026-10-13"

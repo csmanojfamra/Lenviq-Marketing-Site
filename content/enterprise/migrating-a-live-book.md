@@ -3,6 +3,7 @@ title: "Migrating a live book: the position is the easy half, and the payment hi
 description: "Any system can take an opening balance. What decides whether a migration worked is whether the arrears, the days past due and the twenty-four months of history a credit bureau will be told are the same afterwards as they were before — and those are rebuilt from dated receipts, not from a balance."
 metaDescription: "Any system can take an opening balance. Whether the arrears, the DPD and the bureau history survive a migration is the real test."
 question: "What has to come across when a lender moves a live loan book to a new system?"
+keyword: "loan book migration software"
 kind: situation
 updated: "2026-10-13"
 related: "spreadsheets-vs-loan-management-software-nbfc, credit-information-reporting-2025, reconciliation-off-by-rupees, irac-day-end-classification, frozen-terms-at-sanction, books-of-account-what-must-be-kept, audit-trail-what-counts, nbfc-books-retention"

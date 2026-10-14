@@ -3,6 +3,7 @@ title: "One chart of accounts under a multi-product book, and the reconciliation
 description: "The question an auditor asks is not what the loan book says or what the general ledger says. It is whether they agree, and if not, by how much and on which loan. A book spread across products and branches makes that question harder and the answer more necessary."
 metaDescription: "Does the loan book tie to the control account in the general ledger, and if not, on which loan? What a multi-product chart of accounts has to hold."
 question: "How should a lender's loan book tie to its general ledger?"
+keyword: "loan book to general ledger reconciliation software"
 kind: situation
 updated: "2026-10-13"
 related: "reconciliation-off-by-rupees, dcb-reconciliation-why-it-stops-tying, books-of-account-what-must-be-kept, nbfc-income-recognition-rbi-rules, audit-trail-what-counts, /reports/|Reports and MIS, npa-income-reversal, nbfc-books-retention"

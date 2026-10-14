@@ -3,6 +3,7 @@ title: "Collection efficiency: four defensible definitions, four different answe
 description: "Collected over demanded, which sounds like one calculation. It is at least four, they diverge by double digits on the same book in the same month, and a figure quoted without its definition is not a figure. What a system has to store before any of them can be computed."
 metaDescription: "Collected over demanded is at least four calculations that diverge on the same book. What a system must store before any of them is computable."
 question: "How is collection efficiency calculated, and why do two systems give different answers?"
+keyword: "collection efficiency software"
 kind: artefact
 author: "CS Sushil Choudhary"
 updated: "2026-10-13"

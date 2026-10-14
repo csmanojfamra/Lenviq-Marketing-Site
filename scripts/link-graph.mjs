@@ -82,6 +82,26 @@ export function linksOn(html) {
   }
   const inNav = (i) => navRanges.some(([a, b]) => i >= a && i <= b);
 
+  /*
+   * THE HAND-PICKED READING LIST, WHICH IS A LISTING AND DID NOT LOOK LIKE ONE.
+   *
+   * The related-posts block is cards, which `block h-full` catches. Sprint SEO-4's `related:` list
+   * is a two-column `<ul>` of plain underlined anchors, and the class-based rule above read them as
+   * sentences — so a generated list could satisfy the three-inbound-sources rule that §3.3 wrote
+   * about prose. Found by a negative control: one of three prose links was removed and the count
+   * did not move, because a reading list was holding the third place.
+   *
+   * Marked at the source with `data-listing` rather than matched on a class string, because the
+   * classes are styling and would be re-written by the next design change without anybody thinking
+   * about this file.
+   */
+  const listingRanges = [];
+  for (const m of html.matchAll(/<(ul|ol|div)\b[^>]*\bdata-listing\b[^>]*>/g)) {
+    const close = html.indexOf(`</${m[1]}>`, m.index);
+    if (close > -1) listingRanges.push([m.index, close]);
+  }
+  const inListing = (i) => listingRanges.some(([a, b]) => i >= a && i <= b);
+
   const out = [];
   for (const m of html.matchAll(/<a\b([^>]*?)href="(\/[^"]*)"([^>]*?)>/g)) {
     const i = m.index;
@@ -97,6 +117,7 @@ export function linksOn(html) {
     if ((headEnd > -1 && i < headEnd) || (footStart > -1 && i > footStart)) kind = KIND.CHROME;
     else if (mainStart > -1 && inNav(i)) kind = KIND.CHROME;
     else if (/\binline-flex\b/.test(cls)) kind = KIND.CHROME; // the repeated CTA button
+    else if (inListing(i)) kind = KIND.LISTING; // a generated reading list, marked at the source
     else if (/\bblock\b/.test(cls) || /\bfont-display\b/.test(cls)) kind = KIND.LISTING;
     else kind = KIND.CONTEXTUAL;
 
@@ -105,7 +126,21 @@ export function linksOn(html) {
   return out;
 }
 
-/** Inbound counts for every sitemap URL, by kind, plus the distinct pages a contextual link came from. */
+/**
+ * Inbound counts for every sitemap URL, by kind, plus the distinct pages a contextual link came from.
+ *
+ * ## A HELD-BACK PAGE IS NOT A SOURCE
+ *
+ * Every built page was walked as a potential source, and a draft page is built — it is served at its
+ * own URL so a reviewer can read it. So a link from a page nobody can reach counted towards the
+ * three its target needs, and the count overstated by however many of them there were. Sprint SEO-5
+ * reported this and measured around it by hand; counting it correctly here is what makes the guard
+ * in `tests/site.test.ts` mean what its name says.
+ *
+ * Read from the rendered `noindex` tag rather than from the content loaders, for the same reason
+ * everything else in this file is: a page's own output is the only place the answer is not a
+ * prediction. The tag is also exactly what a crawler sees, which is the thing being counted.
+ */
 export function buildGraph() {
   const pages = builtPages();
   const inbound = new Map();
@@ -116,7 +151,9 @@ export function buildGraph() {
   for (const p of sitemapPaths()) ensure(p);
 
   for (const [from, file] of pages) {
-    for (const { href, kind } of linksOn(readFileSync(file, "utf8"))) {
+    const html = readFileSync(file, "utf8");
+    if (/<meta name="robots" content="[^"]*noindex/.test(html)) continue; // held back: passes no weight
+    for (const { href, kind } of linksOn(html)) {
       if (href === from) continue; // a page linking to itself is not an inbound link
       const row = inbound.get(href);
       if (!row) continue; // not a sitemap URL — noindexed, or an asset route

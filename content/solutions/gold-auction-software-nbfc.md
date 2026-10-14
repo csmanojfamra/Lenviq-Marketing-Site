@@ -3,6 +3,7 @@ title: "Auctioning pledged gold: thirty days' notice, two custodians, and the su
 description: "An auction is the one event in a gold book where the lender holds someone else's property and sells it. The notice period is a floor, the custody has to be provable, the reserve is the full dues and not a round number, and a surplus is the borrower's money with a deadline on it."
 metaDescription: "Thirty days' notice is a floor, custody has to be provable, and an auction surplus is the borrower's money with a deadline on it."
 question: "What does an NBFC have to do before auctioning pledged gold?"
+keyword: "gold auction software"
 kind: artefact
 author: "CS Sushil Choudhary"
 updated: "2026-10-13"

@@ -38,7 +38,9 @@ A row that says *user X updated loan 4471 at 14:32* answers **who** and **when**
 
 Without the prior value, a change from 18% to 14% and a change from 12% to 14% are indistinguishable
 after the fact. The borrower asking why their instalment moved cannot be answered from the system;
-neither can the auditor asking whether a rate was reduced before or after the sanction.
+neither can
+[the auditor asking whether a rate was reduced before or after the
+sanction](/solutions/auditor-read-only-access/).
 
 The distinction has a practical shape. An activity log is written for operations — who is doing what
 today. An edit log is written for evidence — what this record used to say. Systems built for the
@@ -82,7 +84,8 @@ Ten minutes, on any system you are evaluating or already own.
 2. Ask the system three questions: **who**, **when**, **what was it before**.
 3. Ask whether that record can be edited or deleted by anyone, including an administrator.
 4. Now do a **bulk** change — a rate revision across a scheme, a batch upload — and repeat.
-5. Try to reverse a posted receipt. Does the original survive, with the reversal recorded against it?
+5. [Try to reverse a posted receipt](/solutions/operations-posting-the-days-money/). Does the
+   original survive, with the reversal recorded against it?
 6. Ask what happens if somebody with database access changes a row directly. (The honest answer is
    that no application can prevent it. The useful answer is what would show.)
 

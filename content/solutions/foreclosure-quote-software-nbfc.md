@@ -3,6 +3,7 @@ title: "A payoff quote is an arithmetic promise with a date on it, and most of t
 description: "A borrower asking what it costs to close early is asking for a figure the lender will have to honour. It has to be computed as at a date, it must not charge the same interest twice under two names, it rounds down rather than to nearest, and whether a charge applies at all depends on who is asking."
 metaDescription: "A payoff quote is computed as at a date, must not double-count interest, rounds down, and whether a charge applies depends on who is asking."
 question: "How is a loan foreclosure or payoff amount calculated?"
+keyword: "foreclosure quote software"
 kind: artefact
 author: "CA Anil Agarwal"
 updated: "2026-10-13"

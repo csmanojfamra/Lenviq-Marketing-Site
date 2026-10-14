@@ -41,8 +41,8 @@ engine, a second appropriation order or a second accrual path.
 - **Charge treatment.** Penal is a charge, not interest, in every product.
 - **The audit trail.** Same record, same fields, same immutability.
 
-A useful way to hold it: **products differ in the due events they generate, never in what a due event
-means.**
+A useful way to hold it: **[products differ in the due events they generate, never in what a due
+event means](/enterprise/many-products-one-engine/).**
 
 ## How do you tell configuration from a hard-coded product?
 

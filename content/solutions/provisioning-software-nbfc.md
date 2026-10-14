@@ -3,6 +3,7 @@ title: "Provisioning: the classification decides the rate, and the security deci
 description: "A provision is two decisions, and systems collapse them into one. The classification fixes the percentage; the realisable value of security fixes what that percentage applies to. Two accounts at the same days past due can therefore carry very different provisions, correctly."
 metaDescription: "The classification fixes the provisioning percentage; the security fixes the base it applies to. Why two accounts at the same DPD differ, correctly."
 question: "How is the provision on an NBFC loan actually computed?"
+keyword: "NBFC provisioning software"
 kind: artefact
 author: "CA Himanshu Sharma"
 updated: "2026-10-13"

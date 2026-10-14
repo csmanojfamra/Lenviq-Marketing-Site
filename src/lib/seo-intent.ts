@@ -4,6 +4,8 @@ import { publishedHelp } from "./help";
 import { TERMS } from "./glossary";
 import { PRODUCTS } from "./products";
 import { TOOLS } from "./tools";
+import { publishedCommercial, type CommercialPage } from "./commercial";
+import { isExcludedRoute } from "./publication";
 
 /**
  * What each page is FOR, in search terms — the map that stops two pages competing for one query.
@@ -30,7 +32,8 @@ import { TOOLS } from "./tools";
  */
 export type PageType =
   | "Homepage" | "Platform" | "Loan product" | "Compliance" | "Reporting" | "Security"
-  | "Glossary" | "Blog" | "Help" | "Company" | "Conversion" | "Legal";
+  | "Glossary" | "Blog" | "Help" | "Company" | "Conversion" | "Legal"
+  | "Solution" | "Enterprise";
 
 export type Intent = "Commercial" | "Informational" | "Transactional" | "Navigational";
 
@@ -177,10 +180,61 @@ const helpEntries = (): IntentEntry[] =>
     secondary: ["Lenviq how-to", "NBFC lending operations"],
   }));
 
+/**
+ * THE COMMERCIAL LAYER — AND WHY ITS ENTRIES APPEAR ONE AT A TIME.
+ *
+ * Twenty pages under `/solutions/` and `/enterprise/`, built unpublished and flipped on a schedule.
+ * Both halves of the guard above apply to them and they pull in opposite directions: a page in the
+ * sitemap with no intent entry fails the first test, and an entry for a page not in the sitemap
+ * fails the second. So the entries are derived from `publishedCommercial()`, which means flipping
+ * one page's `draft` field adds exactly one entry — the same single field that puts it in the
+ * sitemap, lights up its inbound links and drops its `noindex` tag.
+ *
+ * It was missing. Every one of the twenty flips would have turned the suite red on the first test,
+ * including the four whose dates were already set, and the only way to see it was to flip a page
+ * locally and run the suite.
+ *
+ * The keyword is read from the page's own front matter rather than from its slug. A blog post's
+ * primary keyword IS its slug read back as a phrase, which works because a post is named after
+ * what it is about; `branch-manager-closing-the-day` is a title, and deriving a query from it would
+ * invent twenty keywords nobody chose.
+ */
+const commercialEntry = (p: CommercialPage): IntentEntry => ({
+  url: `/${p.section}/${p.slug}/`,
+  type: p.section === "enterprise" ? "Enterprise" : "Solution",
+  intent: "Commercial",
+  // An artefact or a lender's situation is a buying query; a role page is read before one.
+  priority: p.kind === "persona" ? 3 : 2,
+  primary: p.keyword,
+  secondary: [p.question.toLowerCase().replace(/\?$/, "").slice(0, 70), "NBFC lending software"],
+});
+
+const commercialEntries = (): IntentEntry[] =>
+  [...publishedCommercial("solutions"), ...publishedCommercial("enterprise")].map(commercialEntry);
+
+/**
+ * The two hubs, which are `ROUTE_PAGES` entries rather than content files.
+ *
+ * Each goes live once at least three of its children are, so its entry is conditional the same way
+ * — read from the one state field in `publication.ts` instead of from a second list here.
+ */
+const HUBS: IntentEntry[] = [
+  { url: "/solutions/", type: "Solution", intent: "Commercial", priority: 2,
+    primary: "NBFC lending software by artefact",
+    secondary: ["what a lending system has to handle", "NBFC lending software"] },
+  { url: "/enterprise/", type: "Enterprise", intent: "Commercial", priority: 2,
+    primary: "enterprise lending platform for NBFCs",
+    secondary: ["multi-branch multi-product lending platform", "NBFC lending software"] },
+];
+
+const hubEntries = (): IntentEntry[] => HUBS.filter((h) => !isExcludedRoute(h.url));
+
 /** Every indexable URL, with what it is for. Ordered by priority, then by URL. */
 export function intentMap(): IntentEntry[] {
-  return [...FIXED, ...productEntries(), ...toolEntries(), ...glossaryEntries(), ...blogEntries(), ...helpEntries()]
-    .sort((a, b) => a.priority - b.priority || a.url.localeCompare(b.url));
+  return [
+    ...FIXED, ...productEntries(), ...toolEntries(), ...glossaryEntries(), ...blogEntries(),
+    ...helpEntries(), ...commercialEntries(), ...hubEntries(),
+  ].sort((a, b) => a.priority - b.priority || a.url.localeCompare(b.url));
 }
 
 export const absoluteFor = (e: IntentEntry) => new URL(e.url, SITE.url).toString();

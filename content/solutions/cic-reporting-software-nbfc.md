@@ -3,6 +3,7 @@ title: "Reporting to the credit bureaus: the month is easy, the twenty-four mont
 description: "A credit information submission is not a snapshot. It carries a trailing run of monthly positions, and those cannot be read off a loan's current status because a status field has no date on it. Where the history comes from, and the two defects that file an honest borrower as delinquent."
 metaDescription: "A bureau submission carries a trailing run of monthly positions, and a status field has no date. Where that history comes from, and how it goes wrong."
 question: "How does an NBFC report a borrower's account to the credit bureaus each month?"
+keyword: "credit bureau reporting software"
 kind: artefact
 author: "CA Tanmay Saini"
 updated: "2026-10-13"

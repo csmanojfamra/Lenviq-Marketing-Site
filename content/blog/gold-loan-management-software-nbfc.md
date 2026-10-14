@@ -154,8 +154,9 @@ application and the loan account, so a packet cannot be worth two different amou
 from the 22-carat reference. The rate's source is recorded with it, and a price too old to use is
 refused with its date rather than silently applied.
 
-Gold generates due events like any other product and classifies on the same engine, so a gold loan
-past maturity ages exactly as a term loan does. Closure produces the no-dues certificate and starts
+[Gold generates due events like any other product and classifies on the same
+engine](/enterprise/many-products-one-engine/), so a gold loan past maturity ages exactly as a term
+loan does. Closure produces the no-dues certificate and starts
 the seven-working-day return clock, which a nightly sweep watches. Release is a separate act
 requiring two custodians. Item photographs are captured at the counter and printed on the pledge
 acknowledgment the borrower keeps.

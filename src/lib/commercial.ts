@@ -60,6 +60,19 @@ export interface CommercialPage {
   kind: PageKind;
   /** The question the page answers, in the words a person would type. Renders as the quick answer. */
   question: string;
+  /**
+   * The one query this page exists to answer, for `seo-intent.ts`.
+   *
+   * Declared here rather than derived from the slug, which is what the blog and the glossary do.
+   * Two reasons. A persona page's slug is `branch-manager-closing-the-day`, which is a title and
+   * not a query anybody types, so a derivation would invent twenty keywords nobody chose. And an
+   * intent entry on a commercial page IS the commercial decision — the thing `seo-intent.ts`
+   * exists to keep one page from taking twice.
+   *
+   * It reaches the intent map only when the page is published, because an entry for a page that is
+   * not in the sitemap fails the other half of that guard. Flipping `draft` lights this up too.
+   */
+  keyword: string;
   /** Six to eight destinations for the reading list. Blog slugs, or `/`-prefixed paths. */
   related: string[];
   /** The date of the last substantive revision. A maintained page has no publication date. */
@@ -102,6 +115,7 @@ function parse(section: Section, file: string): CommercialPage {
     metaDescription: meta.metaDescription || meta.description || "",
     kind,
     question: meta.question ?? "",
+    keyword: meta.keyword ?? "",
     related: (meta.related ?? "").split(",").map((s) => s.trim()).filter(Boolean),
     updated: meta.updated || undefined,
     author: meta.author || undefined,

@@ -3,6 +3,7 @@ title: "Seven kinds of lending on one system: where the behaviour differs, and w
 description: "A gold loan, an overdraft and a microfinance group loan behave nothing alike — different security, different servicing, different due dates. What a lender running several of them needs is for exactly those things to differ and for classification, provisioning and bureau reporting not to."
 metaDescription: "A gold loan, an overdraft and a group loan behave nothing alike. What must differ between loan types, and what must never differ."
 question: "How does one system run several different kinds of loan without them drifting apart?"
+keyword: "multi-product loan management software"
 kind: situation
 updated: "2026-10-13"
 related: "how-to-manage-multiple-loan-products-nbfc, frozen-terms-at-sanction, irac-day-end-classification, gold-loan-directions-2025, /platform/|The platform, flat-rate-vs-reducing-balance, which-rate-goes-on-which-document, nbfc-software-complete-guide"

@@ -127,7 +127,8 @@ large number of accounts deteriorate and a similar number recover.
 
 ### How long should it take to produce a diligence pack?
 
-Days, if the classification history is stored by account and date. Weeks means it is being
+[Days, if the classification history is stored by account and
+date](/solutions/auditor-read-only-access/). Weeks means it is being
 reconstructed, and diligence teams read the time taken as information about the systems.
 
 ### What do lenders look for beyond the numbers?

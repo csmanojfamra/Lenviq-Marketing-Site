@@ -37,7 +37,8 @@ printout** such that the records are not disposed of or rendered unusable.
 Two of those conditions fail quietly.
 
 **"In the format originally generated."** A ledger that is regenerated on demand from live master
-data is not the record that was created — it is today's answer to yesterday's question. If a scheme
+data is not the record that was created — [it is today's answer to yesterday's
+question](/solutions/auditor-read-only-access/). If a scheme
 parameter has been edited since, the regenerated document differs from the one the borrower
 received, and nothing in the system says so.
 
