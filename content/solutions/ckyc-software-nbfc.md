@@ -1,7 +1,7 @@
 ---
 title: "CKYC for an NBFC: the upload obligation, the identifier, and the record you have to keep"
-description: "The Central KYC Records Registry is an obligation with two halves — push your customers' records up, and pull an existing record down when a customer gives you an identifier. What the KYC Direction actually requires of a non-bank lender, and which half most lending systems skip."
-metaDescription: "CKYC has two halves: uploading your customers' records and retrieving an existing one against a KYC Identifier. What the KYC Direction requires of an NBFC."
+description: "The Central KYC Records Registry is an obligation with two halves — push your customers' records up, and pull an existing record down when a customer gives you an identifier. What the 2025 NBFC KYC Directions require of a non-bank lender, and which half most lending systems skip."
+metaDescription: "CKYC has two halves: uploading your customers' records and retrieving an existing one against a KYC Identifier. What the 2025 NBFC KYC Directions require."
 question: "What does an NBFC have to do about CKYC, and when?"
 keyword: "CKYC software for NBFCs"
 kind: artefact
@@ -19,30 +19,48 @@ KYC Identifier instead of fresh documents. A lender that does the first and not 
 half an obligation and thrown away the whole benefit, because the point of a central registry is that
 nobody re-collects what is already there.
 
-For a non-bank lender the upload duty attaches at account opening, and the record it produces is
-itself something that has to be kept and reconciled — not a file that is generated, sent and
-forgotten.
+For a non-bank lender the upload duty attaches at account opening and it has a clock on it: the
+records are captured and uploaded **within ten days of the account-based relationship commencing**.
+That is a deadline per customer rather than a monthly cycle, which is the thing that decides how a
+lending system has to carry it — the record it produces is itself something to be kept and
+reconciled, not a file that is generated, sent and forgotten.
 
-## What the Direction requires, and from when
+## What the Directions require, and from when
 
-The governing text is the Reserve Bank's [Master Direction – Know Your Customer (KYC) Direction,
-2016](https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=11566) (RBI/DBR/2015-16/18, Master
-Direction DBR.AML.BC.No.81/14.01.001/2015-16, dated 25 February 2016 and amended many times since —
-read the consolidated version, not a summary). Its CKYC provisions were brought in by amendment and
-the commencement dates differ by the kind of entity:
+**The governing text changed, and most KYC policies have not caught up.** For a non-bank lender it is
+no longer the 2016 Master Direction that applies to every regulated entity. It is the
+[Reserve Bank of India (Non-Banking Financial Companies – Know Your Customer) Directions,
+2025](https://rbi.org.in/scripts/NotificationUser.aspx?Mode=0&Id=12943) (RBI/DOR/2025-26/361,
+DOR.AML.REC.No.280/14.01.003/2025-26, dated 28 November 2025, updated as on 29 December 2025) — and
+paragraph 73 of those Directions is explicit: with their issue, the existing KYC directions,
+instructions and guidelines *as applicable to* NBFCs **stand repealed**, as communicated by circular
+DOR.RRC.REC.302/33-01-010/2025-26 of the same date. Anything already done under the repealed text
+stays governed by it; everything from here is governed by these.
+
+The substance of the CKYC obligation did not move with the renumbering — the ten days, the seven
+days, the templates and the commencement dates are the same — but the citation did. An NBFC's KYC
+policy, and any page or vendor document quoting the 2016 paragraph numbers at it, is now citing an
+instrument that has been repealed for its own sector.
+
+In the 2025 Directions the CKYCR provisions are **paragraph 63**, in Chapter X:
 
 | Obligation | What it says |
 |---|---|
-| New individual accounts | Scheduled commercial banks upload KYC data for all new individual accounts opened on or after **1 January 2017**; regulated entities other than scheduled commercial banks — which is where an NBFC sits — from **1 April 2017** |
-| Individual accounts opened before 1 January 2017 | Upload at the time of periodic updation, or earlier where updated KYC information is received |
-| The KYC Identifier | Once the registry generates an identifier, the regulated entity must ensure it is communicated to the individual or legal entity |
-| Retrieval | Where a customer supplies a KYC Identifier, the regulated entity retrieves the records online from the registry, in accordance with **paragraph 56** of the Direction |
-| Periodic updation | At least once every two years for high-risk customers, eight years for medium risk and ten years for low risk |
+| The upload, and the clock on it | **63(1)**: in terms of Rule 9(1A) of the PML Rules, the NBFC captures the customer's KYC records and uploads them onto CKYCR **within 10 days of commencement of an account-based relationship** with the customer |
+| New individual accounts | **63(4)**: the registry's live run began 15 July 2016 in phases; an NBFC uploads for all new individual accounts opened on or after **1 April 2017** |
+| Non-individual borrowers | **63(5)**: accounts of legal entities opened on or after **1 April 2021**, on the legal-entity template released by CERSAI |
+| Accounts opened before those dates | **63(7)**: upload or update at the time of periodic updation under paragraph 42, or earlier, when updated KYC information is obtained from the customer |
+| An update to an existing record | Also **63(7)**: the NBFC furnishes the updated information to CKYCR **within seven days**, or such period as the Central Government may notify. The registry then informs every reporting entity that has dealt with that customer, and on being informed the NBFC retrieves the update and applies it to its own record |
+| The KYC Identifier | **63(6)**: once CKYCR generates an identifier, the NBFC must ensure it is communicated to the individual or legal entity |
+| Retrieval | **63(9)**: the NBFC **seeks the identifier from the customer, or retrieves the identifier from CKYCR**, obtains the records online with it, and *shall not* require the same records again — unless the information has changed, what came back is incomplete or not to current norms, the validity period of the downloaded documents has lapsed, or the NBFC considers it necessary to verify identity or address, perform enhanced due diligence or build a risk profile |
+| Who is answerable for a downloaded record | The **explanation added on 29 December 2025**: the entity that *last uploaded or updated* the record is responsible for verifying identity and address, so an NBFC downloading and relying on a record that is current and PML-compliant need not re-verify — while remaining responsible for every other aspect of customer due diligence |
+| Periodic updation | **42(1)**: at least once every two years for high-risk customers, eight years for medium risk and ten years for low risk, counted from account opening or the last updation |
 
-The legal plumbing underneath is worth knowing because it decides who the obligation binds: the
-amendments are issued under section 35A read with section 56 of the Banking Regulation Act, 1949,
-together with Rule 9(14) of the Prevention of Money-laundering (Maintenance of Records) Rules, 2005.
-The Rules are what reach a non-bank.
+The legal plumbing underneath is worth knowing because it is what reaches a non-bank at all: the
+obligation itself is Rule 9 of the Prevention of Money-laundering (Maintenance of Records) Rules,
+2005 — 9(1A) for the upload, 9(1C) for an update — and the Directions are the Reserve Bank's
+instrument for binding an NBFC to it. Which is why the repeal above changes the citation and not the
+duty: the Rules did not move.
 
 ## The part a lending system usually gets wrong
 
@@ -108,7 +126,7 @@ guess which.
 
 ### Does an NBFC have to upload records for customers it onboarded years ago?
 
-For individual accounts opened before 1 January 2017, the Direction ties the upload to periodic
+For accounts opened before the commencement dates above, paragraph 63(7) ties the upload to periodic
 updation — or earlier, if updated KYC information is received in the meantime. So it is not a one-off
 back-file exercise with a deadline; it is something that happens as the existing book comes up for
 updation on its own risk-based cycle.
@@ -121,10 +139,21 @@ consequence of a judgement the lender has to be able to evidence.
 
 ### If a customer gives us a KYC Identifier, can we skip document collection?
 
-That is the purpose of the registry. Paragraph 56 of the Direction governs the retrieval, and a
-lender relying on a retrieved record should keep what it retrieved and when — the retrieval is the
+That is the purpose of the registry, and paragraph 63(9) puts it more strongly than a permission: the
+lender *shall not* require the same records again, subject to the four exceptions in the table above.
+A lender relying on a retrieved record should keep what it retrieved and when — the retrieval is the
 evidence of the diligence, and without a stored copy the lender has relied on something it cannot
 produce.
+
+### Does the ten days run from sanction, from disbursement, or from onboarding?
+
+Paragraph 63(1) says from the commencement of the **account-based relationship**, which is a
+relationship with the customer rather than an event in a loan's life. Where in its own process a
+lender treats that as having commenced is a determination the lender makes and should be able to
+evidence — and the practical consequence is that a system triggering the upload off disbursement is
+working from a later date than the Directions name, on a book where onboarding and disbursement can
+be weeks apart. The seven-day limit on an update is separate and shorter, and it is the easier one
+to miss: a change of address recorded in the ordinary course does not feel like a filing.
 
 ### Is CKYC the same as the CKYC number printed on a customer's document?
 

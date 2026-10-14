@@ -60,7 +60,7 @@ flag in their own text, and it is the part that would cost something if wrong.
 | KYC for an NBFC is governed by the NBFC — Know Your Customer Directions, 2025, dated **28 Nov 2025** (RBI/DOR/2025-26/361) | Notification number and date given; **not linked** |
 | Those Directions apply to all NBFC categories across all layers unless otherwise specified, and not to an NBFC with no customer interface | Same, **not linked** |
 | Amended **29 Dec 2025** (RBI/2025-26/160), adding an explanation to para 63: the RE that **last uploaded or updated** KYC in CKYCR is responsible for verifying identity and address, and an NBFC downloading and relying on a current, PMLA-compliant record need not re-verify | Notification number and date given; **not linked** |
-| Whether the 2016 NBFC KYC direction was expressly repealed or superseded | **No citation, and flagged as unverified in the page's own text** — it records that the equivalent commercial-bank repeal is documented but the NBFC position could not be confirmed from primary text |
+| Whether the 2016 NBFC KYC direction was expressly repealed or superseded | **SETTLED 14 Oct 2026 — it is repealed.** See the note below the table; the page's own text still says this is unverified, which is now too cautious rather than wrong |
 | Scale Based Regulation Directions, 2023 (RBI/DoR/2023-24/106, DoR.FIN.REC.No.45/03.10.119/2023-24), dated **19 Oct 2023**, updated **17 Jul 2025**, in supersession of the 2016 NBFC-NSI and NBFC-SI/deposit-taking directions | Notification number and dates given; **not linked on this page** (linked on the registration page) |
 | Net Owned Fund threshold, CRAR minimum and layer placement criteria | **Deliberately absent.** The page states it did not read the Directions' PDF and would not reproduce figures it could not verify |
 | Classification is computed in the **day-end process**, and an NPA is upgraded only on payment of the **entire arrears** | **Linked** — RBI/2021-2022/125, DOR.STR.REC.68/21.04.048/2021-22, 12 Nov 2021 |
@@ -293,7 +293,7 @@ because each one is a figure or a status somebody might act on.
 | # | Item | Page | What the page says |
 |---|---|---|---|
 | 1 | **The interim NOF milestone** — circulated as ₹5 crore by 31 Mar 2025 for NBFC-ICCs | Registration and CoR | Could not verify from the gazette notification; secondary sources disagree |
-| 2 | **Repeal status of the 2016 NBFC KYC direction** | Compliance checklist | The equivalent commercial-bank repeal is documented; the NBFC position could not be confirmed from primary text |
+| 2 | ~~**Repeal status of the 2016 NBFC KYC direction**~~ **— settled 14 Oct 2026, read from the Directions' own repeal clause** | Compliance checklist, Registration and CoR | Both pages still say it could not be confirmed. It can be, and it is: see the note at the end of this file |
 | 3 | **The current CIC reporting cadence** | Compliance checklist | Tightened to a fortnightly minimum in 2024; the current text was not verified |
 | 4 | **The CoR processing timeline** | Registration and CoR | RBI publishes none; the page gives none |
 | 5 | **Bengal s.30(1)(c) rates — 12.5% / 10%** | West Bengal | Reported from two agreeing reproductions, not read from the Act; check the gazette before pricing |
@@ -309,3 +309,41 @@ cells filled, and the answer was not a fine"*. It is still reported rather than 
 ---
 
 *Generated for review. Claims and citations only — nothing above is graded or summarised.*
+
+---
+
+## Settled after this file was written
+
+### The 2016 NBFC KYC direction is repealed — verified 14 October 2026, from primary text
+
+Two pages in this queue — the compliance checklist and the registration page — tell the reader that
+the repeal could not be confirmed. It can be. **Paragraph 73**, Chapter XI of the
+[Reserve Bank of India (Non-Banking Financial Companies – Know Your Customer) Directions,
+2025](https://rbi.org.in/scripts/NotificationUser.aspx?Mode=0&Id=12943) (RBI/DOR/2025-26/361,
+DOR.AML.REC.No.280/14.01.003/2025-26, 28 November 2025, updated as on 29 December 2025) reads:
+
+> With the issue of these Directions, the existing Directions, instructions, and guidelines relating
+> to Know Your Customers as applicable to Non-Banking Financial Companies stand repealed, as
+> communicated vide circular DOR.RRC.REC.302/33-01-010/2025-26 dated November 28, 2025.
+
+Paragraph 74 saves what was already done under the repealed text: a right, obligation, liability,
+penalty or proceeding already accrued continues to be governed by the provisions it arose under.
+
+**Nothing on either page is wrong**, so neither has been touched — a page in this queue does not get
+a new sentence from me. What changes is that the caveat is no longer necessary, and when you review
+them the honest version is shorter than what is on them now.
+
+Two further things verified in the same reading, both now carried on
+`/solutions/ckyc-software-nbfc/` with the paragraph numbers:
+
+- **The upload is within 10 days** of commencement of an account-based relationship (**63(1)**, in
+  terms of Rule 9(1A) of the PML Rules), and an **update is within seven days** or such period as
+  the Central Government may notify (**63(7)**). This is the figure Sprint SEO-4 and SEO-5 both
+  looked for and could not source; it was not in the 2016 Direction's paragraph 56 under a
+  searchable phrasing, and it is plain in paragraph 63 of the instrument that replaced it.
+- **The 29 December 2025 explanation** this file already records against para 63 is in the
+  consolidated text, word for word as the row above describes it.
+
+One consequence worth your eye: the periodic-updation concession in **42(2)** — a low-risk
+individual's updation allowed within one year of falling due **or up to 30 June 2026, whichever is
+later** — has now expired on its own terms. No page of ours relies on it.
