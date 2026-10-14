@@ -388,7 +388,16 @@ flipped until they do:**
 Twenty links across roughly twenty files. **The CI guard will refuse each flip until they exist**,
 which is the behaviour I want rather than something to work around.
 
-**A weakness in that guard, found while measuring and worth knowing:** `buildGraph` walks every built
+> **Done 14 October 2026, commit `f59a2e2`.** Twenty-two links on sixteen live posts, each inside a
+> sentence that already said something. Measured as each page will be measured on its date — flipped
+> alone, counting live sources only — every one of the twenty pages now has three or more. Three
+> defects surfaced in the measuring: four links rendered as plain text because a link broken across
+> two lines inside a list item is not a link; a generated reading list was being counted as a
+> sentence, which is now marked `data-listing` at the source; and no commercial page had a
+> search-intent entry at all.
+
+**A weakness in that guard, found while measuring and worth knowing** — *closed on 14 October in
+`f59a2e2`; `buildGraph` now skips a `noindex` page as a source:* `buildGraph` walks every built
 page as a potential source, and a draft page is built. So once a page is flipped, a link to it from a
 page that is *still a draft* counts toward its three — which overstates, because a page nobody can
 reach passes no weight. Every count in the tables above is therefore from **live sources only**,
@@ -455,6 +464,19 @@ Not a code fix. Set out with the before-bytes in §2(c). The directive is in
 `deploy/nginx-cache.conf`, in a block that now also covers the two new files, with the measurement and
 the two verification commands beside it. **That file has never been applied on the host**, so there is
 no honest "after" to report.
+
+> **Revised 14 October 2026, commit `f53b166` — "not a code fix" was wrong, and that is why this sat
+> for four weeks.** The conf had still not been applied, so the live files were still being read as
+> mojibake by anything that assumed Latin-1. There is a second way to be right that needs no host
+> change: **US-ASCII is a subset of UTF-8, Latin-1 and Windows-1252 alike**, so a file with no byte
+> above 0x7F reads identically whatever a client guesses. `src/lib/ascii.ts` folds both text files at
+> build time — em dash to `--`, rupee sign to `Rs `, and a build failure naming any character it has
+> no mapping for. Measured: 48 and 84 non-ASCII characters before, **zero** after. Both halves of the
+> control fired. `ai-products.json` is left alone, because JSON text is UTF-8 by specification.
+>
+> The directive stays and is still worth applying — it is the better answer and it also covers
+> robots.txt and sitemap.xml — but the defect no longer waits on it. `npm run check:delivery` now
+> measures the property rather than the mechanism and reports which of the two is carrying it.
 
 ### (b) The sitemap additions
 
@@ -535,15 +557,22 @@ All four have their three live inbound links as of today, so all four can be fli
 | **Sat 21 Nov** | `/solutions/nach-mandate-software-nbfc/` | yes — 3 |
 | **Wed 25 Nov** | `/solutions/gold-auction-software-nbfc/` | yes — 3 |
 | **Sat 28 Nov** | `/solutions/foreclosure-quote-software-nbfc/` | yes — 3 |
-| **Wed 2 Dec** | `/enterprise/many-branches-one-book/` | **no — needs 2 more inbound links first** |
-| **Sat 5 Dec** | `/enterprise/one-chart-of-accounts/` | **no — needs 2 more** |
-| **Wed 9 Dec** | `/enterprise/migrating-a-live-book/` | **no — needs 2 more** |
+| **Wed 2 Dec** | `/enterprise/many-branches-one-book/` | **yes — 3**, written 14 Oct (`f59a2e2`) |
+| **Sat 5 Dec** | `/enterprise/one-chart-of-accounts/` | **yes — 3**, written 14 Oct |
+| **Wed 9 Dec** | `/enterprise/migrating-a-live-book/` | **yes — 3**, written 14 Oct |
 | **Sat 12 Dec** | **`/enterprise/` hub** | after its third child |
-| **Wed 16 Dec** | `/enterprise/many-products-one-engine/` | **no — needs 3** |
-| **Sat 19 Dec** onward | the four persona pages | **no — each needs 3** |
+| **Wed 16 Dec** | `/enterprise/many-products-one-engine/` | **yes — 3**, written 14 Oct |
+| **Sat 19 Dec** onward | the four persona pages | **yes — 3 each**, written 14 Oct |
 
-The dates from 2 December are therefore proposals contingent on the twenty links in §6 being written.
-They are not blocked by anything else.
+~~The dates from 2 December are therefore proposals contingent on the twenty links in §6 being
+written.~~ **Written on 14 October (`f59a2e2`): twenty-two links on sixteen live posts. Every date
+above is now unblocked, and all twenty pages were verified by flipping them locally — alone, then
+all together, then with both hubs — and running the suite against the built output.**
+
+Two things that would have stopped the flips anyway were found in the same work and are fixed: no
+commercial page had a `seo-intent.ts` entry, which fails the suite for any sitemap URL without one,
+so **every one of the twenty dates would have gone red** including the four already set; and the
+inbound guard read the SEO-4 page type, so it never covered `/enterprise/` at all.
 
 **One standing dependency inherited and honoured:** no prose was added to any page in
 `REVIEW_PENDING_MANOJ.md`. Taken from the file, not from memory — it reviews seven pages (sections
@@ -626,7 +655,7 @@ actually does, and this sprint already carried the enumeration. Recorded here so
 | Item |
 |---|
 | ~~**The CKYC upload timeline in days.**~~ Settled 14 Oct 2026: ten days, para 63(1) of the NBFC KYC Directions 2025. It was unfindable because the search was in a repealed instrument |
-| **The "after" bytes for the charset fix.** `deploy/nginx-cache.conf` has never been applied on the host, so there is no corrected header to fetch. Unchanged from earlier sprints |
+| ~~**The "after" bytes for the charset fix.**~~ **Obtained a different way on 14 Oct 2026 (`f53b166`): the files are now ASCII, so they read correctly under any charset and the "after" no longer depends on the host.** The Cache-Control blocks in that file still do |
 | **The verbatim paragraph text of RBI/2021-2022/125.** The notification page gives the paragraph numbers and substance; the PDF is behind an image-code challenge, which I did not attempt |
 | Whether the twenty remaining inbound links would change any of the counts in §6 — they are not written, so there is nothing to measure |
 
