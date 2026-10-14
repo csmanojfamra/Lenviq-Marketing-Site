@@ -1,4 +1,5 @@
 import { SITE, COMPANY, absolute } from "@/lib/site";
+import { asciiOnly } from "@/lib/ascii";
 import { WHAT_IS_LENVIQ, WHO_ITS_FOR } from "@/lib/canonical";
 import { publishedPosts } from "@/lib/content";
 import { publishedHelp } from "@/lib/help";
@@ -168,7 +169,12 @@ sign-up and no contact details.
 - Email: ${COMPANY.email}
 `;
 
-  return new Response(body, {
+  /*
+   * ASCII, so the file reads the same whatever charset a client assumes. The header below is
+   * correct and is discarded by `output: "export"`; `src/lib/ascii.ts` says why that matters and
+   * what was measured on the live file.
+   */
+  return new Response(asciiOnly(body, "/llms-full.txt"), {
     headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" },
   });
 }

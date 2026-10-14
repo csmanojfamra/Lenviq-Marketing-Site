@@ -1,4 +1,5 @@
 import { SITE, COMPANY, absolute } from "@/lib/site";
+import { asciiOnly } from "@/lib/ascii";
 import { WHAT_IS_LENVIQ, WHO_ITS_FOR } from "@/lib/canonical";
 import { publishedPosts } from "@/lib/content";
 
@@ -75,7 +76,12 @@ ${posts.slice(0, 60).map(line).join("\n")}
 - Pricing is not published; it depends on the loan book and the modules licensed.
 `;
 
-  return new Response(body, {
+  /*
+   * ASCII, so the file reads the same whatever charset a client assumes. The header below is
+   * correct and is discarded by `output: "export"`; `src/lib/ascii.ts` says why that matters and
+   * what was measured on the live file.
+   */
+  return new Response(asciiOnly(body, "/llms.txt"), {
     headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" },
   });
 }

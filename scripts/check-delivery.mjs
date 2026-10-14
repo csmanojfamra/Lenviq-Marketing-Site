@@ -88,6 +88,40 @@ for (const [path, label, ok, hint] of cacheRules) {
   check(ok(v), `Cache-Control on ${label}`, v ? v : `absent — ${hint}`);
 }
 
+// ── The files written for machines have to DECODE unambiguously. ─────────────
+/*
+ * The property that matters is not which header is present. It is that a client reading
+ * `/llms.txt` gets the characters the file was written with, whatever charset it assumes.
+ *
+ * There are two ways to be right, and the check passes on either: the response says
+ * `charset=utf-8` (which is what `deploy/nginx-cache.conf` adds, and that file has never been
+ * applied on the host), or the bytes are pure ASCII and therefore identical under UTF-8, Latin-1
+ * and Windows-1252 alike. `src/lib/ascii.ts` makes the second true at build time, so this is no
+ * longer blocked on somebody else's configuration change.
+ *
+ * It still reports WHICH of the two is carrying it, because a charset header is the better answer
+ * and its absence is the thing to fix when the conf is finally applied.
+ */
+for (const path of ["/llms.txt", "/llms-full.txt"]) {
+  const type = header(path, "content-type") || "";
+  const hasCharset = /charset=/i.test(type);
+  let ascii = null;
+  try {
+    const bytes = execSync(`curl -sS --max-time 30 "${SITE}${path}"`, { encoding: "latin1", stdio: ["ignore", "pipe", "ignore"] });
+    ascii = ![...bytes].some((ch) => ch.charCodeAt(0) > 0x7f);
+  } catch {
+    ascii = null;
+  }
+  const detail = ascii === null
+    ? "could not be fetched"
+    : hasCharset
+      ? `${type} — the header carries it`
+      : ascii
+        ? `${type} (no charset) — but the bytes are ASCII, so it decodes the same either way`
+        : `${type} (no charset) over non-ASCII bytes — a Latin-1 client reads mojibake`;
+  check(ascii !== null && (hasCharset || ascii), `${path} decodes unambiguously`, detail);
+}
+
 // ── Canonical host. One address, or the same page competes with itself. ────────
 const redirects = [
   [`http://${host}/`, "https"],
@@ -111,6 +145,10 @@ for (const r of results) {
 }
 console.log(
   `\n${results.length - failed}/${results.length} passed.` +
-  (failed ? "\n\nThe failures above are server configuration, not anything in this repository." : ""),
+  (failed
+    ? "\n\nLatency, compression, Cache-Control and the redirects are server configuration and cannot" +
+      "\nbe fixed from this repository. A `decodes unambiguously` failure can: `src/lib/ascii.ts`" +
+      "\nmakes those two files ASCII at build time, so this one means the current build is not live yet."
+    : ""),
 );
 process.exit(failed ? 1 : 0);

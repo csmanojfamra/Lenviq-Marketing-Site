@@ -1702,6 +1702,48 @@ describe("the artefact-plus-software pages carry the blocks that define them", a
 });
 
 /**
+ * THE MACHINE-READABLE TEXT FILES CARRY NO BYTE ABOVE 0x7F.
+ *
+ * `/llms.txt` and `/llms-full.txt` are route handlers that return `charset=utf-8` in their own
+ * code, and `output: "export"` throws that header away: the file is written to disk and nginx types
+ * it from the extension, whose default for `.txt` has no charset. Measured live on 13 October 2026 —
+ * `content-type: text/plain`, over forty-six correct UTF-8 em dashes that a Latin-1 client renders
+ * as mojibake in the middle of sentences written for machines.
+ *
+ * `deploy/nginx-cache.conf` fixes it at the header and has never been applied on the host, so the
+ * files stop depending on the header: ASCII is a subset of UTF-8, Latin-1 and Windows-1252 alike.
+ * `src/lib/ascii.ts` folds them and throws on a character it has no mapping for, which fails the
+ * build. This is the other half, asserted over the bytes of the shipped file rather than over the
+ * source — a fold that stopped being applied at one call site is exactly the failure to catch.
+ *
+ * `ai-products.json` is deliberately NOT included. JSON text is UTF-8 by specification (RFC 8259),
+ * so `application/json` with no charset parameter is unambiguous and the em dash in it is safe.
+ */
+describe("the files written for machines are ASCII", () => {
+  const OUT_DIR = join(SITE, "out");
+  const built = existsSync(OUT_DIR);
+
+  it.runIf(built)("llms.txt and llms-full.txt have no byte above 0x7F", () => {
+    for (const name of ["llms.txt", "llms-full.txt"]) {
+      const bytes = readFileSync(join(OUT_DIR, name));
+      const at = bytes.findIndex((b) => b > 0x7f);
+      const near = at === -1 ? "" : JSON.stringify(bytes.subarray(Math.max(0, at - 50), at + 50).toString("utf8"));
+      expect(at, `${name}: a non-ASCII byte at ${at} — ${near}`).toBe(-1);
+    }
+  });
+
+  it.runIf(built)("and still say what they said, rather than having been emptied", () => {
+    // A fold that threw everything away would also pass the test above.
+    for (const name of ["llms.txt", "llms-full.txt"]) {
+      const text = readFileSync(join(OUT_DIR, name), "utf8");
+      expect(text.length, `${name} is too short to be the file`).toBeGreaterThan(20000);
+      expect(text, `${name}: the em dashes did not become the replacement`).toContain(" -- ");
+      expect(text, `${name}: a rupee figure lost its unit`).toMatch(/Rs \d/);
+    }
+  });
+});
+
+/**
  * STRUCTURED DATA CARRIES TEXT, NOT MARKDOWN.
  *
  * `postFaqs` feeds `acceptedAnswer.text` in the FAQPage block, and for most of this site's life it
